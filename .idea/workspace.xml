@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/animation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/all_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="">
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
@@ -43,17 +41,6 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/pokemon.py">
-      <ranges>
-        <range start1="11" end1="11" start2="11" end2="21" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="22" end1="22" start2="32" end2="33" changelist="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" />
-        <range start1="40" end1="40" start2="51" end2="52" changelist="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" />
-        <range start1="41" end1="41" start2="53" end2="54" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="52" end1="52" start2="65" end2="75" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-      </ranges>
-    </file>
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -63,11 +50,11 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "git-widget-placeholder": "main"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Python.main">
     <configuration name="animation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PokemonMG" />
@@ -191,12 +178,20 @@
       <option name="project" value="LOCAL" />
       <updated>1686677262612</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add animation structures&#10;add animation bckground">
+      <created>1686840741451</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1686840741451</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add pokemon.py file" />
     <MESSAGE value="add pokemon.py file&#10;add player.py file&#10;add class Pokemon -&gt; pokemon.py&#10;add class player -&gt; player.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="add pokemon.py file&#10;add player.py file&#10;add class Pokemon -&gt; pokemon.py&#10;add class player -&gt; player.py" />
+    <MESSAGE value="add animation structures&#10;add animation bckground" />
+    <option name="LAST_COMMIT_MESSAGE" value="add animation structures&#10;add animation bckground" />
   </component>
 </project>
