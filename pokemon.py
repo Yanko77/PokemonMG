@@ -44,15 +44,12 @@ class Pokemon:
         self.speed = round(int(self.line[6]) + self.level * self.xp_speed)
 
     def evolution(self):
-        # game.player.team[self.name] = Pokemon(self.evolution_name, self.level)
         if self.level >= self.evolution_level:
             return Pokemon(self.evolution_name, self.level)
 
-
-
-
     def get_stats(self):
         return self.pv, self.attack, self.defense, self.speed
+
 
 if __name__ == "__main__":
     pokemon_A = Pokemon('Reptincel', 24)

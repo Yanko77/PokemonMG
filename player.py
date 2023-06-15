@@ -12,6 +12,7 @@ class Player:
         self.team[i] = self.team[i].evolution()
         print(self.team[i].get_stats())
 
+
 if __name__ == "__main__":
 
     player = Player()
