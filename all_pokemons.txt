@@ -1,4 +1,4 @@
-name rarity e_type pv att def speed xp_pv xp_att xp_def xp_speed evolution_level evolution player_lv
-Salameche 10 feu 50 10 10 8 110 110 110 110 12 Reptincel 0
-Reptincel 25 feu 70 20 20 10 110 110 110 110 24 Dracaufeu 3
-Dracaufeu 85 feu 110 40 23 12 110 110 110 110 0 0 5
+name rarity e_type pv att def speed xp_pv xp_att xp_def xp_speed evolution_level evolution player_lv stam
+Salameche 10 feu 50 10 10 8 110 110 110 110 12 Reptincel 0 10
+Reptincel 25 feu 70 20 20 10 110 110 110 110 24 Dracaufeu 3 15
+Dracaufeu 85 feu 110 40 23 12 110 110 110 110 0 0 5 20
