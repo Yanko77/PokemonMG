@@ -10,6 +10,16 @@ class Pokemon:
         # self.game =
         # self.player = game.player
 
+
+        self.attaque_percent = {'light': 0.7,
+                                'normal': 1,
+                                'heavy': 1.4}  # Peut varier avec les patch d'equilibrage
+
+        self.stam = int(self.line[14])*10
+        self.stam_needed = {'light': 6,
+                            'normal': 10,
+                            'heavy': 16}
+
         self.level = int(level)
         self.rarety = int(self.line[1])
         self.e_type = str(self.line[2])
@@ -39,6 +49,7 @@ class Pokemon:
     def level_up(self, nb_lv=1):
         self.level += nb_lv
         self.pv = round(int(self.line[3]) + self.level * self.xp_pv)
+        self.health = self.pv - diff
         self.attack = round(int(self.line[4]) + self.level * self.xp_attack)
         self.defense = round(int(self.line[5]) + self.level * self.xp_defense)
         self.speed = round(int(self.line[6]) + self.level * self.xp_speed)
@@ -49,6 +60,16 @@ class Pokemon:
 
     def get_stats(self):
         return self.pv, self.attack, self.defense, self.speed
+
+    def damage(self, amount):
+        self.health -= amount
+
+    def attaque(self, pokemon, att_type):
+        if self.stam - self.stam_needed[att_type] >= 0:
+            pokemon.damage(round(self.attack*self.attaque_percent[att_type]))
+            self.stam -= self.stam_needed[att_type]
+
+
 
 
 if __name__ == "__main__":
