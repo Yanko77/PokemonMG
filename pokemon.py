@@ -30,6 +30,7 @@ class Pokemon:
         self.xp_speed = int(self.line[10]) / 100
 
         self.pv = round(int(self.line[3]) + self.level * self.xp_pv)
+        self.health = round(int(self.line[3]) + self.level * self.xp_pv)
         self.attack = round(int(self.line[4]) + self.level * self.xp_attack)
         self.defense = round(int(self.line[5]) + self.level * self.xp_defense)
         self.speed = round(int(self.line[6]) + self.level * self.xp_speed)
@@ -48,6 +49,7 @@ class Pokemon:
 
     def level_up(self, nb_lv=1):
         self.level += nb_lv
+        diff = self.pv - self.health
         self.pv = round(int(self.line[3]) + self.level * self.xp_pv)
         self.health = self.pv - diff
         self.attack = round(int(self.line[4]) + self.level * self.xp_attack)

@@ -10,21 +10,33 @@ class AnimateImage:
         self.images = animations.get(image_name)
         self.animation = False
 
+        self.is_animation_over = False
+
+        self.pas_rel = 0  # Pas relatif à animate()
+
     def start_animation(self):
         self.animation = True
 
-    def animate(self, loop=False, final_image_num=0):
+    def animate(self, loop=False, final_image_num:int=0, pas:int=1):
         if self.animation:
-            # Passer à l'image suivante
-            self.current_image += 1
-            if self.current_image >= len(self.images):  # Verifier si on a atteint la fin de l'animation
-                self.current_image = final_image_num
+            self.pas_rel += 1
 
-                if not loop:  # Si l'animation n'est pas une boucle, on désactive
-                    self.animation = False  # Désactiver l'animation
+            if self.pas_rel == pas:
+                # Passer à l'image suivante
+                self.current_image += 1
 
-            # Actualiser l'image
-            self.image = self.images[self.current_image]
+                if self.current_image >= len(self.images):  # Verifier si on a atteint la fin de l'animation
+                    self.current_image = final_image_num
+
+                    if not loop:  # Si l'animation n'est pas une boucle, on désactive
+                        self.animation = False  # Désactiver l'animation
+                        self.is_animation_over = True  # Indiquer la fin de l'animation
+
+                # Actualiser l'image
+                self.image = self.images[self.current_image]
+
+                # Reinitialiser le pas
+                self.pas_rel = 0
 
 def load_animation_images(nb_images, image_name):
     # Charger les 24 images du sprite
@@ -38,7 +50,8 @@ def load_animation_images(nb_images, image_name):
     return images
 
 animations = {
-        'Background': load_animation_images(24, 'Background')
+        'Background': load_animation_images(24, 'Background'),
+        'game_bar': load_animation_images(10, 'game_bar')
     }
 
 if __name__ == "__main__":
