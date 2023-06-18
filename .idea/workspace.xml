@@ -8,7 +8,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="">
+      <change beforePath="$PROJECT_DIR$/all_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/animation.py" beforeDir="false" afterPath="$PROJECT_DIR$/animation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/image.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
     </list>
@@ -27,7 +30,6 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="mathias" />
         <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
@@ -185,7 +187,21 @@
       <option name="project" value="LOCAL" />
       <updated>1686840741451</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add animation structures&#10;add animation bckground">
+      <created>1686843251191</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1686843251191</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add animation structures&#10;add animation bckground">
+      <created>1686843306541</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1686843306541</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
