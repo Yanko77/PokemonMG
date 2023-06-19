@@ -5,16 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_15_06_2023_15_14__Changes_by_Yanko_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_15_06_2023_15_14__Changes_by_Yanko_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
-    <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="">
-      <change beforePath="$PROJECT_DIR$/all_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accueil.py" beforeDir="false" afterPath="$PROJECT_DIR$/accueil.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/animation.py" beforeDir="false" afterPath="$PROJECT_DIR$/animation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/1.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/10.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/4.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/5.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/5.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/6.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/6.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/7.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/7.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/8.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/8.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/9.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/9.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/image.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
     </list>
+    <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,6 +37,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
+        <entry key="$PROJECT_DIR$" value="mathias" />
         <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
@@ -54,7 +62,8 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/yanko/PycharmProjects/OpeningQuizzV2&quot;
   }
 }</component>
   <component name="RunManager" selected="Python.main">
@@ -80,7 +89,7 @@
       <method v="2" />
     </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python">
-      <module name="PokemonMG" />
+      <module name="PokemonManagementGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -187,21 +196,7 @@
       <option name="project" value="LOCAL" />
       <updated>1686840741451</updated>
     </task>
-    <task id="LOCAL-00005" summary="add animation structures&#10;add animation bckground">
-      <created>1686843251191</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1686843251191</updated>
-    </task>
-    <task id="LOCAL-00006" summary="add animation structures&#10;add animation bckground">
-      <created>1686843306541</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1686843306541</updated>
-    </task>
-    <option name="localTasksCounter" value="7" />
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

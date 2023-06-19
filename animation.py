@@ -1,5 +1,6 @@
 import pygame
 
+
 class AnimateImage:
 
     def __init__(self, nb_images, image_name):
@@ -17,7 +18,7 @@ class AnimateImage:
     def start_animation(self):
         self.animation = True
 
-    def animate(self, loop=False, final_image_num:int=0, pas:int=1):
+    def animate(self, loop=False, final_image_num: int = 0, pas: int = 1):
         if self.animation:
             self.pas_rel += 1
 
@@ -38,6 +39,7 @@ class AnimateImage:
                 # Reinitialiser le pas
                 self.pas_rel = 0
 
+
 def load_animation_images(nb_images, image_name):
     # Charger les 24 images du sprite
     images = []
@@ -49,9 +51,11 @@ def load_animation_images(nb_images, image_name):
 
     return images
 
+
 animations = {
         'Background': load_animation_images(24, 'Background'),
-        'game_bar': load_animation_images(10, 'game_bar')
+        'game_bar': load_animation_images(24, 'game_bar'),
+        'intro': load_animation_images(147, 'intro')
     }
 
 if __name__ == "__main__":
