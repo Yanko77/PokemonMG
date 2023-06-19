@@ -26,6 +26,15 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+        if game.is_accueil:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    if game.accueil.buttons.quit_rect.collidepoint(posSouris):
+                        running = False
+
+                    if game.accueil.buttons.start_game_rect.collidepoint(posSouris):
+                        game.is_accueil = True
+
     clock.tick(FPS)
 
 

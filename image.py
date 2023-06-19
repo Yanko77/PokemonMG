@@ -67,14 +67,52 @@ class AccueilButtons:
         self.start_game = pygame.image.load('assets/accueil/Buttons/Start_game/start_game.png')
         self.start_game_rect = self.start_game.get_rect()
         self.start_game_rect.x = 30
-        self.start_game_rect.y = 140
+        self.start_game_rect.y = 155
         self.start_game_h = pygame.image.load('assets/accueil/Buttons/Start_game/start_game_hover.png')
 
         self.settings = pygame.image.load('assets/accueil/Buttons/Settings/settings.png')
+        self.settings = pygame.transform.scale(self.settings, (422, 83))
+        self.settings_rect = self.settings.get_rect()
+        self.settings_rect.x = 30
+        self.settings_rect.y = 280
         self.settings_h = pygame.image.load('assets/accueil/Buttons/Settings/settings_hover.png')
+        self.settings_h = pygame.transform.scale(self.settings_h, (422, 83))
+
+        self.credits = pygame.image.load('assets/accueil/Buttons/Credits/credits.png')
+        self.credits = pygame.transform.scale(self.credits, (359, 83))
+        self.credits_rect = self.settings.get_rect()
+        self.credits_rect.x = 30
+        self.credits_rect.y = 390
+        self.credits_h = pygame.image.load('assets/accueil/Buttons/Credits/credits_hover.png')
+        self.credits_h = pygame.transform.scale(self.credits_h, (359, 83))
+
+        self.quit = pygame.image.load('assets/accueil/Buttons/Quit/quit.png')
+        self.quit = pygame.transform.scale(self.quit, (213, 91))
+        self.quit_rect = self.quit.get_rect()
+        self.quit_rect.x = 30
+        self.quit_rect.y = 500
+
+        self.quit_h = pygame.image.load('assets/accueil/Buttons/Quit/quit_hover.png')
+        self.quit_h = pygame.transform.scale(self.quit_h, (213, 91))
 
     def update(self, surface, possouris):
         if self.start_game_rect.collidepoint(possouris):
             surface.blit(self.start_game_h, self.start_game_rect)
         else:
             surface.blit(self.start_game, self.start_game_rect)
+
+        if self.settings_rect.collidepoint(possouris):
+            surface.blit(self.settings_h, self.settings_rect)
+        else:
+            surface.blit(self.settings, self.settings_rect)
+
+        if self.credits_rect.collidepoint(possouris):
+            surface.blit(self.credits_h, self.credits_rect)
+        else:
+            surface.blit(self.credits, self.credits_rect)
+
+        if self.quit_rect.collidepoint(possouris):
+            surface.blit(self.quit_h, self.quit_rect)
+        else:
+            surface.blit(self.quit, self.quit_rect)
+

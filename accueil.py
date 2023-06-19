@@ -16,7 +16,7 @@ class Accueil:
         self.buttons = image.AccueilButtons()
 
     def update(self, surface):
-        posSouris = pygame.mouse.get_pos()
+        possouris = pygame.mouse.get_pos()
 
         if self.debut_compteur > 50:
             if self.intro:
@@ -28,14 +28,18 @@ class Accueil:
                 surface.blit(self.background.image, (0, 0))
                 if self.background.is_animation_over:
                     surface.blit(self.game_bar.image, (0, 0))
-                    if self.game_bar.is_animation_over:
+
+                    if self.random_pokemon.is_animation_over:
+                        self.buttons.update(surface, possouris)
+                        surface.blit(self.random_pokemon.image, (0, 0))
+
+                    if self.game_bar.is_animation_over and not self.random_pokemon.is_animation_over:
                         surface.blit(self.random_pokemon.image, (0, 0))
                         self.random_pokemon.update_animation()
 
-                        if self.random_pokemon.is_animation_over:
-                            self.buttons.update(surface, posSouris)
                     else:
                         self.game_bar.update_animation()
+
                 else:
                     self.background.update_animation()
         else:

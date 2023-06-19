@@ -4,22 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_15_06_2023_15_14__Changes_by_Yanko_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_15_06_2023_15_14__Changes_by_Yanko_.xml" afterDir="false" />
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="/!\ NEW ANIMATIONS &amp; IMAGES + NEW LOGO /!\&#10;&#10;add intro before default accueil&#10;add buttons in image.py for accueil.py --&gt; AccueilButtons&#10;add a random pokémon image for accueil.py&#10;&#10;recap : Almost finished accueil before game.is_playing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/accueil.py" beforeDir="false" afterPath="$PROJECT_DIR$/accueil.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/animation.py" beforeDir="false" afterPath="$PROJECT_DIR$/animation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/1.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/10.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/10.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/4.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/5.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/5.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/6.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/6.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/7.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/7.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/8.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/8.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/9.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/animation/game_bar/9.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Credits/credits.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/Buttons/Credits/credits.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Credits/credits_hover.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/Buttons/Credits/credits_hover.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Quit/quit.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/Buttons/Quit/quit.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Quit/quit_hover.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/Buttons/Quit/quit_hover.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Settings/settings.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/Buttons/Settings/settings.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Settings/settings_hover.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/Buttons/Settings/settings_hover.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Start_game/start_game.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/Buttons/Start_game/start_game.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Start_game/start_game_hover.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/accueil/Buttons/Start_game/start_game_hover.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/image.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,9 +33,21 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="origin/Yanko" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="mathias" />
         <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
@@ -196,13 +206,21 @@
       <option name="project" value="LOCAL" />
       <updated>1686840741451</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="/!\ NEW ANIMATIONS &amp; IMAGES + NEW LOGO /!\&#10;&#10;add intro before default accueil&#10;add buttons in image.py for accueil.py --&gt; AccueilButtons&#10;add a random pokémon image for accueil.py&#10;&#10;recap : Almost finished accueil before game.is_playing">
+      <created>1687142939552</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1687142939552</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add pokemon.py file" />
     <MESSAGE value="add pokemon.py file&#10;add player.py file&#10;add class Pokemon -&gt; pokemon.py&#10;add class player -&gt; player.py" />
     <MESSAGE value="add animation structures&#10;add animation bckground" />
-    <option name="LAST_COMMIT_MESSAGE" value="add animation structures&#10;add animation bckground" />
+    <MESSAGE value="/!\ NEW ANIMATIONS &amp; IMAGES + NEW LOGO /!\&#10;&#10;add intro before default accueil&#10;add buttons in image.py for accueil.py --&gt; AccueilButtons&#10;add a random pokémon image for accueil.py&#10;&#10;recap : Almost finished accueil before game.is_playing" />
+    <option name="LAST_COMMIT_MESSAGE" value="/!\ NEW ANIMATIONS &amp; IMAGES + NEW LOGO /!\&#10;&#10;add intro before default accueil&#10;add buttons in image.py for accueil.py --&gt; AccueilButtons&#10;add a random pokémon image for accueil.py&#10;&#10;recap : Almost finished accueil before game.is_playing" />
   </component>
 </project>
