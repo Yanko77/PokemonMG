@@ -26,14 +26,22 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        if game.is_accueil:
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    if game.accueil.buttons.quit_rect.collidepoint(posSouris):
-                        running = False
+        if event.type == pygame.MOUSEBUTTONUP:
+            if event.button == 1:
+                if game.is_accueil:
+                    if game.accueil.basic_panel:
+                        if game.accueil.buttons.quit_rect.collidepoint(posSouris):
+                            running = False
 
-                    if game.accueil.buttons.start_game_rect.collidepoint(posSouris):
-                        game.is_accueil = True
+                        if game.accueil.buttons.start_game_rect.collidepoint(posSouris):
+                            game.accueil.start_game = True
+                            game.accueil.basic_panel = False
+                            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+                    if game.accueil.start_game:
+                        if game.accueil.start_game_panel.x_button_rect.collidepoint(posSouris):
+                            game.accueil.start_game = False
+                            game.accueil.basic_panel = True
 
     clock.tick(FPS)
 

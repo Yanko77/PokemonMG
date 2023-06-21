@@ -6,6 +6,11 @@ class Accueil:
 
     def __init__(self):
         self.intro = True
+        self.basic_panel = True
+        self.start_game = False
+        self.credits = False
+        self.settings = False
+
         self.debut_compteur = 0
 
         self.intro_accueil = image.IntroAccueil()
@@ -14,6 +19,8 @@ class Accueil:
         self.random_pokemon = image.RandomPokemon()
 
         self.buttons = image.AccueilButtons()
+
+        self.start_game_panel = image.StartGamePanel()
 
     def update(self, surface):
         possouris = pygame.mouse.get_pos()
@@ -30,8 +37,11 @@ class Accueil:
                     surface.blit(self.game_bar.image, (0, 0))
 
                     if self.random_pokemon.is_animation_over:
-                        self.buttons.update(surface, possouris)
+                        self.buttons.update(surface, possouris, self.basic_panel)
                         surface.blit(self.random_pokemon.image, (0, 0))
+
+                        if self.start_game:
+                            self.start_game_panel.update(surface, possouris, self.basic_panel)
 
                     if self.game_bar.is_animation_over and not self.random_pokemon.is_animation_over:
                         surface.blit(self.random_pokemon.image, (0, 0))
