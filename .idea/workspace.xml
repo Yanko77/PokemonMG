@@ -4,14 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add all buttons for game.accueil&#10;add buttons interactions --&gt; clicks">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
-    <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="">
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accueil.py" beforeDir="false" afterPath="$PROJECT_DIR$/accueil.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/image.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
     </list>
+    <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,9 +24,21 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="origin/Yanko" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="mathias" />
         <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
@@ -52,7 +63,8 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/yanko/PycharmProjects/OpeningQuizzV2&quot;
   }
 }</component>
   <component name="RunManager" selected="Python.main">
@@ -78,7 +90,7 @@
       <method v="2" />
     </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python">
-      <module name="PokemonMG" />
+      <module name="PokemonManagementGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -185,13 +197,29 @@
       <option name="project" value="LOCAL" />
       <updated>1686840741451</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="/!\ NEW ANIMATIONS &amp; IMAGES + NEW LOGO /!\&#10;&#10;add intro before default accueil&#10;add buttons in image.py for accueil.py --&gt; AccueilButtons&#10;add a random pokémon image for accueil.py&#10;&#10;recap : Almost finished accueil before game.is_playing">
+      <created>1687142939552</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1687142939552</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add all buttons for game.accueil&#10;add buttons interactions --&gt; clicks">
+      <created>1687197982635</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1687197982635</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add pokemon.py file" />
     <MESSAGE value="add pokemon.py file&#10;add player.py file&#10;add class Pokemon -&gt; pokemon.py&#10;add class player -&gt; player.py" />
     <MESSAGE value="add animation structures&#10;add animation bckground" />
-    <option name="LAST_COMMIT_MESSAGE" value="add animation structures&#10;add animation bckground" />
+    <MESSAGE value="/!\ NEW ANIMATIONS &amp; IMAGES + NEW LOGO /!\&#10;&#10;add intro before default accueil&#10;add buttons in image.py for accueil.py --&gt; AccueilButtons&#10;add a random pokémon image for accueil.py&#10;&#10;recap : Almost finished accueil before game.is_playing" />
+    <MESSAGE value="add all buttons for game.accueil&#10;add buttons interactions --&gt; clicks" />
+    <option name="LAST_COMMIT_MESSAGE" value="add all buttons for game.accueil&#10;add buttons interactions --&gt; clicks" />
   </component>
 </project>
