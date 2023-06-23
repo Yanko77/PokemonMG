@@ -10,7 +10,6 @@ class Pokemon:
         # self.game =
         # self.player = game.player
 
-
         self.attaque_percent = {'light': 0.7,
                                 'normal': 1,
                                 'heavy': 1.4}  # Peut varier avec les patch d'equilibrage

@@ -1,5 +1,26 @@
-name rarity e_type pv att def speed xp_pv xp_att xp_def xp_speed evolution_level evolution player_lv stam
-Salameche 10 feu 50 10 10 8 110 110 110 110 12 Reptincel 0 10
-Reptincel 25 feu 70 20 20 10 110 110 110 110 24 Dracaufeu 3 15
-Dracaufeu 85 feu 110 40 23 12 110 110 110 110 0 0 5 20
-Evoli 10 normal 50 10 10 10 9 110 110 110 110 18 Noctali 0 10
+name            rarity  e_type  pv   att    def   speed  xp_pv   xp_att  xp_def  xp_speed    evol_lv  evol_name      player_lv  stam
+Evoli             10    normal  50    10    10      9    110     110     110     110         18        Noctali        0          10
+
+Bulbizarre        10    plante  50    12    10      8    110     110     110     110         12        Herbizarre     0          10
+Herbizarre        25    plante  75    22    22      9    110     110     110     110         24        Florizarre     3          15
+Florizarre        85    plante  120   40    30      10   110     110     110     110         0         0              5          20
+
+Salameche         10    feu     50    11    10      9    110     110     110     110         12        Reptincel      0          10
+Reptincel         25    feu     70    20    20      12   110     110     110     110         24        Dracaufeu      3          15
+Dracaufeu         85    feu     110   30    28      16   110     110     110     110         0         0              5          20
+
+Carapuce          10    eau     50    10    12      9    110     110     110     110         12        Carabaffe      0          10
+Carabaffe         25    eau     75    20    24      10   110     110     110     110         24        Tortank        3          15
+Tortank           85    eau     135   32    40      12   110     110     110     110         0         0              5          20
+
+Arcko             10    plante  50    12    10      9    110     110     110     110         12        Massko         0          10
+Massko            25    plante  70    23    21      10   110     110     110     110         24        Jungko         3          15
+Jungko            85    plante  115   45    27      11   110     110     110     110         0         0              5          20
+
+Poussifeu         10    feu     50    11    10      8    110     110     110     110         12         Galifeu       0          10
+Galifeu           25    feu     75    21    19      10   110     110     110     110         24         Brasegali     3          15
+Brasegali         85    feu     120   40    25      18   110     110     110     110         0          0             5          20
+
+Gobou             10    eau     45    10    11      8    110     110     110     110         12         Flobio        0          10
+Flobio            25    eau     75    19    23      9    110     110     110     110         24         Laggron       3          15
+Laggron           85    eau     130   32    43      10   110     110     110     110         0          0             5          20

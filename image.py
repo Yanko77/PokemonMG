@@ -1,7 +1,7 @@
 import pygame
 import animation
 import random
-
+pygame.font.init()
 
 class Image(animation.AnimateImage):
 
@@ -176,4 +176,34 @@ class StartGamePanel:
 
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
+
+class ClassicGamePanel:
+
+    def __init__(self, player_name):
+        self.background = pygame.image.load('assets/game/panels/classic_panel/background.png')
+        self.mode_changement_pseudo_image = pygame.image.load('assets/game/panels/classic_panel/mode_changement_pseudo.png')
+
+        self.font = pygame.font.Font('assets/fonts/impact.ttf', 50)
+        self.font_size2 = pygame.font.Font('assets/fonts/impact.ttf', 25)
+        self.player_name = player_name
+
+        self.player_name_image = self.font.render(self.player_name, False, (15, 0, 124))
+        self.player_name_indication = self.font_size2.render("(cliquer pour modifier)", False, (15, 0, 124))
+
+        self.is_pname_modif = False
+
+        self.player_name_rect = pygame.Rect(656, 12, 1055, 63)
+
+    def update(self, surface):
+
+        surface.blit(self.background, (0, 0))
+
+        surface.blit(self.player_name_image, (662, 10))
+        if not self.is_pname_modif:
+            surface.blit(self.player_name_indication, (760, 30))
+
+    def update_player_name(self, current_player_name):
+        if not self.player_name == current_player_name:
+            self.player_name = current_player_name
+            self.player_name_image = self.font.render(self.player_name, False, (15, 0, 124))
 
