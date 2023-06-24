@@ -1,3 +1,5 @@
+import random
+
 import pygame
 from game import Game
 
@@ -50,9 +52,79 @@ pygame_alphabet = {
     pygame.K_KP_7: '7',
     pygame.K_KP_8: '8',
     pygame.K_KP_9: '9',
+    pygame.K_COMMA: '.'
 }
 
-game = Game()
+alphabet_pixels = {
+    'a': 20,
+    'b': 21,
+    'c': 20,
+    'd': 21,
+    'e': 21,
+    'f': 9,
+    'g': 21,
+    'h': 21,
+    'i': 9,
+    'j': 9,
+    'k': 19,
+    'l': 9,
+    'm': 34,
+    'n': 21,
+    'o': 21,
+    'p': 21,
+    'q': 21,
+    'r': 13,
+    's': 19,
+    't': 10,
+    'u': 21,
+    'v': 17,
+    'w': 28,
+    'x': 22,
+    'y': 17,
+    'z': 14,
+    ' ': 3,
+    '': 0,
+    '0': 18,
+    '1': 14,
+    '2': 20,
+    '3': 22,
+    '4': 20,
+    '5': 22,
+    '6': 22,
+    '7': 15.9,
+    '8': 22,
+    '9': 22,
+    '.': 4,
+    'intertext': 5,
+    'A': 21,
+    'B': 23,
+    'C': 23,
+    'D': 23,
+    'E': 16,
+    'F': 15,
+    'G': 23,
+    'H': 23,
+    'I': 9,
+    'J': 12,
+    'K': 22,
+    'L': 14,
+    'M': 31,
+    'N': 22,
+    'O': 22,
+    'P': 20,
+    'Q': 22,
+    'R': 22,
+    'S': 21,
+    'T': 18,
+    'U': 22,
+    'V': 21,
+    'W': 36,
+    'X': 19,
+    'Y': 19,
+    'Z': 15,
+}
+
+game = Game(alphabet_pixels)
 
 running = True
 
@@ -60,7 +132,7 @@ running = True
 while running:
     posSouris = pygame.mouse.get_pos()
 
-    game.update(screen)
+    game.update(screen, posSouris)
 
     pygame.display.flip()  # Update de la fenetre
 
@@ -71,15 +143,15 @@ while running:
         if event.type == pygame.KEYDOWN:
             game.pressed[event.key] = True
 
-            if game.change_player_name_mode:
+            if game.classic_panel.change_player_name_mode:
                 if event.key == pygame.K_RETURN:
                     if game.player_name == '':
-                        game.player_name = 'Easter egg 1'
+                        game.player_name = random.choice(game.player_random_names)
                         game.classic_panel.update_player_name(game.player_name)
-                    game.change_player_name_mode = False
+                    game.classic_panel.change_player_name_mode = False
 
                 else:
-                    if len(game.player_name) <= 15:
+                    if game.classic_panel.calcul_player_name_pixels() < 385:
                         if game.pressed[pygame.K_LSHIFT]:
                             if event.key in pygame_alphabet:
                                 game.player_name += pygame_alphabet[event.key].upper()
@@ -117,15 +189,20 @@ while running:
                             game.is_accueil = False
                             game.create_new_game()
                             game.reset_save_file()
+                            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
                 if game.is_playing:
-                    if not game.change_player_name_mode:
+                    if not game.classic_panel.change_player_name_mode:
                         if game.classic_panel.player_name_rect.collidepoint(posSouris):
-                            game.change_player_name_mode = True
+                            game.classic_panel.change_player_name_mode = True
                             game.player_name = ""
                             game.classic_panel.is_pname_modif = True
-
-
+                    else:
+                        if not game.classic_panel.player_name_rect.collidepoint(posSouris):
+                            if game.player_name == '':
+                                game.player_name = random.choice(game.player_random_names)
+                                game.classic_panel.update_player_name(game.player_name)
+                            game.classic_panel.change_player_name_mode = False
 
     clock.tick(FPS)
 

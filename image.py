@@ -3,6 +3,7 @@ import animation
 import random
 pygame.font.init()
 
+
 class Image(animation.AnimateImage):
 
     def __init__(self, nb_images, image_name):
@@ -59,6 +60,23 @@ class IntroAccueil(Image):
         super().__init__(147, 'intro')
         self.start_animation()
         self.pas = 2
+
+
+class CursorChangePseudoMode:
+
+    def __init__(self):
+        self.image = pygame.image.load('assets/game/panels/classic_panel/curseur_changement_pseudo.png')
+
+        self.compteur_animation = 0
+
+    def update(self, surface, player_name_pixels=0):
+        self.compteur_animation += 1
+
+        if self.compteur_animation < 25:
+            surface.blit(self.image, (1+player_name_pixels, 1))
+
+        if self.compteur_animation > 57:
+            self.compteur_animation = 0
 
 
 class AccueilButtons:
@@ -181,7 +199,9 @@ class ClassicGamePanel:
 
     def __init__(self, player_name):
         self.background = pygame.image.load('assets/game/panels/classic_panel/background.png')
-        self.mode_changement_pseudo_image = pygame.image.load('assets/game/panels/classic_panel/mode_changement_pseudo.png')
+        self.mode_changement_pseudo_image = pygame.image.load('assets/game/panels/classic_panel/'
+                                                              'mode_changement_pseudo.png')
+        self.curseur_changement_pseudo = CursorChangePseudoMode()
 
         self.font = pygame.font.Font('assets/fonts/impact.ttf', 50)
         self.font_size2 = pygame.font.Font('assets/fonts/impact.ttf', 25)
@@ -192,18 +212,43 @@ class ClassicGamePanel:
 
         self.is_pname_modif = False
 
-        self.player_name_rect = pygame.Rect(656, 12, 1055, 63)
+        self.player_name_rect = pygame.Rect(656, 12, 399, 51)
+        self.player_name_hover = pygame.image.load("assets/game/panels/classic_panel/player_name_hover.png")
+        self.change_player_name_mode = False
 
-    def update(self, surface):
+        self.alphabet_pixels = {}
+
+    def update(self, surface, possouris):
 
         surface.blit(self.background, (0, 0))
 
         surface.blit(self.player_name_image, (662, 10))
         if not self.is_pname_modif:
             surface.blit(self.player_name_indication, (760, 30))
+        if self.player_name_rect.collidepoint(possouris):
+            if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_HAND:
+                pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+            surface.blit(self.player_name_hover, (0, 0))
+        else:
+            if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_ARROW:
+                pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+        if self.change_player_name_mode:
+            surface.blit(self.mode_changement_pseudo_image, (0, 0))
+            self.curseur_changement_pseudo.update(surface, self.calcul_player_name_pixels())
 
     def update_player_name(self, current_player_name):
         if not self.player_name == current_player_name:
             self.player_name = current_player_name
             self.player_name_image = self.font.render(self.player_name, False, (15, 0, 124))
 
+    def calcul_player_name_pixels(self):
+        pixels = 0
+        for c in self.player_name:
+            pixels += self.alphabet_pixels[c]
+            pixels += 5
+
+        return pixels
+
+    def def_alphabet_pixels(self, alphabet_pixels):
+        self.alphabet_pixels = alphabet_pixels

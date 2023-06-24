@@ -7,17 +7,19 @@ import image
 
 
 class Game:
-    def __init__(self):
-        self.is_playing = True
-        self.is_accueil = False
+    def __init__(self, alphabet_pixels):
+        self.is_playing = False
+        self.is_accueil = True
 
         self.pressed = {pygame.K_LSHIFT: False}
 
         self.player_name = "Nom"
-        self.change_player_name_mode = False
+        self.player_random_names = ['Romuald', 'Tyranocif', 'Ventilateur', 'Pissenlit', 'Guy le bandit', 'xXGamer-12Xx',
+                                    "Moi c'est Kevin", 'Limonde']
 
         self.accueil = accueil.Accueil()
         self.classic_panel = image.ClassicGamePanel(self.player_name)
+        self.classic_panel.def_alphabet_pixels(alphabet_pixels)
 
         self.all_starters = {'feu': ['Salameche', 'Poussifeu'],
                              'eau': ['Carapuce', 'Gobou'],
@@ -28,13 +30,12 @@ class Game:
 
         self.save_file = open('save.txt', 'r+')
 
-    def update(self, screen):
+    def update(self, screen, possouris):
 
         if self.is_playing:
-            self.classic_panel.update(screen)
-            if self.change_player_name_mode:
+            self.classic_panel.update(screen, possouris)
+            if self.classic_panel.change_player_name_mode:
                 self.classic_panel.update_player_name(self.player_name)
-                screen.blit(self.classic_panel.mode_changement_pseudo_image, (0, 0))
         else:
             if self.is_accueil:
                 self.accueil.update(screen)
