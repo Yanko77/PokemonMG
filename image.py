@@ -203,39 +203,32 @@ class ClassicGamePanelButtons:
 
         if self.spawn_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
             surface.blit(self.spawn_button, self.spawn_button_pos)
-            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
             surface.blit(self.spawn_button, self.spawn_button_pos)
 
         if self.train_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
             surface.blit(self.train_button, self.train_button_pos)
-            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+
         else:
             surface.blit(self.train_button, self.train_button_pos)
 
         if self.grind_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
             surface.blit(self.grind_button, self.grind_button_pos)
-            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+
         else:
             surface.blit(self.grind_button, self.grind_button_pos)
 
         if self.items_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
             surface.blit(self.items_button, self.items_button_pos)
-            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+
         else:
             surface.blit(self.items_button, self.items_button_pos)
 
         if self.evol_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
             surface.blit(self.evol_button, self.evol_button_pos)
-            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+
         else:
             surface.blit(self.evol_button, self.evol_button_pos)
-
-        if not ingame_window.main_window_rect.collidepoint(possouris):
-            if not self.spawn_button_rect.collidepoint(possouris) and not self.train_button_rect.collidepoint(possouris):
-                if not self.grind_button_rect.collidepoint(possouris) and not self.items_button_rect.collidepoint(possouris):
-                    if not self.evol_button_rect.collidepoint(possouris):
-                        pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
     def is_hovering_button(self, possouris):
         if not self.spawn_button_rect.collidepoint(possouris) and not self.train_button_rect.collidepoint(possouris):
@@ -267,15 +260,17 @@ class IngameWindowButtons:
 
         if self.x_button_rect.collidepoint(possouris):
             surface.blit(self.x_button_hover, self.x_button_rect)
-            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+
         else:
             surface.blit(self.x_button, self.x_button_rect)
 
         if self.min_button_rect.collidepoint(possouris):
             surface.blit(self.min_button_hover, self.min_button_rect)
-            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+
         else:
             surface.blit(self.min_button, self.min_button_rect)
 
+    def is_hovering_buttons(self, possouris):
         if not self.x_button_rect.collidepoint(possouris) and not self.min_button_rect.collidepoint(possouris):
-            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+            return False
+        return True

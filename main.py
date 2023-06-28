@@ -206,7 +206,11 @@ while running:
                                     game.classic_panel.update_player_name(game.player.name)
                                 game.classic_panel.change_player_name_mode = False
                     else:
-                        if not game.classic_panel.ingame_window.main_window_rect.collidepoint(posSouris):
+                        if game.classic_panel.ingame_window.main_window_rect.collidepoint(posSouris):
+                            if game.classic_panel.ingame_window.buttons.x_button_rect.collidepoint(posSouris):
+                                game.classic_panel.ingame_window.close()
+
+                        else:
                             if game.classic_panel.player_name_rect.collidepoint(posSouris):
                                 game.classic_panel.change_player_name_mode = True
                                 game.player.name = ""

@@ -12,8 +12,9 @@ class IngameWindow:
         self.basic_window = pygame.image.load('assets/game/ingame_windows/basic/main.png')
 
         self.main_window_rect = self.basic_window.get_rect()
-        self.main_window_rect.x = 1
-        self.main_window_rect.y = 1
+        # self.main_window_rect.x =
+
+        self.main_window_pos = (1, 1)
 
         self.buttons = image.IngameWindowButtons()
 
@@ -25,10 +26,12 @@ class IngameWindow:
                 surface.blit(self.basic_window, self.main_window_rect)
                 self.buttons.update(surface, possouris)
 
-                if self.main_window_rect.collidepoint(possouris):
-                    if not self.buttons.x_button_rect.collidepoint(possouris) and not self.buttons.min_button_rect.collidepoint(possouris):
-                        pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
             # else:
+
+    def is_hovering_buttons(self, posouris):
+        if self.buttons.is_hovering_buttons(posouris):
+            return True
+        return False
 
     def update_main_window_rect(self):
         if self.is_open:

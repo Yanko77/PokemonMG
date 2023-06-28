@@ -106,6 +106,9 @@ class ClassicGamePanel:
                 if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_HAND:
                     pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
                 surface.blit(self.player_name_hover, (0, 0))
+            elif self.buttons.is_hovering_button(possouris):
+                if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_HAND:
+                    pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
             elif not self.buttons.is_hovering_button(possouris):
                 if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_ARROW:
                     pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
@@ -113,6 +116,14 @@ class ClassicGamePanel:
             if self.change_player_name_mode:
                 surface.blit(self.mode_changement_pseudo_image, (0, 0))
                 self.curseur_changement_pseudo.update(surface, self.calcul_player_name_pixels())
+
+        else:
+            if self.ingame_window.is_hovering_buttons(possouris):
+                if not pygame.mouse.get_cursor() == pygame.SYSTEM_CURSOR_HAND:
+                    pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+            else:
+                if not pygame.mouse.get_cursor() == pygame.SYSTEM_CURSOR_ARROW:
+                    pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
     def update_player_name(self, current_player_name):
         if not self.player_name == current_player_name:
