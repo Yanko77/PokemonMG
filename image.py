@@ -4,6 +4,7 @@ import random
 pygame.font.init()
 
 
+
 class Image(animation.AnimateImage):
 
     def __init__(self, nb_images, image_name):
@@ -145,110 +146,136 @@ class AccueilButtons:
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
 
-class StartGamePanel:
+class ClassicGamePanelButtons:
 
     def __init__(self):
-        self.panel = pygame.image.load('assets/accueil/panels/start_game/panel.png')
+        # SPAWN BUTTON
+        self.spawn_button = pygame.image.load('assets/game/panels/classic_panel/spawn_button.png')
+        self.spawn_button_rect = self.spawn_button.get_rect()
+        self.spawn_button_rect.x = 20 + 22
+        self.spawn_button_rect.y = 12 + 126
+        self.spawn_button_rect.w = 250
+        self.spawn_button_rect.h = 250
 
-        self.new_game_button = pygame.image.load('assets/accueil/panels/start_game/new_game_button.png')
-        self.new_game_button_rect = self.new_game_button.get_rect()
-        self.new_game_button_rect.x = 791
-        self.new_game_button_rect.y = 508
-        self.new_game_button_h = pygame.image.load('assets/accueil/panels/start_game/new_game_button_hover.png')
+        self.spawn_button_pos = (22, 126)
 
-        self.load_game_button = pygame.image.load('assets/accueil/panels/start_game/load_game_button.png')
-        self.load_game_button_rect = self.load_game_button.get_rect()
-        self.load_game_button_rect.x = 130
-        self.load_game_button_rect.y = 508
-        self.load_game_button_h = pygame.image.load('assets/accueil/panels/start_game/load_game_button_hover.png')
+        # TRAIN BUTTON
+        self.train_button = pygame.image.load('assets/game/panels/classic_panel/train_button.png')
+        self.train_button_rect = self.train_button.get_rect()
+        self.train_button_rect.x = 20 + 307
+        self.train_button_rect.y = 12 + 126
+        self.train_button_rect.w = 250
+        self.train_button_rect.h = 250
 
-        self.x_button = pygame.image.load('assets/accueil/panels/start_game/x_button.png')
+        self.train_button_pos = (307, 126)
+
+        # GRIND BUTTON
+        self.grind_button = pygame.image.load('assets/game/panels/classic_panel/grind_button.png')
+        self.grind_button_rect = self.grind_button.get_rect()
+        self.grind_button_rect.x = 20 + 592
+        self.grind_button_rect.y = 12 + 126
+        self.grind_button_rect.w = 250
+        self.grind_button_rect.h = 250
+
+        self.grind_button_pos = (592, 126)
+
+        # ITEMS BUTTON
+        self.items_button = pygame.image.load('assets/game/panels/classic_panel/items_button.png')
+        self.items_button_rect = self.items_button.get_rect()
+        self.items_button_rect.x = 20 + 58
+        self.items_button_rect.y = 12 + 410
+        self.items_button_rect.w = 250
+        self.items_button_rect.h = 250
+
+        self.items_button_pos = (58, 410)
+
+        # EVOL BUTTON
+        self.evol_button = pygame.image.load('assets/game/panels/classic_panel/evol_button.png')
+        self.evol_button_rect = self.evol_button.get_rect()
+        self.evol_button_rect.x = 20 + 342
+        self.evol_button_rect.y = 12 + 410
+        self.evol_button_rect.w = 250
+        self.evol_button_rect.h = 250
+
+        self.evol_button_pos = (342, 410)
+
+    def update(self, surface, possouris, ingame_window):
+
+        if self.spawn_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
+            surface.blit(self.spawn_button, self.spawn_button_pos)
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+        else:
+            surface.blit(self.spawn_button, self.spawn_button_pos)
+
+        if self.train_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
+            surface.blit(self.train_button, self.train_button_pos)
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+        else:
+            surface.blit(self.train_button, self.train_button_pos)
+
+        if self.grind_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
+            surface.blit(self.grind_button, self.grind_button_pos)
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+        else:
+            surface.blit(self.grind_button, self.grind_button_pos)
+
+        if self.items_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
+            surface.blit(self.items_button, self.items_button_pos)
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+        else:
+            surface.blit(self.items_button, self.items_button_pos)
+
+        if self.evol_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
+            surface.blit(self.evol_button, self.evol_button_pos)
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+        else:
+            surface.blit(self.evol_button, self.evol_button_pos)
+
+        if not ingame_window.main_window_rect.collidepoint(possouris):
+            if not self.spawn_button_rect.collidepoint(possouris) and not self.train_button_rect.collidepoint(possouris):
+                if not self.grind_button_rect.collidepoint(possouris) and not self.items_button_rect.collidepoint(possouris):
+                    if not self.evol_button_rect.collidepoint(possouris):
+                        pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+    def is_hovering_button(self, possouris):
+        if not self.spawn_button_rect.collidepoint(possouris) and not self.train_button_rect.collidepoint(possouris):
+            if not self.grind_button_rect.collidepoint(possouris) and not self.items_button_rect.collidepoint(
+                    possouris):
+                if not self.evol_button_rect.collidepoint(possouris):
+                    return False
+        return True
+
+
+class IngameWindowButtons:
+
+    def __init__(self):
+        self.x_button = pygame.image.load('assets/game/ingame_windows/basic/x_button.png')
         self.x_button_rect = self.x_button.get_rect()
-        self.x_button_rect.x = 1144
-        self.x_button_rect.y = 68
-        self.x_button_h = pygame.image.load('assets/accueil/panels/start_game/x_button_hover.png')
+        self.x_button_rect.x = 854
+        self.x_button_rect.y = 4
 
-    def update(self, surface, possouris, basic_accueil):
-        surface.blit(self.panel, (0, 0))
+        self.x_button_hover = pygame.image.load('assets/game/ingame_windows/basic/x_button_hover.png')
 
-        if self.new_game_button_rect.collidepoint(possouris) and not basic_accueil:
-            surface.blit(self.new_game_button_h, self.new_game_button_rect)
-            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
-        else:
-            surface.blit(self.new_game_button, self.new_game_button_rect)
+        self.min_button = pygame.image.load('assets/game/ingame_windows/basic/min_button.png')
+        self.min_button_rect = self.min_button.get_rect()
+        self.min_button_rect.x = 816
+        self.min_button_rect.y = 4
 
-        if self.load_game_button_rect.collidepoint(possouris) and not basic_accueil:
-            surface.blit(self.load_game_button_h, self.load_game_button_rect)
-            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
-        else:
-            surface.blit(self.load_game_button, self.load_game_button_rect)
+        self.min_button_hover = pygame.image.load('assets/game/ingame_windows/basic/min_button_hover.png')
 
-        if self.x_button_rect.collidepoint(possouris) and not basic_accueil:
-            surface.blit(self.x_button_h, self.x_button_rect)
+    def update(self, surface, possouris):
+
+        if self.x_button_rect.collidepoint(possouris):
+            surface.blit(self.x_button_hover, self.x_button_rect)
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
             surface.blit(self.x_button, self.x_button_rect)
 
-        if not (self.x_button_rect.collidepoint(possouris) or self.new_game_button_rect.collidepoint(possouris)
-                or self.load_game_button_rect.collidepoint(possouris)):
-
-            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
-
-
-class ClassicGamePanel:
-
-    def __init__(self, player_name):
-        self.background = pygame.image.load('assets/game/panels/classic_panel/background.png')
-        self.mode_changement_pseudo_image = pygame.image.load('assets/game/panels/classic_panel/'
-                                                              'mode_changement_pseudo.png')
-        self.curseur_changement_pseudo = CursorChangePseudoMode()
-
-        self.font = pygame.font.Font('assets/fonts/impact.ttf', 50)
-        self.font_size2 = pygame.font.Font('assets/fonts/impact.ttf', 25)
-        self.player_name = player_name
-
-        self.player_name_image = self.font.render(self.player_name, False, (15, 0, 124))
-        self.player_name_indication = self.font_size2.render("(cliquer pour modifier)", False, (15, 0, 124))
-
-        self.is_pname_modif = False
-
-        self.player_name_rect = pygame.Rect(656, 12, 399, 51)
-        self.player_name_hover = pygame.image.load("assets/game/panels/classic_panel/player_name_hover.png")
-        self.change_player_name_mode = False
-
-        self.alphabet_pixels = {}
-
-    def update(self, surface, possouris):
-
-        surface.blit(self.background, (0, 0))
-
-        surface.blit(self.player_name_image, (662, 10))
-        if not self.is_pname_modif:
-            surface.blit(self.player_name_indication, (760, 30))
-        if self.player_name_rect.collidepoint(possouris):
-            if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_HAND:
-                pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
-            surface.blit(self.player_name_hover, (0, 0))
+        if self.min_button_rect.collidepoint(possouris):
+            surface.blit(self.min_button_hover, self.min_button_rect)
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
-            if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_ARROW:
-                pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+            surface.blit(self.min_button, self.min_button_rect)
 
-        if self.change_player_name_mode:
-            surface.blit(self.mode_changement_pseudo_image, (0, 0))
-            self.curseur_changement_pseudo.update(surface, self.calcul_player_name_pixels())
-
-    def update_player_name(self, current_player_name):
-        if not self.player_name == current_player_name:
-            self.player_name = current_player_name
-            self.player_name_image = self.font.render(self.player_name, False, (15, 0, 124))
-
-    def calcul_player_name_pixels(self):
-        pixels = 0
-        for c in self.player_name:
-            pixels += self.alphabet_pixels[c]
-            pixels += 5
-
-        return pixels
-
-    def def_alphabet_pixels(self, alphabet_pixels):
-        self.alphabet_pixels = alphabet_pixels
+        if not self.x_button_rect.collidepoint(possouris) and not self.min_button_rect.collidepoint(possouris):
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)

@@ -52,7 +52,6 @@ pygame_alphabet = {
     pygame.K_KP_7: '7',
     pygame.K_KP_8: '8',
     pygame.K_KP_9: '9',
-    pygame.K_COMMA: '.'
 }
 
 alphabet_pixels = {
@@ -95,6 +94,8 @@ alphabet_pixels = {
     '8': 22,
     '9': 22,
     '.': 4,
+    '-': 11,
+    "'": 6,
     'intertext': 5,
     'A': 21,
     'B': 23,
@@ -145,29 +146,33 @@ while running:
 
             if game.classic_panel.change_player_name_mode:
                 if event.key == pygame.K_RETURN:
-                    if game.player_name == '':
-                        game.player_name = random.choice(game.player_random_names)
-                        game.classic_panel.update_player_name(game.player_name)
+                    if game.player.name == '':
+                        game.player.name = "Nom"
+                        game.classic_panel.is_pname_modif = False
+                        game.classic_panel.update_player_name(game.player.name)
                     game.classic_panel.change_player_name_mode = False
 
                 else:
                     if game.classic_panel.calcul_player_name_pixels() < 385:
                         if game.pressed[pygame.K_LSHIFT]:
                             if event.key in pygame_alphabet:
-                                game.player_name += pygame_alphabet[event.key].upper()
+                                game.player.name += pygame_alphabet[event.key].upper()
+                            if event.key == pygame.K_SEMICOLON:
+                                game.player.name += '.'
                         else:
                             if event.key in pygame_alphabet:
-                                game.player_name += pygame_alphabet[event.key]
+                                game.player.name += pygame_alphabet[event.key]
                             else:
                                 print('lettre inconnue')
 
                     if event.key == pygame.K_BACKSPACE:
-                        game.player_name = game.player_name[:-1]
+                        game.player.name = game.player.name[:-1]
 
         if event.type == pygame.KEYUP:
             game.pressed[event.key] = False
 
         if event.type == pygame.MOUSEBUTTONUP:
+            game.mouse_pressed[event.button] = False
             if event.button == 1:
                 if game.is_accueil:
                     if game.accueil.basic_panel:
@@ -192,17 +197,26 @@ while running:
                             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
                 if game.is_playing:
-                    if not game.classic_panel.change_player_name_mode:
-                        if game.classic_panel.player_name_rect.collidepoint(posSouris):
-                            game.classic_panel.change_player_name_mode = True
-                            game.player_name = ""
-                            game.classic_panel.is_pname_modif = True
-                    else:
+                    if game.classic_panel.change_player_name_mode:
                         if not game.classic_panel.player_name_rect.collidepoint(posSouris):
-                            if game.player_name == '':
-                                game.player_name = random.choice(game.player_random_names)
-                                game.classic_panel.update_player_name(game.player_name)
-                            game.classic_panel.change_player_name_mode = False
+                            if not game.classic_panel.ingame_window.main_window_rect.collidepoint(posSouris):
+                                if game.player.name == '':
+                                    game.player.name = "Nom"
+                                    game.classic_panel.is_pname_modif = False
+                                    game.classic_panel.update_player_name(game.player.name)
+                                game.classic_panel.change_player_name_mode = False
+                    else:
+                        if not game.classic_panel.ingame_window.main_window_rect.collidepoint(posSouris):
+                            if game.classic_panel.player_name_rect.collidepoint(posSouris):
+                                game.classic_panel.change_player_name_mode = True
+                                game.player.name = ""
+                                game.classic_panel.is_pname_modif = True
+
+                            if game.classic_panel.buttons.spawn_button_rect.collidepoint(posSouris):
+                                game.classic_panel.ingame_window.open()
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            game.mouse_pressed[event.button] = True
 
     clock.tick(FPS)
 

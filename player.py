@@ -5,6 +5,9 @@ from pokemon import Pokemon
 class Player:
 
     def __init__(self):
+        self.level = 0
+        self.name = "Nom"
+
         self.team = [Pokemon('salameche', 12)]
 
     def evol_pk(self, i=0):

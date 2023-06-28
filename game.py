@@ -1,24 +1,27 @@
 import random
+from player import Player
 
 import pygame
 
 import accueil
 import image
+import panels
 
 
 class Game:
     def __init__(self, alphabet_pixels):
-        self.is_playing = False
-        self.is_accueil = True
+        self.is_playing = True
+        self.is_accueil = False
 
         self.pressed = {pygame.K_LSHIFT: False}
+        self.mouse_pressed = {1: False}
 
-        self.player_name = "Nom"
+        self.player = Player()
         self.player_random_names = ['Romuald', 'Tyranocif', 'Ventilateur', 'Pissenlit', 'Guy le bandit', 'xXGamer-12Xx',
                                     "Moi c'est Kevin", 'Limonde']
 
         self.accueil = accueil.Accueil()
-        self.classic_panel = image.ClassicGamePanel(self.player_name)
+        self.classic_panel = panels.ClassicGamePanel(self.player)
         self.classic_panel.def_alphabet_pixels(alphabet_pixels)
 
         self.all_starters = {'feu': ['Salameche', 'Poussifeu'],
@@ -35,7 +38,7 @@ class Game:
         if self.is_playing:
             self.classic_panel.update(screen, possouris)
             if self.classic_panel.change_player_name_mode:
-                self.classic_panel.update_player_name(self.player_name)
+                self.classic_panel.update_player_name(self.player.name)
         else:
             if self.is_accueil:
                 self.accueil.update(screen)
@@ -52,3 +55,7 @@ class Game:
     def create_new_game(self):
         self.reset_save_file()
         print(self.starters)
+
+    def player_lv_up(self):
+        self.player.level += 1
+        self.classic_panel.update_player_lv()
