@@ -223,13 +223,13 @@ while running:
                                 game.classic_panel.ingame_window.close()
                             elif game.classic_panel.ingame_window.buttons.min_button_rect.collidepoint(posSouris):
                                 game.classic_panel.ingame_window.minimize()
-                            if game.classic_panel.ingame_window.is_minimized:
-                                game.classic_panel.ingame_window.close()
+                            elif game.classic_panel.ingame_window.is_minimized:
+                                game.classic_panel.ingame_window.maximize()
 
                     else:
                         if game.classic_panel.ingame_window.main_window_rect.collidepoint(posSouris):
                             if game.classic_panel.ingame_window.is_minimized:
-                                game.classic_panel.ingame_window.close()
+                                game.classic_panel.ingame_window.maximize()
                             elif game.classic_panel.ingame_window.is_open:
                                 if game.classic_panel.ingame_window.buttons.x_button_rect.collidepoint(posSouris):
                                     game.classic_panel.ingame_window.close()
@@ -243,7 +243,25 @@ while running:
                                 game.classic_panel.is_pname_modif = True
 
                             if game.classic_panel.buttons.spawn_button_rect.collidepoint(posSouris):
+                                game.classic_panel.ingame_window.update_name('spawn')
                                 game.classic_panel.ingame_window.open()
+                                game.classic_panel.ingame_window.maximize()
+                            elif game.classic_panel.buttons.train_button_rect.collidepoint(posSouris):
+                                game.classic_panel.ingame_window.update_name('train')
+                                game.classic_panel.ingame_window.open()
+                                game.classic_panel.ingame_window.maximize()
+                            elif game.classic_panel.buttons.grind_button_rect.collidepoint(posSouris):
+                                game.classic_panel.ingame_window.update_name('grind')
+                                game.classic_panel.ingame_window.open()
+                                game.classic_panel.ingame_window.maximize()
+                            elif game.classic_panel.buttons.items_button_rect.collidepoint(posSouris):
+                                game.classic_panel.ingame_window.update_name('items')
+                                game.classic_panel.ingame_window.open()
+                                game.classic_panel.ingame_window.maximize()
+                            elif game.classic_panel.buttons.evol_button_rect.collidepoint(posSouris):
+                                game.classic_panel.ingame_window.update_name('evolutions')
+                                game.classic_panel.ingame_window.open()
+                                game.classic_panel.ingame_window.maximize()
 
                     if game.classic_panel.ingame_window.window_pos_modif_mode:
                         game.classic_panel.ingame_window.window_pos_modif_mode = False
@@ -256,7 +274,6 @@ while running:
                             game.classic_panel.ingame_window.main_window_pos[1] = 188
                         elif game.classic_panel.ingame_window.main_window_pos[1] < 4:
                             game.classic_panel.ingame_window.main_window_pos[1] = 4
-
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             game.mouse_pressed[event.button] = True
