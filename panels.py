@@ -80,7 +80,8 @@ class ClassicGamePanel:
 
         self.alphabet_pixels = {}
 
-        self.ingame_window = ingame_windows.IngameWindow()
+        self.current_ig_window_name = 'Unknown'
+        self.ingame_window = ingame_windows.IngameWindow(self.current_ig_window_name)
 
         self.buttons = image.ClassicGamePanelButtons()
 
@@ -97,7 +98,6 @@ class ClassicGamePanel:
             surface.blit(self.player_name_indication, (760, 30))
 
         self.buttons.update(surface, possouris, self.ingame_window)
-        self.ingame_window.update(surface, possouris)
 
         # Interactions
         if not self.ingame_window.main_window_rect.collidepoint(possouris):
@@ -113,10 +113,6 @@ class ClassicGamePanel:
                 if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_ARROW:
                     pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
-            if self.change_player_name_mode:
-                surface.blit(self.mode_changement_pseudo_image, (0, 0))
-                self.curseur_changement_pseudo.update(surface, self.calcul_player_name_pixels())
-
         else:
             if self.ingame_window.is_hovering_buttons(possouris):
                 if not pygame.mouse.get_cursor() == pygame.SYSTEM_CURSOR_HAND:
@@ -124,6 +120,12 @@ class ClassicGamePanel:
             else:
                 if not pygame.mouse.get_cursor() == pygame.SYSTEM_CURSOR_ARROW:
                     pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+        if self.change_player_name_mode:
+            surface.blit(self.mode_changement_pseudo_image, (0, 0))
+            self.curseur_changement_pseudo.update(surface, self.calcul_player_name_pixels())
+
+        self.ingame_window.update(surface, possouris)
 
     def update_player_name(self, current_player_name):
         if not self.player_name == current_player_name:

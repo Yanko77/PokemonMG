@@ -128,14 +128,26 @@ alphabet_pixels = {
 game = Game(alphabet_pixels)
 
 running = True
+posSouris = (0, 0)
+old_posSouris = (0, 0)
 
 # Boucle du jeu
 while running:
-    posSouris = pygame.mouse.get_pos()
+    posSouris = list(pygame.mouse.get_pos())
 
     game.update(screen, posSouris)
 
     pygame.display.flip()  # Update de la fenetre
+
+    if game.mouse_pressed[1]:
+        if game.classic_panel.ingame_window.main_window_bar_rect.collidepoint(posSouris):
+            game.classic_panel.ingame_window.window_pos_modif_mode = True
+        if game.classic_panel.ingame_window.window_pos_modif_mode:
+            if posSouris != old_posSouris:
+                game.classic_panel.ingame_window.main_window_pos[0] += posSouris[0] - old_posSouris[0]
+                game.classic_panel.ingame_window.main_window_pos[1] += posSouris[1] - old_posSouris[1]
+
+    old_posSouris = posSouris
 
     for event in pygame.event.get():  # Detection actions du joueur
         if event.type == pygame.QUIT:
@@ -198,17 +210,31 @@ while running:
 
                 if game.is_playing:
                     if game.classic_panel.change_player_name_mode:
-                        if not game.classic_panel.player_name_rect.collidepoint(posSouris):
-                            if not game.classic_panel.ingame_window.main_window_rect.collidepoint(posSouris):
+                        if not game.classic_panel.ingame_window.main_window_rect.collidepoint(posSouris):
+                            if not game.classic_panel.player_name_rect.collidepoint(posSouris):
                                 if game.player.name == '':
                                     game.player.name = "Nom"
                                     game.classic_panel.is_pname_modif = False
                                     game.classic_panel.update_player_name(game.player.name)
                                 game.classic_panel.change_player_name_mode = False
-                    else:
-                        if game.classic_panel.ingame_window.main_window_rect.collidepoint(posSouris):
+
+                        else:
                             if game.classic_panel.ingame_window.buttons.x_button_rect.collidepoint(posSouris):
                                 game.classic_panel.ingame_window.close()
+                            elif game.classic_panel.ingame_window.buttons.min_button_rect.collidepoint(posSouris):
+                                game.classic_panel.ingame_window.minimize()
+                            if game.classic_panel.ingame_window.is_minimized:
+                                game.classic_panel.ingame_window.close()
+
+                    else:
+                        if game.classic_panel.ingame_window.main_window_rect.collidepoint(posSouris):
+                            if game.classic_panel.ingame_window.is_minimized:
+                                game.classic_panel.ingame_window.close()
+                            elif game.classic_panel.ingame_window.is_open:
+                                if game.classic_panel.ingame_window.buttons.x_button_rect.collidepoint(posSouris):
+                                    game.classic_panel.ingame_window.close()
+                                elif game.classic_panel.ingame_window.buttons.min_button_rect.collidepoint(posSouris):
+                                    game.classic_panel.ingame_window.minimize()
 
                         else:
                             if game.classic_panel.player_name_rect.collidepoint(posSouris):
@@ -218,6 +244,19 @@ while running:
 
                             if game.classic_panel.buttons.spawn_button_rect.collidepoint(posSouris):
                                 game.classic_panel.ingame_window.open()
+
+                    if game.classic_panel.ingame_window.window_pos_modif_mode:
+                        game.classic_panel.ingame_window.window_pos_modif_mode = False
+
+                        if game.classic_panel.ingame_window.main_window_pos[0] < -16:
+                            game.classic_panel.ingame_window.main_window_pos[0] = -16
+                        elif game.classic_panel.ingame_window.main_window_pos[0] > 386:
+                            game.classic_panel.ingame_window.main_window_pos[0] = 386
+                        if game.classic_panel.ingame_window.main_window_pos[1] > 188:
+                            game.classic_panel.ingame_window.main_window_pos[1] = 188
+                        elif game.classic_panel.ingame_window.main_window_pos[1] < 4:
+                            game.classic_panel.ingame_window.main_window_pos[1] = 4
+
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             game.mouse_pressed[event.button] = True
