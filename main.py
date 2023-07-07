@@ -137,8 +137,6 @@ while running:
 
     game.update(screen, posSouris)
 
-    pygame.display.flip()  # Update de la fenetre
-
     if game.mouse_pressed[1]:
         if game.classic_panel.ingame_window.main_window_bar_rect.collidepoint(posSouris):
             game.classic_panel.ingame_window.window_pos_modif_mode = True
@@ -148,6 +146,8 @@ while running:
                 game.classic_panel.ingame_window.main_window_pos[1] += posSouris[1] - old_posSouris[1]
 
     old_posSouris = posSouris
+
+    pygame.display.flip()  # Update de la fenetre
 
     for event in pygame.event.get():  # Detection actions du joueur
         if event.type == pygame.QUIT:
