@@ -10,8 +10,9 @@ import panels
 
 class Game:
     def __init__(self, alphabet_pixels):
-        self.is_playing = True
-        self.is_accueil = False
+        self.is_playing = False
+        self.is_accueil = True
+        self.starters_choice_mode = False
 
         self.pressed = {pygame.K_LSHIFT: False}
         self.mouse_pressed = {1: False}
@@ -45,6 +46,12 @@ class Game:
             else:
                 self.is_playing = True
 
+    def init_new_game(self):
+        self.starters_choice_mode = True
+        self.classic_panel.ingame_window.update_name('Starters')
+        self.classic_panel.ingame_window.minimize()
+        self.classic_panel.ingame_window.open()
+
     def reset_save_file(self):
         template = open('save_file_template.txt', 'r')
         template_lines = template.read()
@@ -53,6 +60,7 @@ class Game:
         self.save_file.write(template_lines)
 
     def create_new_game(self):
+        self.init_new_game()
         self.reset_save_file()
         print(self.starters)
 

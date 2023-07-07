@@ -56,6 +56,9 @@ class StartGamePanel:
 class ClassicGamePanel:
 
     def __init__(self, player):
+        self.is_pname_modif = False
+        self.change_player_name_mode = False
+
         self.background = pygame.image.load('assets/game/panels/classic_panel/background.png')
         self.mode_changement_pseudo_image = pygame.image.load('assets/game/panels/classic_panel/'
                                                               'mode_changement_pseudo.png')
@@ -72,15 +75,12 @@ class ClassicGamePanel:
         self.player_name_indication = self.font_size2.render("(cliquer pour modifier)", False, (15, 0, 124))
         self.player_lv_image = self.font_size3.render(str(self.player.level), False, (124, 124, 124))
 
-        self.is_pname_modif = False
-
         self.player_name_rect = pygame.Rect(656, 12, 399, 51)
         self.player_name_hover = pygame.image.load("assets/game/panels/classic_panel/player_name_hover.png")
-        self.change_player_name_mode = False
 
         self.alphabet_pixels = {}
 
-        self.current_ig_window_name = 'Unknown'
+        self.current_ig_window_name = 'Starters'
         self.ingame_window = ingame_windows.IngameWindow(self.current_ig_window_name)
 
         self.buttons = image.ClassicGamePanelButtons()

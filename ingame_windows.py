@@ -114,6 +114,8 @@ class IngameWindow:
             self.title_marge = 70
         if self.name == 'Evolutions':
             self.title_marge = 75
+        if self.name == 'Starters':
+            self.title_marge = 120
 
     def open(self):
         self.is_open = True
