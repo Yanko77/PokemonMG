@@ -68,6 +68,10 @@ class ClassicGamePanel:
         self.font_size2 = pygame.font.Font('assets/fonts/impact.ttf', 25)
         self.font_size3 = pygame.font.Font('assets/fonts/(Unranked) Bdeogale.ttf', 70)
 
+        self.pokemon_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 25)
+        self.pokemon_level_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 20)
+        self.pokemon_hp_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 18)
+
         self.player = player
         self.player_name = self.player.name
 
@@ -88,15 +92,18 @@ class ClassicGamePanel:
     def update(self, surface, possouris):
 
         surface.blit(self.background, (0, 0))
-        surface.blit(self.player_name_image, (662, 10))
+        surface.blit(self.font.render(self.player.name, False, (15, 0, 124)), (662, 10))
+        if self.change_player_name_mode:
+            self.curseur_changement_pseudo.update(surface, self.calcul_player_name_pixels())
+        if not self.is_pname_modif:
+            surface.blit(self.player_name_indication, (760, 30))
+
         if self.player.level >= 10:
             surface.blit(self.player_lv_image, (955, 73))
         else:
             surface.blit(self.player_lv_image, (965, 73))
 
-        if not self.is_pname_modif:
-            surface.blit(self.player_name_indication, (760, 30))
-
+        self.update_team_pokemons(surface)
         self.buttons.update(surface, possouris, self.ingame_window)
 
         # Interactions
@@ -126,17 +133,84 @@ class ClassicGamePanel:
 
         if self.change_player_name_mode:
             surface.blit(self.mode_changement_pseudo_image, (0, 0))
-            self.curseur_changement_pseudo.update(surface, self.calcul_player_name_pixels())
 
         self.ingame_window.update(surface, possouris)
 
     def update_player_name(self, current_player_name):
         if not self.player_name == current_player_name:
             self.player_name = current_player_name
-            self.player_name_image = self.font.render(self.player_name, False, (15, 0, 124))
 
     def update_player_lv(self):
         self.player_lv_image = self.font_size3.render(str(self.player.level), False, (124, 124, 124))
+
+    def update_team_pokemons(self, surface):
+        # Pokemon 1
+        if self.player.team[0] is not None:
+            surface.blit(self.pokemon_name_font.render(self.player.team[0].name, False, (0, 0, 0)), (970, 288))
+            surface.blit(self.pokemon_level_font.render('Lv.' + str(self.player.team[0].level), False, (0, 0, 0)), (900, 317))
+            pygame.draw.rect(surface, (35, 35, 35), pygame.Rect(1100, 301, 150, 17))
+            pygame.draw.rect(surface, (42, 214, 0), pygame.Rect(1100, 301, self.player.team[0].health/self.player.team[0].pv*150, 17))
+            surface.blit(self.pokemon_hp_font.render(str(self.player.team[0].health) + "/" + str(self.player.team[0].pv), False, (0, 0, 0)), (1100, 315))
+
+        # Pokemon 2 ( +73px )
+        if self.player.team[1] is not None:
+            surface.blit(self.pokemon_name_font.render(self.player.team[1].name, False, (0, 0, 0)), (970, 361))
+            surface.blit(self.pokemon_level_font.render('Lv.' + str(self.player.team[1].level), False, (0, 0, 0)),
+                         (900, 390))
+            pygame.draw.rect(surface, (35, 35, 35), pygame.Rect(1100, 374, 150, 17))
+            pygame.draw.rect(surface, (42, 214, 0),
+                             pygame.Rect(1100, 374, self.player.team[1].health / self.player.team[1].pv * 150, 17))
+            surface.blit(self.pokemon_hp_font.render(str(self.player.team[1].health) + "/" + str(self.player.team[1].pv), False,
+                                            (0, 0, 0)), (1100, 388))
+
+        # Pokemon 3 ( +73px )
+        if self.player.team[2] is not None:
+            surface.blit(self.pokemon_name_font.render(self.player.team[2].name, False, (0, 0, 0)), (970, 434))
+            surface.blit(self.pokemon_level_font.render('Lv.' + str(self.player.team[2].level), False, (0, 0, 0)),
+                         (900, 463))
+            pygame.draw.rect(surface, (35, 35, 35), pygame.Rect(1100, 447, 150, 17))
+            pygame.draw.rect(surface, (42, 214, 0),
+                             pygame.Rect(1100, 447, self.player.team[2].health / self.player.team[2].pv * 150, 17))
+            surface.blit(
+                self.pokemon_hp_font.render(str(self.player.team[2].health) + "/" + str(self.player.team[2].pv), False,
+                                            (0, 0, 0)), (1100, 461))
+
+        # Pokemon 4 ( +73px )
+        if self.player.team[3] is not None:
+            surface.blit(self.pokemon_name_font.render(self.player.team[3].name, False, (0, 0, 0)), (970, 507))
+            surface.blit(self.pokemon_level_font.render('Lv.' + str(self.player.team[3].level), False, (0, 0, 0)),
+                         (900, 536))
+            pygame.draw.rect(surface, (35, 35, 35), pygame.Rect(1100, 520, 150, 17))
+            pygame.draw.rect(surface, (42, 214, 0),
+                             pygame.Rect(1100, 520, self.player.team[3].health / self.player.team[3].pv * 150, 17))
+            surface.blit(
+                self.pokemon_hp_font.render(str(self.player.team[3].health) + "/" + str(self.player.team[3].pv), False,
+                                            (0, 0, 0)), (1100, 534))
+
+        # Pokemon 5 ( +73px )
+        if self.player.team[4] is not None:
+            surface.blit(self.pokemon_name_font.render(self.player.team[4].name, False, (0, 0, 0)), (970, 580))
+            surface.blit(
+                self.pokemon_level_font.render('Lv.' + str(self.player.team[4].level), False, (0, 0, 0)),
+                (900, 609))
+            pygame.draw.rect(surface, (35, 35, 35), pygame.Rect(1100, 593, 150, 17))
+            pygame.draw.rect(surface, (42, 214, 0),
+                             pygame.Rect(1100, 593, self.player.team[4].health / self.player.team[4].pv * 150, 17))
+            surface.blit(
+                self.pokemon_hp_font.render(str(self.player.team[4].health) + "/" + str(self.player.team[4].pv), False,
+                                            (0, 0, 0)), (1100, 607))
+
+        # Pokemon 6 ( +73px )
+        if self.player.team[5] is not None:
+            surface.blit(self.pokemon_name_font.render(self.player.team[5].name, False, (0, 0, 0)), (970, 653))
+            surface.blit(self.pokemon_level_font.render('Lv.' + str(self.player.team[5].level), False, (0, 0, 0)),
+                         (900, 682))
+            pygame.draw.rect(surface, (35, 35, 35), pygame.Rect(1100, 666, 150, 17))
+            pygame.draw.rect(surface, (42, 214, 0),
+                             pygame.Rect(1100, 666, self.player.team[5].health / self.player.team[5].pv * 150, 17))
+            surface.blit(
+                self.pokemon_hp_font.render(str(self.player.team[5].health) + "/" + str(self.player.team[5].pv), False,
+                                            (0, 0, 0)), (1100, 680))
 
     def calcul_player_name_pixels(self):
         pixels = 0

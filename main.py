@@ -156,6 +156,12 @@ while running:
         if event.type == pygame.KEYDOWN:
             game.pressed[event.key] = True
 
+            ## Touche de test admin
+            if event.key == pygame.K_p:
+                game.player.evol_pk(0)
+            elif event.key == pygame.K_o:
+                game.player.team[0].level_up()
+
             if game.classic_panel.change_player_name_mode:
                 if event.key == pygame.K_RETURN:
                     if game.player.name == '':

@@ -38,6 +38,8 @@ class Pokemon:
         self.evolution_name = str(self.line[12])
         self.min_p_lv = int(self.line[13])
 
+        self.is_alive = True
+
         # self.image = pygame.image.load(f'assets/{name}.png')
 
     def find_pokemon_line(self) -> list:
@@ -56,14 +58,23 @@ class Pokemon:
         self.speed = round(int(self.line[6]) + self.level * self.xp_speed)
 
     def evolution(self):
-        if self.level >= self.evolution_level:
-            return Pokemon(self.evolution_name, self.level)
+        if self.evolution_name == '0':
+            print("Ce pokémon n'a pas d'évolution(s)")
+            return self
+        else:
+            if self.level >= self.evolution_level:
+                return Pokemon(self.evolution_name, self.level)
+            else:
+                return Pokemon(self.name, self.level)
 
     def get_stats(self):
         return self.pv, self.attack, self.defense, self.speed
 
     def damage(self, amount):
         self.health -= amount
+        if self.health < 0:
+            self.is_alive = False
+            self.health = 0
 
     def attaque(self, pokemon, att_type):
         if self.stam - self.stam_needed[att_type] >= 0:
