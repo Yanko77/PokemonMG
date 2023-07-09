@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add spawn pokemon action functions">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add pokemon names, lvls, hps and hp bar on game.classic_panel">
+      <change afterPath="$PROJECT_DIR$/pk_to_add.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/all_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/panels.py" beforeDir="false" afterPath="$PROJECT_DIR$/panels.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
@@ -279,7 +280,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688752207947</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add pokemon names, lvls, hps and hp bar on game.classic_panel">
+      <created>1688925660949</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1688925660949</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -293,6 +301,7 @@
     <MESSAGE value="ingame_windows with icons and titles&#10;classic_panel buttons hover animations" />
     <MESSAGE value="add starter mode&#10;assets for starters" />
     <MESSAGE value="add spawn pokemon action functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="add spawn pokemon action functions" />
+    <MESSAGE value="add pokemon names, lvls, hps and hp bar on game.classic_panel" />
+    <option name="LAST_COMMIT_MESSAGE" value="add pokemon names, lvls, hps and hp bar on game.classic_panel" />
   </component>
 </project>

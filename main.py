@@ -1,5 +1,6 @@
 import random
-
+import spawn
+import pokemon
 import pygame
 from game import Game
 
@@ -160,7 +161,7 @@ while running:
             if event.key == pygame.K_p:
                 game.player.evol_pk(0)
             elif event.key == pygame.K_o:
-                game.player.team[0].level_up()
+                game.player.team[0] = pokemon.Pokemon(spawn.get_spawning_pokemon(game.player.level), 100)
 
             if game.classic_panel.change_player_name_mode:
                 if event.key == pygame.K_RETURN:

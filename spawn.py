@@ -15,7 +15,7 @@ def get_valable_pokemons(player_level):
         for line in file.readlines():
             line = line.split()
             if not (line[0] == "#" or line[0] == "name"):
-                if int(line[13]) <= player_level:
+                if int(line[9]) <= player_level:
                     valable_pks.append(line[0])
     return valable_pks
 

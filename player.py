@@ -8,11 +8,10 @@ class Player:
         self.level = 0
         self.name = "Nom"
 
-        self.team = [Pokemon('salameche', 12), Pokemon('salameche', 13), Pokemon('salameche', 14), None, Pokemon('salameche', 15), Pokemon('salameche', 16)]
+        self.team = [None, None, None, None, None, None]
 
     def evol_pk(self, i=0):
         self.team[i] = self.team[i].evolution()
-        print(self.team[i].get_stats())
 
 
 if __name__ == "__main__":

@@ -1,26 +1,62 @@
-name            rarity  e_type  pv   att    def   speed  xp_pv   xp_att  xp_def  xp_speed    evol_lv  evol_name      player_lv  stam
-Evoli             10    normal  50    10    10      9    110     110     110     110         18        Noctali        0          10
+name              rarity    type    pv      att    def     speed  evol_lv   evol_name     player_lv   type2
+# Moyennes:         50        -    68/80   75/90  70/83    70/85
 #
-Bulbizarre        10    plante  50    12    10      8    110     110     110     110         12        Herbizarre     0          10
-Herbizarre        25    plante  75    22    22      9    110     110     110     110         24        Florizarre     3          15
-Florizarre        85    plante  120   40    30      10   110     110     110     110         0         0              5          20
+Evoli               10      normal  55      65      65      60      18      Noctali         0
 #
-Salameche         10    feu     50    11    10      9    110     110     110     110         12        Reptincel      0          10
-Reptincel         25    feu     70    20    20      12   110     110     110     110         24        Dracaufeu      3          15
-Dracaufeu         85    feu     110   30    28      16   110     110     110     110         0         0              5          20
+Bulbizarre          10      plante  60      77      60      45      12      Herbizarre      0
+Herbizarre          25      plante  70      85      70      58      24      Florizarre      3
+Florizarre          85      plante  90      100     80      70      0       0               5           poison
 #
-Carapuce          10    eau     50    10    12      9    110     110     110     110         12        Carabaffe      0          10
-Carabaffe         25    eau     75    20    24      10   110     110     110     110         24        Tortank        3          15
-Tortank           85    eau     135   32    40      12   110     110     110     110         0         0              5          20
+Salameche           10      feu     55      70      62      60      12      Reptincel       0
+Reptincel           25      feu     65      80      72      80      24      Dracaufeu       3
+Dracaufeu           85      feu     82      90      78      105     0       0               5           vol
 #
-Arcko             10    plante  50    12    10      9    110     110     110     110         12        Massko         0          10
-Massko            25    plante  70    23    21      10   110     110     110     110         24        Jungko         3          15
-Jungko            85    plante  115   45    27      11   110     110     110     110         0         0              5          20
+Carapuce            10      eau     65      68      75      60      12      Carabaffe       0
+Carabaffe           25      eau     80      75      85      75      24      Tortank         3
+Tortank             85      eau     95      80      100     88      0       0               5
 #
-Poussifeu         10    feu     50    11    10      8    110     110     110     110         12         Galifeu       0          10
-Galifeu           25    feu     75    21    19      10   110     110     110     110         24         Brasegali     3          15
-Brasegali         85    feu     120   40    25      18   110     110     110     110         0          0             5          20
+Arcko               10      plante  60      80      57      70      12      Massko          0
+Massko              25      plante  70      95      65      80      24      Jungko          3
+Jungko              85      plante  82      110     75      90      0       0               5
 #
-Gobou             10    eau     45    10    11      8    110     110     110     110         12         Flobio        0          10
-Flobio            25    eau     75    19    23      9    110     110     110     110         24         Laggron       3          15
-Laggron           85    eau     130   32    43      10   110     110     110     110         0          0             5          20
+Poussifeu           10      feu     50      65      55      55      12      Galifeu         0
+Galifeu             25      feu     70      70      63      70      24      Brasegali       3
+Brasegali           85      feu     85      98      78      110     0       0               5
+#
+Gobou               10      eau     50      65      75      55      12      Flobio          0
+Flobio              25      eau     75      75      85      68      24      Laggron         3
+Laggron             85      eau     95      80      110     88      0       0               5
+#
+Chenipan            6       insect  45      60      62      65      12      Chrysacier      0
+Chrysacier          25      insect  80      60      80      20      24      Papilusion      2
+Papilusion          55      insect  80      85      75      80      0       0               4           vol
+#
+Aspicot             10      insect  50      58      60      63      12      Coconfort       0
+Coconfort           35      insect  75      60      78      45      24      Dardargnan      2
+Dardargnan          55      insect  78      90      70      90      0       0               4           poison
+#
+Roucool             8       normal  60      65      58      67      12      Roucoups        0           vol
+Roucoups            20      normal  70      70      65      78      24      Roucarnage      2           vol
+Roucarnage          60      normal  75      78      70      95      0       0               4           vol
+#
+Piafabec            15      normal  65      65      60      62      18      Rapasdepic      0           vol
+Rapasdepic          30      normal  80      78      75      85      0       0               3           vol
+#
+Abo                 15      poison  68      72      65      68      12      Arbok           0
+Arbok               50      poison  80      80      75      75      0       0               2
+#
+Pichu               20      elec    65      60      60      60      12      Pikachu         0
+Pikachu             30      elec    75      75      67      71      24      Raichu          1
+Raichu              60      elec    80      88      73      87      0       0               2
+#
+Sabelette           15      sol     70      65      70      65      15      Sablaireau      0
+Sablaireau          60      sol     80      75      75      75      0       0               1
+#
+Nidoran-f           20      poison  65      70      60      65      12      Nidorina        0
+Nidorina            50      poison  75      75      70      72      24      Nidoqueen       2
+Nidoqueen           60      poison  85      83      80      76      0       0               4           sol
+#
+Nidoran-m           20      poison  65      70      60      65      12      Nidorino        0
+Nidorino            50      poison  72      78      70      73      24      Nidoking        2
+Nidoking            60      poison  80      87      78      80      0       0               4           sol
+#
