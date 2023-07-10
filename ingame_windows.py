@@ -1,6 +1,7 @@
 import pygame
 pygame.font.init()
 import image
+import sac
 
 
 class IngameWindow:
@@ -49,6 +50,8 @@ class IngameWindow:
         self.title = self.title_font.render(self.name, False, (0, 0, 0))
         self.title_marge = 75
 
+        self.sac_panel = sac.SacIngamePanel()
+
     def update(self, surface, possouris):
         self.update_main_window_rect()
 
@@ -65,10 +68,14 @@ class IngameWindow:
                 surface.blit(self.title, (self.main_window_pos[0] + self.title_marge, self.main_window_pos[1] + 0))
                 surface.blit(self.icon, self.main_window_pos)
                 self.buttons.update(surface, possouris)
+                self.update_panel(surface, possouris)
 
-    def is_hovering_buttons(self, posouris):
-        if self.buttons.is_hovering_buttons(posouris):
+    def is_hovering_buttons(self, possouris):
+        if self.buttons.is_hovering_buttons(possouris):
             return True
+        elif self.name == "Sac d'objets":
+            if self.sac_panel.is_hovering_buttons(possouris):
+                return True
         return False
 
     def update_main_window_rect(self):
@@ -97,6 +104,10 @@ class IngameWindow:
             self.main_window_rect = pygame.Rect(0, 0, 0, 0)
             self.main_window_bar_rect = pygame.Rect(0, 0, 0, 0)
 
+    def update_panel(self, surface, possouris):
+        if self.name == "Sac d'objets":
+            self.sac_panel.update(surface, possouris, self.main_window_pos)
+
     def update_name(self, new_name):
         self.name = new_name[0].upper() + new_name[1:].lower()
         self.title = self.title_font.render(self.name, False, (0, 0, 0))
@@ -116,6 +127,8 @@ class IngameWindow:
             self.title_marge = 75
         if self.name == 'Starters':
             self.title_marge = 120
+        if self.name == "Sac d'objets":
+            self.title_marge = 110
 
     def open(self):
         self.is_open = True

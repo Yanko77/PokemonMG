@@ -62,6 +62,8 @@ class ClassicGamePanel:
         self.background = pygame.image.load('assets/game/panels/classic_panel/background.png')
         self.mode_changement_pseudo_image = pygame.image.load('assets/game/panels/classic_panel/'
                                                               'mode_changement_pseudo.png')
+        self.sac = pygame.image.load('assets/game/panels/classic_panel/sac.png')
+        self.sac = pygame.transform.scale(self.sac, (200, 200))
         self.curseur_changement_pseudo = image.CursorChangePseudoMode()
 
         self.font = pygame.font.Font('assets/fonts/impact.ttf', 50)
@@ -84,7 +86,7 @@ class ClassicGamePanel:
 
         self.alphabet_pixels = {}
 
-        self.current_ig_window_name = 'Starters'
+        self.current_ig_window_name = 'Unknown'
         self.ingame_window = ingame_windows.IngameWindow(self.current_ig_window_name)
 
         self.buttons = image.ClassicGamePanelButtons()
@@ -105,6 +107,7 @@ class ClassicGamePanel:
 
         self.update_team_pokemons(surface, possouris)
         self.buttons.update(surface, possouris, self.ingame_window)
+        surface.blit(self.sac, (675, 475))
 
         # Interactions
         if not self.ingame_window.main_window_rect.collidepoint(possouris):

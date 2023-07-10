@@ -161,7 +161,9 @@ while running:
             if event.key == pygame.K_p:
                 game.player.evol_pk(0)
             elif event.key == pygame.K_o:
-                game.player.team[0] = pokemon.Pokemon(spawn.get_spawning_pokemon(game.player.level), 100)
+                game.classic_panel.ingame_window.update_name("Sac d'objets")
+                game.classic_panel.ingame_window.open()
+                game.classic_panel.ingame_window.maximize()
 
             if game.classic_panel.change_player_name_mode:
                 if event.key == pygame.K_RETURN:
@@ -211,7 +213,7 @@ while running:
                         if game.accueil.start_game_panel.new_game_button_rect.collidepoint(posSouris):
                             game.accueil.start_game = False
                             game.is_accueil = False
-                            game.starters_choice_mode = True
+                            game.starters_choice_mode = False
                             game.create_new_game()
                             game.reset_save_file()
                             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
