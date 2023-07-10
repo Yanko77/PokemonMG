@@ -1,7 +1,7 @@
 name              rarity    type    pv      att    def     speed  evol_lv   evol_name     player_lv   type2
 # Moyennes:         50        -    68/80   75/90  70/83    70/85
 #
-Evoli               10      normal  55      65      65      60      18      Noctali         0
+Evoli               10      normal  55      65      65      60      18      0         0
 #
 Bulbizarre          10      plante  60      77      60      45      12      Herbizarre      0
 Herbizarre          25      plante  70      85      70      58      24      Florizarre      3

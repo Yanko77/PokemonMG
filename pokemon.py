@@ -72,8 +72,8 @@ class Pokemon:
 
     def def_shiny(self, is_shiny):
         if is_shiny is None:
-            n = random.randint(1, 100)
-            if n > 98:
+            n = random.randint(1, 256)
+            if n == 137:
                 return True
             else:
                 return False

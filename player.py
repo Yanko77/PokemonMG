@@ -8,7 +8,7 @@ class Player:
         self.level = 0
         self.name = "Nom"
 
-        self.team = [None, None, None, None, None, None]
+        self.team = [Pokemon('arcko', 5), Pokemon('gobou', 5), Pokemon('poussifeu', 5), Pokemon('poussifeu', 5), Pokemon('poussifeu', 5), Pokemon('poussifeu', 5)]
 
     def evol_pk(self, i=0):
         self.team[i] = self.team[i].evolution()

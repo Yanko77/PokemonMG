@@ -10,8 +10,8 @@ import panels
 
 class Game:
     def __init__(self, alphabet_pixels):
-        self.is_playing = True
-        self.is_accueil = False
+        self.is_playing = False
+        self.is_accueil = True
         self.starters_choice_mode = False
 
         self.pressed = {pygame.K_LSHIFT: False}
