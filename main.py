@@ -247,6 +247,11 @@ while running:
                                         game.classic_panel.ingame_window.close()
                                 elif game.classic_panel.ingame_window.buttons.min_button_rect.collidepoint(posSouris):
                                     game.classic_panel.ingame_window.minimize()
+                                elif game.classic_panel.ingame_window.name == "Sac d'objets":
+                                    if game.classic_panel.ingame_window.sac_panel.page1_rect.collidepoint(posSouris):
+                                        game.classic_panel.ingame_window.sac_panel.change_page(1)
+                                    elif game.classic_panel.ingame_window.sac_panel.page2_rect.collidepoint(posSouris):
+                                        game.classic_panel.ingame_window.sac_panel.change_page(2)
 
                         else:
                             if game.classic_panel.player_name_rect.collidepoint(posSouris):

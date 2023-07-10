@@ -74,7 +74,7 @@ class IngameWindow:
         if self.buttons.is_hovering_buttons(possouris):
             return True
         elif self.name == "Sac d'objets":
-            if self.sac_panel.is_hovering_buttons(possouris):
+            if self.sac_panel.is_hovering_buttons(possouris, self.main_window_pos):
                 return True
         return False
 
