@@ -4,11 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add interactions to sac d'objets window">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add sac button in game.classic_panel">
+      <change afterPath="$PROJECT_DIR$/all_attaques.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/all_objets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/attaques.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_infos.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objet.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ingame_windows.py" beforeDir="false" afterPath="$PROJECT_DIR$/ingame_windows.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panels.py" beforeDir="false" afterPath="$PROJECT_DIR$/panels.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/all_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
+    </list>
+    <list id="5c1a25cb-1809-4cdc-b078-5066dcb10137" name="Changes by Mathias Farvacque" comment="">
+      <change beforePath="$PROJECT_DIR$/all_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
     </list>
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,6 +51,36 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Dummy.txt" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/all_pokemons.txt">
+      <ranges>
+        <range start1="3" end1="4" start2="3" end2="4" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="5" end1="7" start2="5" end2="7" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="9" end1="11" start2="9" end2="11" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="13" end1="16" start2="13" end2="16" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="17" end1="20" start2="17" end2="20" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="21" end1="24" start2="21" end2="24" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="25" end1="28" start2="25" end2="28" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="29" end1="31" start2="29" end2="31" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="33" end1="35" start2="33" end2="35" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="44" end1="46" start2="44" end2="46" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="47" end1="50" start2="47" end2="50" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="51" end1="53" start2="51" end2="53" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="54" end1="56" start2="54" end2="56" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="58" end1="60" start2="58" end2="60" changelist="5c1a25cb-1809-4cdc-b078-5066dcb10137" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/pokemon.py">
+      <ranges>
+        <range start1="2" end1="3" start2="2" end2="5" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="6" end1="7" start2="8" end2="9" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="9" end1="9" start2="11" end2="13" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="15" end1="15" start2="19" end2="20" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="70" end1="71" start2="75" end2="98" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="84" end1="84" start2="111" end2="113" changelist="5c1a25cb-1809-4cdc-b078-5066dcb10137" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -313,7 +352,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689032040737</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="add sac button in game.classic_panel">
+      <created>1689081731593</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1689081731593</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -332,6 +378,7 @@
     <MESSAGE value="affichage des pokemons du joueur + interactions avec souris" />
     <MESSAGE value="ajout de la fenetre pour le sac&#10;assets pour sac d'objets" />
     <MESSAGE value="add interactions to sac d'objets window" />
-    <option name="LAST_COMMIT_MESSAGE" value="add interactions to sac d'objets window" />
+    <MESSAGE value="add sac button in game.classic_panel" />
+    <option name="LAST_COMMIT_MESSAGE" value="add sac button in game.classic_panel" />
   </component>
 </project>

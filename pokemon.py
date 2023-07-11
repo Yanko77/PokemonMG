@@ -1,18 +1,23 @@
 import pygame
 import random
-
+import objet
+import game_infos
+import attaques
 
 class Pokemon:
 
-    def __init__(self, name, level, is_shiny=None):
+    def __init__(self, name, level, is_shiny=None, objet_tenu=objet.Objet("Nothing")):
         self.name = name[0].upper() + name[1:].lower()
         self.is_shiny = self.def_shiny(is_shiny)
+
+        self.objet_tenu = objet_tenu
 
         self.line = self.find_pokemon_line()
 
         self.level = int(level)
         self.rarety = int(self.line[1])
         self.type = str(self.line[2])
+        self.type2 = str(self.line[10])
 
         self.pv = round((2 * int(self.line[3]) * self.level)/100 + self.level + 10)
         self.health = self.pv
@@ -68,7 +73,29 @@ class Pokemon:
             self.health = 0
 
     def attaque(self, pokemon, attaque):
-        pokemon.damage(round(self.attack))  # A REVOIR !!!
+        cm = 1
+        if attaque.type == self.type:
+            cm *= 1.5
+        cm *= game_infos.types_affinities[attaque.type][pokemon.type] * game_infos.types_affinities[attaque.type][pokemon.type2]
+        t = round(int(self.line[6]) / 2) * attaque.taux_crit
+        ncrit = random.randint(0, 256)
+        if ncrit < t:
+            crit = True
+        else:
+            crit = False
+
+        if crit:
+            cm *= (2*self.level+5)/(self.level+5)
+
+        if "augmentation_degats" in pokemon.objet.classes:
+            cm *= pokemon.objet.multiplicateur_degats()
+
+        random_cm = random.randint(85, 100)
+        cm = cm*random_cm/100
+
+        degats = round((((((self.level * 0.4 + 2) * self.attack * attaque.puissance) / self.defense) / 50) + 2) * cm)
+        pokemon.damage(degats)
+        print(degats)
 
     def def_shiny(self, is_shiny):
         if is_shiny is None:
