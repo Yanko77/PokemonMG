@@ -90,6 +90,8 @@ class ClassicGamePanel:
         self.ingame_window = ingame_windows.IngameWindow(self.current_ig_window_name)
 
         self.buttons = image.ClassicGamePanelButtons()
+        self.sac_button_hover = self.create_rect_alpha((218, 215), (113, 64, 30))  # pygame.Rect(667, 465, 218, 215)
+        self.sac_button_rect = pygame.Rect(667, 465, 218, 215)
 
     def update(self, surface, possouris):
 
@@ -107,7 +109,10 @@ class ClassicGamePanel:
 
         self.update_team_pokemons(surface, possouris)
         self.buttons.update(surface, possouris, self.ingame_window)
+        if self.sac_button_rect.collidepoint(possouris):
+            surface.blit(self.sac_button_hover, (667, 465))
         surface.blit(self.sac, (675, 475))
+
 
         # Interactions
         if not self.ingame_window.main_window_rect.collidepoint(possouris):
@@ -120,6 +125,9 @@ class ClassicGamePanel:
                 if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_HAND:
                     pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
             elif self.is_hovering_team_pokemon(possouris):
+                if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_HAND:
+                    pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+            elif self.sac_button_rect.collidepoint(possouris):
                 if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_HAND:
                     pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
             else:

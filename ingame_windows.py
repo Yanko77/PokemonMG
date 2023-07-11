@@ -59,7 +59,10 @@ class IngameWindow:
             if self.is_minimized:
                 surface.blit(self.min_window, self.main_window_pos)
                 surface.blit(self.icon, (self.main_window_pos[0]-20, self.main_window_pos[1]+3))
-                surface.blit(self.title, (self.main_window_pos[0] + self.title_marge-20, self.main_window_pos[1] + 0))
+                if self.name == "Sac d'objets":
+                    surface.blit(self.title_font.render("Sac", False, (0, 0, 0)), (self.main_window_pos[0] + self.title_marge-20, self.main_window_pos[1] + 0))
+                else:
+                    surface.blit(self.title, (self.main_window_pos[0] + self.title_marge-20, self.main_window_pos[1] + 0))
 
                 if self.min_window_rect.collidepoint(possouris):
                     surface.blit(self.min_window_hover, self.main_window_pos)
@@ -128,7 +131,7 @@ class IngameWindow:
         if self.name == 'Starters':
             self.title_marge = 120
         if self.name == "Sac d'objets":
-            self.title_marge = 110
+            self.title_marge = 105
 
     def open(self):
         self.is_open = True

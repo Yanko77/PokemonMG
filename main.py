@@ -135,9 +135,6 @@ old_posSouris = (0, 0)
 # Boucle du jeu
 while running:
     posSouris = list(pygame.mouse.get_pos())
-
-    game.update(screen, posSouris)
-
     if game.mouse_pressed[1]:
         if game.classic_panel.ingame_window.main_window_bar_rect.collidepoint(posSouris):
             game.classic_panel.ingame_window.window_pos_modif_mode = True
@@ -145,6 +142,8 @@ while running:
             if posSouris != old_posSouris:
                 game.classic_panel.ingame_window.main_window_pos[0] += posSouris[0] - old_posSouris[0]
                 game.classic_panel.ingame_window.main_window_pos[1] += posSouris[1] - old_posSouris[1]
+
+    game.update(screen, posSouris)
 
     old_posSouris = posSouris
 
@@ -278,6 +277,10 @@ while running:
                                     game.classic_panel.ingame_window.maximize()
                                 elif game.classic_panel.buttons.evol_button_rect.collidepoint(posSouris):
                                     game.classic_panel.ingame_window.update_name('evolutions')
+                                    game.classic_panel.ingame_window.open()
+                                    game.classic_panel.ingame_window.maximize()
+                                if game.classic_panel.sac_button_rect.collidepoint(posSouris):
+                                    game.classic_panel.ingame_window.update_name("Sac d'objets")
                                     game.classic_panel.ingame_window.open()
                                     game.classic_panel.ingame_window.maximize()
 
