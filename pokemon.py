@@ -110,6 +110,8 @@ class Pokemon:
             return False
 
 
+
+
 if __name__ == "__main__":
     pokemon_A = Pokemon('Reptincel', 24)
     print(pokemon_A.get_stats())
