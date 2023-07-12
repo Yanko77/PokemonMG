@@ -22,7 +22,7 @@ class Game:
                                     "Moi c'est Kevin", 'Limonde']
 
         self.accueil = accueil.Accueil()
-        self.classic_panel = panels.ClassicGamePanel(self.player)
+        self.classic_panel = panels.ClassicGamePanel(self.player, self)
         self.classic_panel.def_alphabet_pixels(alphabet_pixels)
 
         self.all_starters = {'feu': ['Salameche', 'Poussifeu'],

@@ -1,5 +1,6 @@
 import pygame
 from pokemon import Pokemon
+import spawn
 
 
 class Player:
@@ -8,7 +9,12 @@ class Player:
         self.level = 0
         self.name = "Nom"
 
-        self.team = [Pokemon('arcko', 100), Pokemon('gobou', 100), Pokemon('poussifeu', 100), Pokemon('poussifeu', 100), Pokemon('poussifeu', 5), Pokemon('poussifeu', 5)]
+        self.team = [Pokemon(spawn.get_spawning_pokemon(self.level), 10),
+                     Pokemon(spawn.get_spawning_pokemon(self.level), 10),
+                     Pokemon(spawn.get_spawning_pokemon(self.level), 10),
+                     Pokemon(spawn.get_spawning_pokemon(self.level), 10),
+                     Pokemon(spawn.get_spawning_pokemon(self.level), 10),
+                     Pokemon(spawn.get_spawning_pokemon(self.level), 10)]
         self.sac_page1 = [None, None, None, None, None, None, None, None, None, None, None, None]
         self.sac_page2 = [None, None, None, None, None, None, None, None, None, None, None, None]
 

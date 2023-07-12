@@ -136,12 +136,13 @@ old_posSouris = (0, 0)
 while running:
     posSouris = list(pygame.mouse.get_pos())
     if game.mouse_pressed[1]:
-        if game.classic_panel.ingame_window.main_window_bar_rect.collidepoint(posSouris):
-            game.classic_panel.ingame_window.window_pos_modif_mode = True
-        if game.classic_panel.ingame_window.window_pos_modif_mode:
-            if posSouris != old_posSouris:
-                game.classic_panel.ingame_window.main_window_pos[0] += posSouris[0] - old_posSouris[0]
-                game.classic_panel.ingame_window.main_window_pos[1] += posSouris[1] - old_posSouris[1]
+        if not game.classic_panel.pk_move_mode:
+            if game.classic_panel.ingame_window.main_window_bar_rect.collidepoint(posSouris):
+                game.classic_panel.ingame_window.window_pos_modif_mode = True
+            if game.classic_panel.ingame_window.window_pos_modif_mode:
+                if posSouris != old_posSouris:
+                    game.classic_panel.ingame_window.main_window_pos[0] += posSouris[0] - old_posSouris[0]
+                    game.classic_panel.ingame_window.main_window_pos[1] += posSouris[1] - old_posSouris[1]
 
     game.update(screen, posSouris)
 
@@ -158,7 +159,7 @@ while running:
 
             ## Touche de test admin
             if event.key == pygame.K_p:
-                game.player.evol_pk(0)
+                game.classic_panel.change_pk_place(0, 1)
             elif event.key == pygame.K_o:
                 game.classic_panel.ingame_window.update_name("Sac d'objets")
                 game.classic_panel.ingame_window.open()

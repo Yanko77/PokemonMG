@@ -3,7 +3,7 @@ name                spawn_d     categorie       Fonctionnement  achat       reve
 #
 Poke_Ball           1:60:2-10   Balls           Use             1:800       800             Une BALL pouvant capturer un Pokémon sauvage.
 Velo                0:0:0-0     Objets_rares    Enable          1:10000     0               Vélo permettant de faire 1 action supplémentaire chaque tour.
-Moto                0:0:0-0     Objets_rares    Enable          1:50000     0               Moto permettant de faire 1 action supplémentaire chaque tour.
+Pokeflute           0:0:0-0     Objets_rares    Enable          1:50000     0               Moto permettant de faire 1 action supplémentaire chaque tour.
 Guerison            1:50:1-2    Medecine        Use             1:3000      1:1500          Soigne tout changement de status d'un pokémon
 Potion              1:25:1-3    Médecine        Use             1:500       1:150           Restaure 30 PV perdus en combat.
 Hyper_Potion        1:60:1-1    Medecine        Use             1:3000      1:750           Restaure 120 PV perdus en combat.
@@ -31,7 +31,7 @@ Vive_Griffe         1:50:1-1    Objets          Give            1:8000      1:20
 Bandeau_Muscle      1:40:1-1    Objets          Give            1:2500      1:1250          Tenu par un pokémon, augmente la puissance de ses attaques augmentée de 10%.
 Poussiere_Etoile    1:60:1-2    Marchandise     Sell            0           1:15000         Item très prisé. Uniquement revendable au shop.
 Poussiere_Bleute    1:60:1-1    Marchandise     Sell            1:10000     1:v:8000-15000  Item dont le prix varie aléatoirement. Investie ton argent intelligement. Uniquement revendable au shop.
-Poussiere_Jaunete   1:60:1-1    Marchandise     Sell            1:10001     1:v:0-20000     Comme la Poussière Bleuté mais jaune. Le prix varie un peu plus aléatoirement. GL HF !
+Poussiere_Jaunete   1:60:1-1    Marchandise     Sell            1:10001     1:v:0-20000     Comme la Poussière Bleuté mais jaune. La variation de prix est encore plus aléatoirement.
 # Poussiere_Noire   0:0:0-0     Marchandise     Sell            0           1:50000         tu peux le craft en combinant les Poussiere coute extremment cher a la revente!
 Poudre_Verdatre     1:25:1-3    Marchandise     Sell            0           1:1000          C'est super rare !!! Se revend pour 1000 au shop :)
 Collier_Agathe      1:70:1-1    Objets          Give            1:15000     1:5000          Tant qu'il est porté par un pokémon, ce dernier voit ses Pv max diminués de 20% mais se heal tout ses pv après chaque combat.
