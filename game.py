@@ -10,9 +10,10 @@ import panels
 
 class Game:
     def __init__(self, alphabet_pixels):
-        self.is_playing = True
-        self.is_accueil = False
-        self.starters_choice_mode = False
+        self.is_playing = False
+        self.is_accueil = True
+
+        self.is_starter_selected = True
 
         self.pressed = {pygame.K_LSHIFT: False}
         self.mouse_pressed = {1: False}
@@ -22,15 +23,21 @@ class Game:
                                     "Moi c'est Kevin", 'Limonde']
 
         self.accueil = accueil.Accueil()
-        self.classic_panel = panels.ClassicGamePanel(self.player, self)
-        self.classic_panel.def_alphabet_pixels(alphabet_pixels)
+
+
 
         self.all_starters = {'feu': ['Salameche', 'Poussifeu'],
                              'eau': ['Carapuce', 'Gobou'],
                              'plante': ['Bulbizarre', 'Arcko']}
-        self.starters = [random.choice(self.all_starters['feu']),
-                         random.choice(self.all_starters['eau']),
-                         random.choice(self.all_starters['plante'])]
+        self.starters = [random.choice(self.all_starters['plante']),
+                         random.choice(self.all_starters['feu']),
+                         random.choice(self.all_starters['eau'])
+                         ]
+
+        '''self.starter = '''
+
+        self.classic_panel = panels.ClassicGamePanel(self.player, self)
+        self.classic_panel.def_alphabet_pixels(alphabet_pixels)
 
         self.save_file = open('save.txt', 'r+')
 
@@ -47,7 +54,7 @@ class Game:
                 self.is_playing = True
 
     def init_new_game(self):
-        self.starters_choice_mode = True
+        self.is_starter_selected = False
         self.classic_panel.ingame_window.update_name('Starters')
         self.classic_panel.ingame_window.minimize()
         self.classic_panel.ingame_window.open()
@@ -63,6 +70,9 @@ class Game:
         self.init_new_game()
         self.reset_save_file()
         print(self.starters)
+
+    '''def load_game(self):
+        self.save_file'''
 
     def player_lv_up(self):
         self.player.level += 1

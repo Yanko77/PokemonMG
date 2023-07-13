@@ -2,13 +2,16 @@ import pygame
 pygame.font.init()
 import image
 import sac
+import starters
 
 
 class IngameWindow:
 
-    def __init__(self, name):
+    def __init__(self, name, game):
         self.is_open = False
         self.is_minimized = False
+
+        self.game = game
 
         self.window_pos_modif_mode = False
 
@@ -51,6 +54,7 @@ class IngameWindow:
         self.title_marge = 75
 
         self.sac_panel = sac.SacIngamePanel()
+        self.starters_panel = starters.StartersPanel(self.game)
 
     def update(self, surface, possouris):
         self.update_main_window_rect()
@@ -78,6 +82,9 @@ class IngameWindow:
             return True
         elif self.name == "Sac d'objets":
             if self.sac_panel.is_hovering_buttons(possouris, self.main_window_pos):
+                return True
+        elif self.name == 'Starters':
+            if self.starters_panel.is_hovering_buttons(possouris, self.main_window_pos):
                 return True
         return False
 
@@ -110,6 +117,8 @@ class IngameWindow:
     def update_panel(self, surface, possouris):
         if self.name == "Sac d'objets":
             self.sac_panel.update(surface, possouris, self.main_window_pos)
+        elif self.name == "Starters":
+            self.starters_panel.update(surface, possouris, self.main_window_pos)
 
     def update_name(self, new_name):
         self.name = new_name[0].upper() + new_name[1:].lower()

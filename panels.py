@@ -89,7 +89,7 @@ class ClassicGamePanel:
         self.alphabet_pixels = {}
 
         self.current_ig_window_name = 'Unknown'
-        self.ingame_window = ingame_windows.IngameWindow(self.current_ig_window_name)
+        self.ingame_window = ingame_windows.IngameWindow(self.current_ig_window_name, self.game)
 
         self.buttons = image.ClassicGamePanelButtons()
         self.sac_button_hover = self.create_rect_alpha((218, 215), (113, 64, 30))  # pygame.Rect(667, 465, 218, 215)
@@ -121,7 +121,7 @@ class ClassicGamePanel:
 
         self.update_team_pokemons(surface, possouris)
         self.buttons.update(surface, possouris, self.ingame_window)
-        if self.sac_button_rect.collidepoint(possouris):
+        if self.sac_button_rect.collidepoint(possouris) and not self.ingame_window.main_window_rect.collidepoint(possouris):
             surface.blit(self.sac_button_hover, (667, 465))
         surface.blit(self.sac, (675, 475))
 
@@ -212,7 +212,6 @@ class ClassicGamePanel:
                     self.rel_possouris_pk_move_mode = (possouris[0] - self.saved_possouris[0], possouris[1] - self.saved_possouris[1])
                     self.pk_rects[i].x = self.PK_RECTS[i].x + self.rel_possouris_pk_move_mode[0]
                     self.pk_rects[i].y = self.PK_RECTS[i].y + self.rel_possouris_pk_move_mode[1]
-
 
             surface.blit(self.player.team[i].icon_image, (self.pk_rects[i].x, self.pk_rects[i].y-5), (0, 0, 64, 64))
             surface.blit(self.pokemon_name_font.render(self.player.team[i].name, False, (0, 0, 0)), (self.pk_rects[i].x+70, self.pk_rects[i].y + 13))

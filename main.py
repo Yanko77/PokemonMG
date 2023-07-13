@@ -213,7 +213,6 @@ while running:
                         if game.accueil.start_game_panel.new_game_button_rect.collidepoint(posSouris):
                             game.accueil.start_game = False
                             game.is_accueil = False
-                            game.starters_choice_mode = False
                             game.create_new_game()
                             game.reset_save_file()
                             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
@@ -229,13 +228,14 @@ while running:
                                 game.classic_panel.change_player_name_mode = False
 
                         else:
-                            if game.classic_panel.ingame_window.buttons.x_button_rect.collidepoint(posSouris):
-                                if not game.classic_panel.ingame_window.name == 'Starters':
-                                    game.classic_panel.ingame_window.close()
-                            elif game.classic_panel.ingame_window.buttons.min_button_rect.collidepoint(posSouris):
-                                game.classic_panel.ingame_window.minimize()
-                            elif game.classic_panel.ingame_window.is_minimized:
-                                game.classic_panel.ingame_window.maximize()
+                            if not game.classic_panel.pk_move_mode:
+                                if game.classic_panel.ingame_window.buttons.x_button_rect.collidepoint(posSouris):
+                                    if not game.classic_panel.ingame_window.name == 'Starters':
+                                        game.classic_panel.ingame_window.close()
+                                elif game.classic_panel.ingame_window.buttons.min_button_rect.collidepoint(posSouris):
+                                    game.classic_panel.ingame_window.minimize()
+                                elif game.classic_panel.ingame_window.is_minimized:
+                                    game.classic_panel.ingame_window.maximize()
 
                     else:
                         if game.classic_panel.ingame_window.main_window_rect.collidepoint(posSouris):
@@ -252,38 +252,46 @@ while running:
                                         game.classic_panel.ingame_window.sac_panel.change_page(1)
                                     elif game.classic_panel.ingame_window.sac_panel.page2_rect.collidepoint(posSouris):
                                         game.classic_panel.ingame_window.sac_panel.change_page(2)
+                                elif game.classic_panel.ingame_window.name == 'Starters':
+                                    if game.classic_panel.ingame_window.starters_panel.pk1_rect.collidepoint(posSouris):
+                                        game.classic_panel.ingame_window.starters_panel.decouvrir_pk(0)
+                                    elif game.classic_panel.ingame_window.starters_panel.pk2_rect.collidepoint(posSouris):
+                                        game.classic_panel.ingame_window.starters_panel.decouvrir_pk(1)
+                                    elif game.classic_panel.ingame_window.starters_panel.pk3_rect.collidepoint(posSouris):
+                                        game.classic_panel.ingame_window.starters_panel.decouvrir_pk(2)
 
                         else:
-                            if game.classic_panel.player_name_rect.collidepoint(posSouris):
-                                game.classic_panel.change_player_name_mode = True
-                                game.player.name = ""
-                                game.classic_panel.is_pname_modif = True
+                            if not game.classic_panel.pk_move_mode:
+                                if game.classic_panel.player_name_rect.collidepoint(posSouris):
+                                    game.classic_panel.change_player_name_mode = True
+                                    game.player.name = ""
+                                    game.classic_panel.is_pname_modif = True
 
-                            if not game.classic_panel.ingame_window.name == 'Starters':
-                                if game.classic_panel.buttons.spawn_button_rect.collidepoint(posSouris):
-                                    game.classic_panel.ingame_window.update_name('spawn')
-                                    game.classic_panel.ingame_window.open()
-                                    game.classic_panel.ingame_window.maximize()
-                                elif game.classic_panel.buttons.train_button_rect.collidepoint(posSouris):
-                                    game.classic_panel.ingame_window.update_name('train')
-                                    game.classic_panel.ingame_window.open()
-                                    game.classic_panel.ingame_window.maximize()
-                                elif game.classic_panel.buttons.grind_button_rect.collidepoint(posSouris):
-                                    game.classic_panel.ingame_window.update_name('grind')
-                                    game.classic_panel.ingame_window.open()
-                                    game.classic_panel.ingame_window.maximize()
-                                elif game.classic_panel.buttons.items_button_rect.collidepoint(posSouris):
-                                    game.classic_panel.ingame_window.update_name('items')
-                                    game.classic_panel.ingame_window.open()
-                                    game.classic_panel.ingame_window.maximize()
-                                elif game.classic_panel.buttons.evol_button_rect.collidepoint(posSouris):
-                                    game.classic_panel.ingame_window.update_name('evolutions')
-                                    game.classic_panel.ingame_window.open()
-                                    game.classic_panel.ingame_window.maximize()
-                                if game.classic_panel.sac_button_rect.collidepoint(posSouris):
-                                    game.classic_panel.ingame_window.update_name("Sac d'objets")
-                                    game.classic_panel.ingame_window.open()
-                                    game.classic_panel.ingame_window.maximize()
+                                if not game.classic_panel.ingame_window.name == 'Starters':
+                                    if game.classic_panel.buttons.spawn_button_rect.collidepoint(posSouris):
+                                        game.classic_panel.ingame_window.update_name('spawn')
+                                        game.classic_panel.ingame_window.open()
+                                        game.classic_panel.ingame_window.maximize()
+                                    elif game.classic_panel.buttons.train_button_rect.collidepoint(posSouris):
+                                        game.classic_panel.ingame_window.update_name('train')
+                                        game.classic_panel.ingame_window.open()
+                                        game.classic_panel.ingame_window.maximize()
+                                    elif game.classic_panel.buttons.grind_button_rect.collidepoint(posSouris):
+                                        game.classic_panel.ingame_window.update_name('grind')
+                                        game.classic_panel.ingame_window.open()
+                                        game.classic_panel.ingame_window.maximize()
+                                    elif game.classic_panel.buttons.items_button_rect.collidepoint(posSouris):
+                                        game.classic_panel.ingame_window.update_name('items')
+                                        game.classic_panel.ingame_window.open()
+                                        game.classic_panel.ingame_window.maximize()
+                                    elif game.classic_panel.buttons.evol_button_rect.collidepoint(posSouris):
+                                        game.classic_panel.ingame_window.update_name('evolutions')
+                                        game.classic_panel.ingame_window.open()
+                                        game.classic_panel.ingame_window.maximize()
+                                    if game.classic_panel.sac_button_rect.collidepoint(posSouris):
+                                        game.classic_panel.ingame_window.update_name("Sac d'objets")
+                                        game.classic_panel.ingame_window.open()
+                                        game.classic_panel.ingame_window.maximize()
 
                     if game.classic_panel.ingame_window.window_pos_modif_mode:
                         game.classic_panel.ingame_window.window_pos_modif_mode = False
