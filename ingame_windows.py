@@ -53,7 +53,7 @@ class IngameWindow:
         self.title = self.title_font.render(self.name, False, (0, 0, 0))
         self.title_marge = 75
 
-        self.sac_panel = sac.SacIngamePanel()
+        self.sac_panel = sac.SacIngamePanel(self.game)
         self.starters_panel = starters.StartersPanel(self.game)
 
     def update(self, surface, possouris):
@@ -84,7 +84,7 @@ class IngameWindow:
             if self.sac_panel.is_hovering_buttons(possouris, self.main_window_pos):
                 return True
         elif self.name == 'Starters':
-            if self.starters_panel.is_hovering_buttons(possouris, self.main_window_pos):
+            if self.starters_panel.is_hovering_buttons(possouris):
                 return True
         return False
 

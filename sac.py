@@ -3,7 +3,9 @@ import pygame
 
 class SacIngamePanel:
 
-    def __init__(self):
+    def __init__(self, game):
+        self.game = game
+
         self.background1 = pygame.image.load("assets/game/ingame_windows/Sac d'objets/background1.png")
         self.background2 = pygame.image.load("assets/game/ingame_windows/Sac d'objets/background2.png")
         self.emp_hover = pygame.image.load("assets/game/ingame_windows/Sac d'objets/emp_hover.png")
@@ -91,6 +93,10 @@ class SacIngamePanel:
 
         if self.all_emp_rect[i].collidepoint(possouris):
             surface.blit(self.emp_hover, (window_pos[0] + x, window_pos[1] + y))
+
+        if self.page == 1:
+            if self.game.player.sac_page1[i-1]:
+                surface.blit(pygame.transform.scale(self.game.player.sac_page1[i-1].icon_image, (100, 100)), self.all_emp_rect[i])
 
     def is_hovering_buttons(self, possouris, window_pos):
         if self.all_emp_rect[1].collidepoint(possouris) or self.all_emp_rect[2].collidepoint(possouris) or \

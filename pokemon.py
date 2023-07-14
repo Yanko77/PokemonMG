@@ -6,7 +6,7 @@ import attaques
 
 class Pokemon:
 
-    def __init__(self, name, level, is_shiny=None, objet_tenu=objet.Objet("Nothing")):
+    def __init__(self, name, level, is_shiny=None, objet_tenu=None):
         self.name = name[0].upper() + name[1:].lower()
         self.is_shiny = self.def_shiny(is_shiny)
 

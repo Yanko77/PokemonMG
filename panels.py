@@ -55,7 +55,7 @@ class StartGamePanel:
 
 class ClassicGamePanel:
 
-    def __init__(self, player, game):
+    def __init__(self, game):
         self.is_pname_modif = False
         self.change_player_name_mode = False
 
@@ -76,7 +76,7 @@ class ClassicGamePanel:
         self.pokemon_level_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 15)
         self.pokemon_hp_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 18)
 
-        self.player = player
+        self.player = game.player
         self.player_name = self.player.name
 
         self.player_name_image = self.font.render(self.player_name, False, (15, 0, 124))
@@ -94,6 +94,10 @@ class ClassicGamePanel:
         self.buttons = image.ClassicGamePanelButtons()
         self.sac_button_hover = self.create_rect_alpha((218, 215), (113, 64, 30))  # pygame.Rect(667, 465, 218, 215)
         self.sac_button_rect = pygame.Rect(667, 465, 218, 215)
+
+        self.logo_pk_suppr = pygame.image.load('assets/game/panels/classic_panel/logo_suppr_pk.png')
+        self.logo_pk_suppr_rect = pygame.Rect(1085, 46, 150, 150)
+        self.logo_pk_suppr_hover = pygame.image.load('assets/game/panels/classic_panel/logo_suppr_pk_hover.png')
 
         self.PK_RECTS = [pygame.Rect(900, 275, 369, 69), pygame.Rect(900, 348, 369, 69), pygame.Rect(900, 421, 369, 69),
                          pygame.Rect(900, 494, 369, 69), pygame.Rect(900, 567, 369, 69), pygame.Rect(900, 640, 369, 69)]
@@ -180,60 +184,71 @@ class ClassicGamePanel:
             self.player.team[i1], self.player.team[i2] = self.player.team[i2], self.player.team[i1]
 
     def update_pokemon(self, surface, possouris, i):
-        if self.player.team[i] is not None:
-            if not self.pk_move_mode and not self.ingame_window.main_window_rect.collidepoint(possouris) and not self.ingame_window.window_pos_modif_mode:
-                if self.game.mouse_pressed[1] and self.pk_rects[i].collidepoint(possouris):
-                    self.pk_move_mode = True
-                    self.moving_pk[i] = True
-                    self.rel_possouris_pk_move_mode = [0, 0]
-                    self.saved_possouris = possouris
+        if self.game.player.team[i] is not None:
+            if not self.ingame_window.starters_panel.pk_move_mode:
+                if not self.pk_move_mode and not self.ingame_window.main_window_rect.collidepoint(possouris) and not self.ingame_window.window_pos_modif_mode:
+                    if self.game.mouse_pressed[1] and self.pk_rects[i].collidepoint(possouris):
+                        self.pk_move_mode = True
+                        self.moving_pk[i] = True
+                        self.rel_possouris_pk_move_mode = [0, 0]
+                        self.saved_possouris = possouris
 
-            if self.pk_move_mode and self.moving_pk[i]:
-                if not self.game.mouse_pressed[1]:
-                    if self.PK_RECTS[0].collidepoint(possouris):
-                        self.change_pk_place(i, 0)
-                    elif self.PK_RECTS[1].collidepoint(possouris):
-                        self.change_pk_place(i, 1)
-                    elif self.PK_RECTS[2].collidepoint(possouris):
-                        self.change_pk_place(i, 2)
-                    elif self.PK_RECTS[3].collidepoint(possouris):
-                        self.change_pk_place(i, 3)
-                    elif self.PK_RECTS[4].collidepoint(possouris):
-                        self.change_pk_place(i, 4)
-                    elif self.PK_RECTS[5].collidepoint(possouris):
-                        self.change_pk_place(i, 5)
+                if self.pk_move_mode and self.moving_pk[i]:
+                    if not self.logo_pk_suppr_rect.collidepoint(possouris):
+                        surface.blit(self.logo_pk_suppr, (0, 0))
 
-                    self.pk_move_mode = False
-                    self.moving_pk[i] = False
-                    self.pk_rects = [pygame.Rect(900, 275, 369, 69), pygame.Rect(900, 348, 369, 69),
-                                     pygame.Rect(900, 421, 369, 69), pygame.Rect(900, 494, 369, 69),
-                                     pygame.Rect(900, 567, 369, 69), pygame.Rect(900, 640, 369, 69)]
-                else:
-                    self.rel_possouris_pk_move_mode = (possouris[0] - self.saved_possouris[0], possouris[1] - self.saved_possouris[1])
-                    self.pk_rects[i].x = self.PK_RECTS[i].x + self.rel_possouris_pk_move_mode[0]
-                    self.pk_rects[i].y = self.PK_RECTS[i].y + self.rel_possouris_pk_move_mode[1]
+                    if not self.game.mouse_pressed[1]:
+                        if self.PK_RECTS[0].collidepoint(possouris):
+                            self.change_pk_place(i, 0)
+                        elif self.PK_RECTS[1].collidepoint(possouris):
+                            self.change_pk_place(i, 1)
+                        elif self.PK_RECTS[2].collidepoint(possouris):
+                            self.change_pk_place(i, 2)
+                        elif self.PK_RECTS[3].collidepoint(possouris):
+                            self.change_pk_place(i, 3)
+                        elif self.PK_RECTS[4].collidepoint(possouris):
+                            self.change_pk_place(i, 4)
+                        elif self.PK_RECTS[5].collidepoint(possouris):
+                            self.change_pk_place(i, 5)
+                        elif self.logo_pk_suppr_rect.collidepoint(possouris):
+                            if not self.game.player.get_nb_team_members() <= 1:
+                                self.game.player.team[i] = None
 
-            surface.blit(self.player.team[i].icon_image, (self.pk_rects[i].x, self.pk_rects[i].y-5), (0, 0, 64, 64))
-            surface.blit(self.pokemon_name_font.render(self.player.team[i].name, False, (0, 0, 0)), (self.pk_rects[i].x+70, self.pk_rects[i].y + 13))
-            surface.blit(self.pokemon_level_font.render('Lv.' + str(self.player.team[i].level), False, (0, 0, 0)), (self.pk_rects[i].x+60, self.pk_rects[i].y + 42))
+                        self.pk_move_mode = False
+                        self.moving_pk[i] = False
+                        self.pk_rects = [pygame.Rect(900, 275, 369, 69), pygame.Rect(900, 348, 369, 69),
+                                         pygame.Rect(900, 421, 369, 69), pygame.Rect(900, 494, 369, 69),
+                                         pygame.Rect(900, 567, 369, 69), pygame.Rect(900, 640, 369, 69)]
+                    else:
+                        self.rel_possouris_pk_move_mode = (possouris[0] - self.saved_possouris[0], possouris[1] - self.saved_possouris[1])
+                        self.pk_rects[i].x = self.PK_RECTS[i].x + self.rel_possouris_pk_move_mode[0]
+                        self.pk_rects[i].y = self.PK_RECTS[i].y + self.rel_possouris_pk_move_mode[1]
 
-            pygame.draw.rect(surface, (35, 35, 35),
-                             pygame.Rect(self.pk_rects[i].x + 200, self.pk_rects[i].y + 26, 150, 17))
-            pygame.draw.rect(surface, (42, 214, 0), pygame.Rect(self.pk_rects[i].x + 200,
-                                                                self.pk_rects[i].y + 26,
-                                                                self.player.team[i].health / self.player.team[i].pv * 150,
-                                                                17))
-            surface.blit(self.pokemon_hp_font.render(str(self.player.team[i].health) + "/" + str(self.player.team[i].pv),
-                                                     False, (0, 0, 0)), (self.pk_rects[i].x + 200, self.pk_rects[i].y + 40))
+                        if self.logo_pk_suppr_rect.collidepoint(possouris):
+                            surface.blit(self.logo_pk_suppr_hover, (0, 0))
 
-            if i in [0, 2, 4]:
-                color = (255, 255, 255)
-            else:
-                color = (163, 171, 255)
+            if self.game.player.team[i] is not None:
+                surface.blit(self.player.team[i].icon_image, (self.pk_rects[i].x, self.pk_rects[i].y-5), (0, 0, 64, 64))
+                surface.blit(self.pokemon_name_font.render(self.player.team[i].name, False, (0, 0, 0)), (self.pk_rects[i].x+70, self.pk_rects[i].y + 13))
+                surface.blit(self.pokemon_level_font.render('Lv.' + str(self.player.team[i].level), False, (0, 0, 0)), (self.pk_rects[i].x+60, self.pk_rects[i].y + 42))
 
-            if not self.ingame_window.main_window_rect.collidepoint(possouris):
-                if self.pk_rects[i].collidepoint(possouris):
-                    surface.blit(self.create_rect_alpha((369, 69), color), (self.pk_rects[i].x, self.pk_rects[i].y))
+                pygame.draw.rect(surface, (35, 35, 35),
+                                 pygame.Rect(self.pk_rects[i].x + 200, self.pk_rects[i].y + 26, 150, 17))
+                pygame.draw.rect(surface, (42, 214, 0), pygame.Rect(self.pk_rects[i].x + 200,
+                                                                    self.pk_rects[i].y + 26,
+                                                                    self.player.team[i].health / self.player.team[i].pv * 150,
+                                                                    17))
+                surface.blit(self.pokemon_hp_font.render(str(self.player.team[i].health) + "/" + str(self.player.team[i].pv),
+                                                         False, (0, 0, 0)), (self.pk_rects[i].x + 200, self.pk_rects[i].y + 40))
+
+        if i in [0, 2, 4]:
+            color = (255, 255, 255)
+        else:
+            color = (163, 171, 255)
+
+        if not self.ingame_window.main_window_rect.collidepoint(possouris):
+            if self.pk_rects[i].collidepoint(possouris):
+                surface.blit(self.create_rect_alpha((369, 69), color), (self.pk_rects[i].x, self.pk_rects[i].y))
 
     def is_hovering_team_pokemon(self, possouris):
         if not self.pk_rects[0].collidepoint(possouris) and not self.pk_rects[1].collidepoint(possouris):

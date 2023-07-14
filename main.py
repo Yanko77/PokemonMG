@@ -1,11 +1,7 @@
-import random
-import spawn
-import pokemon
 import pygame
 from game import Game
 
-FPS = 60
-
+FPS = 2000
 screen = pygame.display.set_mode((1280, 720))
 icon = pygame.image.load("assets/icon.png")
 pygame.display.set_caption("PMG || Pokemon Management Game")
@@ -232,6 +228,8 @@ while running:
                                 if game.classic_panel.ingame_window.buttons.x_button_rect.collidepoint(posSouris):
                                     if not game.classic_panel.ingame_window.name == 'Starters':
                                         game.classic_panel.ingame_window.close()
+                                    elif game.is_starter_selected:
+                                        game.classic_panel.ingame_window.close()
                                 elif game.classic_panel.ingame_window.buttons.min_button_rect.collidepoint(posSouris):
                                     game.classic_panel.ingame_window.minimize()
                                 elif game.classic_panel.ingame_window.is_minimized:
@@ -245,6 +243,8 @@ while running:
                                 if game.classic_panel.ingame_window.buttons.x_button_rect.collidepoint(posSouris):
                                     if not game.classic_panel.ingame_window.name == 'Starters':
                                         game.classic_panel.ingame_window.close()
+                                    elif game.is_starter_selected:
+                                        game.classic_panel.ingame_window.close()
                                 elif game.classic_panel.ingame_window.buttons.min_button_rect.collidepoint(posSouris):
                                     game.classic_panel.ingame_window.minimize()
                                 elif game.classic_panel.ingame_window.name == "Sac d'objets":
@@ -253,11 +253,11 @@ while running:
                                     elif game.classic_panel.ingame_window.sac_panel.page2_rect.collidepoint(posSouris):
                                         game.classic_panel.ingame_window.sac_panel.change_page(2)
                                 elif game.classic_panel.ingame_window.name == 'Starters':
-                                    if game.classic_panel.ingame_window.starters_panel.pk1_rect.collidepoint(posSouris):
+                                    if game.classic_panel.ingame_window.starters_panel.pk_rects[0].collidepoint(posSouris):
                                         game.classic_panel.ingame_window.starters_panel.decouvrir_pk(0)
-                                    elif game.classic_panel.ingame_window.starters_panel.pk2_rect.collidepoint(posSouris):
+                                    elif game.classic_panel.ingame_window.starters_panel.pk_rects[1].collidepoint(posSouris):
                                         game.classic_panel.ingame_window.starters_panel.decouvrir_pk(1)
-                                    elif game.classic_panel.ingame_window.starters_panel.pk3_rect.collidepoint(posSouris):
+                                    elif game.classic_panel.ingame_window.starters_panel.pk_rects[2].collidepoint(posSouris):
                                         game.classic_panel.ingame_window.starters_panel.decouvrir_pk(2)
 
                         else:
@@ -267,7 +267,7 @@ while running:
                                     game.player.name = ""
                                     game.classic_panel.is_pname_modif = True
 
-                                if not game.classic_panel.ingame_window.name == 'Starters':
+                                if game.is_starter_selected:
                                     if game.classic_panel.buttons.spawn_button_rect.collidepoint(posSouris):
                                         game.classic_panel.ingame_window.update_name('spawn')
                                         game.classic_panel.ingame_window.open()

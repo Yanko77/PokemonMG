@@ -24,8 +24,6 @@ class Game:
 
         self.accueil = accueil.Accueil()
 
-
-
         self.all_starters = {'feu': ['Salameche', 'Poussifeu'],
                              'eau': ['Carapuce', 'Gobou'],
                              'plante': ['Bulbizarre', 'Arcko']}
@@ -36,7 +34,7 @@ class Game:
 
         '''self.starter = '''
 
-        self.classic_panel = panels.ClassicGamePanel(self.player, self)
+        self.classic_panel = panels.ClassicGamePanel(self)
         self.classic_panel.def_alphabet_pixels(alphabet_pixels)
 
         self.save_file = open('save.txt', 'r+')
