@@ -185,7 +185,7 @@ class ClassicGamePanel:
 
     def update_pokemon(self, surface, possouris, i):
         if self.game.player.team[i] is not None:
-            if not self.ingame_window.starters_panel.pk_move_mode:
+            if not self.ingame_window.starters_panel.pk_move_mode and not self.ingame_window.sac_panel.emp_move_mode:
                 if not self.pk_move_mode and not self.ingame_window.main_window_rect.collidepoint(possouris) and not self.ingame_window.window_pos_modif_mode:
                     if self.game.mouse_pressed[1] and self.pk_rects[i].collidepoint(possouris):
                         self.pk_move_mode = True

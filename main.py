@@ -132,7 +132,8 @@ old_posSouris = (0, 0)
 while running:
     posSouris = list(pygame.mouse.get_pos())
     if game.mouse_pressed[1]:
-        if not game.classic_panel.pk_move_mode:
+        if not game.classic_panel.pk_move_mode and not game.classic_panel.ingame_window.sac_panel.emp_move_mode and not \
+                game.classic_panel.ingame_window.starters_panel.pk_move_mode:
             if game.classic_panel.ingame_window.main_window_bar_rect.collidepoint(posSouris):
                 game.classic_panel.ingame_window.window_pos_modif_mode = True
             if game.classic_panel.ingame_window.window_pos_modif_mode:
@@ -253,11 +254,14 @@ while running:
                                     elif game.classic_panel.ingame_window.sac_panel.page2_rect.collidepoint(posSouris):
                                         game.classic_panel.ingame_window.sac_panel.change_page(2)
                                 elif game.classic_panel.ingame_window.name == 'Starters':
-                                    if game.classic_panel.ingame_window.starters_panel.pk_rects[0].collidepoint(posSouris):
+                                    if game.classic_panel.ingame_window.starters_panel.pk_rects[0].collidepoint(
+                                            posSouris):
                                         game.classic_panel.ingame_window.starters_panel.decouvrir_pk(0)
-                                    elif game.classic_panel.ingame_window.starters_panel.pk_rects[1].collidepoint(posSouris):
+                                    elif game.classic_panel.ingame_window.starters_panel.pk_rects[1].collidepoint(
+                                            posSouris):
                                         game.classic_panel.ingame_window.starters_panel.decouvrir_pk(1)
-                                    elif game.classic_panel.ingame_window.starters_panel.pk_rects[2].collidepoint(posSouris):
+                                    elif game.classic_panel.ingame_window.starters_panel.pk_rects[2].collidepoint(
+                                            posSouris):
                                         game.classic_panel.ingame_window.starters_panel.decouvrir_pk(2)
 
                         else:
@@ -309,6 +313,5 @@ while running:
             game.mouse_pressed[event.button] = True
 
     clock.tick(FPS)
-
 
 pygame.quit()

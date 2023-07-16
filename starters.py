@@ -54,6 +54,9 @@ class StartersPanel:
 
     def update_rect_pos(self, window_pos):
         self.button_aide_rect = pygame.Rect(800 + window_pos[0], 444 + window_pos[1], 42, 42)
+        self.PK_RECTS = [pygame.Rect(80 + window_pos[0], 84 + window_pos[1], 190, 190),
+                         pygame.Rect(362 + window_pos[0], 84 + window_pos[1], 190, 190),
+                         pygame.Rect(642 + window_pos[0], 84 + window_pos[1], 190, 190)]
         self.pk_rects = [pygame.Rect(80 + window_pos[0], 84 + window_pos[1], 190, 190),
                          pygame.Rect(362 + window_pos[0], 84 + window_pos[1], 190, 190),
                          pygame.Rect(642 + window_pos[0], 84 + window_pos[1], 190, 190)]
