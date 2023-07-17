@@ -16,8 +16,10 @@ class Player:
                      None,
                      None,
                      None]
-        self.sac_page1 = [None, None, None, None, None, None, Objet('CD'), None, None, None, None, None]
+        self.sac_page1 = [Objet('Fer'), Objet('Mouchoir_Soie'), None, Objet('Casquette_de_Nathan'), None, None, Objet('Collier_Agathe'), None, None, None, None, None]
         self.sac_page2 = [None, None, None, None, None, None, None, None, None, None, None, None]
+
+        self.money = 0
 
     def evol_pk(self, i=0):
         if self.team[i] is not None:

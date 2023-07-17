@@ -158,9 +158,8 @@ while running:
             if event.key == pygame.K_p:
                 game.classic_panel.change_pk_place(0, 1)
             elif event.key == pygame.K_o:
-                game.classic_panel.ingame_window.update_name("Sac d'objets")
-                game.classic_panel.ingame_window.open()
-                game.classic_panel.ingame_window.maximize()
+                if game.player.sac_page1[6] is not None:
+                    game.player.sac_page1[6].quantite += 1
 
             if game.classic_panel.change_player_name_mode:
                 if event.key == pygame.K_RETURN:

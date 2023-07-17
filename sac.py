@@ -1,4 +1,5 @@
 import pygame
+pygame.font.init()
 
 
 class SacIngamePanel:
@@ -13,6 +14,10 @@ class SacIngamePanel:
         self.page2_hover = pygame.image.load("assets/game/ingame_windows/Sac d'objets/page2_hover.png")
         self.page1_rect = pygame.Rect(331, 40, 52, 52)
         self.page2_rect = pygame.Rect(387, 40, 52, 52)
+
+        self.quantite_font = pygame.font.Font('assets/fonts/Impact.ttf', 30)
+        self.title_item_font = pygame.font.Font('assets/fonts/Impact.ttf', 45)
+        self.desc_item_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 20)
 
         self.ALL_EMP_RECT = {
             1: pygame.Rect(463, 46, 100, 100),
@@ -44,6 +49,7 @@ class SacIngamePanel:
             12: pygame.Rect(784, 260, 100, 100)
         }
         self.page = 1
+        self.selected_item = None
 
         self.emp_move_mode = False
         self.emp_moving = [False, False, False, False, False, False, False, False, False, False, False, False]
@@ -75,6 +81,18 @@ class SacIngamePanel:
         self.update_emp(surface, possouris, window_pos, 11)
         self.update_emp(surface, possouris, window_pos, 12)
         self.update_rect_pos(window_pos)
+
+        if self.selected_item is not None:
+            surface.blit(self.title_item_font.render(self.selected_item.name_to_blit.upper(), False, (0, 0, 0)),
+                         (window_pos[0] + (885-self.title_item_font.render(self.selected_item.name_to_blit.upper(), False, (0, 0, 0)).get_rect().w), window_pos[1] + 380))
+
+            item_desc_lines = self.reformate_item_desc(self.selected_item.description)
+            surface.blit(self.desc_item_font.render(str(item_desc_lines[0]), False, (20, 20, 20)),
+                         (window_pos[0] + (885-self.desc_item_font.render(str(item_desc_lines[0]), False, (0, 0, 0)).get_rect().w), window_pos[1] + 430))
+            surface.blit(self.desc_item_font.render(str(item_desc_lines[1]), False, (20, 20, 20)),
+                         (window_pos[0] + (885-self.desc_item_font.render(str(item_desc_lines[1]), False, (0, 0, 0)).get_rect().w), window_pos[1] + 455))
+            surface.blit(self.desc_item_font.render(str(item_desc_lines[2]), False, (20, 20, 20)),
+                         (window_pos[0] + (885-self.desc_item_font.render(str(item_desc_lines[2]), False, (0, 0, 0)).get_rect().w), window_pos[1] + 480))
 
     def update_rect_pos(self, window_pos):
         self.ALL_EMP_RECT = {
@@ -129,6 +147,7 @@ class SacIngamePanel:
                     self.emp_moving[i-1] = True
                     self.rel_possouris = [0, 0]
                     self.saved_posouris = possouris
+                    self.selected_item = current_page[i-1]
 
             if self.emp_move_mode and self.emp_moving[i-1]:
                 if not self.game.mouse_pressed[1]:
@@ -170,6 +189,13 @@ class SacIngamePanel:
         if self.page == 1:
             if self.game.player.sac_page1[i-1] is not None:
                 surface.blit(pygame.transform.scale(self.game.player.sac_page1[i-1].icon_image, (100, 100)), self.all_emp_rect[i])
+                if not self.game.player.sac_page1[i-1].quantite == 1 and self.game.player.sac_page1[i-1].quantite < 10:
+                    surface.blit(self.quantite_font.render(str(self.game.player.sac_page1[i-1].quantite), False, (255, 255, 255)), (self.all_emp_rect[i].x + 81, self.all_emp_rect[i].y + 65))
+                elif 10 <= self.game.player.sac_page1[i - 1].quantite < 100:
+                    surface.blit(self.quantite_font.render(str(self.game.player.sac_page1[i-1].quantite), False, (255, 255, 255)), (self.all_emp_rect[i].x + 68, self.all_emp_rect[i].y + 65))
+                elif self.game.player.sac_page1[i-1].quantite > 99:
+                    self.game.player.sac_page1[i-1].quantite = 99
+
         elif self.page == 2:
             if self.game.player.sac_page2[i-1] is not None:
                 surface.blit(pygame.transform.scale(self.game.player.sac_page2[i - 1].icon_image, (100, 100)),
@@ -189,3 +215,18 @@ class SacIngamePanel:
 
     def change_page(self, num):
         self.page = num
+
+    def reformate_item_desc(self, desc):
+        l1 = desc
+        l2 = ''
+        l3 = ''
+
+        while self.desc_item_font.render(l1, False, (0, 0, 0)).get_rect().w > 480:
+            l2 = l1.split()[-1] + ' ' + l2
+            l1 = l1[:-(len(l1.split()[-1])+1)]
+        while self.desc_item_font.render(l2, False, (0, 0, 0)).get_rect().w > 500:
+            l3 = l2.split()[-1] + ' ' + l3
+            l2 = l2[:-(len(l2.split()[-1])+1)]
+
+        return l1, l2, l3
+
