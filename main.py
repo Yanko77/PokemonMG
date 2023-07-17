@@ -1,7 +1,7 @@
 import pygame
 from game import Game
 
-FPS = 2000
+FPS = 60
 screen = pygame.display.set_mode((1280, 720))
 icon = pygame.image.load("assets/icon.png")
 pygame.display.set_caption("PMG || Pokemon Management Game")

@@ -19,8 +19,10 @@ class Pokemon:
         self.type = str(self.line[2])
         self.type2 = str(self.line[10])
 
-        self.pv = round((2 * int(self.line[3]) * self.level)/100 + self.level + 10)
-        self.health = self.pv
+        self.bonus_pvmax = 0
+        self.pv = round((2 * int(self.line[3]) * self.level)/100 + self.level + 10) + self.bonus_pvmax
+        self.health = self.pv + self.bonus_pvmax
+
         self.attack = round((2 * int(self.line[4]) * self.level)/100 + 5)
 
         self.defense = round((2 * int(self.line[5]) * self.level)/100 + 5)
@@ -47,7 +49,7 @@ class Pokemon:
     def level_up(self, nb_lv=1):
         self.level += nb_lv
         diff = self.pv - self.health
-        self.pv = round((2*int(self.line[3])*self.level)/100 + self.level + 10)
+        self.pv = round((2*int(self.line[3])*self.level)/100 + self.level + 10) + self.bonus_pvmax
         self.health = self.pv - diff
         self.attack = round((2 * int(self.line[4]) * self.level)/100 + 5)
         self.defense = round((2 * int(self.line[5]) * self.level)/100 + 5)
@@ -96,6 +98,18 @@ class Pokemon:
         degats = round((((((self.level * 0.4 + 2) * self.attack * attaque.puissance) / self.defense) / 50) + 2) * cm)
         pokemon.damage(degats)
         print(degats)
+
+    def use_item(self, item_name):
+        if item_name == 'PV_Plus':
+            self.bonus_pvmax += 1 + round(self.pv*5/100)
+            diff = self.pv - self.health
+            self.pv = round((2 * int(self.line[3]) * self.level) / 100 + self.level + 10) + self.bonus_pvmax
+            self.health = self.pv - diff
+            print('augmentation pv de', str(self.bonus_pvmax))
+        elif item_name == 'Super_Bonbon':
+            self.level_up(1)
+
+
 
     def def_shiny(self, is_shiny):
         if is_shiny is None:

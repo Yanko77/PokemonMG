@@ -86,6 +86,8 @@ class ClassicGamePanel:
         self.player_name_rect = pygame.Rect(656, 12, 399, 51)
         self.player_name_hover = pygame.image.load("assets/game/panels/classic_panel/player_name_hover.png")
 
+        self.money_font = pygame.font.Font('assets/fonts/Impact.ttf', 35)
+
         self.alphabet_pixels = {}
 
         self.current_ig_window_name = 'Unknown'
@@ -122,6 +124,8 @@ class ClassicGamePanel:
             surface.blit(self.player_lv_image, (955, 73))
         else:
             surface.blit(self.player_lv_image, (965, 73))
+
+        surface.blit(self.money_font.render(str(self.game.player.money), False, (255, 255, 255)), (767, 71))
 
         self.update_team_pokemons(surface, possouris)
         self.buttons.update(surface, possouris, self.ingame_window)

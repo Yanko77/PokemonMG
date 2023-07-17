@@ -4,15 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="new fonctionnalité : changement place objet dans sac.&#10;résolution bug interactions entre :&#10;  window_modif_pos &amp; starter.pk_move_mode&#10;  window_modif_pos &amp; sac.emp_move_mode">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add description  item name for sac d'objets">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/all_objets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/all_objets.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_objets.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Sac d'objets/background1.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/ingame_windows/Sac d'objets/background1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Sac d'objets/background2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/ingame_windows/Sac d'objets/background2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/background.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/panels/classic_panel/background.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/objet.py" beforeDir="false" afterPath="$PROJECT_DIR$/objet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panels.py" beforeDir="false" afterPath="$PROJECT_DIR$/panels.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sac.py" beforeDir="false" afterPath="$PROJECT_DIR$/sac.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/starters.py" beforeDir="false" afterPath="$PROJECT_DIR$/starters.py" afterDir="false" />
     </list>
     <list id="5c1a25cb-1809-4cdc-b078-5066dcb10137" name="Changes by Mathias Farvacque" comment="Changes by Mathias Farvacque" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -63,6 +67,7 @@
       <option value="200" />
       <option value="300" />
     </hideBySeverity>
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2R9QZ1D1JLZELWGXamy94TMfapC" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -367,7 +372,21 @@
       <option name="project" value="LOCAL" />
       <updated>1689510680767</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="add description  item name for sac d'objets">
+      <created>1689609331701</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1689609331701</updated>
+    </task>
+    <task id="LOCAL-00025" summary="add description  item name for sac d'objets">
+      <created>1689609336765</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1689609336765</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -405,6 +424,7 @@
     <MESSAGE value="finished starter choice etape" />
     <MESSAGE value="finished starter choice etap" />
     <MESSAGE value="new fonctionnalité : changement place objet dans sac.&#10;résolution bug interactions entre :&#10;  window_modif_pos &amp; starter.pk_move_mode&#10;  window_modif_pos &amp; sac.emp_move_mode" />
-    <option name="LAST_COMMIT_MESSAGE" value="new fonctionnalité : changement place objet dans sac.&#10;résolution bug interactions entre :&#10;  window_modif_pos &amp; starter.pk_move_mode&#10;  window_modif_pos &amp; sac.emp_move_mode" />
+    <MESSAGE value="add description  item name for sac d'objets" />
+    <option name="LAST_COMMIT_MESSAGE" value="add description  item name for sac d'objets" />
   </component>
 </project>

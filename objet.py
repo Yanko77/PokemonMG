@@ -1,4 +1,5 @@
 import pygame
+pygame.font.init()
 
 
 class Objet:
@@ -18,7 +19,7 @@ class Objet:
                                  int(self.d_spawn_infos[2].split('-')[1])]
 
         self.categorie = self.line[2]
-        self.fonctionnement = self.line[3]
+        self.fonctionnement = self.line[3].split('/')
 
         self.can_be_buy = int(self.line[4].split(':')[0])
         if self.can_be_buy:
@@ -33,7 +34,9 @@ class Objet:
                 self.variable_sell_price = False
                 self.sell_price = int(self.line[5].split(':')[1])
 
+        self.desc_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 17)
         self.description = self.line[6][:-1]
+        self.description = self.reformate_desc(self.description)
 
     def find_item_line(self):
         with open('all_objets.txt') as file:
@@ -56,3 +59,17 @@ class Objet:
                 reformated_name = "Collier d'Agathe"
 
         return reformated_name
+
+    def reformate_desc(self, desc):
+        l1 = desc
+        l2 = ''
+        l3 = ''
+
+        while self.desc_font.render(l1, False, (0, 0, 0)).get_rect().w > 400:
+            l2 = l1.split()[-1] + ' ' + l2
+            l1 = l1[:-(len(l1.split()[-1])+1)]
+        while self.desc_font.render(l2, False, (0, 0, 0)).get_rect().w > 400:
+            l3 = l2.split()[-1] + ' ' + l3
+            l2 = l2[:-(len(l2.split()[-1])+1)]
+
+        return l1, l2, l3

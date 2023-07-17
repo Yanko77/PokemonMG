@@ -17,7 +17,8 @@ class SacIngamePanel:
 
         self.quantite_font = pygame.font.Font('assets/fonts/Impact.ttf', 30)
         self.title_item_font = pygame.font.Font('assets/fonts/Impact.ttf', 45)
-        self.desc_item_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 20)
+        self.desc_item_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 17)
+        self.prices_item_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 25)
 
         self.ALL_EMP_RECT = {
             1: pygame.Rect(463, 46, 100, 100),
@@ -86,13 +87,25 @@ class SacIngamePanel:
             surface.blit(self.title_item_font.render(self.selected_item.name_to_blit.upper(), False, (0, 0, 0)),
                          (window_pos[0] + (885-self.title_item_font.render(self.selected_item.name_to_blit.upper(), False, (0, 0, 0)).get_rect().w), window_pos[1] + 380))
 
-            item_desc_lines = self.reformate_item_desc(self.selected_item.description)
-            surface.blit(self.desc_item_font.render(str(item_desc_lines[0]), False, (20, 20, 20)),
-                         (window_pos[0] + (885-self.desc_item_font.render(str(item_desc_lines[0]), False, (0, 0, 0)).get_rect().w), window_pos[1] + 430))
-            surface.blit(self.desc_item_font.render(str(item_desc_lines[1]), False, (20, 20, 20)),
-                         (window_pos[0] + (885-self.desc_item_font.render(str(item_desc_lines[1]), False, (0, 0, 0)).get_rect().w), window_pos[1] + 455))
-            surface.blit(self.desc_item_font.render(str(item_desc_lines[2]), False, (20, 20, 20)),
-                         (window_pos[0] + (885-self.desc_item_font.render(str(item_desc_lines[2]), False, (0, 0, 0)).get_rect().w), window_pos[1] + 480))
+            '''item_desc_lines = self.reformate_item_desc(self.selected_item.description)'''
+            surface.blit(self.desc_item_font.render(self.selected_item.description[0], False, (20, 20, 20)),
+                         (window_pos[0] + (885-self.desc_item_font.render(self.selected_item.description[0], False, (0, 0, 0)).get_rect().w), window_pos[1] + 430))
+            surface.blit(self.desc_item_font.render(self.selected_item.description[1], False, (20, 20, 20)),
+                         (window_pos[0] + (885-self.desc_item_font.render(self.selected_item.description[1], False, (0, 0, 0)).get_rect().w), window_pos[1] + 452))
+            surface.blit(self.desc_item_font.render(self.selected_item.description[2], False, (20, 20, 20)),
+                         (window_pos[0] + (885-self.desc_item_font.render(self.selected_item.description[2], False, (0, 0, 0)).get_rect().w), window_pos[1] + 475))
+            surface.blit(pygame.transform.scale(self.selected_item.icon_image, (100, 100)), (window_pos[0] + 405, window_pos[1] + 420))
+            if self.selected_item.can_be_buy:
+                surface.blit(self.prices_item_font.render(str(self.selected_item.buy_price), False, (0, 42, 255)), (window_pos[0]+602, window_pos[1]+493))
+            else:
+                surface.blit(self.prices_item_font.render(' /', False, (0, 42, 255)),
+                             (window_pos[0] + 602, window_pos[1] + 493))
+
+            if self.selected_item.can_be_sell:
+                surface.blit(self.prices_item_font.render(str(self.selected_item.sell_price), False, (204, 0, 0)), (window_pos[0]+784, window_pos[1]+493))
+            else:
+                surface.blit(self.prices_item_font.render(' /', False, (204, 0, 0)),
+                             (window_pos[0] + 784, window_pos[1] + 493))
 
     def update_rect_pos(self, window_pos):
         self.ALL_EMP_RECT = {
@@ -175,6 +188,19 @@ class SacIngamePanel:
                         self.change_item_place(i, 11)
                     elif self.all_emp_rect[12].collidepoint(possouris):
                         self.change_item_place(i, 12)
+                    elif self.game.classic_panel.pk_rects[0].collidepoint(possouris):
+                        if 'Give' in self.selected_item.fonctionnement:
+                            if self.game.player.team[0] is not None and self.game.player.team[0].objet_tenu == None:
+                                self.game.player.team[0].objet_tenu = self.selected_item
+                                self.selected_item.quantite -= 1
+                                if self.selected_item.quantite <= 0:
+                                    current_page[i-1] = None
+                        elif 'Use' in self.selected_item.fonctionnement:
+                            if self.game.player.team[0] is not None:
+                                self.game.player.team[0].use_item(self.selected_item.name)
+                                self.selected_item.quantite -= 1
+                                if self.selected_item.quantite <= 0:
+                                    current_page[i - 1] = None
 
                     self.emp_move_mode = False
                     self.emp_moving[i-1] = False
@@ -216,7 +242,7 @@ class SacIngamePanel:
     def change_page(self, num):
         self.page = num
 
-    def reformate_item_desc(self, desc):
+    '''def reformate_item_desc(self, desc):
         l1 = desc
         l2 = ''
         l3 = ''
@@ -228,5 +254,5 @@ class SacIngamePanel:
             l3 = l2.split()[-1] + ' ' + l3
             l2 = l2[:-(len(l2.split()[-1])+1)]
 
-        return l1, l2, l3
+        return l1, l2, l3'''
 
