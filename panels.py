@@ -111,6 +111,12 @@ class ClassicGamePanel:
         self.rel_possouris_pk_move_mode = [0, 0]
         self.saved_possouris = (0, 0)
 
+        self.interface_sombre_team = pygame.image.load('assets/game/panels/classic_panel/item_to_pokemon.png')
+        self.item_pk_hover_use = pygame.image.load('assets/game/panels/classic_panel/item_use_pk_hover.png')
+        self.item_pk_hover_give = pygame.image.load('assets/game/panels/classic_panel/item_give_pk_hover.png')
+        self.item_pk_hover_error = pygame.image.load('assets/game/panels/classic_panel/item_error_pk_hover.png')
+        self.item_pk_hover_give_error = pygame.image.load('assets/game/panels/classic_panel/item_error_give_pk_hover.png')
+
     def update(self, surface, possouris):
 
         surface.blit(self.background, (0, 0))
@@ -167,6 +173,9 @@ class ClassicGamePanel:
 
         if self.change_player_name_mode:
             surface.blit(self.mode_changement_pseudo_image, (0, 0))
+
+        if self.ingame_window.sac_panel.emp_move_mode and not self.ingame_window.main_window_rect.collidepoint(possouris):
+            surface.blit(self.interface_sombre_team, (0, 0))
 
         self.ingame_window.update(surface, possouris)
 
@@ -253,6 +262,18 @@ class ClassicGamePanel:
         if not self.ingame_window.main_window_rect.collidepoint(possouris):
             if self.pk_rects[i].collidepoint(possouris):
                 surface.blit(self.create_rect_alpha((369, 69), color), (self.pk_rects[i].x, self.pk_rects[i].y))
+
+                if self.ingame_window.sac_panel.emp_move_mode:
+                    if self.game.player.team[i] is not None:
+                        if 'Use' in self.ingame_window.sac_panel.selected_item.fonctionnement:
+                            surface.blit(self.item_pk_hover_use, (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))
+                        elif 'Give' in self.ingame_window.sac_panel.selected_item.fonctionnement:
+                            if self.game.player.team[i].objet_tenu is None:
+                                surface.blit(self.item_pk_hover_give, (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))
+                            else:
+                                surface.blit(self.item_pk_hover_give_error, (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))
+                        else:
+                            surface.blit(self.item_pk_hover_error, (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))
 
     def is_hovering_team_pokemon(self, possouris):
         if not self.pk_rects[0].collidepoint(possouris) and not self.pk_rects[1].collidepoint(possouris):

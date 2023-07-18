@@ -1,7 +1,7 @@
 name                spawn_d     categorie       Fonctionnement  achat       revente         Description
 # Valeurs exemple   1:rarety:q  Objets          Use/Give        1:10000     1:1500
 #
-Poke_Ball           1:60:2-10   Balls           Use             1:800       1:800           Une BALL pouvant capturer un Pokemon sauvage. Utilisable: Spawn.
+Poke_Ball           1:60:2-10   Balls           Throw           1:800       1:800           Une BALL pouvant capturer un Pokemon sauvage. Utilisable: Spawn.
 Velo                0:0:0-0     Objets_rares    Enable          1:10000     0               Velo permettant de faire 1 action supplementaire chaque tour. Activable: Clic droit.
 Pokeflute           0:0:0-0     Objets_rares    Enable          1:50000     0               Flute divine permettant de faire 1 action supplementaire chaque tour. Activable: Clic droit.
 Guerison            1:50:1-2    Medecine        Use             1:3000      1:1500          Soigne tout changement de status d'un pokemon. Utilisable: Cliquer-Glisser dans Equipe.

@@ -191,6 +191,7 @@ class SacIngamePanel:
                     elif self.game.classic_panel.pk_rects[0].collidepoint(possouris):
                         if 'Give' in self.selected_item.fonctionnement:
                             if self.game.player.team[0] is not None and self.game.player.team[0].objet_tenu == None:
+
                                 self.game.player.team[0].objet_tenu = self.selected_item
                                 self.selected_item.quantite -= 1
                                 if self.selected_item.quantite <= 0:

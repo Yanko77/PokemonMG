@@ -16,7 +16,7 @@ class Player:
                      None,
                      None,
                      None]
-        self.sac_page1 = [Objet('Poke_Ball', 3), Objet('Super_Bonbon', 3), Objet('PV_Plus', 2), None, None, None, None, None, None, None, None, None]
+        self.sac_page1 = [Objet('Poke_Ball', 3), Objet('Super_Bonbon', 3), Objet('PV_Plus', 2), Objet('Collier_Agathe', 2), None, None, None, None, None, None, None, None]
         self.sac_page2 = [None, None, None, None, None, None, None, None, None, None, None, None]
 
         self.money = 1000
