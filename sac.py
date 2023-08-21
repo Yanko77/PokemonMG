@@ -161,6 +161,8 @@ class SacIngamePanel:
                     self.rel_possouris = [0, 0]
                     self.saved_posouris = possouris
                     self.selected_item = current_page[i-1]
+                elif self.game.mouse_pressed[3] and self.all_emp_rect[i].collidepoint(possouris):
+                    self.selected_item = current_page[i - 1]
 
             if self.emp_move_mode and self.emp_moving[i-1]:
                 if not self.game.mouse_pressed[1]:
@@ -188,6 +190,9 @@ class SacIngamePanel:
                         self.change_item_place(i, 11)
                     elif self.all_emp_rect[12].collidepoint(possouris):
                         self.change_item_place(i, 12)
+                    elif self.page1_rect.collidepoint(possouris):
+                        pass
+
                     elif self.game.classic_panel.pk_rects[0].collidepoint(possouris):
                         if 'Give' in self.selected_item.fonctionnement:
                             if self.game.player.team[0] is not None and self.game.player.team[0].objet_tenu == None:
@@ -242,18 +247,4 @@ class SacIngamePanel:
 
     def change_page(self, num):
         self.page = num
-
-    '''def reformate_item_desc(self, desc):
-        l1 = desc
-        l2 = ''
-        l3 = ''
-
-        while self.desc_item_font.render(l1, False, (0, 0, 0)).get_rect().w > 480:
-            l2 = l1.split()[-1] + ' ' + l2
-            l1 = l1[:-(len(l1.split()[-1])+1)]
-        while self.desc_item_font.render(l2, False, (0, 0, 0)).get_rect().w > 500:
-            l3 = l2.split()[-1] + ' ' + l3
-            l2 = l2[:-(len(l2.split()[-1])+1)]
-
-        return l1, l2, l3'''
 

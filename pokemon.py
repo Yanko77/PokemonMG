@@ -11,6 +11,7 @@ class Pokemon:
         self.is_shiny = self.def_shiny(is_shiny)
 
         self.objet_tenu = objet_tenu
+        self.status = None
 
         self.line = self.find_pokemon_line()
 
@@ -23,10 +24,12 @@ class Pokemon:
         self.pv = round((2 * int(self.line[3]) * self.level)/100 + self.level + 10) + self.bonus_pvmax
         self.health = self.pv + self.bonus_pvmax
 
-        self.attack = round((2 * int(self.line[4]) * self.level)/100 + 5)
-
-        self.defense = round((2 * int(self.line[5]) * self.level)/100 + 5)
-        self.speed = round((2 * int(self.line[6]) * self.level)/100 + 5)
+        self.bonus_attack = 0
+        self.attack = round((2 * int(self.line[4]) * self.level)/100 + 5) + self.bonus_attack
+        self.bonus_defense = 0
+        self.defense = round((2 * int(self.line[5]) * self.level)/100 + 5) + self.bonus_defense
+        self.bonus_speed = 0
+        self.speed = round((2 * int(self.line[6]) * self.level)/100 + 5) + self.bonus_speed
 
         self.evolution_level = int(self.line[7])
         self.evolution_name = str(self.line[8])
@@ -51,9 +54,9 @@ class Pokemon:
         diff = self.pv - self.health
         self.pv = round((2*int(self.line[3])*self.level)/100 + self.level + 10) + self.bonus_pvmax
         self.health = self.pv - diff
-        self.attack = round((2 * int(self.line[4]) * self.level)/100 + 5)
-        self.defense = round((2 * int(self.line[5]) * self.level)/100 + 5)
-        self.speed = round((2 * int(self.line[6]) * self.level)/100 + 5)
+        self.attack = round((2 * int(self.line[4]) * self.level)/100 + 5) + self.bonus_attack
+        self.defense = round((2 * int(self.line[5]) * self.level)/100 + 5) + self.bonus_defense
+        self.speed = round((2 * int(self.line[6]) * self.level)/100 + 5) + self.bonus_speed
 
     def evolution(self):
         if self.evolution_name == '0':
@@ -100,16 +103,48 @@ class Pokemon:
         print(degats)
 
     def use_item(self, item_name):
-        if item_name == 'PV_Plus':
-            self.bonus_pvmax += 1 + round(self.pv*5/100)
+
+        if item_name == 'Guerison':
+            self.status = None
+        elif item_name == 'Potion':
+            if self.health + 30 >= self.pv:
+                self.health = self.pv
+            else:
+                self.health += 30
+        elif item_name == 'Hyper_Potion':
+            if self.health + 120 >= self.pv:
+                self.health = self.pv
+            else:
+                self.health += 120
+        elif item_name == 'Potion_Max':
+            self.health = self.pv
+        elif item_name == 'PV_Plus':
+            self.bonus_pvmax += 1 + round(self.pv * 5 / 100)
             diff = self.pv - self.health
             self.pv = round((2 * int(self.line[3]) * self.level) / 100 + self.level + 10) + self.bonus_pvmax
             self.health = self.pv - diff
             print('augmentation pv de', str(self.bonus_pvmax))
+        elif item_name == 'Proteine':
+            self.bonus_attack += 5
+            self.attack = round((2 * int(self.line[4]) * self.level)/100 + 5) + self.bonus_attack
+            print('augmentation atk de', str(self.bonus_attack))
+        elif item_name == 'Fer':
+            self.bonus_defense += 5
+            self.defense = round((2 * int(self.line[5]) * self.level) / 100 + 5) + self.bonus_defense
+            print('augmentation def de', str(self.bonus_defense))
+        elif item_name == 'Carbone':
+            self.bonus_speed += 5
+            self.speed = round((2 * int(self.line[6]) * self.level) / 100 + 5) + self.bonus_speed
+            print('augmentation vit de', str(self.bonus_speed))
         elif item_name == 'Super_Bonbon':
             self.level_up(1)
-
-
+        elif item_name == 'Eau_Fraiche':
+            if self.health + 50 >= self.pv:
+                self.health = self.pv
+            else:
+                self.health += 50
+        else:
+            print('ERREUR ITEM USE')
 
     def def_shiny(self, is_shiny):
         if is_shiny is None:

@@ -4,12 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="begin item system">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add hover cursor when item give or use on pokemon">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/all_objets.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_objets.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/image.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/panels.py" beforeDir="false" afterPath="$PROJECT_DIR$/panels.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sac.py" beforeDir="false" afterPath="$PROJECT_DIR$/sac.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
     </list>
     <list id="5c1a25cb-1809-4cdc-b078-5066dcb10137" name="Changes by Mathias Farvacque" comment="Changes by Mathias Farvacque" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -386,7 +390,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689638338797</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="add hover cursor when item give or use on pokemon">
+      <created>1689706816103</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1689706816103</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -401,7 +412,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add pokemon.py file" />
     <MESSAGE value="add pokemon.py file&#10;add player.py file&#10;add class Pokemon -&gt; pokemon.py&#10;add class player -&gt; player.py" />
     <MESSAGE value="add animation structures&#10;add animation bckground" />
     <MESSAGE value="finish all animations to change player name in game.classic_panel.update()&#10;&#10;add new images for thoses animations" />
@@ -426,6 +436,7 @@
     <MESSAGE value="new fonctionnalité : changement place objet dans sac.&#10;résolution bug interactions entre :&#10;  window_modif_pos &amp; starter.pk_move_mode&#10;  window_modif_pos &amp; sac.emp_move_mode" />
     <MESSAGE value="add description  item name for sac d'objets" />
     <MESSAGE value="begin item system" />
-    <option name="LAST_COMMIT_MESSAGE" value="begin item system" />
+    <MESSAGE value="add hover cursor when item give or use on pokemon" />
+    <option name="LAST_COMMIT_MESSAGE" value="add hover cursor when item give or use on pokemon" />
   </component>
 </project>

@@ -1,7 +1,7 @@
 import pygame
 from game import Game
 
-FPS = 60
+FPS = 144
 screen = pygame.display.set_mode((1280, 720))
 icon = pygame.image.load("assets/icon.png")
 pygame.display.set_caption("PMG || Pokemon Management Game")
@@ -156,7 +156,7 @@ while running:
 
             ## Touche de test admin
             if event.key == pygame.K_p:
-                game.classic_panel.change_pk_place(0, 1)
+                game.player.team[0].damage(100)
             elif event.key == pygame.K_o:
                 if game.player.sac_page1[6] is not None:
                     game.player.sac_page1[6].quantite += 1
@@ -265,36 +265,56 @@ while running:
 
                         else:
                             if not game.classic_panel.pk_move_mode:
-                                if game.classic_panel.player_name_rect.collidepoint(posSouris):
-                                    game.classic_panel.change_player_name_mode = True
-                                    game.player.name = ""
-                                    game.classic_panel.is_pname_modif = True
+                                if game.classic_panel.pokemon_info_mode:
+                                    if not game.classic_panel.pokemon_info_popup_rect.collidepoint(posSouris):
+                                        if game.classic_panel.player_name_rect.collidepoint(posSouris):
+                                            game.classic_panel.change_player_name_mode = True
+                                            game.player.name = ""
+                                            game.classic_panel.is_pname_modif = True
+                                            if game.classic_panel.pokemon_info_mode:
+                                                game.classic_panel.pokemon_info_mode = False
+                                else:
+                                    if game.classic_panel.player_name_rect.collidepoint(posSouris):
+                                        game.classic_panel.change_player_name_mode = True
+                                        game.player.name = ""
+                                        game.classic_panel.is_pname_modif = True
+                                        if game.classic_panel.pokemon_info_mode:
+                                            game.classic_panel.pokemon_info_mode = False
 
                                 if game.is_starter_selected:
                                     if game.classic_panel.buttons.spawn_button_rect.collidepoint(posSouris):
-                                        game.classic_panel.ingame_window.update_name('spawn')
-                                        game.classic_panel.ingame_window.open()
-                                        game.classic_panel.ingame_window.maximize()
+                                        if game.classic_panel.buttons.unlocked_buttons['Spawn']:
+                                            game.classic_panel.ingame_window.update_name('spawn')
+                                            game.classic_panel.ingame_window.open()
+                                            game.classic_panel.ingame_window.maximize()
                                     elif game.classic_panel.buttons.train_button_rect.collidepoint(posSouris):
-                                        game.classic_panel.ingame_window.update_name('train')
-                                        game.classic_panel.ingame_window.open()
-                                        game.classic_panel.ingame_window.maximize()
+                                        if game.classic_panel.buttons.unlocked_buttons['Train']:
+                                            game.classic_panel.ingame_window.update_name('train')
+                                            game.classic_panel.ingame_window.open()
+                                            game.classic_panel.ingame_window.maximize()
                                     elif game.classic_panel.buttons.grind_button_rect.collidepoint(posSouris):
-                                        game.classic_panel.ingame_window.update_name('grind')
-                                        game.classic_panel.ingame_window.open()
-                                        game.classic_panel.ingame_window.maximize()
+                                        if game.classic_panel.buttons.unlocked_buttons['Grind']:
+                                            game.classic_panel.ingame_window.update_name('grind')
+                                            game.classic_panel.ingame_window.open()
+                                            game.classic_panel.ingame_window.maximize()
                                     elif game.classic_panel.buttons.items_button_rect.collidepoint(posSouris):
-                                        game.classic_panel.ingame_window.update_name('items')
-                                        game.classic_panel.ingame_window.open()
-                                        game.classic_panel.ingame_window.maximize()
+                                        if game.classic_panel.buttons.unlocked_buttons['Items']:
+                                            game.classic_panel.ingame_window.update_name('items')
+                                            game.classic_panel.ingame_window.open()
+                                            game.classic_panel.ingame_window.maximize()
                                     elif game.classic_panel.buttons.evol_button_rect.collidepoint(posSouris):
-                                        game.classic_panel.ingame_window.update_name('evolutions')
-                                        game.classic_panel.ingame_window.open()
-                                        game.classic_panel.ingame_window.maximize()
+                                        if game.classic_panel.buttons.unlocked_buttons['Evol']:
+                                            game.classic_panel.ingame_window.update_name('evolutions')
+                                            game.classic_panel.ingame_window.open()
+                                            game.classic_panel.ingame_window.maximize()
                                     if game.classic_panel.sac_button_rect.collidepoint(posSouris):
                                         game.classic_panel.ingame_window.update_name("Sac d'objets")
                                         game.classic_panel.ingame_window.open()
                                         game.classic_panel.ingame_window.maximize()
+
+                                if game.classic_panel.pokemon_info_mode:
+                                    if pygame.Rect(1210, 9, 59, 59).collidepoint(posSouris):
+                                        game.classic_panel.pokemon_info_mode = False
 
                     if game.classic_panel.ingame_window.window_pos_modif_mode:
                         game.classic_panel.ingame_window.window_pos_modif_mode = False
@@ -307,6 +327,27 @@ while running:
                             game.classic_panel.ingame_window.main_window_pos[1] = 188
                         elif game.classic_panel.ingame_window.main_window_pos[1] < 4:
                             game.classic_panel.ingame_window.main_window_pos[1] = 4
+
+            if event.button == 3:
+                if game.is_playing:
+                    if game.classic_panel.PK_RECTS[0].collidepoint(posSouris):
+                        game.classic_panel.pokemon_info_mode = True
+                        game.classic_panel.pokemon_info_i = 0
+                    elif game.classic_panel.PK_RECTS[1].collidepoint(posSouris):
+                        game.classic_panel.pokemon_info_mode = True
+                        game.classic_panel.pokemon_info_i = 1
+                    elif game.classic_panel.PK_RECTS[2].collidepoint(posSouris):
+                        game.classic_panel.pokemon_info_mode = True
+                        game.classic_panel.pokemon_info_i = 2
+                    elif game.classic_panel.PK_RECTS[3].collidepoint(posSouris):
+                        game.classic_panel.pokemon_info_mode = True
+                        game.classic_panel.pokemon_info_i = 3
+                    elif game.classic_panel.PK_RECTS[4].collidepoint(posSouris):
+                        game.classic_panel.pokemon_info_mode = True
+                        game.classic_panel.pokemon_info_i = 4
+                    elif game.classic_panel.PK_RECTS[5].collidepoint(posSouris):
+                        game.classic_panel.pokemon_info_mode = True
+                        game.classic_panel.pokemon_info_i = 5
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             game.mouse_pressed[event.button] = True

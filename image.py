@@ -149,6 +149,12 @@ class AccueilButtons:
 class ClassicGamePanelButtons:
 
     def __init__(self):
+        self.unlocked_buttons = {'Spawn': True,
+                                 'Train': True,
+                                 'Grind': False,
+                                 'Items': False,
+                                 'Evol': True
+                                 }
         # SPAWN BUTTON
         self.spawn_button = pygame.image.load('assets/game/panels/classic_panel/spawn_button.png')
         self.spawn_button_rect = self.spawn_button.get_rect()
@@ -211,43 +217,66 @@ class ClassicGamePanelButtons:
 
     def update(self, surface, possouris, ingame_window):
 
-        if self.spawn_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
-            surface.blit(self.spawn_button, self.spawn_button_pos)
-            surface.blit(self.spawn_button_hover, self.spawn_button_pos)
-        else:
-            surface.blit(self.spawn_button, self.spawn_button_pos)
+        if self.unlocked_buttons['Spawn']:
+            if self.spawn_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
+                surface.blit(self.spawn_button, self.spawn_button_pos)
+                surface.blit(self.spawn_button_hover, self.spawn_button_pos)
+            else:
+                surface.blit(self.spawn_button, self.spawn_button_pos)
 
-        if self.train_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
-            surface.blit(self.train_button, self.train_button_pos)
-            surface.blit(self.train_button_hover, self.train_button_pos)
-        else:
-            surface.blit(self.train_button, self.train_button_pos)
+        if self.unlocked_buttons['Train']:
+            if self.train_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
+                surface.blit(self.train_button, self.train_button_pos)
+                surface.blit(self.train_button_hover, self.train_button_pos)
+            else:
+                surface.blit(self.train_button, self.train_button_pos)
 
-        if self.grind_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
-            surface.blit(self.grind_button, self.grind_button_pos)
-            surface.blit(self.grind_button_hover, self.grind_button_pos)
-        else:
-            surface.blit(self.grind_button, self.grind_button_pos)
+        if self.unlocked_buttons['Grind']:
+            if self.grind_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
+                surface.blit(self.grind_button, self.grind_button_pos)
+                surface.blit(self.grind_button_hover, self.grind_button_pos)
+            else:
+                surface.blit(self.grind_button, self.grind_button_pos)
 
-        if self.items_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
-            surface.blit(self.items_button, self.items_button_pos)
-            surface.blit(self.items_button_hover, self.items_button_pos)
-        else:
-            surface.blit(self.items_button, self.items_button_pos)
+        if self.unlocked_buttons['Items']:
+            if self.items_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
+                surface.blit(self.items_button, self.items_button_pos)
+                surface.blit(self.items_button_hover, self.items_button_pos)
+            else:
+                surface.blit(self.items_button, self.items_button_pos)
 
-        if self.evol_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
-            surface.blit(self.evol_button, self.evol_button_pos)
-            surface.blit(self.evol_button_hover, self.evol_button_pos)
-        else:
-            surface.blit(self.evol_button, self.evol_button_pos)
+        if self.unlocked_buttons['Evol']:
+            if self.evol_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(possouris):
+                surface.blit(self.evol_button, self.evol_button_pos)
+                surface.blit(self.evol_button_hover, self.evol_button_pos)
+            else:
+                surface.blit(self.evol_button, self.evol_button_pos)
 
     def is_hovering_button(self, possouris):
+        '''
         if not self.spawn_button_rect.collidepoint(possouris) and not self.train_button_rect.collidepoint(possouris):
             if not self.grind_button_rect.collidepoint(possouris) and not self.items_button_rect.collidepoint(
                     possouris):
                 if not self.evol_button_rect.collidepoint(possouris):
                     return False
-        return True
+        return True'''
+        if self.spawn_button_rect.collidepoint(possouris):
+            if self.unlocked_buttons['Spawn']:
+                return True
+        elif self.train_button_rect.collidepoint(possouris):
+            if self.unlocked_buttons['Train']:
+                return True
+        elif self.grind_button_rect.collidepoint(possouris):
+            if self.unlocked_buttons['Grind']:
+                return True
+        elif self.items_button_rect.collidepoint(possouris):
+            if self.unlocked_buttons['Items']:
+                return True
+        elif self.evol_button_rect.collidepoint(possouris):
+            if self.unlocked_buttons['Evol']:
+                return True
+        else:
+            return False
 
 
 class IngameWindowButtons:

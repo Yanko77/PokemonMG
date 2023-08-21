@@ -16,7 +16,8 @@ class Game:
         self.is_starter_selected = True
 
         self.pressed = {pygame.K_LSHIFT: False}
-        self.mouse_pressed = {1: False}
+        self.mouse_pressed = {1: False,
+                              3: False}
 
         self.player = Player()
         self.player_random_names = ['Romuald', 'Tyranocif', 'Ventilateur', 'Pissenlit', 'Guy le bandit', 'xXGamer-12Xx',

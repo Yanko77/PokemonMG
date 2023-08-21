@@ -86,6 +86,21 @@ class ClassicGamePanel:
         self.player_name_rect = pygame.Rect(656, 12, 399, 51)
         self.player_name_hover = pygame.image.load("assets/game/panels/classic_panel/player_name_hover.png")
 
+        self.pokemon_info_popup = pygame.image.load('assets/game/panels/classic_panel/pokemon_infos.png')
+        self.pokemon_info_popup_rect = pygame.Rect(898, 6, 374, 215)
+        self.pokemon_info_popup_unknown = pygame.image.load('assets/game/panels/classic_panel/pokemon_info_unknown.png')
+        self.pokemon_info_popup_x_button_hover = pygame.image.load('assets/game/panels/classic_panel/pokemon_infos_x_button_hover.png')
+        self.POKEMON_INFO_OBJ_RECT = pygame.Rect(1168, 143, 70, 70)
+        self.pokemon_info_obj_rect = pygame.Rect(1168, 143, 70, 70)
+        self.pokemon_info_mode = False
+        self.pokemon_info_i = 0
+
+        self.pk_info_obj_move_mode = False
+
+        self.font_pokemon_info_values = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 19)
+        self.font_pokemon_info_lv = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 42)
+        self.font_pokemon_info_name = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 23)
+
         self.money_font = pygame.font.Font('assets/fonts/Impact.ttf', 35)
 
         self.alphabet_pixels = {}
@@ -144,9 +159,19 @@ class ClassicGamePanel:
         if not self.ingame_window.main_window_rect.collidepoint(possouris):
 
             if self.player_name_rect.collidepoint(possouris):
-                if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_HAND:
-                    pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
-                surface.blit(self.player_name_hover, (0, 0))
+                if self.pokemon_info_mode:
+                    if not self.pokemon_info_popup_rect.collidepoint(possouris):
+                        surface.blit(self.player_name_hover, (0, 0))
+                        if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_HAND:
+                            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+                    else:
+                        if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_ARROW:
+                            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+                else:
+                    surface.blit(self.player_name_hover, (0, 0))
+                    if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_HAND:
+                        pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+
             elif self.buttons.is_hovering_button(possouris):
                 if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_HAND:
                     pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
@@ -154,6 +179,9 @@ class ClassicGamePanel:
                 if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_HAND:
                     pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
             elif self.sac_button_rect.collidepoint(possouris):
+                if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_HAND:
+                    pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+            elif self.is_hovering_pokemon_info_popup_buttons(possouris):
                 if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_HAND:
                     pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
             else:
@@ -170,6 +198,8 @@ class ClassicGamePanel:
                 else:
                     if not pygame.mouse.get_cursor() == pygame.SYSTEM_CURSOR_ARROW:
                         pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+        self.update_pokemon_info(surface, possouris)
 
         if self.change_player_name_mode:
             surface.blit(self.mode_changement_pseudo_image, (0, 0))
@@ -195,6 +225,9 @@ class ClassicGamePanel:
     def change_pk_place(self, i1, i2):
         if not i1 == i2:
             self.player.team[i1], self.player.team[i2] = self.player.team[i2], self.player.team[i1]
+            if self.pokemon_info_mode:
+                if self.pokemon_info_i == i1:
+                    self.pokemon_info_i = i2
 
     def update_pokemon(self, surface, possouris, i):
         if self.game.player.team[i] is not None:
@@ -295,6 +328,39 @@ class ClassicGamePanel:
         self.update_pokemon(surface, possouris, 4)
         # Pokemon 6
         self.update_pokemon(surface, possouris, 5)
+
+    def update_pokemon_info(self, surface, possouris):
+        if self.pokemon_info_mode:
+            if pygame.Rect(1210, 9, 59, 59).collidepoint(possouris):
+                surface.blit(self.pokemon_info_popup_x_button_hover, (0, 0))
+            else:
+                surface.blit(self.pokemon_info_popup, (0, 0))
+
+            if self.game.player.team[self.pokemon_info_i] is not None:
+                surface.blit(pygame.transform.scale(self.game.player.team[self.pokemon_info_i].icon_image, (280, 140)), (900, 0), (0, 0, 140, 140))
+                surface.blit(self.font_pokemon_info_name.render(self.game.player.team[self.pokemon_info_i].name, False, (0, 0, 0)), (1038, 15))
+                surface.blit(self.font_pokemon_info_values.render(str(self.game.player.team[self.pokemon_info_i].pv), False, (2, 137, 0)), (1070, 43))
+                surface.blit(self.font_pokemon_info_values.render(str(self.game.player.team[self.pokemon_info_i].attack), False, (189, 0, 0)), (1070, 66))
+                surface.blit(self.font_pokemon_info_values.render(str(self.game.player.team[self.pokemon_info_i].defense), False, (191, 200, 0)), (1070, 89))
+                surface.blit(self.font_pokemon_info_values.render(str(self.game.player.team[self.pokemon_info_i].speed), False, (0, 139, 230)), (1070, 112))
+                surface.blit(self.font_pokemon_info_lv.render(str(self.game.player.team[self.pokemon_info_i].level), False, (0, 0, 0)), (965, 139))
+
+                if self.game.player.team[self.pokemon_info_i].objet_tenu is not None:
+
+                    if self.pokemon_info_obj_rect.collidepoint(possouris):
+                        surface.blit(self.create_rect_alpha((70, 70), (255, 255, 255)), self.pokemon_info_obj_rect)
+                    surface.blit(pygame.transform.scale(self.game.player.team[self.pokemon_info_i].objet_tenu.icon_image, (70, 70)), (self.pokemon_info_obj_rect.x + 2, self.pokemon_info_obj_rect.y))
+            else:
+                surface.blit(self.pokemon_info_popup_unknown, (0, 0))
+
+    def is_hovering_pokemon_info_popup_buttons(self, possouris):
+        if pygame.Rect(1210, 9, 59, 59).collidepoint(possouris):
+            return True
+        elif pygame.Rect(1166, 141, 74, 74).collidepoint(possouris) and self.game.player.team[self.pokemon_info_i] is not None and self.game.player.team[self.pokemon_info_i].objet_tenu is not None:
+            return True
+
+        return False
+
 
     def calcul_player_name_pixels(self):
         pixels = 0
