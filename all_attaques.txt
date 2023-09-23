@@ -1,0 +1,77 @@
+name                    type            pp      puissance   precision   taux_crit   priorite
+# Valeurs normales :    normal          -       -           100         1           0
+
+Vive-attaque            normal          30      40          100         1           1
+Charge                  normal          35      40          100         1           0
+Torgnoles
+Poing Feu
+Poing Glace
+Poing Eclair
+Griffe
+Danse Lames
+Coupe
+Tornade
+Cru-Ailes
+Cyclone
+Ailes d'Acier
+Griffe Acier
+Queue de Fer
+Gyroballe
+Luminocanon
+Pisto-Poing
+Tête de Fer
+Lancécrou
+Tacle Lourd
+Choc Météore
+Estocorne
+Métalaser
+Balayage                combat
+Double Pied
+Frappe Atlas
+Pied Voltige
+Poing Karate
+Riposte
+Coup Croix
+Détection
+Dynamo-Poing
+Eclate-Roc
+Casse-Brique
+Gonflette
+Stratopercut
+Vendetta
+Aurasphère
+Close Combat
+Exploforce
+Marto-Poing
+Vampi-Poing
+Balayette
+Lame Sainte
+Poing Boost
+Draco-Rage             Dragon
+Colere
+Draco-Souffle
+Danse Draco
+Draco-Griffe
+Draco-Choc
+Draco-Météore
+Double Baffe
+Draco-Queue
+Sanction Supreme
+Vibrécaille
+Abattage
+Dracacophonie
+Bulles d'O              eau
+Cascade
+Ecume
+Hydrocanon
+Pince-Masse
+Pistolet à O
+Surf
+Hydroblast
+Ocroupi
+Vibraqua
+Anneau Hydro
+Aqua-Jet
+Hydro-Queue
+Saumure
+Ebullition

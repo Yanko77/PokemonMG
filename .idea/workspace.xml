@@ -4,18 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/save_file_template.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_06_2023_02_57__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_06_2023_02_57__Default_Changelist_.xml" afterDir="false" />
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="Spawn action working&#10;System of actions working&#10;begin reformating code ( player_name done )&#10;&#10;add player_name.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/all_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/image.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panels.py" beforeDir="false" afterPath="$PROJECT_DIR$/panels.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
     </list>
+    <list id="5c1a25cb-1809-4cdc-b078-5066dcb10137" name="Changes by Mathias Farvacque" comment="Changes by Mathias Farvacque" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,11 +27,11 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="mathias" />
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="Test" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -45,6 +40,9 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.txt" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -61,6 +59,7 @@
       <option value="200" />
       <option value="300" />
     </hideBySeverity>
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2R9QZ1D1JLZELWGXamy94TMfapC" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -70,7 +69,9 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;git-widget-placeholder&quot;: &quot;Yanko&quot;
+    &quot;git-widget-placeholder&quot;: &quot;Yanko&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/yanko/PycharmProjects/PokemonManagementGame&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -163,11 +164,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="spawn" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PokemonManagementGame" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/spawn.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.animation" />
-        <item itemvalue="Python.player" />
+        <item itemvalue="Python.spawn" />
         <item itemvalue="Python.pokemon" />
+        <item itemvalue="Python.player" />
+        <item itemvalue="Python.animation" />
+        <item itemvalue="Python.spawn" />
       </list>
     </recent_temporary>
   </component>
@@ -208,13 +232,221 @@
       <option name="project" value="LOCAL" />
       <updated>1686840741451</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="finish all animations to change player name in game.classic_panel.update()&#10;&#10;add new images for thoses animations">
+      <created>1687640470746</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1687640470746</updated>
+    </task>
+    <task id="LOCAL-00006" summary="beginning of game.is_playing structure&#10;fonction: change pseudo&#10;&#10;add intra-game windows">
+      <created>1687921612416</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1687921612416</updated>
+    </task>
+    <task id="LOCAL-00007" summary="no more interactions bugs">
+      <created>1687966383515</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1687966383515</updated>
+    </task>
+    <task id="LOCAL-00008" summary="ingame_windows fonctionnelle">
+      <created>1688665829338</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1688665829338</updated>
+    </task>
+    <task id="LOCAL-00009" summary="ingame_windows with icons and titles&#10;classic_panel buttons hover animations">
+      <created>1688681510476</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1688681510476</updated>
+    </task>
+    <task id="LOCAL-00010" summary="add starter mode&#10;assets for starters">
+      <created>1688731928495</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1688731928495</updated>
+    </task>
+    <task id="LOCAL-00011" summary="add spawn pokemon action functions">
+      <created>1688752207947</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1688752207947</updated>
+    </task>
+    <task id="LOCAL-00012" summary="add pokemon names, lvls, hps and hp bar on game.classic_panel">
+      <created>1688925660949</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1688925660949</updated>
+    </task>
+    <task id="LOCAL-00013" summary="add more pokemons&#10;add all pokemon icons for existing one">
+      <created>1688946877689</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1688946877689</updated>
+    </task>
+    <task id="LOCAL-00014" summary="affichage des pokemons du joueur + interactions avec souris">
+      <created>1689001008640</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1689001008640</updated>
+    </task>
+    <task id="LOCAL-00015" summary="ajout de la fenetre pour le sac&#10;assets pour sac d'objets">
+      <created>1689018885976</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1689018885976</updated>
+    </task>
+    <task id="LOCAL-00016" summary="add interactions to sac d'objets window">
+      <created>1689032040737</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1689032040737</updated>
+    </task>
+    <task id="LOCAL-00017" summary="add sac button in game.classic_panel">
+      <created>1689081731593</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1689081731593</updated>
+    </task>
+    <task id="LOCAL-00018" summary="ajout des attaques et des objets&#10;2 fichiers txt pour les definir&#10;Nouveau calcul des degats des attaques&#10;ajout d'images pour les objets">
+      <created>1689098015428</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1689098015428</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Changes by Mathias Farvacque">
+      <created>1689098019661</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1689098019661</updated>
+    </task>
+    <task id="LOCAL-00020" summary="new fonctionnalité : Move pokemon in game.classic_panel&#10;&#10;+ images pour tous les objets">
+      <created>1689195358790</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1689195358790</updated>
+    </task>
+    <task id="LOCAL-00021" summary="add starter_window images&#10;fonctionnalité: choisir le starter">
+      <created>1689209517418</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1689209517418</updated>
+    </task>
+    <task id="LOCAL-00022" summary="finished starter choice etape">
+      <created>1689373338131</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1689373338131</updated>
+    </task>
+    <task id="LOCAL-00023" summary="new fonctionnalité : changement place objet dans sac.&#10;résolution bug interactions entre :&#10;  window_modif_pos &amp; starter.pk_move_mode&#10;  window_modif_pos &amp; sac.emp_move_mode">
+      <created>1689510680767</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1689510680767</updated>
+    </task>
+    <task id="LOCAL-00024" summary="add description  item name for sac d'objets">
+      <created>1689609331701</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1689609331701</updated>
+    </task>
+    <task id="LOCAL-00025" summary="add description  item name for sac d'objets">
+      <created>1689609336765</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1689609336765</updated>
+    </task>
+    <task id="LOCAL-00026" summary="begin item system">
+      <created>1689638338797</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1689638338797</updated>
+    </task>
+    <task id="LOCAL-00027" summary="add hover cursor when item give or use on pokemon">
+      <created>1689706816103</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1689706816103</updated>
+    </task>
+    <task id="LOCAL-00028" summary="des milliards de trucs">
+      <created>1692639051599</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1692639051599</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Spawn action working&#10;System of actions working&#10;begin reformating code ( player_name done )&#10;&#10;add player_name.py">
+      <created>1695490220601</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1695490220601</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add pokemon.py file" />
-    <MESSAGE value="add pokemon.py file&#10;add player.py file&#10;add class Pokemon -&gt; pokemon.py&#10;add class player -&gt; player.py" />
-    <MESSAGE value="add animation structures&#10;add animation bckground" />
-    <option name="LAST_COMMIT_MESSAGE" value="add animation structures&#10;add animation bckground" />
+    <MESSAGE value="finish all animations to change player name in game.classic_panel.update()&#10;&#10;add new images for thoses animations" />
+    <MESSAGE value="beginning of game.is_playing structure&#10;fonction: change pseudo&#10;&#10;add intra-game windows" />
+    <MESSAGE value="no more interactions bugs" />
+    <MESSAGE value="ingame_windows fonctionnelle" />
+    <MESSAGE value="ingame_windows with icons and titles&#10;classic_panel buttons hover animations" />
+    <MESSAGE value="add starter mode&#10;assets for starters" />
+    <MESSAGE value="add spawn pokemon action functions" />
+    <MESSAGE value="add pokemon names, lvls, hps and hp bar on game.classic_panel" />
+    <MESSAGE value="add more pokemons&#10;add all pokemon icons for existing one" />
+    <MESSAGE value="affichage des pokemons du joueur + interactions avec souris" />
+    <MESSAGE value="ajout de la fenetre pour le sac&#10;assets pour sac d'objets" />
+    <MESSAGE value="add interactions to sac d'objets window" />
+    <MESSAGE value="add sac button in game.classic_panel" />
+    <MESSAGE value="ajout des attaques et des objets&#10;2 fichiers txt pour les definir&#10;Nouveau calcul des degats des attaques&#10;ajout d'images pour les objets" />
+    <MESSAGE value="Changes by Mathias Farvacque" />
+    <MESSAGE value="new fonctionnalité : Move pokemon in game.classic_panel&#10;&#10;+ images pour tous les objets" />
+    <MESSAGE value="add starter_window images&#10;fonctionnalité: choisir le starter" />
+    <MESSAGE value="finished starter choice etape" />
+    <MESSAGE value="finished starter choice etap" />
+    <MESSAGE value="new fonctionnalité : changement place objet dans sac.&#10;résolution bug interactions entre :&#10;  window_modif_pos &amp; starter.pk_move_mode&#10;  window_modif_pos &amp; sac.emp_move_mode" />
+    <MESSAGE value="add description  item name for sac d'objets" />
+    <MESSAGE value="begin item system" />
+    <MESSAGE value="add hover cursor when item give or use on pokemon" />
+    <MESSAGE value="des milliards de trucs" />
+    <MESSAGE value="Spawn action working&#10;System of actions working&#10;begin reformating code ( player_name done )&#10;&#10;add player_name.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Spawn action working&#10;System of actions working&#10;begin reformating code ( player_name done )&#10;&#10;add player_name.py" />
   </component>
 </project>

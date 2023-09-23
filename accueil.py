@@ -1,5 +1,6 @@
 import pygame
 import image
+import panels
 
 
 class Accueil:
@@ -20,7 +21,7 @@ class Accueil:
 
         self.buttons = image.AccueilButtons()
 
-        self.start_game_panel = image.StartGamePanel()
+        self.start_game_panel = panels.StartGamePanel()
 
     def update(self, surface):
         possouris = pygame.mouse.get_pos()
