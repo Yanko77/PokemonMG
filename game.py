@@ -4,12 +4,11 @@ from player import Player
 import pygame
 
 import accueil
-import image
 import panels
 
 
 class Game:
-    def __init__(self, alphabet_pixels):
+    def __init__(self):
         self.is_playing = False
         self.is_accueil = True
 
@@ -36,7 +35,6 @@ class Game:
         '''self.starter = '''
 
         self.classic_panel = panels.ClassicGamePanel(self)
-        self.classic_panel.def_alphabet_pixels(alphabet_pixels)
 
         self.save_file = open('save.txt', 'r+')
 
@@ -44,8 +42,6 @@ class Game:
 
         if self.is_playing:
             self.classic_panel.update(screen, possouris)
-            if self.classic_panel.change_player_name_mode:
-                self.classic_panel.update_player_name(self.player.name)
         else:
             if self.is_accueil:
                 self.accueil.update(screen)

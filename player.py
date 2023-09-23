@@ -1,6 +1,4 @@
-import pygame
-from pokemon import Pokemon
-import spawn
+import player_name
 from objet import Objet
 
 
@@ -9,6 +7,11 @@ class Player:
     def __init__(self):
         self.level = 0
         self.name = "Nom"
+        self.name_edited = False
+        self.name_editing_mode = False
+
+        self.actions = 3
+        self.max_actions = 3
 
         self.team = [None,
                      None,
@@ -43,9 +46,33 @@ class Player:
 
         self.money = 1000
 
+    def edit_name(self, mode='add', letter=''):
+        if mode == 'add':
+            if player_name.get_pixels(self.name) < player_name.MAX_PLAYER_NAME_LENGTH:
+                self.name += letter
+        elif mode == 'suppr':
+            self.name = self.name[:-1]
+        elif mode == 'change':
+            self.name = letter
+        elif mode == 'delete':
+            self.name = ''
+
+    def enable_name_editing_mode(self):
+        self.name_editing_mode = True
+        self.name = ''
+        self.name_edited = True
+
+    def reset_name(self):
+        self.name = "Nom"
+        self.name_edited = False
+        self.name_editing_mode = False
+
     def evol_pk(self, i=0):
         if self.team[i] is not None:
             self.team[i] = self.team[i].evolution()
+
+    def use_action(self, amount=1):
+        self.actions -= amount
 
     def get_nb_team_members(self):
         nb_team_members = 0
@@ -88,6 +115,5 @@ class Player:
             empty_emp_i += 1
 
 if __name__ == "__main__":
-
     player = Player()
     player.evol_pk()

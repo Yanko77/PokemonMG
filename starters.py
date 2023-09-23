@@ -46,6 +46,7 @@ class StartersPanel:
         self.update_pokemon(surface, possouris, window_pos, 1)
         self.update_pokemon(surface, possouris, window_pos, 2)
 
+
     def create_rect_alpha(self, dimensions, color):
         rect = pygame.Surface(dimensions)
         rect.set_alpha(90)

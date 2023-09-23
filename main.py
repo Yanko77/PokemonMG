@@ -1,5 +1,6 @@
 import pygame
 from game import Game
+import player_name
 
 FPS = 144
 screen = pygame.display.set_mode((1280, 720))
@@ -9,120 +10,7 @@ pygame.display.set_icon(icon)
 
 clock = pygame.time.Clock()
 
-pygame_alphabet = {
-    pygame.K_a: 'a',
-    pygame.K_b: 'b',
-    pygame.K_c: 'c',
-    pygame.K_d: 'd',
-    pygame.K_e: 'e',
-    pygame.K_f: 'f',
-    pygame.K_g: 'g',
-    pygame.K_h: 'h',
-    pygame.K_i: 'i',
-    pygame.K_j: 'j',
-    pygame.K_k: 'k',
-    pygame.K_l: 'l',
-    pygame.K_m: 'm',
-    pygame.K_n: 'n',
-    pygame.K_o: 'o',
-    pygame.K_p: 'p',
-    pygame.K_q: 'q',
-    pygame.K_r: 'r',
-    pygame.K_s: 's',
-    pygame.K_t: 't',
-    pygame.K_u: 'u',
-    pygame.K_v: 'v',
-    pygame.K_w: 'w',
-    pygame.K_x: 'x',
-    pygame.K_y: 'y',
-    pygame.K_z: 'z',
-    pygame.K_SPACE: ' ',
-    pygame.K_LSHIFT: '',
-    pygame.K_BACKSPACE: '',
-    pygame.K_KP_0: '0',
-    pygame.K_KP_1: '1',
-    pygame.K_KP_2: '2',
-    pygame.K_KP_3: '3',
-    pygame.K_KP_4: '4',
-    pygame.K_KP_5: '5',
-    pygame.K_KP_6: '6',
-    pygame.K_KP_7: '7',
-    pygame.K_KP_8: '8',
-    pygame.K_KP_9: '9',
-}
-
-alphabet_pixels = {
-    'a': 20,
-    'b': 21,
-    'c': 20,
-    'd': 21,
-    'e': 21,
-    'f': 9,
-    'g': 21,
-    'h': 21,
-    'i': 9,
-    'j': 9,
-    'k': 19,
-    'l': 9,
-    'm': 34,
-    'n': 21,
-    'o': 21,
-    'p': 21,
-    'q': 21,
-    'r': 13,
-    's': 19,
-    't': 10,
-    'u': 21,
-    'v': 17,
-    'w': 28,
-    'x': 22,
-    'y': 17,
-    'z': 14,
-    ' ': 3,
-    '': 0,
-    '0': 18,
-    '1': 14,
-    '2': 20,
-    '3': 22,
-    '4': 20,
-    '5': 22,
-    '6': 22,
-    '7': 15.9,
-    '8': 22,
-    '9': 22,
-    '.': 4,
-    '-': 11,
-    "'": 6,
-    'intertext': 5,
-    'A': 21,
-    'B': 23,
-    'C': 23,
-    'D': 23,
-    'E': 16,
-    'F': 15,
-    'G': 23,
-    'H': 23,
-    'I': 9,
-    'J': 12,
-    'K': 22,
-    'L': 14,
-    'M': 31,
-    'N': 22,
-    'O': 22,
-    'P': 20,
-    'Q': 22,
-    'R': 22,
-    'S': 21,
-    'T': 18,
-    'U': 22,
-    'V': 21,
-    'W': 36,
-    'X': 19,
-    'Y': 19,
-    'Z': 15,
-}
-
-game = Game(alphabet_pixels)
+game = Game()
 
 running = True
 posSouris = (0, 0)
@@ -133,7 +21,7 @@ while running:
     posSouris = list(pygame.mouse.get_pos())
     if game.mouse_pressed[1]:
         if not game.classic_panel.pk_move_mode and not game.classic_panel.ingame_window.sac_panel.emp_move_mode and not \
-                game.classic_panel.ingame_window.starters_panel.pk_move_mode:
+                game.classic_panel.ingame_window.starters_panel.pk_move_mode and not game.classic_panel.ingame_window.spawn_panel.spawning_pk_move_mode:
             if game.classic_panel.ingame_window.main_window_bar_rect.collidepoint(posSouris):
                 game.classic_panel.ingame_window.window_pos_modif_mode = True
             if game.classic_panel.ingame_window.window_pos_modif_mode:
@@ -156,34 +44,24 @@ while running:
 
             ## Touche de test admin
             if event.key == pygame.K_p:
-                game.player.team[0].damage(100)
+                pass
             elif event.key == pygame.K_o:
-                if game.player.sac_page1[6] is not None:
-                    game.player.sac_page1[6].quantite += 1
+                pass
 
-            if game.classic_panel.change_player_name_mode:
+            if game.player.name_editing_mode:
                 if event.key == pygame.K_RETURN:
                     if game.player.name == '':
-                        game.player.name = "Nom"
-                        game.classic_panel.is_pname_modif = False
-                        game.classic_panel.update_player_name(game.player.name)
-                    game.classic_panel.change_player_name_mode = False
+                        game.player.reset_name()
+                    game.player.name_editing_mode = False
 
                 else:
-                    if game.classic_panel.calcul_player_name_pixels() < 385:
-                        if game.pressed[pygame.K_LSHIFT]:
-                            if event.key in pygame_alphabet:
-                                game.player.name += pygame_alphabet[event.key].upper()
-                            if event.key == pygame.K_SEMICOLON:
-                                game.player.name += '.'
-                        else:
-                            if event.key in pygame_alphabet:
-                                game.player.name += pygame_alphabet[event.key]
-                            else:
-                                print('lettre inconnue')
-
                     if event.key == pygame.K_BACKSPACE:
-                        game.player.name = game.player.name[:-1]
+                        game.player.edit_name('suppr')
+                    elif event.key in player_name.pygame_alphabet:
+                        if game.pressed[pygame.K_LSHIFT]:
+                            game.player.edit_name('add', player_name.pygame_alphabet[event.key].upper())
+                        else:
+                            game.player.edit_name('add', player_name.pygame_alphabet[event.key].lower())
 
         if event.type == pygame.KEYUP:
             game.pressed[event.key] = False
@@ -214,14 +92,12 @@ while running:
                             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
                 if game.is_playing:
-                    if game.classic_panel.change_player_name_mode:
+                    if game.player.name_editing_mode:
                         if not game.classic_panel.ingame_window.main_window_rect.collidepoint(posSouris):
                             if not game.classic_panel.player_name_rect.collidepoint(posSouris):
                                 if game.player.name == '':
-                                    game.player.name = "Nom"
-                                    game.classic_panel.is_pname_modif = False
-                                    game.classic_panel.update_player_name(game.player.name)
-                                game.classic_panel.change_player_name_mode = False
+                                    game.player.reset_name()
+                                game.player.name_editing_mode = False
 
                         else:
                             if not game.classic_panel.pk_move_mode:
@@ -262,24 +138,34 @@ while running:
                                     elif game.classic_panel.ingame_window.starters_panel.pk_rects[2].collidepoint(
                                             posSouris):
                                         game.classic_panel.ingame_window.starters_panel.decouvrir_pk(2)
+                                elif game.classic_panel.ingame_window.name == 'Spawn':
+                                    if game.classic_panel.ingame_window.spawn_panel.spawn_button_rect.collidepoint(posSouris):
+
+                                        if game.player.actions > 0:
+                                            if not game.classic_panel.ingame_window.spawn_panel.boolspawn_confirm:
+                                                game.classic_panel.ingame_window.spawn_panel.boolspawn_confirm = True
+                                            else:
+                                                game.classic_panel.ingame_window.spawn_panel.spawn_pk()
+                                                game.classic_panel.ingame_window.spawn_panel.boolspawn_confirm = False
+                                    elif game.classic_panel.ingame_window.spawn_panel.catch_button_rect.collidepoint(posSouris):
+
+                                        if game.player.actions > 0 and game.classic_panel.ingame_window.spawn_panel.spawning_pk is not None:
+                                            if game.classic_panel.ingame_window.spawn_panel.is_spawning_pk_lock:
+                                                if not game.classic_panel.ingame_window.spawn_panel.boolcatch_confirm:
+                                                    game.classic_panel.ingame_window.spawn_panel.boolcatch_confirm = True
+                                                else:
+                                                    game.classic_panel.ingame_window.spawn_panel.catch_pk()
+                                                    game.classic_panel.ingame_window.spawn_panel.boolcatch_confirm = False
 
                         else:
                             if not game.classic_panel.pk_move_mode:
-                                if game.classic_panel.pokemon_info_mode:
-                                    if not game.classic_panel.pokemon_info_popup_rect.collidepoint(posSouris):
-                                        if game.classic_panel.player_name_rect.collidepoint(posSouris):
-                                            game.classic_panel.change_player_name_mode = True
-                                            game.player.name = ""
-                                            game.classic_panel.is_pname_modif = True
-                                            if game.classic_panel.pokemon_info_mode:
-                                                game.classic_panel.pokemon_info_mode = False
-                                else:
-                                    if game.classic_panel.player_name_rect.collidepoint(posSouris):
-                                        game.classic_panel.change_player_name_mode = True
-                                        game.player.name = ""
-                                        game.classic_panel.is_pname_modif = True
-                                        if game.classic_panel.pokemon_info_mode:
+                                if game.classic_panel.player_name_rect.collidepoint(posSouris):
+                                    if game.classic_panel.pokemon_info_mode:
+                                        if not game.classic_panel.pokemon_info_popup_rect.collidepoint(posSouris):
+                                            game.player.enable_name_editing_mode()
                                             game.classic_panel.pokemon_info_mode = False
+                                    else:
+                                        game.player.enable_name_editing_mode()
 
                                 if game.is_starter_selected:
                                     if game.classic_panel.buttons.spawn_button_rect.collidepoint(posSouris):
@@ -330,24 +216,25 @@ while running:
 
             if event.button == 3:
                 if game.is_playing:
-                    if game.classic_panel.PK_RECTS[0].collidepoint(posSouris):
-                        game.classic_panel.pokemon_info_mode = True
-                        game.classic_panel.pokemon_info_i = 0
-                    elif game.classic_panel.PK_RECTS[1].collidepoint(posSouris):
-                        game.classic_panel.pokemon_info_mode = True
-                        game.classic_panel.pokemon_info_i = 1
-                    elif game.classic_panel.PK_RECTS[2].collidepoint(posSouris):
-                        game.classic_panel.pokemon_info_mode = True
-                        game.classic_panel.pokemon_info_i = 2
-                    elif game.classic_panel.PK_RECTS[3].collidepoint(posSouris):
-                        game.classic_panel.pokemon_info_mode = True
-                        game.classic_panel.pokemon_info_i = 3
-                    elif game.classic_panel.PK_RECTS[4].collidepoint(posSouris):
-                        game.classic_panel.pokemon_info_mode = True
-                        game.classic_panel.pokemon_info_i = 4
-                    elif game.classic_panel.PK_RECTS[5].collidepoint(posSouris):
-                        game.classic_panel.pokemon_info_mode = True
-                        game.classic_panel.pokemon_info_i = 5
+                    if not game.classic_panel.ingame_window.main_window_rect.collidepoint(posSouris):
+                        if game.classic_panel.PK_RECTS[0].collidepoint(posSouris):
+                            game.classic_panel.pokemon_info_mode = True
+                            game.classic_panel.pokemon_info_i = 0
+                        elif game.classic_panel.PK_RECTS[1].collidepoint(posSouris):
+                            game.classic_panel.pokemon_info_mode = True
+                            game.classic_panel.pokemon_info_i = 1
+                        elif game.classic_panel.PK_RECTS[2].collidepoint(posSouris):
+                            game.classic_panel.pokemon_info_mode = True
+                            game.classic_panel.pokemon_info_i = 2
+                        elif game.classic_panel.PK_RECTS[3].collidepoint(posSouris):
+                            game.classic_panel.pokemon_info_mode = True
+                            game.classic_panel.pokemon_info_i = 3
+                        elif game.classic_panel.PK_RECTS[4].collidepoint(posSouris):
+                            game.classic_panel.pokemon_info_mode = True
+                            game.classic_panel.pokemon_info_i = 4
+                        elif game.classic_panel.PK_RECTS[5].collidepoint(posSouris):
+                            game.classic_panel.pokemon_info_mode = True
+                            game.classic_panel.pokemon_info_i = 5
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             game.mouse_pressed[event.button] = True

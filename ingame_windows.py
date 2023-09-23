@@ -1,4 +1,7 @@
 import pygame
+
+import spawn
+
 pygame.font.init()
 import image
 import sac
@@ -55,6 +58,7 @@ class IngameWindow:
 
         self.sac_panel = sac.SacIngamePanel(self.game)
         self.starters_panel = starters.StartersPanel(self.game)
+        self.spawn_panel = spawn.SpawnPanel(self.game)
 
     def update(self, surface, possouris):
         self.update_main_window_rect()
@@ -85,6 +89,9 @@ class IngameWindow:
                 return True
         elif self.name == 'Starters':
             if self.starters_panel.is_hovering_buttons(possouris):
+                return True
+        elif self.name == 'Spawn':
+            if self.spawn_panel.is_hovering_buttons(possouris):
                 return True
         return False
 
@@ -119,6 +126,8 @@ class IngameWindow:
             self.sac_panel.update(surface, possouris, self.main_window_pos)
         elif self.name == "Starters":
             self.starters_panel.update(surface, possouris, self.main_window_pos)
+        elif self.name == "Spawn":
+            self.spawn_panel.update(surface, possouris, self.main_window_pos)
 
     def update_name(self, new_name):
         self.name = new_name[0].upper() + new_name[1:].lower()

@@ -1,6 +1,7 @@
 import pygame
 import ingame_windows
 import image
+import player_name
 
 
 class StartGamePanel:
@@ -56,9 +57,6 @@ class StartGamePanel:
 class ClassicGamePanel:
 
     def __init__(self, game):
-        self.is_pname_modif = False
-        self.change_player_name_mode = False
-
         self.game = game
 
         self.background = pygame.image.load('assets/game/panels/classic_panel/background.png')
@@ -100,10 +98,11 @@ class ClassicGamePanel:
         self.font_pokemon_info_values = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 19)
         self.font_pokemon_info_lv = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 42)
         self.font_pokemon_info_name = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 23)
+        self.font_actions_font = pygame.font.Font('assets/fonts/Impact.ttf', 90)
 
-        self.money_font = pygame.font.Font('assets/fonts/Impact.ttf', 35)
+        self.money_font = pygame.font.Font('assets/fonts/Impact.ttf', 45)
 
-        self.alphabet_pixels = {}
+        self.alphabet_pixels = player_name.alphabet_pixels
 
         self.current_ig_window_name = 'Unknown'
         self.ingame_window = ingame_windows.IngameWindow(self.current_ig_window_name, self.game)
@@ -135,10 +134,11 @@ class ClassicGamePanel:
     def update(self, surface, possouris):
 
         surface.blit(self.background, (0, 0))
-        surface.blit(self.font.render(self.player.name, False, (15, 0, 124)), (662, 10))
-        if self.change_player_name_mode:
-            self.curseur_changement_pseudo.update(surface, self.calcul_player_name_pixels())
-        if not self.is_pname_modif:
+        surface.blit(self.font.render(self.game.player.name, False, (15, 0, 124)), (662, 10))
+        if self.game.player.name_editing_mode:
+            # print(self.game.player.name)
+            self.curseur_changement_pseudo.update(surface, player_name.get_pixels(self.game.player.name))
+        if not self.game.player.name_edited:
             surface.blit(self.player_name_indication, (760, 30))
 
         if self.player.level >= 10:
@@ -147,6 +147,8 @@ class ClassicGamePanel:
             surface.blit(self.player_lv_image, (965, 73))
 
         surface.blit(self.money_font.render(str(self.game.player.money), False, (255, 255, 255)), (767, 71))
+        surface.blit(self.font_actions_font.render(str(self.game.player.actions), False, (0, 0, 0)), (385, 12))
+
 
         self.update_team_pokemons(surface, possouris)
         self.buttons.update(surface, possouris, self.ingame_window)
@@ -201,17 +203,13 @@ class ClassicGamePanel:
 
         self.update_pokemon_info(surface, possouris)
 
-        if self.change_player_name_mode:
+        if self.game.player.name_editing_mode:
             surface.blit(self.mode_changement_pseudo_image, (0, 0))
 
         if self.ingame_window.sac_panel.emp_move_mode and not self.ingame_window.main_window_rect.collidepoint(possouris):
             surface.blit(self.interface_sombre_team, (0, 0))
 
         self.ingame_window.update(surface, possouris)
-
-    def update_player_name(self, current_player_name):
-        if not self.player_name == current_player_name:
-            self.player_name = current_player_name
 
     def update_player_lv(self):
         self.player_lv_image = self.font_size3.render(str(self.player.level), False, (124, 124, 124))
@@ -231,7 +229,7 @@ class ClassicGamePanel:
 
     def update_pokemon(self, surface, possouris, i):
         if self.game.player.team[i] is not None:
-            if not self.ingame_window.starters_panel.pk_move_mode and not self.ingame_window.sac_panel.emp_move_mode:
+            if not self.ingame_window.starters_panel.pk_move_mode and not self.ingame_window.sac_panel.emp_move_mode and not self.ingame_window.spawn_panel.spawning_pk_move_mode:
                 if not self.pk_move_mode and not self.ingame_window.main_window_rect.collidepoint(possouris) and not self.ingame_window.window_pos_modif_mode:
                     if self.game.mouse_pressed[1] and self.pk_rects[i].collidepoint(possouris):
                         self.pk_move_mode = True
@@ -362,13 +360,10 @@ class ClassicGamePanel:
         return False
 
 
-    def calcul_player_name_pixels(self):
+    '''def calcul_player_name_pixels(self):
         pixels = 0
         for c in self.player_name:
             pixels += self.alphabet_pixels[c]
             pixels += 5
 
-        return pixels
-
-    def def_alphabet_pixels(self, alphabet_pixels):
-        self.alphabet_pixels = alphabet_pixels
+        return pixels'''

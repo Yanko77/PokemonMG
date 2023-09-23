@@ -208,6 +208,81 @@ class SacIngamePanel:
                                 if self.selected_item.quantite <= 0:
                                     current_page[i - 1] = None
 
+                    elif self.game.classic_panel.pk_rects[1].collidepoint(possouris):
+                        if 'Give' in self.selected_item.fonctionnement:
+                            if self.game.player.team[1] is not None and self.game.player.team[1].objet_tenu == None:
+
+                                self.game.player.team[1].objet_tenu = self.selected_item
+                                self.selected_item.quantite -= 1
+                                if self.selected_item.quantite <= 0:
+                                    current_page[i-1] = None
+                        elif 'Use' in self.selected_item.fonctionnement:
+                            if self.game.player.team[1] is not None:
+                                self.game.player.team[1].use_item(self.selected_item.name)
+                                self.selected_item.quantite -= 1
+                                if self.selected_item.quantite <= 0:
+                                    current_page[i - 1] = None
+
+                    elif self.game.classic_panel.pk_rects[2].collidepoint(possouris):
+                        if 'Give' in self.selected_item.fonctionnement:
+                            if self.game.player.team[2] is not None and self.game.player.team[2].objet_tenu == None:
+
+                                self.game.player.team[2].objet_tenu = self.selected_item
+                                self.selected_item.quantite -= 1
+                                if self.selected_item.quantite <= 0:
+                                    current_page[i-1] = None
+                        elif 'Use' in self.selected_item.fonctionnement:
+                            if self.game.player.team[2] is not None:
+                                self.game.player.team[2].use_item(self.selected_item.name)
+                                self.selected_item.quantite -= 1
+                                if self.selected_item.quantite <= 0:
+                                    current_page[i - 1] = None
+
+                    elif self.game.classic_panel.pk_rects[3].collidepoint(possouris):
+                        if 'Give' in self.selected_item.fonctionnement:
+                            if self.game.player.team[3] is not None and self.game.player.team[3].objet_tenu == None:
+
+                                self.game.player.team[3].objet_tenu = self.selected_item
+                                self.selected_item.quantite -= 1
+                                if self.selected_item.quantite <= 0:
+                                    current_page[i-1] = None
+                        elif 'Use' in self.selected_item.fonctionnement:
+                            if self.game.player.team[3] is not None:
+                                self.game.player.team[3].use_item(self.selected_item.name)
+                                self.selected_item.quantite -= 1
+                                if self.selected_item.quantite <= 0:
+                                    current_page[i - 1] = None
+
+                    elif self.game.classic_panel.pk_rects[4].collidepoint(possouris):
+                        if 'Give' in self.selected_item.fonctionnement:
+                            if self.game.player.team[4] is not None and self.game.player.team[4].objet_tenu == None:
+
+                                self.game.player.team[4].objet_tenu = self.selected_item
+                                self.selected_item.quantite -= 1
+                                if self.selected_item.quantite <= 0:
+                                    current_page[i-1] = None
+                        elif 'Use' in self.selected_item.fonctionnement:
+                            if self.game.player.team[4] is not None:
+                                self.game.player.team[4].use_item(self.selected_item.name)
+                                self.selected_item.quantite -= 1
+                                if self.selected_item.quantite <= 0:
+                                    current_page[i - 1] = None
+
+                    elif self.game.classic_panel.pk_rects[5].collidepoint(possouris):
+                        if 'Give' in self.selected_item.fonctionnement:
+                            if self.game.player.team[5] is not None and self.game.player.team[5].objet_tenu == None:
+
+                                self.game.player.team[5].objet_tenu = self.selected_item
+                                self.selected_item.quantite -= 1
+                                if self.selected_item.quantite <= 0:
+                                    current_page[i-1] = None
+                        elif 'Use' in self.selected_item.fonctionnement:
+                            if self.game.player.team[5] is not None:
+                                self.game.player.team[5].use_item(self.selected_item.name)
+                                self.selected_item.quantite -= 1
+                                if self.selected_item.quantite <= 0:
+                                    current_page[i - 1] = None
+
                     self.emp_move_mode = False
                     self.emp_moving[i-1] = False
                 else:
