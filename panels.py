@@ -7,25 +7,19 @@ import player_name
 class StartGamePanel:
 
     def __init__(self):
-        self.panel = pygame.image.load('assets/accueil/panels/start_game/panel.png')
+        self.panel = image.load_image('assets/accueil/panels/start_game/panel.png')
 
-        self.new_game_button = pygame.image.load('assets/accueil/panels/start_game/new_game_button.png')
-        self.new_game_button_rect = self.new_game_button.get_rect()
-        self.new_game_button_rect.x = 791
-        self.new_game_button_rect.y = 508
-        self.new_game_button_h = pygame.image.load('assets/accueil/panels/start_game/new_game_button_hover.png')
+        self.new_game_button = image.load_image('assets/accueil/panels/start_game/new_game_button.png')
+        self.new_game_button_rect = image.get_custom_rect(self.new_game_button, 791, 508)
+        self.new_game_button_h = image.load_image('assets/accueil/panels/start_game/new_game_button_hover.png')
 
-        self.load_game_button = pygame.image.load('assets/accueil/panels/start_game/load_game_button.png')
-        self.load_game_button_rect = self.load_game_button.get_rect()
-        self.load_game_button_rect.x = 130
-        self.load_game_button_rect.y = 508
-        self.load_game_button_h = pygame.image.load('assets/accueil/panels/start_game/load_game_button_hover.png')
+        self.load_game_button = image.load_image('assets/accueil/panels/start_game/load_game_button.png')
+        self.load_game_button_rect = image.get_custom_rect(self.load_game_button, 130, 508)
+        self.load_game_button_h = image.load_image('assets/accueil/panels/start_game/load_game_button_hover.png')
 
-        self.x_button = pygame.image.load('assets/accueil/panels/start_game/x_button.png')
-        self.x_button_rect = self.x_button.get_rect()
-        self.x_button_rect.x = 1144
-        self.x_button_rect.y = 68
-        self.x_button_h = pygame.image.load('assets/accueil/panels/start_game/x_button_hover.png')
+        self.x_button = image.load_image('assets/accueil/panels/start_game/x_button.png')
+        self.x_button_rect = image.get_custom_rect(self.x_button, 1144, 68)
+        self.x_button_h = image.load_image('assets/accueil/panels/start_game/x_button_hover.png')
 
     def update(self, surface, possouris, basic_accueil):
         surface.blit(self.panel, (0, 0))
@@ -52,6 +46,9 @@ class StartGamePanel:
                 or self.load_game_button_rect.collidepoint(possouris)):
 
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+
+    def update_load_game_button(self, surface, ):
 
 
 class ClassicGamePanel:

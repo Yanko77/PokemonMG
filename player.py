@@ -114,6 +114,7 @@ class Player:
 
             empty_emp_i += 1
 
+
 if __name__ == "__main__":
     player = Player()
     player.evol_pk()

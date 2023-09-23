@@ -32,8 +32,6 @@ class Game:
                          random.choice(self.all_starters['eau'])
                          ]
 
-        '''self.starter = '''
-
         self.classic_panel = panels.ClassicGamePanel(self)
 
         self.save_file = open('save.txt', 'r+')

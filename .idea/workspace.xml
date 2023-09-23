@@ -4,19 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="des milliards de trucs">
-      <change afterPath="$PROJECT_DIR$/player_name.py" afterDir="false" />
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="Spawn action working&#10;System of actions working&#10;begin reformating code ( player_name done )&#10;&#10;add player_name.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/image.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ingame_windows.py" beforeDir="false" afterPath="$PROJECT_DIR$/ingame_windows.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/panels.py" beforeDir="false" afterPath="$PROJECT_DIR$/panels.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sac.py" beforeDir="false" afterPath="$PROJECT_DIR$/sac.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spawn.py" beforeDir="false" afterPath="$PROJECT_DIR$/spawn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/starters.py" beforeDir="false" afterPath="$PROJECT_DIR$/starters.py" afterDir="false" />
     </list>
     <list id="5c1a25cb-1809-4cdc-b078-5066dcb10137" name="Changes by Mathias Farvacque" comment="Changes by Mathias Farvacque" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -408,7 +400,14 @@
       <option name="project" value="LOCAL" />
       <updated>1692639051599</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Spawn action working&#10;System of actions working&#10;begin reformating code ( player_name done )&#10;&#10;add player_name.py">
+      <created>1695490220601</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1695490220601</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -423,7 +422,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add animation structures&#10;add animation bckground" />
     <MESSAGE value="finish all animations to change player name in game.classic_panel.update()&#10;&#10;add new images for thoses animations" />
     <MESSAGE value="beginning of game.is_playing structure&#10;fonction: change pseudo&#10;&#10;add intra-game windows" />
     <MESSAGE value="no more interactions bugs" />
@@ -448,17 +446,7 @@
     <MESSAGE value="begin item system" />
     <MESSAGE value="add hover cursor when item give or use on pokemon" />
     <MESSAGE value="des milliards de trucs" />
-    <option name="LAST_COMMIT_MESSAGE" value="des milliards de trucs" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/player.py</url>
-          <line>52</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Spawn action working&#10;System of actions working&#10;begin reformating code ( player_name done )&#10;&#10;add player_name.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Spawn action working&#10;System of actions working&#10;begin reformating code ( player_name done )&#10;&#10;add player_name.py" />
   </component>
 </project>
