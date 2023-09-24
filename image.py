@@ -317,3 +317,6 @@ def get_custom_rect(image, rectx=None, recty=None, rectw=None, recth=None):
         image_rect.h = recth
 
     return image_rect
+
+if __name__ == '__main__':
+    pass
