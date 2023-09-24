@@ -12,7 +12,7 @@ class Game:
         self.is_playing = False
         self.is_accueil = True
 
-        self.is_starter_selected = True
+        self.is_starter_selected = False
 
         self.pressed = {pygame.K_LSHIFT: False}
         self.mouse_pressed = {1: False,
