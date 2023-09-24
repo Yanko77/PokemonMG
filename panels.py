@@ -256,7 +256,8 @@ class ClassicGamePanel:
                                          pygame.Rect(900, 421, 369, 69), pygame.Rect(900, 494, 369, 69),
                                          pygame.Rect(900, 567, 369, 69), pygame.Rect(900, 640, 369, 69)]
                     else:
-                        self.rel_possouris_pk_move_mode = (possouris[0] - self.saved_possouris[0], possouris[1] - self.saved_possouris[1])
+                        self.rel_possouris_pk_move_mode = (possouris[0] - self.saved_possouris[0],
+                                                           possouris[1] - self.saved_possouris[1])
                         self.pk_rects[i].x = self.PK_RECTS[i].x + self.rel_possouris_pk_move_mode[0]
                         self.pk_rects[i].y = self.PK_RECTS[i].y + self.rel_possouris_pk_move_mode[1]
 
