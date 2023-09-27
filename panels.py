@@ -50,75 +50,84 @@ class ClassicGamePanel:
     def __init__(self, game):
         self.game = game
 
+        # LOADING IMAGES --------------------------------------------
+
+        # Elements permanents
         self.background = pygame.image.load('assets/game/panels/classic_panel/background.png')
-        self.mode_changement_pseudo_image = pygame.image.load('assets/game/panels/classic_panel/mode_changement_pseudo.png')
-
         self.sac = image.load_image('assets/game/panels/classic_panel/sac.png', True, (200, 200))
+
+        # Elements spontanés
+        #    # Player infos
+        self.mode_changement_pseudo_image = pygame.image.load('assets/game/panels/classic_panel/mode_changement_pseudo.png')
+        self.player_name_hover = pygame.image.load("assets/game/panels/classic_panel/player_name_hover.png")
         self.curseur_changement_pseudo = image.CursorChangePseudoMode()
-
-        self.font = pygame.font.Font('assets/fonts/impact.ttf', 50)
-        self.font_size2 = pygame.font.Font('assets/fonts/impact.ttf', 25)
-        self.font_size3 = pygame.font.Font('assets/fonts/(Unranked) Bdeogale.ttf', 70)
-
-        self.pokemon_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 25)
-        self.pokemon_level_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 15)
-        self.pokemon_hp_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 18)
-
-        self.player = game.player
-
         self.player_name_image = self.font.render(self.game.player.name, False, (15, 0, 124))
         self.player_name_indication = self.font_size2.render("(cliquer pour modifier)", False, (15, 0, 124))
-        self.player_lv_image = self.font_size3.render(str(self.player.level), False, (124, 124, 124))
-
-        self.player_name_rect = pygame.Rect(656, 12, 399, 51)
-        self.player_name_hover = pygame.image.load("assets/game/panels/classic_panel/player_name_hover.png")
-
+        self.player_lv_image = self.font_size3.render(str(self.game.player.level), False, (124, 124, 124))
+        #   # Pokemon infos
         self.pokemon_info_popup = pygame.image.load('assets/game/panels/classic_panel/pokemon_infos.png')
-        self.pokemon_info_popup_rect = pygame.Rect(898, 6, 374, 215)
         self.pokemon_info_popup_unknown = pygame.image.load('assets/game/panels/classic_panel/pokemon_info_unknown.png')
         self.pokemon_info_popup_x_button_hover = pygame.image.load('assets/game/panels/classic_panel/pokemon_infos_x_button_hover.png')
-        self.POKEMON_INFO_OBJ_RECT = pygame.Rect(1168, 143, 70, 70)
-        self.pokemon_info_obj_rect = pygame.Rect(1168, 143, 70, 70)
-        self.pokemon_info_mode = False
-        self.pokemon_info_i = 0
-
-        self.pk_info_obj_move_mode = False
-
-        self.font_pokemon_info_values = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 19)
-        self.font_pokemon_info_lv = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 42)
-        self.font_pokemon_info_name = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 23)
-        self.font_actions_font = pygame.font.Font('assets/fonts/Impact.ttf', 90)
-
-        self.money_font = pygame.font.Font('assets/fonts/Impact.ttf', 45)
-
-        self.alphabet_pixels = player_name.alphabet_pixels
-
-        self.current_ig_window_name = 'Unknown'
-        self.ingame_window = ingame_windows.IngameWindow(self.current_ig_window_name, self.game)
-
-        self.buttons = image.ClassicGamePanelButtons()
-        self.sac_button_hover = self.create_rect_alpha((218, 215), (113, 64, 30))  # pygame.Rect(667, 465, 218, 215)
-        self.sac_button_rect = pygame.Rect(667, 465, 218, 215)
-
+        #   # Pokemon team
         self.logo_pk_suppr = pygame.image.load('assets/game/panels/classic_panel/logo_suppr_pk.png')
-        self.logo_pk_suppr_rect = pygame.Rect(1085, 46, 150, 150)
         self.logo_pk_suppr_hover = pygame.image.load('assets/game/panels/classic_panel/logo_suppr_pk_hover.png')
-
-        self.PK_RECTS = (pygame.Rect(900, 275, 369, 69), pygame.Rect(900, 348, 369, 69), pygame.Rect(900, 421, 369, 69),
-                         pygame.Rect(900, 494, 369, 69), pygame.Rect(900, 567, 369, 69), pygame.Rect(900, 640, 369, 69))
-
-        self.pk_rects = [pygame.Rect(900, 275, 369, 69), pygame.Rect(900, 348, 369, 69), pygame.Rect(900, 421, 369, 69),
-                         pygame.Rect(900, 494, 369, 69), pygame.Rect(900, 567, 369, 69), pygame.Rect(900, 640, 369, 69)]
-        self.pk_move_mode = False
-        self.moving_pk = [False, False, False, False, False, False]
-        self.rel_possouris_pk_move_mode = [0, 0]
-        self.saved_possouris = (0, 0)
-
         self.interface_sombre_team = pygame.image.load('assets/game/panels/classic_panel/item_to_pokemon.png')
         self.item_pk_hover_use = pygame.image.load('assets/game/panels/classic_panel/item_use_pk_hover.png')
         self.item_pk_hover_give = pygame.image.load('assets/game/panels/classic_panel/item_give_pk_hover.png')
         self.item_pk_hover_error = pygame.image.load('assets/game/panels/classic_panel/item_error_pk_hover.png')
         self.item_pk_hover_give_error = pygame.image.load('assets/game/panels/classic_panel/item_error_give_pk_hover.png')
+        #   # Buttons
+        self.sac_button_hover = self.create_rect_alpha((218, 215), (113, 64, 30))  # pygame.Rect(667, 465, 218, 215)
+
+        # LOADING FONTS --------------------------------------------
+        #   # Basic fonts
+        self.font = pygame.font.Font('assets/fonts/impact.ttf', 50)
+        self.font_size2 = pygame.font.Font('assets/fonts/impact.ttf', 25)
+        self.font_size3 = pygame.font.Font('assets/fonts/(Unranked) Bdeogale.ttf', 70)
+        self.money_font = pygame.font.Font('assets/fonts/Impact.ttf', 45)
+        #   # Pokemon fonts
+        self.pokemon_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 25)
+        self.pokemon_level_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 15)
+        self.pokemon_hp_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 18)
+        self.font_pokemon_info_values = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 19)
+        self.font_pokemon_info_lv = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 42)
+        self.font_pokemon_info_name = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 23)
+        self.font_actions_font = pygame.font.Font('assets/fonts/Impact.ttf', 90)
+
+        # GENERATING RECTS --------------------------------------------
+        #   # Player rects
+        self.player_name_rect = pygame.Rect(656, 12, 399, 51)
+        #   # Pokemon rects
+        self.pokemon_info_popup_rect = pygame.Rect(898, 6, 374, 215)
+        self.POKEMON_INFO_OBJ_RECT = pygame.Rect(1168, 143, 70, 70)
+        self.pokemon_info_obj_rect = pygame.Rect(1168, 143, 70, 70)
+        self.PK_RECTS = (pygame.Rect(900, 275, 369, 69), pygame.Rect(900, 348, 369, 69), pygame.Rect(900, 421, 369, 69),
+                         pygame.Rect(900, 494, 369, 69), pygame.Rect(900, 567, 369, 69), pygame.Rect(900, 640, 369, 69))
+
+        self.pk_rects = [pygame.Rect(900, 275, 369, 69), pygame.Rect(900, 348, 369, 69), pygame.Rect(900, 421, 369, 69),
+                         pygame.Rect(900, 494, 369, 69), pygame.Rect(900, 567, 369, 69), pygame.Rect(900, 640, 369, 69)]
+        #   # Button rects
+        self.sac_button_rect = pygame.Rect(667, 465, 218, 215)
+        self.logo_pk_suppr_rect = pygame.Rect(1085, 46, 150, 150)
+
+        # SET VARIABLES --------------------------------------------
+        #   # Pokemon infos
+        self.pokemon_info_mode = False
+        self.pokemon_info_i = 0
+        self.pk_info_obj_move_mode = False
+        #   # Pokemon move mode
+        self.pk_move_mode = False
+        self.moving_pk = [False, False, False, False, False, False]
+        self.rel_possouris_pk_move_mode = [0, 0]
+        self.saved_possouris = (0, 0)
+
+        # IMPORT/INSTANCES --------------------------------------------
+        self.alphabet_pixels = player_name.alphabet_pixels
+
+        self.ingame_window = ingame_windows.IngameWindow(self.current_ig_window_name, self.game)
+        self.current_ig_window_name = 'Unknown'
+
+        self.buttons = image.ClassicGamePanelButtons()
 
     # UPDATES -----------------------------
 
@@ -168,8 +177,8 @@ class ClassicGamePanel:
         surface.blit(self.font_actions_font.render(str(self.game.player.actions), False, (0, 0, 0)), (385, 12))
 
     def update_player_lv(self, surface):
-        self.player_lv_image = self.font_size3.render(str(self.player.level), False, (124, 124, 124))
-        if self.player.level >= 10:
+        self.player_lv_image = self.font_size3.render(str(self.game.player.level), False, (124, 124, 124))
+        if self.game.player.level >= 10:
             surface.blit(self.player_lv_image, (955, 73))
         else:
             surface.blit(self.player_lv_image, (965, 73))
@@ -254,22 +263,22 @@ class ClassicGamePanel:
                             surface.blit(self.logo_pk_suppr_hover, (0, 0))
 
             if self.game.player.team[i] is not None:
-                surface.blit(self.player.team[i].icon_image, (self.pk_rects[i].x, self.pk_rects[i].y - 5),
+                surface.blit(self.game.player.team[i].icon_image, (self.pk_rects[i].x, self.pk_rects[i].y - 5),
                              (0, 0, 64, 64))
-                surface.blit(self.pokemon_name_font.render(self.player.team[i].name, False, (0, 0, 0)),
+                surface.blit(self.pokemon_name_font.render(self.game.player.team[i].name, False, (0, 0, 0)),
                              (self.pk_rects[i].x + 70, self.pk_rects[i].y + 13))
-                surface.blit(self.pokemon_level_font.render('Lv.' + str(self.player.team[i].level), False, (0, 0, 0)),
+                surface.blit(self.pokemon_level_font.render('Lv.' + str(self.game.player.team[i].level), False, (0, 0, 0)),
                              (self.pk_rects[i].x + 60, self.pk_rects[i].y + 42))
 
                 pygame.draw.rect(surface, (35, 35, 35),
                                  pygame.Rect(self.pk_rects[i].x + 200, self.pk_rects[i].y + 26, 150, 17))
                 pygame.draw.rect(surface, (42, 214, 0), pygame.Rect(self.pk_rects[i].x + 200,
                                                                     self.pk_rects[i].y + 26,
-                                                                    self.player.team[i].health / self.player.team[
+                                                                    self.game.player.team[i].health / self.game.player.team[
                                                                         i].pv * 150,
                                                                     17))
                 surface.blit(
-                    self.pokemon_hp_font.render(str(self.player.team[i].health) + "/" + str(self.player.team[i].pv),
+                    self.pokemon_hp_font.render(str(self.game.player.team[i].health) + "/" + str(self.game.player.team[i].pv),
                                                 False, (0, 0, 0)), (self.pk_rects[i].x + 200, self.pk_rects[i].y + 40))
 
         if i in (0, 2, 4):
@@ -383,7 +392,7 @@ class ClassicGamePanel:
 
     def change_pk_place(self, i1, i2):
         if not i1 == i2:
-            self.player.team[i1], self.player.team[i2] = self.player.team[i2], self.player.team[i1]
+            self.game.player.team[i1], self.game.player.team[i2] = self.game.player.team[i2], self.game.player.team[i1]
             if self.pokemon_info_mode:
                 if self.pokemon_info_i == i1:
                     self.pokemon_info_i = i2
