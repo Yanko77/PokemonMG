@@ -6,13 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="continue code reformating">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/image.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panels.py" beforeDir="false" afterPath="$PROJECT_DIR$/panels.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spawn.py" beforeDir="false" afterPath="$PROJECT_DIR$/spawn.py" afterDir="false" />
-    </list>
-    <list id="5c1a25cb-1809-4cdc-b078-5066dcb10137" name="Changes by Mathias Farvacque" comment="Changes by Mathias Farvacque">
       <change beforePath="$PROJECT_DIR$/panels.py" beforeDir="false" afterPath="$PROJECT_DIR$/panels.py" afterDir="false" />
     </list>
+    <list id="5c1a25cb-1809-4cdc-b078-5066dcb10137" name="Changes by Mathias Farvacque" comment="Changes by Mathias Farvacque" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +29,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -45,38 +40,6 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Dummy.txt" root0="SKIP_HIGHLIGHTING" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/panels.py">
-      <ranges>
-        <range start1="26" end1="31" start2="26" end2="28" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="32" end1="37" start2="29" end2="31" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="38" end1="43" start2="32" end2="34" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="46" end1="47" start2="37" end2="37" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="49" end1="51" start2="39" end2="45" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="59" end1="63" start2="53" end2="56" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="86" end1="87" start2="79" end2="81" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="114" end1="116" start2="108" end2="110" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="131" end1="132" start2="125" end2="125" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="134" end1="134" start2="127" end2="128" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="135" end1="136" start2="129" end2="129" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="148" end1="149" start2="141" end2="141" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="150" end1="150" start2="142" end2="143" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="151" end1="152" start2="144" end2="146" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="155" end1="156" start2="149" end2="149" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="205" end1="206" start2="198" end2="200" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="229" end1="230" start2="223" end2="225" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="263" end1="264" start2="258" end2="260" changelist="5c1a25cb-1809-4cdc-b078-5066dcb10137" />
-        <range start1="271" end1="274" start2="267" end2="273" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="279" end1="280" start2="278" end2="280" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="281" end1="283" start2="281" end2="284" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="301" end1="302" start2="302" end2="304" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="334" end1="341" start2="336" end2="355" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="346" end1="347" start2="360" end2="364" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="353" end1="354" start2="370" end2="372" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="358" end1="359" start2="376" end2="376" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -469,7 +432,21 @@
       <option name="project" value="LOCAL" />
       <updated>1695502164504</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="continue code reformating">
+      <created>1695556392101</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1695556392101</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Changes by Mathias Farvacque">
+      <created>1695556395196</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1695556395196</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -497,7 +474,6 @@
     <MESSAGE value="add interactions to sac d'objets window" />
     <MESSAGE value="add sac button in game.classic_panel" />
     <MESSAGE value="ajout des attaques et des objets&#10;2 fichiers txt pour les definir&#10;Nouveau calcul des degats des attaques&#10;ajout d'images pour les objets" />
-    <MESSAGE value="Changes by Mathias Farvacque" />
     <MESSAGE value="new fonctionnalité : Move pokemon in game.classic_panel&#10;&#10;+ images pour tous les objets" />
     <MESSAGE value="add starter_window images&#10;fonctionnalité: choisir le starter" />
     <MESSAGE value="finished starter choice etape" />
@@ -509,6 +485,7 @@
     <MESSAGE value="des milliards de trucs" />
     <MESSAGE value="Spawn action working&#10;System of actions working&#10;begin reformating code ( player_name done )&#10;&#10;add player_name.py" />
     <MESSAGE value="continue code reformating" />
-    <option name="LAST_COMMIT_MESSAGE" value="continue code reformating" />
+    <MESSAGE value="Changes by Mathias Farvacque" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes by Mathias Farvacque" />
   </component>
 </project>
