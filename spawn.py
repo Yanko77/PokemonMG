@@ -262,7 +262,6 @@ class SpawnPanel:
                 if line.split()[0] == name:
                     return line.split()
 
-
     def get_valable_pokemons(self, player_level):
         valable_pks = []
         with open('all_pokemons.txt', 'r') as file:
@@ -273,12 +272,10 @@ class SpawnPanel:
                         valable_pks.append(line[0])
         return valable_pks
 
-
     def get_pk_rarity(self, pokemon):
         pokemon_rarety = int(self.find_pokemon_line(pokemon)[1])
         pokemon_rarety = 100 - pokemon_rarety
         return pokemon_rarety
-
 
     def get_total_spawn_chances(self, valable_pks):
         total_rarety = 0
@@ -286,7 +283,6 @@ class SpawnPanel:
             pokemon_rarety = self.get_pk_rarity(pokemon)
             total_rarety += pokemon_rarety
         return total_rarety
-
 
     def get_spawning_pokemon(self, player_level):
         generated_number = random.randint(0, self.get_total_spawn_chances(self.get_valable_pokemons(player_level)))

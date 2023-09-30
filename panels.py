@@ -50,6 +50,21 @@ class ClassicGamePanel:
     def __init__(self, game):
         self.game = game
 
+        # LOADING FONTS --------------------------------------------
+        #   # Basic fonts
+        self.font = pygame.font.Font('assets/fonts/impact.ttf', 50)
+        self.font_size2 = pygame.font.Font('assets/fonts/impact.ttf', 25)
+        self.font_size3 = pygame.font.Font('assets/fonts/(Unranked) Bdeogale.ttf', 70)
+        self.money_font = pygame.font.Font('assets/fonts/Impact.ttf', 45)
+        #   # Pokemon fonts
+        self.pokemon_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 25)
+        self.pokemon_level_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 15)
+        self.pokemon_hp_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 18)
+        self.font_pokemon_info_values = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 19)
+        self.font_pokemon_info_lv = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 42)
+        self.font_pokemon_info_name = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 23)
+        self.font_actions_font = pygame.font.Font('assets/fonts/Impact.ttf', 90)
+
         # LOADING IMAGES --------------------------------------------
 
         # Elements permanents
@@ -79,22 +94,8 @@ class ClassicGamePanel:
         #   # Buttons
         self.sac_button_hover = self.create_rect_alpha((218, 215), (113, 64, 30))  # pygame.Rect(667, 465, 218, 215)
 
-        # LOADING FONTS --------------------------------------------
-        #   # Basic fonts
-        self.font = pygame.font.Font('assets/fonts/impact.ttf', 50)
-        self.font_size2 = pygame.font.Font('assets/fonts/impact.ttf', 25)
-        self.font_size3 = pygame.font.Font('assets/fonts/(Unranked) Bdeogale.ttf', 70)
-        self.money_font = pygame.font.Font('assets/fonts/Impact.ttf', 45)
-        #   # Pokemon fonts
-        self.pokemon_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 25)
-        self.pokemon_level_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 15)
-        self.pokemon_hp_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 18)
-        self.font_pokemon_info_values = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 19)
-        self.font_pokemon_info_lv = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 42)
-        self.font_pokemon_info_name = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 23)
-        self.font_actions_font = pygame.font.Font('assets/fonts/Impact.ttf', 90)
-
         # GENERATING RECTS --------------------------------------------
+
         #   # Player rects
         self.player_name_rect = pygame.Rect(656, 12, 399, 51)
         #   # Pokemon rects
@@ -124,8 +125,8 @@ class ClassicGamePanel:
         # IMPORT/INSTANCES --------------------------------------------
         self.alphabet_pixels = player_name.alphabet_pixels
 
-        self.ingame_window = ingame_windows.IngameWindow(self.current_ig_window_name, self.game)
         self.current_ig_window_name = 'Unknown'
+        self.ingame_window = ingame_windows.IngameWindow(self.current_ig_window_name, self.game)
 
         self.buttons = image.ClassicGamePanelButtons()
 

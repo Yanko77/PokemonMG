@@ -1,4 +1,8 @@
 
+def get_mutiliplicateur(type_atk_pk, type_def_pk2):
+    return types_affinities[type_atk_pk][type_def_pk2]
+
+
 types_affinities = {
     'normal': {'normal': 1,
                'plante': 1,
