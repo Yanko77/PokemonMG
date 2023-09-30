@@ -165,36 +165,19 @@ class SpawnPanel:
             else:
                 if not self.game.mouse_pressed[1]:
                     self.spawning_pk_move_mode = False
+
                     if self.game.classic_panel.PK_RECTS[0].collidepoint(possouris):
-                        if self.game.player.team[0] is None:
-                            self.game.player.team[0] = self.spawning_pk
-                            self.spawning_pk = None
-                            self.is_spawning_pk_lock = True
+                        self.spawning_pk_in_team(0)
                     elif self.game.classic_panel.PK_RECTS[1].collidepoint(possouris):
-                        if self.game.player.team[1] is None:
-                            self.game.player.team[1] = self.spawning_pk
-                            self.spawning_pk = None
-                            self.is_spawning_pk_lock = True
+                        self.spawning_pk_in_team(1)
                     elif self.game.classic_panel.PK_RECTS[2].collidepoint(possouris):
-                        if self.game.player.team[2] is None:
-                            self.game.player.team[2] = self.spawning_pk
-                            self.spawning_pk = None
-                            self.is_spawning_pk_lock = True
+                        self.spawning_pk_in_team(2)
                     elif self.game.classic_panel.PK_RECTS[3].collidepoint(possouris):
-                        if self.game.player.team[3] is None:
-                            self.game.player.team[3] = self.spawning_pk
-                            self.spawning_pk = None
-                            self.is_spawning_pk_lock = True
+                        self.spawning_pk_in_team(3)
                     elif self.game.classic_panel.PK_RECTS[4].collidepoint(possouris):
-                        if self.game.player.team[4] is None:
-                            self.game.player.team[4] = self.spawning_pk
-                            self.spawning_pk = None
-                            self.is_spawning_pk_lock = True
+                        self.spawning_pk_in_team(4)
                     elif self.game.classic_panel.PK_RECTS[5].collidepoint(possouris):
-                        if self.game.player.team[5] is None:
-                            self.game.player.team[5] = self.spawning_pk
-                            self.spawning_pk = None
-                            self.is_spawning_pk_lock = True
+                        self.spawning_pk_in_team(5)
                 else:
                     self.possouris_rel = (possouris[0] - self.saved_possouris[0], possouris[1] - self.saved_possouris[1])
                     self.spawning_pk_rect.x = self.SPAWNING_PK_RECT.x + self.possouris_rel[0]
@@ -235,6 +218,12 @@ class SpawnPanel:
         self.catch_confirm_rect.y = 214 + window_pos[1]
         self.catch_confirm_popup_rect = pygame.Rect(398 + window_pos[0], 217 + window_pos[1], 338, 92)
 
+    def spawning_pk_in_team(self, team_i):
+        if self.game.player.team[team_i] is None:
+            self.game.player.team[team_i] = self.spawning_pk
+            self.spawning_pk = None
+            self.is_spawning_pk_lock = True
+
     def update_spawning_pk_level(self):
         if not round(self.game.player.level*1.5+2 + self.spawning_pk_level_bonus) == self.min_spawning_pk_level:
             self.min_spawning_pk_level = round(self.game.player.level*1.5+2 + self.spawning_pk_level_bonus)
@@ -273,7 +262,6 @@ class SpawnPanel:
                 if line.split()[0] == name:
                     return line.split()
 
-
     def get_valable_pokemons(self, player_level):
         valable_pks = []
         with open('all_pokemons.txt', 'r') as file:
@@ -284,12 +272,10 @@ class SpawnPanel:
                         valable_pks.append(line[0])
         return valable_pks
 
-
     def get_pk_rarity(self, pokemon):
         pokemon_rarety = int(self.find_pokemon_line(pokemon)[1])
         pokemon_rarety = 100 - pokemon_rarety
         return pokemon_rarety
-
 
     def get_total_spawn_chances(self, valable_pks):
         total_rarety = 0
@@ -297,7 +283,6 @@ class SpawnPanel:
             pokemon_rarety = self.get_pk_rarity(pokemon)
             total_rarety += pokemon_rarety
         return total_rarety
-
 
     def get_spawning_pokemon(self, player_level):
         generated_number = random.randint(0, self.get_total_spawn_chances(self.get_valable_pokemons(player_level)))

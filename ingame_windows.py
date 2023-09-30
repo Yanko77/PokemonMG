@@ -1,11 +1,12 @@
 import pygame
 
 import spawn
-
-pygame.font.init()
+import train
 import image
 import sac
 import starters
+pygame.font.init()
+
 
 
 class IngameWindow:
@@ -59,6 +60,7 @@ class IngameWindow:
         self.sac_panel = sac.SacIngamePanel(self.game)
         self.starters_panel = starters.StartersPanel(self.game)
         self.spawn_panel = spawn.SpawnPanel(self.game)
+        self.train_panel = train.TrainPanel(self.game)
 
     def update(self, surface, possouris):
         self.update_main_window_rect()
@@ -128,6 +130,8 @@ class IngameWindow:
             self.starters_panel.update(surface, possouris, self.main_window_pos)
         elif self.name == "Spawn":
             self.spawn_panel.update(surface, possouris, self.main_window_pos)
+        elif self.name == "Train":
+            self.train_panel.update(surface, possouris, self.main_window_pos)
 
     def update_name(self, new_name):
         self.name = new_name[0].upper() + new_name[1:].lower()

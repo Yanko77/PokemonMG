@@ -4,6 +4,7 @@ import objet
 import game_infos
 import attaques
 
+
 class Pokemon:
 
     def __init__(self, name, level, is_shiny=None, objet_tenu=None):
@@ -70,6 +71,12 @@ class Pokemon:
 
     def get_stats(self):
         return self.pv, self.attack, self.defense, self.speed
+
+    def get_level(self):
+        return self.level
+
+    def get_type(self):
+        return self.type
 
     def damage(self, amount):
         self.health -= amount
@@ -159,10 +166,34 @@ class Pokemon:
             return False
 
 
+def get_all_weak_pokemons(pokemon_type):
+    '''weak_types_list = get_weak_types(pokemon_type)
+    weak_pokemons_list = []
+    for i in weak_types_list:
+        with open('all_pokemons.txt') as file:
+            for line in file.readlines():
+                if line.split()[2] == i:
+                    weak_pokemons_list.append(line.split()[0])'''
+
+    weak_types_list = get_weak_types(pokemon_type)
+    weak_pokemons_list = []
+    with open('all_pokemons.txt', 'r') as file:
+        for line in file.readlines():
+            if not line.split()[0] == '#':
+                print(line)
+                if line.split()[2] in weak_types_list:
+                    weak_pokemons_list.append(line.split()[0])
+
+    return weak_pokemons_list
+
+def get_weak_types(pokemon_type):
+    weak_types_list = []
+    for type in game_infos.types_affinities[pokemon_type]:
+        if game_infos.types_affinities[pokemon_type][type] == 2:
+            weak_types_list.append(type)
+
+    return weak_types_list
 
 
 if __name__ == "__main__":
-    pokemon_A = Pokemon('Reptincel', 24)
-    print(pokemon_A.get_stats())
-    pokemon_A = pokemon_A.evolution()
-    print(pokemon_A.get_stats())
+    print(get_all_weak_pokemons('plante'))

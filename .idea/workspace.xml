@@ -4,13 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="Spawn action working&#10;System of actions working&#10;begin reformating code ( player_name done )&#10;&#10;add player_name.py">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="continue code reformating&#10;&#10;reformating panels.py">
+      <change afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_infos.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_infos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ingame_windows.py" beforeDir="false" afterPath="$PROJECT_DIR$/ingame_windows.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/panels.py" beforeDir="false" afterPath="$PROJECT_DIR$/panels.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spawn.py" beforeDir="false" afterPath="$PROJECT_DIR$/spawn.py" afterDir="false" />
     </list>
-    <list id="5c1a25cb-1809-4cdc-b078-5066dcb10137" name="Changes by Mathias Farvacque" comment="Changes by Mathias Farvacque" />
+    <list id="0eb1fe32-8655-4b54-b4df-a8720f647fa5" name="Changes by Mathias Farvacque" comment="">
+      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
+    </list>
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +36,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -43,6 +47,16 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Dummy.txt" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/pokemon.py">
+      <ranges>
+        <range start1="5" end1="5" start2="5" end2="6" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="72" end1="72" start2="73" end2="79" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="161" end1="161" start2="168" end2="195" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="164" end1="168" start2="198" end2="199" changelist="0eb1fe32-8655-4b54-b4df-a8720f647fa5" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -79,7 +93,7 @@
       <recent name="C:\Users\yanko\PycharmProjects\PokemonManagementGame" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.pokemon">
     <configuration name="animation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PokemonMG" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -93,6 +107,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/animation.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="image" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PokemonManagementGame" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/image.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -144,7 +179,7 @@
       <method v="2" />
     </configuration>
     <configuration name="pokemon" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PokemonMG" />
+      <module name="PokemonManagementGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -187,11 +222,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.spawn" />
         <item itemvalue="Python.pokemon" />
+        <item itemvalue="Python.image" />
+        <item itemvalue="Python.spawn" />
         <item itemvalue="Python.player" />
         <item itemvalue="Python.animation" />
-        <item itemvalue="Python.spawn" />
       </list>
     </recent_temporary>
   </component>
@@ -407,7 +442,42 @@
       <option name="project" value="LOCAL" />
       <updated>1695490220601</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="continue code reformating">
+      <created>1695502164504</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1695502164504</updated>
+    </task>
+    <task id="LOCAL-00031" summary="continue code reformating">
+      <created>1695556392101</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1695556392101</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Changes by Mathias Farvacque">
+      <created>1695556395196</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1695556395196</updated>
+    </task>
+    <task id="LOCAL-00033" summary="continue code reformating&#10;&#10;reformating panels.py">
+      <created>1695837604484</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1695837604484</updated>
+    </task>
+    <task id="LOCAL-00034" summary="continue code reformating&#10;&#10;reformating panels.py">
+      <created>1695839505436</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1695839505436</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -422,8 +492,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="finish all animations to change player name in game.classic_panel.update()&#10;&#10;add new images for thoses animations" />
-    <MESSAGE value="beginning of game.is_playing structure&#10;fonction: change pseudo&#10;&#10;add intra-game windows" />
     <MESSAGE value="no more interactions bugs" />
     <MESSAGE value="ingame_windows fonctionnelle" />
     <MESSAGE value="ingame_windows with icons and titles&#10;classic_panel buttons hover animations" />
@@ -436,7 +504,6 @@
     <MESSAGE value="add interactions to sac d'objets window" />
     <MESSAGE value="add sac button in game.classic_panel" />
     <MESSAGE value="ajout des attaques et des objets&#10;2 fichiers txt pour les definir&#10;Nouveau calcul des degats des attaques&#10;ajout d'images pour les objets" />
-    <MESSAGE value="Changes by Mathias Farvacque" />
     <MESSAGE value="new fonctionnalité : Move pokemon in game.classic_panel&#10;&#10;+ images pour tous les objets" />
     <MESSAGE value="add starter_window images&#10;fonctionnalité: choisir le starter" />
     <MESSAGE value="finished starter choice etape" />
@@ -447,6 +514,9 @@
     <MESSAGE value="add hover cursor when item give or use on pokemon" />
     <MESSAGE value="des milliards de trucs" />
     <MESSAGE value="Spawn action working&#10;System of actions working&#10;begin reformating code ( player_name done )&#10;&#10;add player_name.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Spawn action working&#10;System of actions working&#10;begin reformating code ( player_name done )&#10;&#10;add player_name.py" />
+    <MESSAGE value="continue code reformating" />
+    <MESSAGE value="Changes by Mathias Farvacque" />
+    <MESSAGE value="continue code reformating&#10;&#10;reformating panels.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="continue code reformating&#10;&#10;reformating panels.py" />
   </component>
 </project>
