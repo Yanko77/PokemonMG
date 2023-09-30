@@ -196,7 +196,4 @@ def get_weak_types(pokemon_type):
 
 
 if __name__ == "__main__":
-    pokemon_A = Pokemon('Reptincel', 24)
-    print(pokemon_A.get_stats())
-    pokemon_A = pokemon_A.evolution()
-    print(pokemon_A.get_stats())
+    print(get_all_weak_pokemons('plante'))
