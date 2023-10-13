@@ -115,6 +115,20 @@ class Player:
 
             empty_emp_i += 1
 
+    def get_moyenne_team(self):
+        levels_list = []
+        for pk in self.team:
+            if pk is not None:
+                levels_list.append(pk.get_level())
+
+        if not levels_list:
+            return 0
+        else:
+            return sum(levels_list) // len(levels_list)
+
+    def get_level(self):
+        return self.level
+
 
 if __name__ == "__main__":
     player = Player()
