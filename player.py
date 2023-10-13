@@ -1,4 +1,5 @@
 import player_name
+import pokemon
 from objet import Objet
 
 
@@ -13,7 +14,7 @@ class Player:
         self.actions = 3
         self.max_actions = 3
 
-        self.team = [None,
+        self.team = [pokemon.Pokemon('evoli', 10),
                      None,
                      None,
                      None,
@@ -117,4 +118,5 @@ class Player:
 
 if __name__ == "__main__":
     player = Player()
-    player.evol_pk()
+    player.team[0], player.team[1] = pokemon.Pokemon('Dracaufeu', 10), pokemon.Pokemon('Dracaufeu', 15)
+    print(player.get_moyenne_team())

@@ -78,6 +78,9 @@ class Pokemon:
     def get_type(self):
         return self.type
 
+    def get_name(self):
+        return self.name
+
     def damage(self, amount):
         self.health -= amount
         if self.health < 0:
@@ -166,34 +169,5 @@ class Pokemon:
             return False
 
 
-def get_all_weak_pokemons(pokemon_type):
-    '''weak_types_list = get_weak_types(pokemon_type)
-    weak_pokemons_list = []
-    for i in weak_types_list:
-        with open('all_pokemons.txt') as file:
-            for line in file.readlines():
-                if line.split()[2] == i:
-                    weak_pokemons_list.append(line.split()[0])'''
-
-    weak_types_list = get_weak_types(pokemon_type)
-    weak_pokemons_list = []
-    with open('all_pokemons.txt', 'r') as file:
-        for line in file.readlines():
-            if not line.split()[0] == '#':
-                print(line)
-                if line.split()[2] in weak_types_list:
-                    weak_pokemons_list.append(line.split()[0])
-
-    return weak_pokemons_list
-
-def get_weak_types(pokemon_type):
-    weak_types_list = []
-    for type in game_infos.types_affinities[pokemon_type]:
-        if game_infos.types_affinities[pokemon_type][type] == 2:
-            weak_types_list.append(type)
-
-    return weak_types_list
-
-
 if __name__ == "__main__":
-    print(get_all_weak_pokemons('plante'))
+    print(get_all_diff_pokemons('elec', 'hard'))

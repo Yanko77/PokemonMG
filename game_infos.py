@@ -1,8 +1,4 @@
 
-def get_mutiliplicateur(type_atk_pk, type_def_pk2):
-    return types_affinities[type_atk_pk][type_def_pk2]
-
-
 types_affinities = {
     'normal': {'normal': 1,
                'plante': 1,
@@ -354,3 +350,35 @@ types_affinities = {
                }
 
 }
+
+
+def get_mutiliplicateur(type_atk_pk, type_def_pk2):
+    return types_affinities[type_atk_pk][type_def_pk2]
+
+
+def get_all_diff_pokemons(pokemon_type, difficulty='easy'):
+    multiplicateur_diff = {
+        'easy': (2, 1),
+        'normal': (2, 1, 0.5),
+        'hard': (1, 0.5, 0)
+    }
+
+    types_list = get_diff_types(pokemon_type, multiplicateur_diff[difficulty])  # Marche pour les tuples
+    pokemons_list = []
+    with open('all_pokemons.txt', 'r') as file:
+        for line in file.readlines():
+            if not line.split()[0] == '#':
+                if line.split()[2] in types_list:
+                    pokemons_list.append(line.split()[0])
+
+    return pokemons_list
+
+
+def get_diff_types(pokemon_type, multiplicateur):
+    types_list = []
+
+    for pk_type in types_affinities[pokemon_type]:
+        if types_affinities[pokemon_type][pk_type] in multiplicateur:
+            types_list.append(pk_type)
+
+    return types_list
