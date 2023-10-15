@@ -19,23 +19,22 @@ class TrainPanel:
         self.ennemy_pk_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 36)
 
         # DEFAULT VARIABLES --------------------------
-        self.difficult = 'easy'
-        self.training_pk = self.game.player.team[0]
+        self.difficult = None
+        self.training_pk = None
         self.ennemy_pks = {
             'easy': self.spawn_ennemy_pk('easy'),
             'normal': self.spawn_ennemy_pk('normal'),
-            'hard': self.spawn_ennemy_pk('hard')
+            'hard': self.spawn_ennemy_pk('hard'),
+            None: None
         }
 
     def update(self, surface, possouris, window_pos):
         surface.blit(self.background, (window_pos[0], window_pos[1]))
 
-        self.update_preview_ennemy(surface, window_pos)
-        self.update_emp_training_pk(surface, possouris, window_pos)
+        if self.training_pk is not None:
+            self.update_preview_ennemy(surface, window_pos)
 
-        for pk in self.ennemy_pks.values():
-            print(pk.get_name(), end=" ")
-        print()
+        self.update_emp_training_pk(surface, possouris, window_pos)
 
     def update_emp_training_pk(self, surface, possouris, window_pos):
         surface.blit(self.emp_training_pk, (83 + window_pos[0], 97 + window_pos[1]))
@@ -79,26 +78,18 @@ class TrainPanel:
         pk_icon_y = window_pos[1] + 64
         pk_icon = image.load_image(f'assets/game/pokemons_icons/{self.ennemy_pks[self.difficult].get_name()}.png', True, (190, 95))
 
-        '''text_lv = self.lv_font.render(f'LV. {self.ennemy_pk.get_level()}', False, (255, 255, 255))
-        text_lv_pos = (window_pos[0] + 405, window_pos[1] + 168)
-
-        text_name = self.ennemy_pk_name_font.render(f'{self.ennemy_pk.get_name()}', False, (255, 255, 255))
-        text_name_pos = (window_pos[0] + 530, window_pos[1] + 47)
-        text_name_bg = self.create_rect_alpha((190, 35), (180, 180, 180), 150)
-        text_name_bg_pos = (window_pos[0] + 531, window_pos[1] + 55)'''
-
         surface.blit(background, (bg_x, bg_y))
         surface.blit(border_pk_icon, (border_pk_icon_x, border_pk_icon_y))
         surface.blit(background_pk_icon, (bg_pk_icon_x, bg_pk_icon_y))
         surface.blit(pk_icon, (pk_icon_x, pk_icon_y), (0, 0, 95, 95))
-        '''surface.blit(text_lv, text_lv_pos)
-        surface.blit(text_name_bg, text_name_bg_pos)
-        surface.blit(text_name, text_name_pos)'''
 
     def set_difficult(self, diff_value='easy'):
         self.difficult = diff_value
 
     def get_spawn_ennemy_pk(self, difficult):
+
+        if self.training_pk is None:
+            return None
 
         all_spawnable_pk = game_infos.get_all_diff_pokemons(self.training_pk.get_type(), difficult)
         pokemon_name = random.choice(all_spawnable_pk)
@@ -106,6 +97,10 @@ class TrainPanel:
         return pokemon_name
 
     def spawn_ennemy_pk(self, difficult):
+        ennemy_pk_name = self.get_spawn_ennemy_pk(difficult)
+        if ennemy_pk_name is None:
+            return None
+
         min_lv = round(0.6*self.game.player.get_moyenne_team() + self.game.player.get_level())
         max_lv = round(1.2*self.game.player.get_moyenne_team() + self.game.player.get_level())
         ennemy_pk_lv = random.randint(min_lv, max_lv)

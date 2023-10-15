@@ -89,29 +89,17 @@ class StartersPanel:
             if not self.game.mouse_pressed[1]:
 
                 if self.game.classic_panel.PK_RECTS[0].collidepoint(possouris):
-                    self.game.player.team[0] = self.starters[i]
-                    self.game.is_starter_selected = True
-                    self.reset_player_team(0)
+                    self.select_starter(i, 0)
                 elif self.game.classic_panel.PK_RECTS[1].collidepoint(possouris):
-                    self.game.player.team[1] = self.starters[i]
-                    self.game.is_starter_selected = True
-                    self.reset_player_team(1)
+                    self.select_starter(i, 1)
                 elif self.game.classic_panel.PK_RECTS[2].collidepoint(possouris):
-                    self.game.player.team[2] = self.starters[i]
-                    self.game.is_starter_selected = True
-                    self.reset_player_team(2)
+                    self.select_starter(i, 2)
                 elif self.game.classic_panel.PK_RECTS[3].collidepoint(possouris):
-                    self.game.player.team[3] = self.starters[i]
-                    self.game.is_starter_selected = True
-                    self.reset_player_team(3)
+                    self.select_starter(i, 3)
                 elif self.game.classic_panel.PK_RECTS[4].collidepoint(possouris):
-                    self.game.player.team[4] = self.starters[i]
-                    self.game.is_starter_selected = True
-                    self.reset_player_team(4)
+                    self.select_starter(i, 4)
                 elif self.game.classic_panel.PK_RECTS[5].collidepoint(possouris):
-                    self.game.player.team[5] = self.starters[i]
-                    self.game.is_starter_selected = True
-                    self.reset_player_team(5)
+                    self.select_starter(i, 5)
                 else:
                     self.pk_rects = [pygame.Rect(80 + window_pos[0], 84 + window_pos[1], 190, 190),
                                      pygame.Rect(362 + window_pos[0], 84 + window_pos[1], 190, 190),
@@ -137,6 +125,13 @@ class StartersPanel:
 
         else:
             surface.blit(self.pokeballs[i], (0+window_pos[0], 0+window_pos[1]))
+
+    def select_starter(self, i_starter, i_team=0):
+        self.game.player.team[i_team] = self.starters[i_starter]
+        self.game.is_starter_selected = True
+        self.reset_player_team(i_team)
+
+        self.game.classic_panel.ingame_window.init_train_panel()
 
     def decouvrir_pk(self, i):
         self.pk_decouverts[i] = True

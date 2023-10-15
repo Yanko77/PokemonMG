@@ -14,7 +14,7 @@ class Player:
         self.actions = 3
         self.max_actions = 3
 
-        self.team = [pokemon.Pokemon('evoli', 10),
+        self.team = [None,
                      None,
                      None,
                      None,

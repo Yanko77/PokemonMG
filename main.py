@@ -167,6 +167,9 @@ while running:
                                     else:
                                         game.player.enable_name_editing_mode()
 
+                                    if game.classic_panel.ingame_window.is_open:
+                                        game.classic_panel.ingame_window.close()
+
                                 if game.is_starter_selected:
                                     if game.classic_panel.buttons.spawn_button_rect.collidepoint(posSouris):
                                         if game.classic_panel.buttons.unlocked_buttons['Spawn']:
