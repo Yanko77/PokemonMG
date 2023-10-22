@@ -95,6 +95,9 @@ class IngameWindow:
         elif self.name == 'Spawn':
             if self.spawn_panel.is_hovering_buttons(possouris):
                 return True
+        elif self.name == 'Train':
+            if self.train_panel.is_hovering_buttons(possouris):
+                return True
         return False
 
     def init_train_panel(self):

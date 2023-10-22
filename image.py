@@ -265,13 +265,13 @@ class ClassicGamePanelButtons:
 class IngameWindowButtons:
 
     def __init__(self):
-        ## Bouton CLOSE
+        # Bouton CLOSE
         self.x_button = load_image('assets/game/ingame_windows/basic/x_button.png')
         self.x_button_rect = get_custom_rect(self.x_button, 854, 4)
 
         self.x_button_hover = load_image('assets/game/ingame_windows/basic/x_button_hover.png')
 
-        ## Bouton MINIMIZE
+        # Bouton MINIMIZE
         self.min_button = load_image('assets/game/ingame_windows/basic/min_button.png')
         self.min_button_rect = get_custom_rect(self.min_button, 816, 4)
 
@@ -296,6 +296,7 @@ class IngameWindowButtons:
             return False
         return True
 
+
 def load_image(path, boolTransfromScale=False, size=None):
     image = pygame.image.load(path)
 
@@ -317,6 +318,7 @@ def get_custom_rect(image, rectx=None, recty=None, rectw=None, recth=None):
         image_rect.h = recth
 
     return image_rect
+
 
 if __name__ == '__main__':
     pass

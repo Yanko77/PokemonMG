@@ -9,27 +9,42 @@ class TrainPanel:
 
     def __init__(self, game):
         self.game = game
+        self.path = 'assets/game/ingame_windows/Train/'
         # LOADING IMAGES --------------------------
-        self.background = image.load_image('assets/game/ingame_windows/Train/background.png')
-        self.emp_training_pk = image.load_image('assets/game/ingame_windows/Train/emp_training_pk.png')
+        self.background = self.load_image('background.png')
+        self.emp_training_pk = self.load_image('emp_training_pk.png')
+        self.pk_selected_indicator = self.load_image('pk_selected_indicator.png')
+        self.settings_button = self.load_image('settings_button.png')
+        self.settings_button_hover = self.load_image('settings_button_hover.png')
+        self.diff_ind_easy = self.load_image('diff_ind_easy.png')
+        self.diff_ind_normal = self.load_image('diff_ind_normal.png')
+        self.diff_ind_hard = self.load_image('diff_ind_hard.png')
 
         # LOADING FONTS ---------------------
-        self.difficulty_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 36)
+        self.difficulty_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 35)
         self.lv_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 45)
         self.ennemy_pk_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 36)
 
         # DEFAULT VARIABLES --------------------------
-        self.difficult = None
+        self.background_pos = (-13, -21)
+        self.emp_training_pk_pos = (79, 79)
+        self.pk_selected_indicator_pos = (135, 414)
+        self.settings_button_rect = pygame.Rect(30, 97, 54, 84)
+        self.settings_button_pos = (34, 101)
+        self.diff_ind_pos = (80, 81)
+
+        self.difficult = 'easy'
         self.training_pk = None
         self.ennemy_pks = {
             'easy': self.spawn_ennemy_pk('easy'),
             'normal': self.spawn_ennemy_pk('normal'),
-            'hard': self.spawn_ennemy_pk('hard'),
-            None: None
+            'hard': self.spawn_ennemy_pk('hard')
         }
 
     def update(self, surface, possouris, window_pos):
-        surface.blit(self.background, (window_pos[0], window_pos[1]))
+        self.update_rects_pos(window_pos)
+
+        surface.blit(self.background, (window_pos[0] + self.background_pos[0], window_pos[1] + self.background_pos[1]))
 
         if self.training_pk is not None:
             self.update_preview_ennemy(surface, window_pos)
@@ -37,29 +52,34 @@ class TrainPanel:
         self.update_emp_training_pk(surface, possouris, window_pos)
 
     def update_emp_training_pk(self, surface, possouris, window_pos):
-        surface.blit(self.emp_training_pk, (83 + window_pos[0], 97 + window_pos[1]))
+        surface.blit(self.emp_training_pk, (self.emp_training_pk_pos[0] + window_pos[0],
+                                            self.emp_training_pk_pos[1] + window_pos[1]))
         if self.difficult == 'easy':
-            text = 'EASY'
-            color = (31, 83, 0)
-            pos = (299, 410)
+            color = (0, 150, 0)
+            surface.blit(self.diff_ind_easy, (self.diff_ind_pos[0] + window_pos[0],
+                                              self.diff_ind_pos[1] + window_pos[1]))
         elif self.difficult == 'normal':
-            text = 'NORM'
-            color = (199, 89, 0)
-            pos = (291, 410)
+            color = (255, 150, 0)
+            surface.blit(self.diff_ind_normal, (self.diff_ind_pos[0] + window_pos[0],
+                                              self.diff_ind_pos[1] + window_pos[1]))
         elif self.difficult == 'hard':
-            text = 'HARD'
-            color = (140, 0, 0)
-            pos = (295, 410)
+            color = (130, 0, 0)
+            surface.blit(self.diff_ind_hard, (self.diff_ind_pos[0] + window_pos[0],
+                                              self.diff_ind_pos[1] + window_pos[1]))
+
+        surface.blit(self.difficulty_font.render(self.difficult.upper(), False, color), (160 + window_pos[0],
+                                                                                         51 + window_pos[1]))
+
+        if self.settings_button_rect.collidepoint(possouris):
+            surface.blit(self.settings_button_hover, (self.settings_button_pos[0] + window_pos[0],
+                                                      self.settings_button_pos[1] + window_pos[1]))
         else:
-            text = 'NONE'
-            color = (32, 32, 32)
-            pos = (295, 410)
+            surface.blit(self.settings_button, (self.settings_button_pos[0] + window_pos[0],
+                                                self.settings_button_pos[1] + window_pos[1]))
 
-        x = pos[0] + window_pos[0]
-        y = pos[1] + window_pos[1]
-        pos = (x, y)
-
-        surface.blit(self.difficulty_font.render(text, False, color), pos)
+        if self.training_pk is None:
+            surface.blit(self.pk_selected_indicator, (self.pk_selected_indicator_pos[0] + window_pos[0],
+                                                      self.pk_selected_indicator_pos[1] + window_pos[1]))
 
     def update_preview_ennemy(self, surface, window_pos):
         bg_x = window_pos[0] + 400
@@ -107,8 +127,22 @@ class TrainPanel:
 
         return pokemon.Pokemon(self.get_spawn_ennemy_pk(difficult), ennemy_pk_lv)
 
+    def update_rects_pos(self, window_pos):
+        self.settings_button_rect = pygame.Rect(20 + window_pos[0], 87 + window_pos[1], 75, 105)
+
+    def is_hovering_buttons(self, possouris):
+        return self.settings_button_rect.collidepoint(possouris)
+
     def create_rect_alpha(self, dimensions, color, opacite=90):
         rect = pygame.Surface(dimensions)
         rect.set_alpha(opacite)
         rect.fill(color)
         return rect
+
+    def load_image(self, file_name, boolTransfromScale=False, size=None):
+        image = pygame.image.load(self.path + file_name)
+
+        if boolTransfromScale:
+            image = pygame.transform.scale(image, size)
+
+        return image

@@ -44,9 +44,9 @@ while running:
 
             ## Touche de test admin
             if event.key == pygame.K_p:
-                pass
+                game.player.team[0].damage(10)
             elif event.key == pygame.K_o:
-                pass
+                game.classic_panel.ingame_window.train_panel.difficult = 'normal'
 
             if game.player.name_editing_mode:
                 if event.key == pygame.K_RETURN:
