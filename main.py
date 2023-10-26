@@ -2,6 +2,8 @@ import pygame
 from game import Game
 import player_name
 
+import pokemon
+
 FPS = 144
 screen = pygame.display.set_mode((1280, 720))
 icon = pygame.image.load("assets/icon.png")
@@ -44,7 +46,7 @@ while running:
 
             ## Touche de test admin
             if event.key == pygame.K_p:
-                game.player.team[0].damage(10)
+                game.player.team[0] = pokemon.Pokemon('Arcko', 100)
             elif event.key == pygame.K_o:
                 game.classic_panel.ingame_window.train_panel.difficult = 'normal'
 
@@ -156,6 +158,27 @@ while running:
                                                 else:
                                                     game.classic_panel.ingame_window.spawn_panel.catch_pk()
                                                     game.classic_panel.ingame_window.spawn_panel.boolcatch_confirm = False
+                                elif game.classic_panel.ingame_window.name == 'Train':
+                                    if game.classic_panel.ingame_window.train_panel.settings_button_rect.collidepoint(posSouris):
+                                        if game.classic_panel.ingame_window.train_panel.boolSettings_popup:
+                                            game.classic_panel.ingame_window.train_panel.boolSettings_popup = False
+                                        else:
+                                            game.classic_panel.ingame_window.train_panel.boolSettings_popup = True
+
+                                    if game.classic_panel.ingame_window.train_panel.boolSettings_popup:
+                                        if game.classic_panel.ingame_window.train_panel.easy_button_rect.collidepoint(posSouris):
+                                            game.classic_panel.ingame_window.train_panel.set_difficult('easy')
+                                            game.classic_panel.ingame_window.train_panel.close_settings_popup()
+                                        elif game.classic_panel.ingame_window.train_panel.normal_button_rect.collidepoint(posSouris):
+                                            game.classic_panel.ingame_window.train_panel.set_difficult('normal')
+                                            game.classic_panel.ingame_window.train_panel.close_settings_popup()
+                                        elif game.classic_panel.ingame_window.train_panel.hard_button_rect.collidepoint(posSouris):
+                                            game.classic_panel.ingame_window.train_panel.set_difficult('hard')
+                                            game.classic_panel.ingame_window.train_panel.close_settings_popup()
+
+                                    if game.classic_panel.ingame_window.train_panel.add_button_rect.collidepoint(posSouris):
+                                        game.classic_panel.ingame_window.train_paneladd_training_pk_mode = True
+
 
                         else:
                             if not game.classic_panel.pk_move_mode:

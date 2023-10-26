@@ -29,14 +29,20 @@ class Pokemon:
         self.type2 = str(self.line[10])
 
         self.bonus_pvmax = 0
+        self.multiplicateur_pvmax = 1
         self.pv = round((2 * int(self.line[3]) * self.level)/100 + self.level + 10) + self.bonus_pvmax
         self.health = self.pv + self.bonus_pvmax
 
         self.bonus_attack = 0
+        self.multiplicateur_attack = 1
         self.attack = round((2 * int(self.line[4]) * self.level)/100 + 5) + self.bonus_attack
+
         self.bonus_defense = 0
+        self.multiplicateur_defense = 1
         self.defense = round((2 * int(self.line[5]) * self.level)/100 + 5) + self.bonus_defense
+
         self.bonus_speed = 0
+        self.multiplicateur_speed = 1
         self.speed = round((2 * int(self.line[6]) * self.level)/100 + 5) + self.bonus_speed
 
         self.evolution_level = int(self.line[7])
@@ -66,11 +72,11 @@ class Pokemon:
     def level_up(self, nb_lv=1):
         self.level += nb_lv
         diff = self.pv - self.health
-        self.pv = round((2*int(self.line[3])*self.level)/100 + self.level + 10) + self.bonus_pvmax
+        self.pv = round((round((2*int(self.line[3])*self.level)/100 + self.level + 10) + self.bonus_pvmax) * self.multiplicateur_pvmax)
         self.health = self.pv - diff
-        self.attack = round((2 * int(self.line[4]) * self.level)/100 + 5) + self.bonus_attack
-        self.defense = round((2 * int(self.line[5]) * self.level)/100 + 5) + self.bonus_defense
-        self.speed = round((2 * int(self.line[6]) * self.level)/100 + 5) + self.bonus_speed
+        self.attack = round((round((2 * int(self.line[4]) * self.level)/100 + 5) + self.bonus_attack) * self.multiplicateur_attack)
+        self.defense = round((round((2 * int(self.line[5]) * self.level)/100 + 5) + self.bonus_defense) * self.multiplicateur_defense)
+        self.speed = round((round((2 * int(self.line[6]) * self.level)/100 + 5) + self.bonus_speed) * self.multiplicateur_speed)
 
     def evolution(self):
         if self.evolution_name == '0':
@@ -90,6 +96,9 @@ class Pokemon:
 
     def get_type(self):
         return self.type
+
+    def get_type2(self):
+        return self.type2
 
     def get_name(self):
         return self.name
@@ -149,7 +158,7 @@ class Pokemon:
 
         self.heal(item.heal_value)
         self.bonus_attaque_type = item.type
-        self.multiplicateur_bonus_attaque = item.multiplicateur_atk_dmg
+        self.multiplicateur_bonus_attaque = item.multiplicateur_attaque_dmg
         if item.stat == 'pv':
             self.pv += item.bonus_stat
             self.health += item.bonus_stat
@@ -175,17 +184,17 @@ class Pokemon:
             if not item.multiplicateur_stats[stat] == 1:
                 if stat == 'pv':
                     diff = self.pv - self.health
-                    self.bonus_pvmax += round(self.pv * item.multiplicateur_stats[stat]) - self.pv
+                    self.multiplicateur_pvmax = item.multiplicateur_stats[stat]
                     self.pv = round(self.pv * item.multiplicateur_stats[stat])
                     self.health = self.pv - diff
                 elif stat == 'atk':
-                    self.bonus_attack += round(self.attack * item.multiplicateur_stats[stat]) - self.attack
+                    self.multiplicateur_attack = item.multiplicateur_stats[stat]
                     self.attack = round(self.attack * item.multiplicateur_stats[stat])
                 elif stat == 'def':
-                    self.bonus_defense += round(self.defense * item.multiplicateur_stats[stat]) - self.defense
+                    self.multiplicateur_defense = item.multiplicateur_stats[stat]
                     self.defense = round(self.defense * item.multiplicateur_stats[stat])
                 elif stat == 'vit':
-                    self.bonus_speed += round(self.speed * item.multiplicateur_stats[stat]) - self.speed
+                    self.multiplicateur_speed = item.multiplicateur_stats[stat]
                     self.speed = round(self.speed * item.multiplicateur_stats[stat])
 
         if not item.bonus_lv == 0:
@@ -225,9 +234,22 @@ class Pokemon:
 
         self.passive_heal = self.objet_tenu.heal_after_each_fight
 
-
-
-
+        for stat in self.objet_tenu.multiplicateur_stats:
+            if not self.objet_tenu.multiplicateur_stats[stat] == 1:
+                if stat == 'pv':
+                    diff = self.pv - self.health
+                    self.bonus_pvmax += round(self.pv * self.objet_tenu.multiplicateur_stats[stat]) - self.pv
+                    self.pv = round(self.pv * self.objet_tenu.multiplicateur_stats[stat])
+                    self.health = self.pv - diff
+                elif stat == 'atk':
+                    self.bonus_attack += round(self.attack * self.objet_tenu.multiplicateur_stats[stat]) - self.attack
+                    self.attack = round(self.attack * self.objet_tenu.multiplicateur_stats[stat])
+                elif stat == 'def':
+                    self.bonus_defense += round(self.defense * self.objet_tenu.multiplicateur_stats[stat]) - self.defense
+                    self.defense = round(self.defense * self.objet_tenu.multiplicateur_stats[stat])
+                elif stat == 'vit':
+                    self.bonus_speed += round(self.speed * self.objet_tenu.multiplicateur_stats[stat]) - self.speed
+                    self.speed = round(self.speed * self.objet_tenu.multiplicateur_stats[stat])
 
     def def_shiny(self, is_shiny):
         if is_shiny is None:

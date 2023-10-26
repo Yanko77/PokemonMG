@@ -24,7 +24,7 @@ Croc_Dragon         1:30:1-1    Objets          Give:p:dragon   1:3000      1:75
 Graine_Miracle      1:35:1-1    Objets          Give:p:plante   1:3000      1:750           Augmente la puissance des attaques de type PLANTE de 20%. A tenir: Cliquer-Glisser dans Equipe
 Charbon             1:35:1-1    Objets          Give:p:feu      1:3000      1:750           Augmente la puissance des attaques de type FEU de 20%. A tenir: Cliquer-Glisser dans Equipe
 Rune_Sort           1:40:1-1    Objets          Give:p:spectre  1:3000      1:750           Augmente la puissance des attaques de type SPECTRE de 20%. A tenir: Cliquer-Glisser dans Equipe
-Lunettes_Noires     1:35:1-1    Objets          Give:p:tenebres 1:3000      1:750           Augmente la puissance des attaques de type TENEBRES de 20%. A tenir: Cliquer-Glisser dans Equipe
+Lunettes_Noires     1:35:1-1    Objets          Give:p:dark     1:3000      1:750           Augmente la puissance des attaques de type TENEBRES de 20%. A tenir: Cliquer-Glisser dans Equipe
 Cuillere_Tordue     1:35:1-1    Objets          Give:p:psy      1:3000      1:750           Augmente la puissance des attaques de type PSY de 20%. A tenir: Cliquer-Glisser dans Equipe
 Aimant              1:35:1-1    Objets          Give:p:acier    1:3000      1:750           Augmente la puissance des attaques de type ELECTRIC de 20%. A tenir: Cliquer-Glisser dans Equipe
 Vive_Griffe         1:50:1-1    Objets          Give:special    1:8000      1:2000          Une griffe legere offrant 50% de chance au pokemon qui la tient de frapper en premier A tenir: Cliquer-Glisser dans Equipe

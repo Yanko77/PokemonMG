@@ -351,6 +351,49 @@ types_affinities = {
 
 }
 
+type_colors = {
+    'normal': (168, 167, 122),
+    'plante': (122, 199, 76),
+    'feu': (238, 129, 48),
+    'eau': (99, 144, 240),
+    'elec': (247, 208, 44),
+    'glace': (150, 217, 214),
+    'combat': (194, 46, 40),
+    'poison': (163, 62, 161),
+    'sol': (226, 191, 101),
+    'vol': (169, 143, 243),
+    'psy': (249, 85, 135),
+    'insect': (166, 185, 26),
+    'roche': (182, 161, 54),
+    'spectre': (115, 87, 151),
+    'dragon': (111, 53, 252),
+    'dark': (112, 87, 70),
+    'acier': (183, 183, 206),
+    'fee': (214, 133, 173)
+}
+
+type_names_to_print = {
+    'normal': 'NORMAL',
+    'plante': 'PLANTE',
+    'feu': 'FEU',
+    'eau': 'EAU',
+    'elec': 'ELEK',
+    'glace': 'GLACE',
+    'combat': 'COMBAT',
+    'poison': 'POISON',
+    'sol': 'SOL',
+    'vol': 'VOL',
+    'psy': 'PSY',
+    'insect': 'INSECT',
+    'roche': 'ROCHE',
+    'spectre': 'SPECTR',
+    'dragon': 'DRAGON',
+    'dark': 'DARK',
+    'acier': 'ACIER',
+    'fee': 'FEE'
+
+}
+
 
 def get_mutiliplicateur(type_atk_pk, type_def_pk2):
     return types_affinities[type_atk_pk][type_def_pk2]
@@ -382,3 +425,10 @@ def get_diff_types(pokemon_type, multiplicateur):
             types_list.append(pk_type)
 
     return types_list
+
+
+def get_type_name_to_print(type):
+    return type_names_to_print[type]
+
+def get_type_color(type):
+    return type_colors[type]

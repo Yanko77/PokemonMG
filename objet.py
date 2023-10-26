@@ -45,6 +45,26 @@ class Objet:
         }
         self.bonus_lv = 0
 
+        self.set_special_effects()
+
+        self.can_be_buy = int(self.line[4].split(':')[0])
+        if self.can_be_buy:
+            self.buy_price = int(self.line[4].split(':')[1])
+
+        self.can_be_sell = int(self.line[5].split(':')[0])
+        if self.can_be_sell:
+            if self.line[5].split(':')[1] == 'v':
+                self.variable_sell_price = True
+                self.sell_price = [int(self.line[5].split(':')[2].split('-')[0]), int(self.line[5].split(':')[2].split('-')[1])]
+            else:
+                self.variable_sell_price = False
+                self.sell_price = int(self.line[5].split(':')[1])
+
+        self.desc_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 17)
+        self.description = self.line[6][:-1]
+        self.description = self.reformate_desc(self.description)
+
+    def set_special_effects(self):
         if self.fonctionnement in ('Use', 'Give'):
             self.effect = self.line[3].split(':')[1]
             if self.effect == 'special':
@@ -91,23 +111,6 @@ class Objet:
                         self.removed_status[self.line[3].split(':')[2]] = True
                 else:  # self.effect == l
                     self.bonus_lv = int(self.line[3].split(':')[2])
-
-        self.can_be_buy = int(self.line[4].split(':')[0])
-        if self.can_be_buy:
-            self.buy_price = int(self.line[4].split(':')[1])
-
-        self.can_be_sell = int(self.line[5].split(':')[0])
-        if self.can_be_sell:
-            if self.line[5].split(':')[1] == 'v':
-                self.variable_sell_price = True
-                self.sell_price = [int(self.line[5].split(':')[2].split('-')[0]), int(self.line[5].split(':')[2].split('-')[1])]
-            else:
-                self.variable_sell_price = False
-                self.sell_price = int(self.line[5].split(':')[1])
-
-        self.desc_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 17)
-        self.description = self.line[6][:-1]
-        self.description = self.reformate_desc(self.description)
 
     def find_item_line(self):
         with open('all_objets.txt') as file:
