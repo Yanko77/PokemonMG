@@ -60,7 +60,7 @@ class IngameWindow:
         self.sac_panel = sac.SacIngamePanel(self.game)
         self.starters_panel = starters.StartersPanel(self.game)
         self.spawn_panel = spawn.SpawnPanel(self.game)
-        self.train_panel = train.TrainPanel(self.game)
+        self.train_panel = None  # Sera initialisé après la sélection du starter
 
     def update(self, surface, possouris):
         self.update_main_window_rect()
@@ -95,7 +95,13 @@ class IngameWindow:
         elif self.name == 'Spawn':
             if self.spawn_panel.is_hovering_buttons(possouris):
                 return True
+        elif self.name == 'Train':
+            if self.train_panel.is_hovering_buttons(possouris):
+                return True
         return False
+
+    def init_train_panel(self):
+        self.train_panel = train.TrainPanel(self.game)
 
     def update_main_window_rect(self):
         if self.is_open:

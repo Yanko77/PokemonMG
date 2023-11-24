@@ -12,7 +12,14 @@ class Pokemon:
         self.is_shiny = self.def_shiny(is_shiny)
 
         self.objet_tenu = objet_tenu
-        self.status = None
+        self.status = {
+            'Sommeil': False,
+            'Brulure': False,
+            'Confusion': False,
+            'Gel': False,
+            'Poison': False,
+            'Paralysie': False
+            }
 
         self.line = self.find_pokemon_line()
 
@@ -22,14 +29,20 @@ class Pokemon:
         self.type2 = str(self.line[10])
 
         self.bonus_pvmax = 0
+        self.multiplicateur_pvmax = 1
         self.pv = round((2 * int(self.line[3]) * self.level)/100 + self.level + 10) + self.bonus_pvmax
         self.health = self.pv + self.bonus_pvmax
 
         self.bonus_attack = 0
+        self.multiplicateur_attack = 1
         self.attack = round((2 * int(self.line[4]) * self.level)/100 + 5) + self.bonus_attack
+
         self.bonus_defense = 0
+        self.multiplicateur_defense = 1
         self.defense = round((2 * int(self.line[5]) * self.level)/100 + 5) + self.bonus_defense
+
         self.bonus_speed = 0
+        self.multiplicateur_speed = 1
         self.speed = round((2 * int(self.line[6]) * self.level)/100 + 5) + self.bonus_speed
 
         self.evolution_level = int(self.line[7])
@@ -44,6 +57,14 @@ class Pokemon:
         else:
             self.icon_image = pygame.image.load(f'assets/game/pokemons_icons/{self.name}.png')
 
+        self.bonus_attaque_type = None
+        self.multiplicateur_bonus_attaque = 1
+
+        self.item_pourcent_hp_activate = None
+        self.passive_heal = 0
+
+        self.random_seed = self.generate_random_seed_number()
+
     def find_pokemon_line(self) -> list:
         with open('all_pokemons.txt') as file:
             for line in file.readlines():
@@ -53,11 +74,11 @@ class Pokemon:
     def level_up(self, nb_lv=1):
         self.level += nb_lv
         diff = self.pv - self.health
-        self.pv = round((2*int(self.line[3])*self.level)/100 + self.level + 10) + self.bonus_pvmax
+        self.pv = round((round((2*int(self.line[3])*self.level)/100 + self.level + 10) + self.bonus_pvmax) * self.multiplicateur_pvmax)
         self.health = self.pv - diff
-        self.attack = round((2 * int(self.line[4]) * self.level)/100 + 5) + self.bonus_attack
-        self.defense = round((2 * int(self.line[5]) * self.level)/100 + 5) + self.bonus_defense
-        self.speed = round((2 * int(self.line[6]) * self.level)/100 + 5) + self.bonus_speed
+        self.attack = round((round((2 * int(self.line[4]) * self.level)/100 + 5) + self.bonus_attack) * self.multiplicateur_attack)
+        self.defense = round((round((2 * int(self.line[5]) * self.level)/100 + 5) + self.bonus_defense) * self.multiplicateur_defense)
+        self.speed = round((round((2 * int(self.line[6]) * self.level)/100 + 5) + self.bonus_speed) * self.multiplicateur_speed)
 
     def evolution(self):
         if self.evolution_name == '0':
@@ -78,6 +99,20 @@ class Pokemon:
     def get_type(self):
         return self.type
 
+    def get_type2(self):
+        return self.type2
+
+    def get_name(self):
+        return self.name
+
+    def get_icon(self):
+        return self.icon_image
+
+    def heal(self, value):
+        self.health += value
+        if self.health > self.pv:
+            self.health = self.pv
+
     def damage(self, amount):
         self.health -= amount
         if self.health < 0:
@@ -86,9 +121,14 @@ class Pokemon:
 
     def attaque(self, pokemon, attaque):
         cm = 1
-        if attaque.type == self.type:
+        # Calcul avec stab ( attaque de type maternel )
+        if attaque.type in [self.type, self.type2]:
             cm *= 1.5
-        cm *= game_infos.types_affinities[attaque.type][pokemon.type] * game_infos.types_affinities[attaque.type][pokemon.type2]
+
+        # Calcul avec affinités des types
+        cm *= game_infos.get_mutiliplicateur(attaque.type, pokemon.type) * game_infos.get_mutiliplicateur(attaque.type, pokemon.type2)
+
+        # Calcul avec taux de crit
         t = round(int(self.line[6]) / 2) * attaque.taux_crit
         ncrit = random.randint(0, 256)
         if ncrit < t:
@@ -103,55 +143,118 @@ class Pokemon:
             cm *= pokemon.objet.multiplicateur_degats()
 
         random_cm = random.randint(85, 100)
-        cm = cm*random_cm/100
+        cm = cm * random_cm/100
 
         degats = round((((((self.level * 0.4 + 2) * self.attack * attaque.puissance) / self.defense) / 50) + 2) * cm)
         pokemon.damage(degats)
         print(degats)
 
-    def use_item(self, item_name):
+    def reset_status(self):
+        self.status = {
+            'Sommeil': False,
+            'Brulure': False,
+            'Confusion': False,
+            'Gel': False,
+            'Poison': False,
+            'Paralysie': False
+            }
 
-        if item_name == 'Guerison':
-            self.status = None
-        elif item_name == 'Potion':
-            if self.health + 30 >= self.pv:
-                self.health = self.pv
-            else:
-                self.health += 30
-        elif item_name == 'Hyper_Potion':
-            if self.health + 120 >= self.pv:
-                self.health = self.pv
-            else:
-                self.health += 120
-        elif item_name == 'Potion_Max':
-            self.health = self.pv
-        elif item_name == 'PV_Plus':
-            self.bonus_pvmax += 1 + round(self.pv * 5 / 100)
+    def use_item(self, item):
+
+        self.heal(item.heal_value)
+        self.bonus_attaque_type = item.type
+        self.multiplicateur_bonus_attaque = item.multiplicateur_attaque_dmg
+        if item.stat == 'pv':
+            self.pv += item.bonus_stat
+            self.health += item.bonus_stat
+            self.bonus_pvmax += item.bonus_stat
+        elif item.stat == 'atk':
+            self.attack += item.bonus_stat
+            self.bonus_attack += item.bonus_stat
+        elif item.stat == 'def':
+            self.defense += item.bonus_stat
+            self.bonus_defense += item.bonus_stat
+        elif item.stat == 'vit':
+            self.speed += item.bonus_stat
+            self.bonus_speed += item.bonus_stat
+
+        for status in self.status:
+            if item.removed_status[status]:
+                self.status[status] = False
+
+        self.pv = round(self.pv * item.multiplicateur_pvmax)
+        self.health = round(self.health * item.multiplicateur_pvmax)
+
+        for stat in item.multiplicateur_stats:
+            if not item.multiplicateur_stats[stat] == 1:
+                if stat == 'pv':
+                    diff = self.pv - self.health
+                    self.multiplicateur_pvmax = item.multiplicateur_stats[stat]
+                    self.pv = round(self.pv * item.multiplicateur_stats[stat])
+                    self.health = self.pv - diff
+                elif stat == 'atk':
+                    self.multiplicateur_attack = item.multiplicateur_stats[stat]
+                    self.attack = round(self.attack * item.multiplicateur_stats[stat])
+                elif stat == 'def':
+                    self.multiplicateur_defense = item.multiplicateur_stats[stat]
+                    self.defense = round(self.defense * item.multiplicateur_stats[stat])
+                elif stat == 'vit':
+                    self.multiplicateur_speed = item.multiplicateur_stats[stat]
+                    self.speed = round(self.speed * item.multiplicateur_stats[stat])
+
+        if not item.bonus_lv == 0:
+            self.level_up(item.bonus_lv)
+
+    def give_item(self, item):
+        self.objet_tenu = item
+
+        self.heal(self.objet_tenu.heal_value)
+        self.bonus_attaque_type = self.objet_tenu.type
+        self.multiplicateur_bonus_attaque = self.objet_tenu.multiplicateur_attaque_dmg
+
+        if self.objet_tenu.stat == 'pv':
+            self.pv += self.objet_tenu.bonus_stat
+            self.health += self.objet_tenu.bonus_stat
+            self.bonus_pvmax += self.objet_tenu.bonus_stat
+        elif self.objet_tenu.stat == 'atk':
+            self.attack += self.objet_tenu.bonus_stat
+            self.bonus_attack += self.objet_tenu.bonus_stat
+        elif self.objet_tenu.stat == 'def':
+            self.defense += self.objet_tenu.bonus_stat
+            self.bonus_defense += self.objet_tenu.bonus_stat
+        elif self.objet_tenu.stat == 'vit':
+            self.speed += self.objet_tenu.bonus_stat
+            self.bonus_speed += self.objet_tenu.bonus_stat
+
+        self.item_pourcent_hp_activate = self.objet_tenu.pv_pourcent_activate
+
+        for status in self.status:
+            if self.objet_tenu.removed_status[status]:
+                self.status[status] = False
+
+        if self.objet_tenu.multiplicateur_pvmax != 1:
             diff = self.pv - self.health
-            self.pv = round((2 * int(self.line[3]) * self.level) / 100 + self.level + 10) + self.bonus_pvmax
+            self.pv = round(self.pv * self.objet_tenu.multiplicateur_pvmax)
             self.health = self.pv - diff
-            print('augmentation pv de', str(self.bonus_pvmax))
-        elif item_name == 'Proteine':
-            self.bonus_attack += 5
-            self.attack = round((2 * int(self.line[4]) * self.level)/100 + 5) + self.bonus_attack
-            print('augmentation atk de', str(self.bonus_attack))
-        elif item_name == 'Fer':
-            self.bonus_defense += 5
-            self.defense = round((2 * int(self.line[5]) * self.level) / 100 + 5) + self.bonus_defense
-            print('augmentation def de', str(self.bonus_defense))
-        elif item_name == 'Carbone':
-            self.bonus_speed += 5
-            self.speed = round((2 * int(self.line[6]) * self.level) / 100 + 5) + self.bonus_speed
-            print('augmentation vit de', str(self.bonus_speed))
-        elif item_name == 'Super_Bonbon':
-            self.level_up(1)
-        elif item_name == 'Eau_Fraiche':
-            if self.health + 50 >= self.pv:
-                self.health = self.pv
-            else:
-                self.health += 50
-        else:
-            print('ERREUR ITEM USE')
+
+        self.passive_heal = self.objet_tenu.heal_after_each_fight
+
+        for stat in self.objet_tenu.multiplicateur_stats:
+            if not self.objet_tenu.multiplicateur_stats[stat] == 1:
+                if stat == 'pv':
+                    diff = self.pv - self.health
+                    self.bonus_pvmax += round(self.pv * self.objet_tenu.multiplicateur_stats[stat]) - self.pv
+                    self.pv = round(self.pv * self.objet_tenu.multiplicateur_stats[stat])
+                    self.health = self.pv - diff
+                elif stat == 'atk':
+                    self.bonus_attack += round(self.attack * self.objet_tenu.multiplicateur_stats[stat]) - self.attack
+                    self.attack = round(self.attack * self.objet_tenu.multiplicateur_stats[stat])
+                elif stat == 'def':
+                    self.bonus_defense += round(self.defense * self.objet_tenu.multiplicateur_stats[stat]) - self.defense
+                    self.defense = round(self.defense * self.objet_tenu.multiplicateur_stats[stat])
+                elif stat == 'vit':
+                    self.bonus_speed += round(self.speed * self.objet_tenu.multiplicateur_stats[stat]) - self.speed
+                    self.speed = round(self.speed * self.objet_tenu.multiplicateur_stats[stat])
 
     def def_shiny(self, is_shiny):
         if is_shiny is None:
@@ -165,31 +268,12 @@ class Pokemon:
         else:
             return False
 
-
-def get_all_diff_pokemons(pokemon_type, difficulte=2):
-    weak_types_list = _get_difficulte_types(pokemon_type,difficulte)
-    if weak_types_list is None:
-        return None
-    weak_pokemons_list = []
-    with open('all_pokemons.txt', 'r') as file:
-        for line in file.readlines():
-            if not line.split()[0] == '#':
-                if line.split()[2] in weak_types_list:
-                    weak_pokemons_list.append(line.split()[0])
-
-    return weak_pokemons_list
-
-def _get_difficulte_types(pokemon_type, difficult=2):
-    weak_types_list = []
-    for type in game_infos.types_affinities[pokemon_type]:
-        if game_infos.types_affinities[pokemon_type][type] == difficult:
-            weak_types_list.append(type)
-    if weak_types_list is []:
-        return None
-
-    return weak_types_list
+    def generate_random_seed_number(self):
+        return int(str(random.randint(0, 255))
+                   + str(random.randint(0, 255))
+                   + str(random.randint(0, 255))
+                   + str(random.randint(0, 255)))
 
 
 if __name__ == "__main__":
-    print(get_all_diff_pokemons('plante'))
-    print(get_all_diff_pokemons('normal', 1))
+    p = Pokemon('Dracaufeu', 50)

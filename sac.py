@@ -87,7 +87,6 @@ class SacIngamePanel:
             surface.blit(self.title_item_font.render(self.selected_item.name_to_blit.upper(), False, (0, 0, 0)),
                          (window_pos[0] + (885-self.title_item_font.render(self.selected_item.name_to_blit.upper(), False, (0, 0, 0)).get_rect().w), window_pos[1] + 380))
 
-            '''item_desc_lines = self.reformate_item_desc(self.selected_item.description)'''
             surface.blit(self.desc_item_font.render(self.selected_item.description[0], False, (20, 20, 20)),
                          (window_pos[0] + (885-self.desc_item_font.render(self.selected_item.description[0], False, (0, 0, 0)).get_rect().w), window_pos[1] + 430))
             surface.blit(self.desc_item_font.render(self.selected_item.description[1], False, (20, 20, 20)),
@@ -102,7 +101,11 @@ class SacIngamePanel:
                              (window_pos[0] + 602, window_pos[1] + 493))
 
             if self.selected_item.can_be_sell:
-                surface.blit(self.prices_item_font.render(str(self.selected_item.sell_price), False, (204, 0, 0)), (window_pos[0]+784, window_pos[1]+493))
+                if type(self.selected_item.sell_price) is list:
+                    surface.blit(self.prices_item_font.render('Variable', False, (204, 0, 0)),
+                                 (window_pos[0] + 784, window_pos[1] + 493))
+                else:
+                    surface.blit(self.prices_item_font.render(str(self.selected_item.sell_price), False, (204, 0, 0)), (window_pos[0]+784, window_pos[1]+493))
             else:
                 surface.blit(self.prices_item_font.render(' /', False, (204, 0, 0)),
                              (window_pos[0] + 784, window_pos[1] + 493))
@@ -196,92 +199,99 @@ class SacIngamePanel:
                     elif self.game.classic_panel.pk_rects[0].collidepoint(possouris):
                         if 'Give' in self.selected_item.fonctionnement:
                             if self.game.player.team[0] is not None and self.game.player.team[0].objet_tenu == None:
-
-                                self.game.player.team[0].objet_tenu = self.selected_item
-                                self.selected_item.quantite -= 1
-                                if self.selected_item.quantite <= 0:
-                                    current_page[i-1] = None
+                                if self.selected_item.target_pokemon == 'All' or self.selected_item.target_pokemon == self.game.player.team[0].name:
+                                    self.game.player.team[0].give_item(self.selected_item)
+                                    self.selected_item.quantite -= 1
+                                    if self.selected_item.quantite <= 0:
+                                        current_page[i-1] = None
                         elif 'Use' in self.selected_item.fonctionnement:
                             if self.game.player.team[0] is not None:
-                                self.game.player.team[0].use_item(self.selected_item.name)
-                                self.selected_item.quantite -= 1
-                                if self.selected_item.quantite <= 0:
-                                    current_page[i - 1] = None
+                                if self.selected_item.target_pokemon == 'All' or self.selected_item.target_pokemon == self.game.player.team[0].name:
+                                    self.game.player.team[0].use_item(self.selected_item)
+                                    self.selected_item.quantite -= 1
+                                    if self.selected_item.quantite <= 0:
+                                        current_page[i - 1] = None
 
                     elif self.game.classic_panel.pk_rects[1].collidepoint(possouris):
                         if 'Give' in self.selected_item.fonctionnement:
                             if self.game.player.team[1] is not None and self.game.player.team[1].objet_tenu == None:
-
-                                self.game.player.team[1].objet_tenu = self.selected_item
-                                self.selected_item.quantite -= 1
-                                if self.selected_item.quantite <= 0:
-                                    current_page[i-1] = None
+                                if self.selected_item.target_pokemon == 'All' or self.selected_item.target_pokemon == self.game.player.team[1].name:
+                                    self.game.player.team[1].give_item(self.selected_item)
+                                    self.selected_item.quantite -= 1
+                                    if self.selected_item.quantite <= 0:
+                                        current_page[i-1] = None
                         elif 'Use' in self.selected_item.fonctionnement:
                             if self.game.player.team[1] is not None:
-                                self.game.player.team[1].use_item(self.selected_item.name)
-                                self.selected_item.quantite -= 1
-                                if self.selected_item.quantite <= 0:
-                                    current_page[i - 1] = None
+                                if self.selected_item.target_pokemon == 'All' or self.selected_item.target_pokemon == self.game.player.team[1].name:
+                                    self.game.player.team[1].use_item(self.selected_item)
+                                    self.selected_item.quantite -= 1
+                                    if self.selected_item.quantite <= 0:
+                                        current_page[i - 1] = None
 
                     elif self.game.classic_panel.pk_rects[2].collidepoint(possouris):
                         if 'Give' in self.selected_item.fonctionnement:
                             if self.game.player.team[2] is not None and self.game.player.team[2].objet_tenu == None:
+                                if self.selected_item.target_pokemon == 'All' or self.selected_item.target_pokemon == self.game.player.team[2].name:
 
-                                self.game.player.team[2].objet_tenu = self.selected_item
-                                self.selected_item.quantite -= 1
-                                if self.selected_item.quantite <= 0:
-                                    current_page[i-1] = None
+                                    self.game.player.team[2].give_item(self.selected_item)
+                                    self.selected_item.quantite -= 1
+                                    if self.selected_item.quantite <= 0:
+                                        current_page[i-1] = None
                         elif 'Use' in self.selected_item.fonctionnement:
                             if self.game.player.team[2] is not None:
-                                self.game.player.team[2].use_item(self.selected_item.name)
-                                self.selected_item.quantite -= 1
-                                if self.selected_item.quantite <= 0:
-                                    current_page[i - 1] = None
+                                if self.selected_item.target_pokemon == 'All' or self.selected_item.target_pokemon == self.game.player.team[2].name:
+                                    self.game.player.team[2].use_item(self.selected_item)
+                                    self.selected_item.quantite -= 1
+                                    if self.selected_item.quantite <= 0:
+                                        current_page[i - 1] = None
 
                     elif self.game.classic_panel.pk_rects[3].collidepoint(possouris):
                         if 'Give' in self.selected_item.fonctionnement:
                             if self.game.player.team[3] is not None and self.game.player.team[3].objet_tenu == None:
-
-                                self.game.player.team[3].objet_tenu = self.selected_item
-                                self.selected_item.quantite -= 1
-                                if self.selected_item.quantite <= 0:
-                                    current_page[i-1] = None
+                                if self.selected_item.target_pokemon == 'All' or self.selected_item.target_pokemon == self.game.player.team[3].name:
+                                    self.game.player.team[3].give_item(self.selected_item)
+                                    self.selected_item.quantite -= 1
+                                    if self.selected_item.quantite <= 0:
+                                        current_page[i-1] = None
                         elif 'Use' in self.selected_item.fonctionnement:
                             if self.game.player.team[3] is not None:
-                                self.game.player.team[3].use_item(self.selected_item.name)
-                                self.selected_item.quantite -= 1
-                                if self.selected_item.quantite <= 0:
-                                    current_page[i - 1] = None
+                                if self.selected_item.target_pokemon == 'All' or self.selected_item.target_pokemon == self.game.player.team[3].name:
+                                    self.game.player.team[3].use_item(self.selected_item)
+                                    self.selected_item.quantite -= 1
+                                    if self.selected_item.quantite <= 0:
+                                        current_page[i - 1] = None
 
                     elif self.game.classic_panel.pk_rects[4].collidepoint(possouris):
                         if 'Give' in self.selected_item.fonctionnement:
                             if self.game.player.team[4] is not None and self.game.player.team[4].objet_tenu == None:
-
-                                self.game.player.team[4].objet_tenu = self.selected_item
-                                self.selected_item.quantite -= 1
-                                if self.selected_item.quantite <= 0:
-                                    current_page[i-1] = None
+                                if self.selected_item.target_pokemon == 'All' or self.selected_item.target_pokemon == self.game.player.team[4].name:
+                                    self.game.player.team[4].give_item(self.selected_item)
+                                    self.selected_item.quantite -= 1
+                                    if self.selected_item.quantite <= 0:
+                                        current_page[i-1] = None
                         elif 'Use' in self.selected_item.fonctionnement:
                             if self.game.player.team[4] is not None:
-                                self.game.player.team[4].use_item(self.selected_item.name)
-                                self.selected_item.quantite -= 1
-                                if self.selected_item.quantite <= 0:
-                                    current_page[i - 1] = None
+                                if self.selected_item.target_pokemon == 'All' or self.selected_item.target_pokemon == self.game.player.team[4].name:
+                                    self.game.player.team[4].use_item(self.selected_item)
+                                    self.selected_item.quantite -= 1
+                                    if self.selected_item.quantite <= 0:
+                                        current_page[i - 1] = None
 
                     elif self.game.classic_panel.pk_rects[5].collidepoint(possouris):
                         if 'Give' in self.selected_item.fonctionnement:
                             if self.game.player.team[5] is not None and self.game.player.team[5].objet_tenu == None:
-
-                                self.game.player.team[5].objet_tenu = self.selected_item
-                                self.selected_item.quantite -= 1
-                                if self.selected_item.quantite <= 0:
-                                    current_page[i-1] = None
+                                if self.selected_item.target_pokemon == 'All' or self.selected_item.target_pokemon == self.game.player.team[5].name:
+                                    self.game.player.team[5].give_item(self.selected_item)
+                                    self.selected_item.quantite -= 1
+                                    if self.selected_item.quantite <= 0:
+                                        current_page[i-1] = None
                         elif 'Use' in self.selected_item.fonctionnement:
                             if self.game.player.team[5] is not None:
-                                self.game.player.team[5].use_item(self.selected_item.name)
-                                self.selected_item.quantite -= 1
-                                if self.selected_item.quantite <= 0:
-                                    current_page[i - 1] = None
+                                if self.selected_item.target_pokemon == 'All' or self.selected_item.target_pokemon == self.game.player.team[5].name:
+                                    self.game.player.team[5].use_item(self.selected_item)
+                                    self.selected_item.quantite -= 1
+                                    if self.selected_item.quantite <= 0:
+                                        current_page[i - 1] = None
 
                     self.emp_move_mode = False
                     self.emp_moving[i-1] = False
@@ -307,6 +317,12 @@ class SacIngamePanel:
             if self.game.player.sac_page2[i-1] is not None:
                 surface.blit(pygame.transform.scale(self.game.player.sac_page2[i - 1].icon_image, (100, 100)),
                              self.all_emp_rect[i])
+                if not self.game.player.sac_page2[i-1].quantite == 1 and self.game.player.sac_page2[i-1].quantite < 10:
+                    surface.blit(self.quantite_font.render(str(self.game.player.sac_page2[i-1].quantite), False, (255, 255, 255)), (self.all_emp_rect[i].x + 81, self.all_emp_rect[i].y + 65))
+                elif 10 <= self.game.player.sac_page2[i - 1].quantite < 100:
+                    surface.blit(self.quantite_font.render(str(self.game.player.sac_page2[i-1].quantite), False, (255, 255, 255)), (self.all_emp_rect[i].x + 68, self.all_emp_rect[i].y + 65))
+                elif self.game.player.sac_page2[i-1].quantite > 99:
+                    self.game.player.sac_page2[i-1].quantite = 99
 
     def is_hovering_buttons(self, possouris, window_pos):
         if self.all_emp_rect[1].collidepoint(possouris) or self.all_emp_rect[2].collidepoint(possouris) or \

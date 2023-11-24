@@ -1,4 +1,6 @@
 import pygame
+
+import game_infos
 import ingame_windows
 import image
 import player_name
@@ -56,6 +58,7 @@ class ClassicGamePanel:
         self.font_size2 = pygame.font.Font('assets/fonts/impact.ttf', 25)
         self.font_size3 = pygame.font.Font('assets/fonts/(Unranked) Bdeogale.ttf', 70)
         self.money_font = pygame.font.Font('assets/fonts/Impact.ttf', 45)
+        self.actions_font = pygame.font.Font('assets/fonts/Impact.ttf', 90)
         #   # Pokemon fonts
         self.pokemon_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 25)
         self.pokemon_level_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 15)
@@ -63,7 +66,8 @@ class ClassicGamePanel:
         self.font_pokemon_info_values = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 19)
         self.font_pokemon_info_lv = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 42)
         self.font_pokemon_info_name = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 23)
-        self.font_actions_font = pygame.font.Font('assets/fonts/Impact.ttf', 90)
+        self.font_pokemon_type = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 15)
+        
 
         # LOADING IMAGES --------------------------------------------
 
@@ -175,7 +179,7 @@ class ClassicGamePanel:
         surface.blit(self.money_font.render(str(self.game.player.money), False, (255, 255, 255)), (767, 71))
 
         # PLAYER ACTIONS_LEFT
-        surface.blit(self.font_actions_font.render(str(self.game.player.actions), False, (0, 0, 0)), (385, 12))
+        surface.blit(self.actions_font.render(str(self.game.player.actions), False, (0, 0, 0)), (385, 12))
 
     def update_player_lv(self, surface):
         self.player_lv_image = self.font_size3.render(str(self.game.player.level), False, (124, 124, 124))
@@ -268,19 +272,32 @@ class ClassicGamePanel:
                              (0, 0, 64, 64))
                 surface.blit(self.pokemon_name_font.render(self.game.player.team[i].name, False, (0, 0, 0)),
                              (self.pk_rects[i].x + 70, self.pk_rects[i].y + 13))
-                surface.blit(self.pokemon_level_font.render('Lv.' + str(self.game.player.team[i].level), False, (0, 0, 0)),
-                             (self.pk_rects[i].x + 60, self.pk_rects[i].y + 42))
+                level = self.pokemon_level_font.render('Lv.' + str(self.game.player.team[i].level), False, (0, 0, 0))
+                surface.blit(level, (self.pk_rects[i].x + 60, self.pk_rects[i].y + 42))
+
+                type_color = game_infos.get_type_color(self.game.player.team[i].get_type())
+                type_name_to_print = game_infos.get_type_name_to_print(self.game.player.team[i].get_type())
+                type1_render = self.font_pokemon_type.render(type_name_to_print, False, type_color)
+                surface.blit(type1_render, ((self.pk_rects[i].x + level.get_width() + 65, self.pk_rects[i].y + 42)))
+
+                type2 = self.game.player.team[i].get_type2()
+                if not type2 == 'NoType':
+                    type2_color = game_infos.get_type_color(type2)
+                    type2_name_to_print = game_infos.get_type_name_to_print(type2)
+                    surface.blit(self.font_pokemon_type.render(type2_name_to_print, False, type2_color),
+                                 ((self.pk_rects[i].x + level.get_width() + type1_render.get_width() + 68, self.pk_rects[i].y + 42)))
+
 
                 pygame.draw.rect(surface, (35, 35, 35),
-                                 pygame.Rect(self.pk_rects[i].x + 200, self.pk_rects[i].y + 26, 150, 17))
-                pygame.draw.rect(surface, (42, 214, 0), pygame.Rect(self.pk_rects[i].x + 200,
+                                 pygame.Rect(self.pk_rects[i].x + 205, self.pk_rects[i].y + 26, 150, 17))
+                pygame.draw.rect(surface, (42, 214, 0), pygame.Rect(self.pk_rects[i].x + 205,
                                                                     self.pk_rects[i].y + 26,
                                                                     self.game.player.team[i].health / self.game.player.team[
                                                                         i].pv * 150,
                                                                     17))
                 surface.blit(
                     self.pokemon_hp_font.render(str(self.game.player.team[i].health) + "/" + str(self.game.player.team[i].pv),
-                                                False, (0, 0, 0)), (self.pk_rects[i].x + 200, self.pk_rects[i].y + 40))
+                                                False, (0, 0, 0)), (self.pk_rects[i].x + 205, self.pk_rects[i].y + 40))
 
         if i in (0, 2, 4):
             color = (255, 255, 255)
@@ -293,14 +310,19 @@ class ClassicGamePanel:
 
                 if self.ingame_window.sac_panel.emp_move_mode:
                     if self.game.player.team[i] is not None:
-                        if 'Use' in self.ingame_window.sac_panel.selected_item.fonctionnement:
-                            surface.blit(self.item_pk_hover_use, (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))
-                        elif 'Give' in self.ingame_window.sac_panel.selected_item.fonctionnement:
-                            if self.game.player.team[i].objet_tenu is None:
-                                surface.blit(self.item_pk_hover_give, (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))
+                        if self.ingame_window.sac_panel.selected_item.target_pokemon == 'All' or\
+                                self.game.player.team[i].name == self.ingame_window.sac_panel.selected_item.target_pokemon:
+
+                            if 'Use' in self.ingame_window.sac_panel.selected_item.fonctionnement:
+                                surface.blit(self.item_pk_hover_use, (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))
+                            elif 'Give' in self.ingame_window.sac_panel.selected_item.fonctionnement:
+                                if self.game.player.team[i].objet_tenu is None:
+                                    surface.blit(self.item_pk_hover_give, (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))
+                                else:
+                                    surface.blit(self.item_pk_hover_give_error,
+                                                 (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))
                             else:
-                                surface.blit(self.item_pk_hover_give_error,
-                                             (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))
+                                surface.blit(self.item_pk_hover_error, (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))
                         else:
                             surface.blit(self.item_pk_hover_error, (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))
 

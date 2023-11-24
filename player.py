@@ -1,4 +1,5 @@
 import player_name
+import pokemon
 from objet import Objet
 
 
@@ -13,36 +14,36 @@ class Player:
         self.actions = 3
         self.max_actions = 3
 
-        self.team = [None,
-                     None,
+        self.team = [pokemon.Pokemon('Giratina', 100),
+                     pokemon.Pokemon('Brasegali', 100),
                      None,
                      None,
                      None,
                      None]
-        self.sac_page1 = [Objet('Poke_Ball', 3),
-                          Objet('Super_Bonbon', 3),
-                          Objet('PV_Plus', 2),
-                          Objet('Collier_Agathe', 2),
-                          Objet('Potion', 2),
-                          Objet('Hyper_Potion', 2),
-                          Objet('Potion_Max', 2),
-                          Objet('PV_Plus', 2),
-                          Objet('Proteine', 2),
-                          Objet('Fer', 2),
-                          Objet('Carbone', 2),
-                          Objet('Eau_Fraiche', 2)]
-        self.sac_page2 = [None,
-                          None,
-                          None,
-                          None,
-                          None,
-                          None,
-                          None,
-                          None,
-                          None,
-                          None,
-                          None,
-                          None]
+        self.sac_page1 = [Objet('Velo', 3),
+                          Objet('Pokeflute', 3),
+                          Objet('Guerison', 2),
+                          Objet('Baie_Oran', 2),
+                          Objet('Baie_Sitrus', 2),
+                          Objet('Mouchoir_Soie', 2),
+                          Objet('Bec_Pointu', 2),
+                          Objet('Pic_Venin', 2),
+                          Objet('Glace_Eternelle', 2),
+                          Objet('Croc_Dragon', 2),
+                          Objet('Graine_Miracle', 2),
+                          Objet('Charbon', 2)]
+        self.sac_page2 = [Objet('Rune_Sort', 3),
+                          Objet('Lunettes_Noires', 3),
+                          Objet('Cuillere_Tordue', 2),
+                          Objet('Aimant', 2),
+                          Objet('Vive_Griffe', 2),
+                          Objet('Bandeau_Muscle', 2),
+                          Objet('Poussiere_Etoile', 2),
+                          Objet('Poussiere_Bleute', 2),
+                          Objet('Poussiere_Jaunete', 2),
+                          Objet('Poudre_Verdatre', 2),
+                          Objet('Charme_Chroma', 2),
+                          Objet('Caillou', 2)]
 
         self.money = 1000
 
@@ -114,7 +115,22 @@ class Player:
 
             empty_emp_i += 1
 
+    def get_moyenne_team(self):
+        levels_list = []
+        for pk in self.team:
+            if pk is not None:
+                levels_list.append(pk.get_level())
+
+        if not levels_list:
+            return 0
+        else:
+            return sum(levels_list) // len(levels_list)
+
+    def get_level(self):
+        return self.level
+
 
 if __name__ == "__main__":
     player = Player()
-    player.evol_pk()
+    player.team[0], player.team[1] = pokemon.Pokemon('Dracaufeu', 10), pokemon.Pokemon('Dracaufeu', 15)
+    print(player.get_moyenne_team())

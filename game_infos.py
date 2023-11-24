@@ -1,8 +1,4 @@
 
-def get_mutiliplicateur(type_atk_pk, type_def_pk2):
-    return types_affinities[type_atk_pk][type_def_pk2]
-
-
 types_affinities = {
     'normal': {'normal': 1,
                'plante': 1,
@@ -354,3 +350,85 @@ types_affinities = {
                }
 
 }
+
+type_colors = {
+    'normal': (168, 167, 122),
+    'plante': (122, 199, 76),
+    'feu': (238, 129, 48),
+    'eau': (99, 144, 240),
+    'elec': (247, 208, 44),
+    'glace': (150, 217, 214),
+    'combat': (194, 46, 40),
+    'poison': (163, 62, 161),
+    'sol': (226, 191, 101),
+    'vol': (169, 143, 243),
+    'psy': (249, 85, 135),
+    'insect': (166, 185, 26),
+    'roche': (182, 161, 54),
+    'spectre': (115, 87, 151),
+    'dragon': (111, 53, 252),
+    'dark': (112, 87, 70),
+    'acier': (183, 183, 206),
+    'fee': (214, 133, 173)
+}
+
+type_names_to_print = {
+    'normal': 'NORMAL',
+    'plante': 'PLANTE',
+    'feu': 'FEU',
+    'eau': 'EAU',
+    'elec': 'ELEK',
+    'glace': 'GLACE',
+    'combat': 'COMBAT',
+    'poison': 'POISON',
+    'sol': 'SOL',
+    'vol': 'VOL',
+    'psy': 'PSY',
+    'insect': 'INSECT',
+    'roche': 'ROCHE',
+    'spectre': 'SPECTR',
+    'dragon': 'DRAGON',
+    'dark': 'DARK',
+    'acier': 'ACIER',
+    'fee': 'FEE'
+
+}
+
+
+def get_mutiliplicateur(type_atk_pk, type_def_pk2):
+    return types_affinities[type_atk_pk][type_def_pk2]
+
+
+def get_all_diff_pokemons(pokemon_type, difficulty='easy'):
+    multiplicateur_diff = {
+        'easy': (2, 1),
+        'normal': (2, 1, 0.5),
+        'hard': (1, 0.5, 0)
+    }
+
+    types_list = get_diff_types(pokemon_type, multiplicateur_diff[difficulty])  # Marche pour les tuples
+    pokemons_list = []
+    with open('all_pokemons.txt', 'r') as file:
+        for line in file.readlines():
+            if not line.split()[0] == '#':
+                if line.split()[2] in types_list:
+                    pokemons_list.append(line.split()[0])
+
+    return pokemons_list
+
+
+def get_diff_types(pokemon_type, multiplicateur):
+    types_list = []
+
+    for pk_type in types_affinities[pokemon_type]:
+        if types_affinities[pokemon_type][pk_type] in multiplicateur:
+            types_list.append(pk_type)
+
+    return types_list
+
+
+def get_type_name_to_print(type):
+    return type_names_to_print[type]
+
+def get_type_color(type):
+    return type_colors[type]

@@ -1,4 +1,4 @@
-name              rarity    type    pv      att    def     speed  evol_lv   evol_name     player_lv   type2
+name              rarity    type    pv      att    def     speed  evol_lv   evol_name       player_lv   type2
 # Moyennes:         50        -    68/80   75/90  70/83    70/85
 #
 Evoli               10      normal  55      65      65      60      18      0               0           NoType
@@ -60,3 +60,5 @@ Nidoran-m           20      poison  65      70      60      65      12      Nido
 Nidorino            50      poison  72      78      70      73      24      Nidoking        2           NoType
 Nidoking            60      poison  80      87      78      80      0       0               4           sol
 #
+Tyranocif           70      roche   90      105     75      80      0       0               3           dark
+Giratina            90      spectre 100     95      120     85      0       0               5           dragon
