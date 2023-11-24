@@ -177,7 +177,7 @@ while running:
                                             game.classic_panel.ingame_window.train_panel.close_settings_popup()
 
                                     if game.classic_panel.ingame_window.train_panel.add_button_rect.collidepoint(posSouris):
-                                        game.classic_panel.ingame_window.train_paneladd_training_pk_mode = True
+                                        game.classic_panel.ingame_window.train_panel.add_training_pk_mode = True
 
 
                         else:

@@ -5,6 +5,7 @@ import pygame
 
 import accueil
 import panels
+from game_round import Round
 
 
 class Game:
@@ -33,6 +34,7 @@ class Game:
                          ]
 
         self.classic_panel = panels.ClassicGamePanel(self)
+        self.round = Round()
 
         self.save_file = open('save.txt', 'r+')
 

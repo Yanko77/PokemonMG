@@ -65,6 +65,8 @@ class TrainPanel:
         self.boolSettings_popup = False
         self.add_training_pk_mode = False
 
+        self.choose_training_pk_popup = ChooseTrainingPkPopup(self.game)
+
     def update(self, surface, possouris, window_pos):
         self.update_rects_pos(window_pos)
 
@@ -82,6 +84,9 @@ class TrainPanel:
 
         if self.boolSettings_popup:
             self.update_settings_popup(surface, possouris, window_pos)
+
+        if self.add_training_pk_mode:
+            self.choose_training_pk_popup.update(surface, possouris, window_pos)
 
     def update_emp_training_pk(self, surface, possouris, window_pos):
 
@@ -108,10 +113,11 @@ class TrainPanel:
             surface.blit(self.settings_button, (self.settings_button_pos[0] + window_pos[0],
                                                 self.settings_button_pos[1] + window_pos[1]))
 
-        if self.add_button_rect.collidepoint(possouris):
-            surface.blit(self.add_button_hover, self.add_button_rect)
-        else:
-            surface.blit(self.add_button, self.add_button_rect)
+        if not self.add_training_pk_mode:
+            if self.add_button_rect.collidepoint(possouris):
+                surface.blit(self.add_button_hover, self.add_button_rect)
+            else:
+                surface.blit(self.add_button, self.add_button_rect)
 
     def update_settings_popup(self, surface, possouris, window_pos):
         surface.blit(self.settings_popup, (self.settings_popup_pos[0] + window_pos[0],
@@ -157,10 +163,21 @@ class TrainPanel:
     def set_difficult(self, diff_value='easy'):
         self.difficult = diff_value
 
+    def set_ennemy_pokemons(self):
+        self.ennemy_pks = {
+            'easy': self.spawn_ennemy_pk('easy'),
+            'normal': self.spawn_ennemy_pk('normal'),
+            'hard': self.spawn_ennemy_pk('hard')
+        }
+        for pk in self.ennemy_pks.values():
+            print(pk.name, pk.get_type(), pk.get_level())
+
     def get_spawn_ennemy_pk(self, difficult):
 
         if self.training_pk is None:
             return None
+
+        random.seed(self.training_pk.random_seed)
 
         all_spawnable_pk = game_infos.get_all_diff_pokemons(self.training_pk.get_type(), difficult)
         pokemon_name = random.choice(all_spawnable_pk)
@@ -177,7 +194,6 @@ class TrainPanel:
         ennemy_pk_lv = random.randint(min_lv, max_lv)
 
         return pokemon.Pokemon(self.get_spawn_ennemy_pk(difficult), ennemy_pk_lv)
-
 
     def open_settings_popup(self):
         self.boolSettings_popup = True
@@ -220,3 +236,125 @@ class TrainPanel:
             image = pygame.transform.scale(image, size)
 
         return image
+
+
+class ChooseTrainingPkPopup:
+
+    def __init__(self, game):
+        self.game = game
+        self.path = 'assets/game/ingame_windows/Train/'
+        self.popup = self.load_image('choose_training_pk_popup.png')
+        self.x_button = self.load_image('choose_training_pk_x_button.png')
+        self.x_button_hover = self.load_image('choose_training_pk_x_button_hover.png')
+
+        self.popup_pos = (419, 40)
+        self.x_button_pos = (802, 57)
+        self.x_button_rect = image.get_custom_rect(self.x_button, self.x_button_pos[0], self.x_button_pos[1])
+
+        self.pk_emps = ChooseTrainingPkEmps(self.game)
+
+    def update(self, surface, possouris, window_pos):
+        self.update_rects_pos(window_pos)
+
+        surface.blit(self.popup, (self.popup_pos[0] + window_pos[0],
+                                  self.popup_pos[1] + window_pos[1]))
+
+        if self.x_button_rect.collidepoint(possouris):
+            surface.blit(self.x_button_hover, self.x_button_rect)
+        else:
+            surface.blit(self.x_button, self.x_button_rect)
+
+        self.pk_emps.update(surface, window_pos, possouris)
+
+    def update_rects_pos(self, window_pos):
+        self.x_button_rect = image.get_custom_rect(self.x_button, self.x_button_pos[0] + window_pos[0],
+                                                                  self.x_button_pos[1] + window_pos[1])
+
+    def is_hovering_buttons(self, possouris):
+        return self.x_button_rect.collidepoint(possouris)
+
+    def load_image(self, file_name, boolTransfromScale=False, size=None):
+        image = pygame.image.load(self.path + file_name)
+
+        if boolTransfromScale:
+            image = pygame.transform.scale(image, size)
+
+        return image
+
+
+class PkEmp:
+
+    def __init__(self, game, i, pos, emp_group):
+        self.game = game
+        self.group = emp_group
+        self.i = i
+        self.POS = pos
+        self.pos = pos
+        self.rect = pygame.Rect(self.pos[0], self.pos[1], 120, 120)
+
+        self.pk = self.game.player.team[self.i]
+
+        self.moving = False
+        self.clic_pos = (0, 0)
+
+    def update(self, surface, window_pos, possouris):
+        self.update_rects_pos(window_pos)
+        self.update_pk()
+
+        if self.pk is not None:
+            surface.blit(pygame.transform.scale(self.pk.get_icon(), (250, 125)),
+                         (self.rect[0] - 5, self.rect[1] - 15), (0, 0, 125, 125))
+
+        if not self.moving:
+            if not self.group.is_another_pk_moving():
+                if self.game.mouse_pressed[1] and self.rect.collidepoint(possouris):
+                    self.moving = True
+                    self.clic_pos = possouris
+        else:
+            if not self.game.mouse_pressed[1]:
+                if self.game.classic_panel.ingame_window.train_panel.add_button_rect.collidepoint(possouris):
+                    self.game.classic_panel.ingame_window.train_panel.training_pk = self.game.player.team[self.i]
+                    self.game.classic_panel.ingame_window.train_panel.set_ennemy_pokemons()
+                self.moving = False
+                self.pos = self.POS
+            else:
+                self.pos = (self.POS[0] + possouris[0] - self.clic_pos[0],
+                            self.POS[1] + possouris[1] - self.clic_pos[1])
+
+    def update_pk(self):
+        if not self.game.player.team[self.i] == self.pk:
+            self.pk = self.game.player.team[self.i]
+
+    def update_rects_pos(self, window_pos):
+        self.rect = pygame.Rect(self.pos[0] + window_pos[0], self.pos[1] + window_pos[1], 120, 120)
+
+
+class ChooseTrainingPkEmps:
+
+    def __init__(self, game):
+        self.game = game
+
+        self.emp1 = PkEmp(self.game, 0, (432, 103), self)
+        self.emp2 = PkEmp(self.game, 1, (567, 103), self)
+        self.emp3 = PkEmp(self.game, 2, (702, 103), self)
+        self.emp4 = PkEmp(self.game, 3, (432, 232), self)
+        self.emp5 = PkEmp(self.game, 4, (567, 232), self)
+        self.emp6 = PkEmp(self.game, 5, (702, 232), self)
+
+        self.emp_moving = False
+
+    def update(self, surface, window_pos, possouris):
+        self.emp1.update(surface, window_pos, possouris)
+        self.emp2.update(surface, window_pos, possouris)
+        self.emp3.update(surface, window_pos, possouris)
+        self.emp4.update(surface, window_pos, possouris)
+        self.emp5.update(surface, window_pos, possouris)
+        self.emp6.update(surface, window_pos, possouris)
+
+    def is_another_pk_moving(self):
+        return (self.emp1.moving or
+                self.emp2.moving or
+                self.emp3.moving or
+                self.emp4.moving or
+                self.emp5.moving or
+                self.emp6.moving)

@@ -63,6 +63,8 @@ class Pokemon:
         self.item_pourcent_hp_activate = None
         self.passive_heal = 0
 
+        self.random_seed = self.generate_random_seed_number()
+
     def find_pokemon_line(self) -> list:
         with open('all_pokemons.txt') as file:
             for line in file.readlines():
@@ -102,6 +104,9 @@ class Pokemon:
 
     def get_name(self):
         return self.name
+
+    def get_icon(self):
+        return self.icon_image
 
     def heal(self, value):
         self.health += value
@@ -263,6 +268,12 @@ class Pokemon:
         else:
             return False
 
+    def generate_random_seed_number(self):
+        return int(str(random.randint(0, 255))
+                   + str(random.randint(0, 255))
+                   + str(random.randint(0, 255))
+                   + str(random.randint(0, 255)))
+
 
 if __name__ == "__main__":
-    print(get_all_diff_pokemons('elec', 'hard'))
+    p = Pokemon('Dracaufeu', 50)
