@@ -1,5 +1,6 @@
 import pygame
 import image
+import random
 import pokemon
 import random
 import game_infos
