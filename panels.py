@@ -95,6 +95,7 @@ class ClassicGamePanel:
         self.item_pk_hover_give = pygame.image.load('assets/game/panels/classic_panel/item_give_pk_hover.png')
         self.item_pk_hover_error = pygame.image.load('assets/game/panels/classic_panel/item_error_pk_hover.png')
         self.item_pk_hover_give_error = pygame.image.load('assets/game/panels/classic_panel/item_error_give_pk_hover.png')
+        self.item_pk_indicator = pygame.image.load('assets/game/panels/classic_panel/pk_item_indicator.png')
         #   # Buttons
         self.sac_button_hover = self.create_rect_alpha((218, 215), (113, 64, 30))  # pygame.Rect(667, 465, 218, 215)
 
@@ -114,6 +115,7 @@ class ClassicGamePanel:
         #   # Button rects
         self.sac_button_rect = pygame.Rect(667, 465, 218, 215)
         self.logo_pk_suppr_rect = pygame.Rect(1085, 46, 150, 150)
+        self.logo_enable_item_rect = pygame.Rect(1085, 46, 150, 150)
 
         # SET VARIABLES --------------------------------------------
         #   # Pokemon infos
@@ -125,6 +127,15 @@ class ClassicGamePanel:
         self.moving_pk = [False, False, False, False, False, False]
         self.rel_possouris_pk_move_mode = [0, 0]
         self.saved_possouris = (0, 0)
+        #   # Pokemon hover
+        self.current_hover_pokemon_register = {0: False,
+                                               1: False,
+                                               2: False,
+                                               3: False,
+                                               4: False,
+                                               5: False,
+                                               }
+        self.current_hover_pokemon = None
 
         # IMPORT/INSTANCES --------------------------------------------
         self.alphabet_pixels = player_name.alphabet_pixels
@@ -144,6 +155,7 @@ class ClassicGamePanel:
         self.update_player_infos(surface, possouris)
 
         # PLAYER TEAM
+        self.update_hover_pokemon()
         self.update_team_pokemons(surface, possouris)
 
         # PANEL BUTTONS
@@ -202,6 +214,15 @@ class ClassicGamePanel:
                         surface.blit(self.player_name_hover, (0, 0))
                 else:
                     surface.blit(self.player_name_hover, (0, 0))
+
+    def update_hover_pokemon(self):
+        is_a_pk_hover = False
+        for pk_i in range(6):
+            if self.current_hover_pokemon_register[pk_i]:
+                self.current_hover_pokemon = pk_i
+                is_a_pk_hover = True
+        if not is_a_pk_hover:
+            self.current_hover_pokemon = None
 
     def update_player_name_editing_mode(self, surface):
         if self.game.player.name_editing_mode:
@@ -299,6 +320,9 @@ class ClassicGamePanel:
                     self.pokemon_hp_font.render(str(self.game.player.team[i].health) + "/" + str(self.game.player.team[i].pv),
                                                 False, (0, 0, 0)), (self.pk_rects[i].x + 205, self.pk_rects[i].y + 40))
 
+                if self.game.player.team[i].objet_tenu is not None:
+                    surface.blit(self.font_pokemon_type.render('ITEM', False, (30, 30, 30)), (self.pk_rects[i].x + 327, self.pk_rects[i].y + 6))
+
         if i in (0, 2, 4):
             color = (255, 255, 255)
         else:
@@ -307,6 +331,7 @@ class ClassicGamePanel:
         if not self.ingame_window.main_window_rect.collidepoint(possouris):
             if self.pk_rects[i].collidepoint(possouris):
                 surface.blit(self.create_rect_alpha((369, 69), color), (self.pk_rects[i].x, self.pk_rects[i].y))
+                self.current_hover_pokemon_register[i] = True
 
                 if self.ingame_window.sac_panel.emp_move_mode:
                     if self.game.player.team[i] is not None:
@@ -325,6 +350,8 @@ class ClassicGamePanel:
                                 surface.blit(self.item_pk_hover_error, (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))
                         else:
                             surface.blit(self.item_pk_hover_error, (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))
+            else:
+                self.current_hover_pokemon_register[i] = False
 
     def update_pokemon_info(self, surface, possouris):
         if self.pokemon_info_mode:

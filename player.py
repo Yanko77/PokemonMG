@@ -14,15 +14,17 @@ class Player:
         self.actions = 3
         self.max_actions = 3
 
-        self.team = [pokemon.Pokemon('Giratina', 100),
-                     pokemon.Pokemon('Brasegali', 100),
+        self.always_shiny_on = False
+
+        self.team = [pokemon.Pokemon('Giratina', 100, self),
+                     pokemon.Pokemon('Brasegali', 100, self),
                      None,
                      None,
                      None,
                      None]
         self.sac_page1 = [Objet('Velo', 3),
                           Objet('Pokeflute', 3),
-                          Objet('Guerison', 2),
+                          Objet('Potion_Max', 2),
                           Objet('Baie_Oran', 2),
                           Objet('Baie_Sitrus', 2),
                           Objet('Mouchoir_Soie', 2),
@@ -74,6 +76,10 @@ class Player:
 
     def use_action(self, amount=1):
         self.actions -= amount
+
+    def rise_max_actions_value(self):
+        self.max_actions += 1
+        self.actions += 1
 
     def get_nb_team_members(self):
         nb_team_members = 0

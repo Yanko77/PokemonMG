@@ -57,6 +57,7 @@ class TrainPanel:
 
         self.difficult = 'easy'
         self.training_pk = None
+        self.training_pk_rect = pygame.Rect(111, 123, 252, 252)
         self.ennemy_pks = {
             'easy': self.spawn_ennemy_pk('easy'),
             'normal': self.spawn_ennemy_pk('normal'),
@@ -89,10 +90,6 @@ class TrainPanel:
             self.choose_training_pk_popup.update(surface, possouris, window_pos)
 
     def update_emp_training_pk(self, surface, possouris, window_pos):
-
-        if self.training_pk is None:
-             pass
-
         surface.blit(self.emp_training_pk, (self.emp_training_pk_pos[0] + window_pos[0],
                                             self.emp_training_pk_pos[1] + window_pos[1]))
 
@@ -113,11 +110,27 @@ class TrainPanel:
             surface.blit(self.settings_button, (self.settings_button_pos[0] + window_pos[0],
                                                 self.settings_button_pos[1] + window_pos[1]))
 
-        if not self.add_training_pk_mode:
-            if self.add_button_rect.collidepoint(possouris):
-                surface.blit(self.add_button_hover, self.add_button_rect)
-            else:
-                surface.blit(self.add_button, self.add_button_rect)
+        if self.training_pk is None:
+            if not self.add_training_pk_mode:
+                if self.add_button_rect.collidepoint(possouris):
+                    surface.blit(self.add_button_hover, self.add_button_rect)
+                else:
+                    surface.blit(self.add_button, self.add_button_rect)
+
+            elif self.training_pk_rect.collidepoint(possouris):
+                surface.blit(self.create_rect_alpha((self.training_pk_rect.w, self.training_pk_rect.h), (255, 255, 255)), self.training_pk_rect)
+
+            surface.blit(self.no_pk_selected_text, (self.no_pk_selected_text_pos[0] + window_pos[0],
+                                                    self.no_pk_selected_text_pos[1] + window_pos[1]))
+
+        else:
+            if self.training_pk_rect.collidepoint(possouris):
+                surface.blit(self.create_rect_alpha((self.training_pk_rect.w, self.training_pk_rect.h), (255, 255, 255)), self.training_pk_rect)
+
+            surface.blit(pygame.transform.scale(self.training_pk.icon_image, (504, 252)), (self.training_pk_rect.x, self.training_pk_rect.y - 25), (0, 0, 252, 252))
+
+        surface.blit(self.locked, (self.locked_pos[0] + window_pos[0],
+                                   self.locked_pos[1] + window_pos[1]))
 
     def update_settings_popup(self, surface, possouris, window_pos):
         surface.blit(self.settings_popup, (self.settings_popup_pos[0] + window_pos[0],
@@ -177,7 +190,7 @@ class TrainPanel:
         if self.training_pk is None:
             return None
 
-        random.seed(self.training_pk.random_seed)
+        random.seed(self.training_pk.random_seed + self.game.general_seed)
 
         all_spawnable_pk = game_infos.get_all_diff_pokemons(self.training_pk.get_type(), difficult)
         pokemon_name = random.choice(all_spawnable_pk)
@@ -193,7 +206,7 @@ class TrainPanel:
         max_lv = round(1.2*self.game.player.get_moyenne_team() + self.game.player.get_level())
         ennemy_pk_lv = random.randint(min_lv, max_lv)
 
-        return pokemon.Pokemon(self.get_spawn_ennemy_pk(difficult), ennemy_pk_lv)
+        return pokemon.Pokemon(self.get_spawn_ennemy_pk(difficult), ennemy_pk_lv, self.game.player)
 
     def open_settings_popup(self):
         self.boolSettings_popup = True
@@ -211,6 +224,7 @@ class TrainPanel:
                                                       self.normal_button_pos[1] + window_pos[1])
         self.hard_button_rect = image.get_custom_rect(self.hard_button, self.hard_button_pos[0] + window_pos[0],
                                                       self.hard_button_pos[1] + window_pos[1])
+        self.training_pk_rect = pygame.Rect(111 + window_pos[0], 123 + window_pos[1], 252, 252)
 
     def is_hovering_settings_popup_buttons(self, possouris):
         if self.boolSettings_popup:
@@ -220,8 +234,12 @@ class TrainPanel:
             return False
 
     def is_hovering_buttons(self, possouris):
-        return (self.settings_button_rect.collidepoint(possouris) or self.add_button_rect.collidepoint(possouris)
-                or self.is_hovering_settings_popup_buttons(possouris))
+        return (self.settings_button_rect.collidepoint(possouris)
+                or self.is_hovering_settings_popup_buttons(possouris)
+                or (self.add_button_rect.collidepoint(possouris) and self.training_pk is None and not self.add_training_pk_mode)
+                or (self.training_pk_rect.collidepoint(possouris) and self.training_pk is not None)
+                or (self.choose_training_pk_popup.is_hovering(possouris) and self.add_training_pk_mode)
+                )
 
     def create_rect_alpha(self, dimensions, color, opacite=90):
         rect = pygame.Surface(dimensions)
@@ -270,8 +288,8 @@ class ChooseTrainingPkPopup:
         self.x_button_rect = image.get_custom_rect(self.x_button, self.x_button_pos[0] + window_pos[0],
                                                                   self.x_button_pos[1] + window_pos[1])
 
-    def is_hovering_buttons(self, possouris):
-        return self.x_button_rect.collidepoint(possouris)
+    def is_hovering(self, possouris):
+        return self.x_button_rect.collidepoint(possouris) or self.pk_emps.is_hovering_emp(possouris)
 
     def load_image(self, file_name, boolTransfromScale=False, size=None):
         image = pygame.image.load(self.path + file_name)
@@ -280,53 +298,6 @@ class ChooseTrainingPkPopup:
             image = pygame.transform.scale(image, size)
 
         return image
-
-
-class PkEmp:
-
-    def __init__(self, game, i, pos, emp_group):
-        self.game = game
-        self.group = emp_group
-        self.i = i
-        self.POS = pos
-        self.pos = pos
-        self.rect = pygame.Rect(self.pos[0], self.pos[1], 120, 120)
-
-        self.pk = self.game.player.team[self.i]
-
-        self.moving = False
-        self.clic_pos = (0, 0)
-
-    def update(self, surface, window_pos, possouris):
-        self.update_rects_pos(window_pos)
-        self.update_pk()
-
-        if self.pk is not None:
-            surface.blit(pygame.transform.scale(self.pk.get_icon(), (250, 125)),
-                         (self.rect[0] - 5, self.rect[1] - 15), (0, 0, 125, 125))
-
-        if not self.moving:
-            if not self.group.is_another_pk_moving():
-                if self.game.mouse_pressed[1] and self.rect.collidepoint(possouris):
-                    self.moving = True
-                    self.clic_pos = possouris
-        else:
-            if not self.game.mouse_pressed[1]:
-                if self.game.classic_panel.ingame_window.train_panel.add_button_rect.collidepoint(possouris):
-                    self.game.classic_panel.ingame_window.train_panel.training_pk = self.game.player.team[self.i]
-                    self.game.classic_panel.ingame_window.train_panel.set_ennemy_pokemons()
-                self.moving = False
-                self.pos = self.POS
-            else:
-                self.pos = (self.POS[0] + possouris[0] - self.clic_pos[0],
-                            self.POS[1] + possouris[1] - self.clic_pos[1])
-
-    def update_pk(self):
-        if not self.game.player.team[self.i] == self.pk:
-            self.pk = self.game.player.team[self.i]
-
-    def update_rects_pos(self, window_pos):
-        self.rect = pygame.Rect(self.pos[0] + window_pos[0], self.pos[1] + window_pos[1], 120, 120)
 
 
 class ChooseTrainingPkEmps:
@@ -358,3 +329,77 @@ class ChooseTrainingPkEmps:
                 self.emp4.moving or
                 self.emp5.moving or
                 self.emp6.moving)
+
+    def is_hovering_emp(self, possouris):
+        return (self.emp1.is_hovering(possouris)
+                or self.emp2.is_hovering(possouris)
+                or self.emp3.is_hovering(possouris)
+                or self.emp4.is_hovering(possouris)
+                or self.emp5.is_hovering(possouris)
+                or self.emp6.is_hovering(possouris)
+                )
+
+
+class PkEmp:
+
+    def __init__(self, game, i, pos, emp_group):
+        self.game = game
+        self.group = emp_group
+        self.i = i
+        self.POS = pos
+        self.pos = pos
+        self.rect = pygame.Rect(self.pos[0], self.pos[1], 120, 120)
+
+        self.pk = self.game.player.team[self.i]
+
+        self.moving = False
+        self.clic_pos = (0, 0)
+
+    def update(self, surface, window_pos, possouris):
+        self.update_rects_pos(window_pos)
+        self.update_pk()
+
+        if self.pk is not None:
+            if self.moving:
+                surface.blit(self.create_rect_alpha((self.rect.w - 10, self.rect.h - 10), (255, 255, 255)),
+                             (self.rect.x + 5, self.rect.y + 5))
+            else:
+                if self.rect.collidepoint(possouris) and not self.group.is_another_pk_moving():
+                    surface.blit(self.create_rect_alpha((self.rect.w - 10, self.rect.h - 10), (255, 255, 255)),
+                                 (self.rect.x + 5, self.rect.y + 5))
+
+            surface.blit(pygame.transform.scale(self.pk.get_icon(), (250, 125)),
+                         (self.rect[0] - 5, self.rect[1] - 15), (0, 0, 125, 125))
+
+            if not self.moving:
+                if not self.group.is_another_pk_moving():
+                    if self.game.mouse_pressed[1] and self.rect.collidepoint(possouris):
+                        self.moving = True
+                        self.clic_pos = possouris
+            else:
+                if not self.game.mouse_pressed[1]:
+                    if self.game.classic_panel.ingame_window.train_panel.add_button_rect.collidepoint(possouris):
+                        self.game.classic_panel.ingame_window.train_panel.training_pk = self.game.player.team[self.i]
+                        self.game.classic_panel.ingame_window.train_panel.set_ennemy_pokemons()
+                        self.game.classic_panel.ingame_window.train_panel.add_training_pk_mode = False
+                    self.moving = False
+                    self.pos = self.POS
+                else:
+                    self.pos = (self.POS[0] + possouris[0] - self.clic_pos[0],
+                                self.POS[1] + possouris[1] - self.clic_pos[1])
+
+    def update_pk(self):
+        if not self.game.player.team[self.i] == self.pk:
+            self.pk = self.game.player.team[self.i]
+
+    def update_rects_pos(self, window_pos):
+        self.rect = pygame.Rect(self.pos[0] + window_pos[0], self.pos[1] + window_pos[1], 120, 120)
+
+    def is_hovering(self, possouris):
+        return self.rect.collidepoint(possouris) and self.pk is not None
+
+    def create_rect_alpha(self, dimensions, color):
+        rect = pygame.Surface(dimensions)
+        rect.set_alpha(90)
+        rect.fill(color)
+        return rect

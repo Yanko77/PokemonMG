@@ -4,10 +4,11 @@ import objet
 import game_infos
 import attaques
 
-
 class Pokemon:
 
-    def __init__(self, name, level, is_shiny=None, objet_tenu=None):
+    def __init__(self, name, level, player, is_shiny=None, objet_tenu=None):
+        self.player = player
+
         self.name = name[0].upper() + name[1:].lower()
         self.is_shiny = self.def_shiny(is_shiny)
 
@@ -257,7 +258,9 @@ class Pokemon:
                     self.speed = round(self.speed * self.objet_tenu.multiplicateur_stats[stat])
 
     def def_shiny(self, is_shiny):
-        if is_shiny is None:
+        if self.player.always_shiny_on:
+            return True
+        elif is_shiny is None:
             n = random.randint(1, 256)
             if n == 137:
                 return True

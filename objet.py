@@ -64,7 +64,7 @@ class Objet:
         self.description = self.line[6][:-1]
         self.description = self.reformate_desc(self.description)
 
-    def set_special_effects(self):
+    def set_special_effects(self):  # Fonction d'init qui définit les stats des objets spéciaux
         if self.fonctionnement in ('Use', 'Give'):
             self.effect = self.line[3].split(':')[1]
             if self.effect == 'special':
@@ -117,6 +117,21 @@ class Objet:
             for line in file.readlines():
                 if str(line.split()[0]) == str(self.name):
                     return line.split(maxsplit=6)
+
+    def enable_item(self, player):
+        if self.fonctionnement == 'Enable':
+            if self.name in ('Velo', 'Pokeflute'):
+                player.rise_max_actions_value()
+
+            if self.name == 'Charme_Chroma':
+                print('Activation du charme Chroma')
+                player.always_shiny_on = True
+
+            self.quantite -= 1
+
+
+
+
 
     def reformate_name(self, name):
         reformated_name = ''

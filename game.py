@@ -20,8 +20,6 @@ class Game:
                               3: False}
 
         self.player = Player()
-        self.player_random_names = ['Romuald', 'Tyranocif', 'Ventilateur', 'Pissenlit', 'Guy le bandit', 'xXGamer-12Xx',
-                                    "Moi c'est Kevin", 'Limonde']
 
         self.accueil = accueil.Accueil()
 
@@ -37,6 +35,8 @@ class Game:
         self.round = Round()
 
         self.save_file = open('save.txt', 'r+')
+
+        self.general_seed = self.generate_general_random_seed()
 
     def update(self, screen, possouris):
 
@@ -69,6 +69,13 @@ class Game:
     '''def load_game(self):
         self.save_file'''
 
-    def player_lv_up(self):
-        self.player.level += 1
-        self.classic_panel.update_player_lv()
+    def next_turn(self):
+        self.general_seed = self.generate_general_random_seed()
+        # continuer avec tous se qui cange a chaque tour
+
+    def generate_general_random_seed(self):
+        return int(str(random.randint(0, 255))
+                   + str(random.randint(0, 255))
+                   + str(random.randint(0, 255))
+                   + str(random.randint(0, 255)))
+
