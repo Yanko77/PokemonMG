@@ -188,7 +188,6 @@ while running:
                                         if game.classic_panel.ingame_window.train_panel.choose_training_pk_popup.x_button_rect.collidepoint(posSouris):
                                             game.classic_panel.ingame_window.train_panel.add_training_pk_mode = False
 
-
                         else:
                             if not game.classic_panel.pk_move_mode:
                                 if game.classic_panel.player_name_rect.collidepoint(posSouris):

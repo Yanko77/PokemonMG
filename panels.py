@@ -95,7 +95,6 @@ class ClassicGamePanel:
         self.item_pk_hover_give = pygame.image.load('assets/game/panels/classic_panel/item_give_pk_hover.png')
         self.item_pk_hover_error = pygame.image.load('assets/game/panels/classic_panel/item_error_pk_hover.png')
         self.item_pk_hover_give_error = pygame.image.load('assets/game/panels/classic_panel/item_error_give_pk_hover.png')
-        self.item_pk_indicator = pygame.image.load('assets/game/panels/classic_panel/pk_item_indicator.png')
         #   # Buttons
         self.sac_button_hover = self.create_rect_alpha((218, 215), (113, 64, 30))  # pygame.Rect(667, 465, 218, 215)
 

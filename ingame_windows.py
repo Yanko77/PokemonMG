@@ -61,7 +61,7 @@ class IngameWindow:
         self.starters_panel = starters.StartersPanel(self.game)
         self.spawn_panel = spawn.SpawnPanel(self.game)
         self.train_panel = None  # Sera initialisé après la sélection du starter
-        self.items_panel = items.ItemsPanel()
+        self.items_panel = items.ItemsPanel(self.game)
 
     def update(self, surface, possouris):
         self.update_main_window_rect()
