@@ -16,8 +16,8 @@ class Player:
 
         self.always_shiny_on = False
 
-        self.team = [pokemon.Pokemon('Giratina', 100, self),
-                     pokemon.Pokemon('Brasegali', 100, self),
+        self.team = [None,
+                     None,
                      None,
                      None,
                      None,

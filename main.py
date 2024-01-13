@@ -183,6 +183,8 @@ while running:
                                         if game.classic_panel.ingame_window.train_panel.training_pk_rect.collidepoint(posSouris):
                                             game.classic_panel.ingame_window.train_panel.training_pk = None
                                             game.classic_panel.ingame_window.train_panel.add_training_pk_mode = True
+                                        elif game.classic_panel.ingame_window.train_panel.ennemy_pk_infos_stats_button_rect.collidepoint(posSouris):
+                                            game.classic_panel.ingame_window.train_panel.ennemy_pk_info_stats_mode = not(game.classic_panel.ingame_window.train_panel.ennemy_pk_info_stats_mode)
 
                                     if game.classic_panel.ingame_window.train_panel.add_training_pk_mode:
                                         if game.classic_panel.ingame_window.train_panel.choose_training_pk_popup.x_button_rect.collidepoint(posSouris):

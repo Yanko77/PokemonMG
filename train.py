@@ -29,14 +29,22 @@ class TrainPanel:
         self.normal_button_hover = self.load_image('normal_button_hover.png')
         self.hard_button = self.load_image('hard_button.png')
         self.hard_button_hover = self.load_image('hard_button_hover.png')
+        self.ennemy_pk_popup = pygame.image.load('assets/game/ingame_windows/Train/ennemy_pk_popup.png')
+        self.ennemy_pk_infos_stats = pygame.image.load('assets/game/ingame_windows/Train/ennemy_pk_stats.png')
+        self.ennemy_pk_infos_stats_button = pygame.image.load('assets/game/ingame_windows/Train/info_stats_button.png')
+        self.ennemy_pk_infos_stats_button_hover = pygame.image.load('assets/game/ingame_windows/Train/info_stats_button_hover.png')
+        self.fight_button = pygame.image.load('assets/game/ingame_windows/Train/fight_button.png')
+        self.fight_button_hover = pygame.image.load('assets/game/ingame_windows/Train/fight_button_hover.png')
         # LOADING FONTS ---------------------
         self.difficulty_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 35)
         self.lv_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 45)
-        self.ennemy_pk_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 36)
+        self.ennemy_pk_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 22)
+        self.ennemy_pk_type_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 17)
+        self.ennemy_pk_stats_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 20)
         self.info_select_pk_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 22)
         # RENDER TEXTS
         self.no_pk_selected_text = self.info_select_pk_font.render('NO POKEMON SELECTED', False, (255, 255, 255))
-
+        self.change_pk_text = self.info_select_pk_font.render('SWAP POKEMON', False, (255, 255, 255))
         # DEFAULT VARIABLES --------------------------
         self.background_pos = (-13, -21)
         self.emp_training_pk_pos = (78, 96)
@@ -55,6 +63,13 @@ class TrainPanel:
         self.normal_button_rect = image.get_custom_rect(self.normal_button, self.normal_button_pos[0], self.normal_button_pos[1])
         self.hard_button_pos = (249, 68)
         self.hard_button_rect = image.get_custom_rect(self.hard_button, self.hard_button_pos[0], self.hard_button_pos[1])
+        self.ennemy_pk_infos_stats_button_rect = image.get_custom_rect(self.ennemy_pk_infos_stats_button, 715, 408)
+
+        self.ennemy_pk_popup_pos = (446, 39)
+        self.ennemy_pk_info_stats_mode = False
+
+        self.fight_button_pos = (613, 448)
+        self.fight_button_rect = image.get_custom_rect(self.fight_button, self.fight_button_pos[0], self.fight_button_pos[1])
 
         self.difficult = 'easy'
         self.training_pk = None
@@ -77,7 +92,11 @@ class TrainPanel:
         self.update_emp_training_pk(surface, possouris, window_pos)
 
         if self.training_pk is not None:
-            self.update_preview_ennemy(surface, window_pos)
+            self.update_preview_ennemy(surface, window_pos, possouris)
+            if self.fight_button_rect.collidepoint(possouris):
+                surface.blit(self.fight_button_hover, self.fight_button_rect)
+            else:
+                surface.blit(self.fight_button, self.fight_button_rect)
         else:
             surface.blit(self.locked, (self.locked_pos[0] + window_pos[0],
                                        self.locked_pos[1] + window_pos[1]))
@@ -127,6 +146,8 @@ class TrainPanel:
         else:
             if self.training_pk_rect.collidepoint(possouris):
                 surface.blit(self.create_rect_alpha((self.training_pk_rect.w, self.training_pk_rect.h), (255, 255, 255)), self.training_pk_rect)
+                surface.blit(self.change_pk_text, (self.no_pk_selected_text_pos[0] + window_pos[0] + 30,
+                                                   self.no_pk_selected_text_pos[1] + window_pos[1]))
 
             surface.blit(pygame.transform.scale(self.training_pk.icon_image, (504, 252)), (self.training_pk_rect.x, self.training_pk_rect.y - 25), (0, 0, 252, 252))
 
@@ -152,27 +173,58 @@ class TrainPanel:
         else:
             surface.blit(self.hard_button, self.hard_button_rect)
 
-    def update_preview_ennemy(self, surface, window_pos):
-        bg_x = window_pos[0] + 400
-        bg_y = window_pos[1] + 50
-        background = self.create_rect_alpha((350, 200), (0, 0, 0), opacite=120)
+    def update_preview_ennemy(self, surface, window_pos, possouris):
+        pk = self.ennemy_pks[self.difficult]
+        surface.blit(self.ennemy_pk_popup, (self.ennemy_pk_popup_pos[0] + window_pos[0], self.ennemy_pk_popup_pos[1] + window_pos[1]))
 
-        bg_pk_icon_x = window_pos[0] + 410
-        bg_pk_icon_y = window_pos[1] + 60
-        background_pk_icon = self.create_rect_alpha((110, 110), (255, 255, 255), opacite=70)
+        icon = pygame.transform.scale(pk.get_icon(), (300, 150))
+        name = self.ennemy_pk_name_font.render(f"{pk.get_name()}  Lv.{pk.get_level()}", False, (0, 0, 0))
 
-        border_pk_icon_x = window_pos[0] + 405
-        border_pk_icon_y = window_pos[1] + 55
-        border_pk_icon = self.create_rect_alpha((120, 120), (0, 0, 0), opacite=150)
+        surface.blit(icon, (455 + window_pos[0], 273 + window_pos[1]), (0, 0, 150, 150))
+        surface.blit(name, (617 + window_pos[0], 317 + window_pos[1]))
 
-        pk_icon_x = window_pos[0] + 412
-        pk_icon_y = window_pos[1] + 64
-        pk_icon = image.load_image(f'assets/game/pokemons_icons/{self.ennemy_pks[self.difficult].get_name()}.png', True, (190, 95))
+        if not self.ennemy_pk_info_stats_mode:
+            type1 = self.ennemy_pk_type_font.render(game_infos.type_names_to_print[pk.get_type()], False,
+                                                    game_infos.get_type_color(pk.get_type()))
+            surface.blit(type1, (670 + window_pos[0], 346 + window_pos[1]))
 
-        surface.blit(background, (bg_x, bg_y))
-        surface.blit(border_pk_icon, (border_pk_icon_x, border_pk_icon_y))
-        surface.blit(background_pk_icon, (bg_pk_icon_x, bg_pk_icon_y))
-        surface.blit(pk_icon, (pk_icon_x, pk_icon_y), (0, 0, 95, 95))
+            if not pk.get_type2() == 'NoType':
+                type2 = self.ennemy_pk_type_font.render(
+                    game_infos.type_names_to_print[pk.get_type2()], False,
+                    game_infos.get_type_color(pk.get_type2()))
+                surface.blit(type2, (675 + type1.get_width() + window_pos[0], 346 + window_pos[1]))
+
+            if self.difficult == 'easy':
+                text = 'EASY'
+                color = (0, 140, 0)
+            elif self.difficult == 'normal':
+                text = 'NORMAL'
+                color = (255, 180, 0)
+            else:
+                text = 'HARD'
+                color = (150, 0, 0)
+
+            surface.blit(self.ennemy_pk_type_font.render(text, False, color),
+                         (700 + window_pos[0], 367 + window_pos[1]))
+
+        else:
+            surface.blit(self.ennemy_pk_infos_stats, (612 + window_pos[0], 352 + window_pos[1]))
+
+            pk_stats = pk.get_stats()
+
+            surface.blit(self.ennemy_pk_stats_font.render(str(pk_stats[0]), False, (2, 137, 0)), (653 + window_pos[0],
+                                                                                             348 + window_pos[1]))
+            surface.blit(self.ennemy_pk_stats_font.render(str(pk_stats[1]), False, (189, 0, 0)), (653 + window_pos[0],
+                                                                                             373 + window_pos[1]))
+            surface.blit(self.ennemy_pk_stats_font.render(str(pk_stats[2]), False, (191, 200, 0)), (749 + window_pos[0],
+                                                                                             348 + window_pos[1]))
+            surface.blit(self.ennemy_pk_stats_font.render(str(pk_stats[3]), False, (0, 139, 230)), (749 + window_pos[0],
+                                                                                             373 + window_pos[1]))
+
+        if self.ennemy_pk_infos_stats_button_rect.collidepoint(possouris):
+            surface.blit(self.ennemy_pk_infos_stats_button_hover, self.ennemy_pk_infos_stats_button_rect)
+        else:
+            surface.blit(self.ennemy_pk_infos_stats_button, self.ennemy_pk_infos_stats_button_rect)
 
     def set_difficult(self, diff_value='easy'):
         self.difficult = diff_value
@@ -183,8 +235,6 @@ class TrainPanel:
             'normal': self.spawn_ennemy_pk('normal'),
             'hard': self.spawn_ennemy_pk('hard')
         }
-        for pk in self.ennemy_pks.values():
-            print(pk.name, pk.get_type(), pk.get_level())
 
     def get_spawn_ennemy_pk(self, difficult):
 
@@ -226,6 +276,10 @@ class TrainPanel:
         self.hard_button_rect = image.get_custom_rect(self.hard_button, self.hard_button_pos[0] + window_pos[0],
                                                       self.hard_button_pos[1] + window_pos[1])
         self.training_pk_rect = pygame.Rect(111 + window_pos[0], 123 + window_pos[1], 252, 252)
+        self.ennemy_pk_infos_stats_button_rect = image.get_custom_rect(self.ennemy_pk_infos_stats_button,
+                                                                       715 + window_pos[0], 408 + window_pos[1])
+        self.fight_button_rect = image.get_custom_rect(self.fight_button, self.fight_button_pos[0] + window_pos[0],
+                                                       self.fight_button_pos[1] + window_pos[1])
 
     def is_hovering_settings_popup_buttons(self, possouris):
         if self.boolSettings_popup:
@@ -240,6 +294,8 @@ class TrainPanel:
                 or (self.add_button_rect.collidepoint(possouris) and self.training_pk is None and not self.add_training_pk_mode)
                 or (self.training_pk_rect.collidepoint(possouris) and self.training_pk is not None)
                 or (self.choose_training_pk_popup.is_hovering(possouris) and self.add_training_pk_mode)
+                or (self.ennemy_pk_infos_stats_button_rect.collidepoint(possouris) and self.training_pk is not None)
+                or (self.fight_button_rect.collidepoint(possouris) and self.training_pk is not None)
                 )
 
     def create_rect_alpha(self, dimensions, color, opacite=90):
