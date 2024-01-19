@@ -145,7 +145,7 @@ class ClassicGamePanelButtons:
         self.unlocked_buttons = {'Spawn': True,
                                  'Train': True,
                                  'Grind': False,
-                                 'Items': False,
+                                 'Items': True,
                                  'Evol': True
                                  }
         # SPAWN BUTTON

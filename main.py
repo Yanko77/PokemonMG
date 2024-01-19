@@ -46,7 +46,7 @@ while running:
 
             ## Touche de test admin
             if event.key == pygame.K_p:
-                game.player.team[0] = pokemon.Pokemon('Arcko', 100)
+                game.classic_panel.ingame_window.train_panel.add_training_pk_mode = True
             elif event.key == pygame.K_o:
                 game.classic_panel.ingame_window.train_panel.difficult = 'normal'
 
@@ -176,9 +176,19 @@ while running:
                                             game.classic_panel.ingame_window.train_panel.set_difficult('hard')
                                             game.classic_panel.ingame_window.train_panel.close_settings_popup()
 
-                                    if game.classic_panel.ingame_window.train_panel.add_button_rect.collidepoint(posSouris):
-                                        game.classic_panel.ingame_window.train_panel.add_training_pk_mode = True
+                                    if game.classic_panel.ingame_window.train_panel.training_pk is None:
+                                        if game.classic_panel.ingame_window.train_panel.add_button_rect.collidepoint(posSouris):
+                                            game.classic_panel.ingame_window.train_panel.add_training_pk_mode = True
+                                    else:
+                                        if game.classic_panel.ingame_window.train_panel.training_pk_rect.collidepoint(posSouris):
+                                            game.classic_panel.ingame_window.train_panel.training_pk = None
+                                            game.classic_panel.ingame_window.train_panel.add_training_pk_mode = True
+                                        elif game.classic_panel.ingame_window.train_panel.ennemy_pk_infos_stats_button_rect.collidepoint(posSouris):
+                                            game.classic_panel.ingame_window.train_panel.ennemy_pk_info_stats_mode = not(game.classic_panel.ingame_window.train_panel.ennemy_pk_info_stats_mode)
 
+                                    if game.classic_panel.ingame_window.train_panel.add_training_pk_mode:
+                                        if game.classic_panel.ingame_window.train_panel.choose_training_pk_popup.x_button_rect.collidepoint(posSouris):
+                                            game.classic_panel.ingame_window.train_panel.add_training_pk_mode = False
 
                         else:
                             if not game.classic_panel.pk_move_mode:

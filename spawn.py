@@ -232,7 +232,8 @@ class SpawnPanel:
             self.max_spawning_pk_level = round(self.game.player.level*1.5+5 + self.spawning_pk_level_bonus)
 
     def spawn_pk(self):
-        self.spawning_pk = pokemon.Pokemon(self.get_spawning_pokemon(self.game.player.level), random.randint(self.min_spawning_pk_level, self.max_spawning_pk_level))
+        self.spawning_pk = pokemon.Pokemon(self.get_spawning_pokemon(self.game.player.level),
+                                           random.randint(self.min_spawning_pk_level, self.max_spawning_pk_level), self.game.player)
         self.is_spawning_pk_lock = True
 
         self.game.player.use_action()
