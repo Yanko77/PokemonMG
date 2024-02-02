@@ -1,4 +1,6 @@
 import random
+
+import objet
 from player import Player
 
 import pygame
@@ -39,6 +41,7 @@ class Game:
         self.save_file = open('save.txt', 'r+')
 
         self.general_seed = self.generate_general_random_seed()
+        self.items_list = self.get_all_items_list()
 
     def update(self, screen, possouris):
 
@@ -81,9 +84,60 @@ class Game:
         self.general_seed = self.generate_general_random_seed()
         # add everything that have to be edited for each turn
 
+    def init_items_list(self):
+        with open('all_objets.txt', 'r') as file:
+            items_list = []
+            for line in file.readlines():
+                item_name = line.split()[0]
+                if not item_name == '#':
+                    items_list.append(objet.Objet(item_name))
+
+            return items_list
+
+    def get_all_items_list(self):
+        """
+        Retourne le dict: {
+            'All': all_items
+            'Use': use_items,
+            'Give': give_items,
+            'Sell': sell_items,
+            'Enable': enable_items }
+
+        :return: items_list, dict
+        """
+
+        items_list = {
+            'All': [],
+            'Use': [],
+            'Give': [],
+            'Sell': [],
+            'Enable': [],
+        }
+        for item in self.init_items_list():
+            items_list['All'].append(item)
+            if item.fonctionnement.split(":")[0] == 'Use':
+                items_list['Use'].append(item)
+            elif item.fonctionnement.split(":")[0] == 'Give':
+                items_list['Give'].append(item)
+            elif item.fonctionnement.split(":")[0] == 'Sell':
+                items_list['Sell'].append(item)
+            elif item.fonctionnement.split(":")[0] == 'Enable':
+                items_list['Enable'].append(item)
+
+        return items_list
+
+    def get_items_list(self):
+        return self.items_list
+
     def generate_general_random_seed(self):
         return int(str(random.randint(0, 255))
                    + str(random.randint(0, 255))
                    + str(random.randint(0, 255))
                    + str(random.randint(0, 255)))
 
+
+if __name__ == '__main__':
+    game = Game()
+    for list_name in game.items_list.keys():
+        for item in game.items_list[list_name]:
+            print(item.name, f'({list_name})')

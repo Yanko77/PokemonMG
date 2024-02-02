@@ -128,7 +128,6 @@ class Pokemon:
 
         # Calcul avec affinités des types
         cm *= game_infos.get_mutiliplicateur(attaque.type, pokemon.type) * game_infos.get_mutiliplicateur(attaque.type, pokemon.type2)
-
         # Calcul avec taux de crit
         t = round(int(self.line[6]) / 2) * attaque.taux_crit
         ncrit = random.randint(0, 256)
@@ -138,14 +137,12 @@ class Pokemon:
             crit = False
 
         if crit:
-            cm *= (2*self.level+5)/(self.level+5)
+            cm *= (2 * self.level + 5) / (self.level + 5)
 
-        if "augmentation_degats" in pokemon.objet.classes:
-            cm *= pokemon.objet.multiplicateur_degats()
-
+        if "augmentation_degats" in self.objet.classes:
+            cm *= self.objet.multiplicateur_degats()
         random_cm = random.randint(85, 100)
-        cm = cm * random_cm/100
-
+        cm = cm * random_cm / 100
         degats = round((((((self.level * 0.4 + 2) * self.attack * attaque.puissance) / self.defense) / 50) + 2) * cm)
         pokemon.damage(degats)
         print(degats)
@@ -279,4 +276,4 @@ class Pokemon:
 
 
 if __name__ == "__main__":
-    p = Pokemon('Dracaufeu', 50)
+    pass

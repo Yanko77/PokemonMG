@@ -430,5 +430,8 @@ def get_diff_types(pokemon_type, multiplicateur):
 def get_type_name_to_print(type):
     return type_names_to_print[type]
 
+
 def get_type_color(type):
     return type_colors[type]
+
+
