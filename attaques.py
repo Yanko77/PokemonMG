@@ -27,6 +27,11 @@ class Attaque:
         self.priorite = int(self.line[6])
 
         self.special_effect = self.line[7].split(',')
+        tem = []
+        for effet in self.special_effect:
+            tem.append(tuple(effet.split(":")))
+        self.special_effect = tuple(tem)
+
 
     def get_stats(self):
         return self.type, self.pp, self.puissance, self.precision, self.taux_crit, self.priorite, self.special_effect

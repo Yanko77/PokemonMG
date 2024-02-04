@@ -1,34 +1,61 @@
+import pokemon
+import game_infos
 
-def attaque(pk, ennemy_pk, attaque):
+
+def calcul_degats(pk, ennemy_pk, attaque, crit=False):
     cm = 1
     # Calcul avec stab ( attaque de type maternel )
     if attaque.type in [pk.type, pk.type2]:
         cm *= 1.5
 
     # Calcul avec affinités des types
-    cm *= game_infos.get_mutiliplicateur(attaque.type, ennemy_pk.type) * game_infos.get_mutiliplicateur(attaque.type, ennemy_pk.type2)
-    # Calcul avec taux de crit
-    t = round(int(pk.line[6]) / 2) * attaque.taux_crit
-    ncrit = random.randint(0, 256)
-    if ncrit < t:
-        crit = True
-    else:
-        crit = False
+    cm *= game_infos.get_mutiliplicateur(attaque.type, ennemy_pk.type)
+
+    if not ennemy_pk.type2 == 'NoType':
+        cm *= game_infos.get_mutiliplicateur(attaque.type, ennemy_pk.type2)
 
     if crit:
         cm *= (2 * pk.level + 5) / (pk.level + 5)
 
-    if "augmentation_degats" in ennemy_pk.objet.classes:
-        cm *= ennemy_pk.objet.multiplicateur_degats()
-    random_cm = random.randint(85, 100)
-    cm = cm * random_cm / 100
     degats = round((((((pk.level * 0.4 + 2) * pk.attack * attaque.puissance) / pk.defense) / 50) + 2) * cm)
-    ennemy_pk.damage(degats)
-    print(degats)
+    return degats
 
-def bot_fight_algo(ennemy_pk:ennemy_pk, pk:ennemy_pk , att:list):
+def bot_fight_algo(ennemy_pk, pk , att:list):
     esperence = []
+    is_killing = []
     for attaque in att:
+        degat = calcul_degats(pk, ennemy_pk, attaque, False)
+        print(degat)
+        if degat > ennemy_pk.health:
+            is_killing.append(attaque)
+    if is_killing == []:
+        for attaque in att:
+            degat = calcul_degats(pk, ennemy_pk, attaque, False)
+            degat_crit = calcul_degats(pk, ennemy_pk, attaque, True)
+            delta_degat = degat_crit - degat
+            t = round(int(pk.line[6]) / 2) * attaque.taux_crit
+            scoretemp = degat + delta_degat * t
+            taux = attaque.precision/100
+
+            # Calcul des bonus spéciaux des attaques ( altération de status, double attaque, invnlnérabilités,
+            if attaque.special_effect[0][0] == 'status' and ennemy_pk.status[str(attaque.special_effect[0][1])] is not True:
+                scoretemp *= (1 + int(attaque.special_effect[0][2])/100)
+
+            scoretemp *= taux
+            print(scoretemp)
+            esperence.append(scoretemp)
+
+    else:
+        for attaque in att:
+            esperence.append(attaque.precision)
+
+    max = esperence[0]
+    j = 0
+    for i in range(len(esperence)):
+        if esperence[i] > max:
+            max = esperence[i]
+            j = i
+    return att[j]
 
 
 if __name__ == '__main__':
