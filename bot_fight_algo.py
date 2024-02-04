@@ -31,6 +31,15 @@ def bot_fight_algo(ennemy_pk:ennemy_pk, pk:ennemy_pk , att:list):
     for attaque in att:
 
 
+if __name__ == '__main__':
+    import game
+    import attaques as att
+    game = game.Game()
+    dracaufeu = pokemon.Pokemon('Dracaufeu', 20, game.player)
+    tortank = pokemon.Pokemon('Tortank', 20, game.player)
+    tortank2 = pokemon.Pokemon('Tortank', 20, game.player)
+    tortank2.health = 10
 
+    att_list = [att.Attaque('Feu_Sacre'), att.Attaque('Lance-Flammes')]
 
-
+    print(bot_fight_algo(tortank2, dracaufeu, att_list).name)

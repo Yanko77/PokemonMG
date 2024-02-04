@@ -7,7 +7,7 @@ import pygame
 
 import accueil
 import panels
-import fight
+from fight import Fight
 from game_round import Round
 
 
@@ -36,6 +36,7 @@ class Game:
                          ]
 
         self.classic_panel = panels.ClassicGamePanel(self)
+        self.current_fight = None
         self.round = Round()
 
         self.save_file = open('save.txt', 'r+')
@@ -47,7 +48,7 @@ class Game:
 
         if self.is_playing:
             if self.is_fighting:
-                pass
+                self.current_fight.update(screen, possouris)
             else:
                 self.classic_panel.update(screen, possouris)
         else:
@@ -77,8 +78,12 @@ class Game:
     '''def load_game(self):
         self.save_file'''
 
-    def init_fight(self, player_pk, dresseur):
-        pass
+    def start_fight(self):
+        self.init_fight(self.classic_panel.ingame_window.train_panel.training_pk)
+        self.is_fighting = True
+
+    def init_fight(self, player_pk, dresseur=None):
+        self.current_fight = Fight(self, player_pk, dresseur)
 
     def next_turn(self):
         self.general_seed = self.generate_general_random_seed()

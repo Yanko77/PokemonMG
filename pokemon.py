@@ -31,8 +31,8 @@ class Pokemon:
 
         self.bonus_pvmax = 0
         self.multiplicateur_pvmax = 1
-        self.pv = round((2 * int(self.line[3]) * self.level)/100 + self.level + 10) + self.bonus_pvmax
-        self.health = self.pv + self.bonus_pvmax
+        self.pv = round((2 * int(self.line[3]) * self.level)/100 + self.level + 10) + self.bonus_pvmax  #  PV MAX
+        self.health = self.pv + self.bonus_pvmax  # PV ACTUELS
 
         self.bonus_attack = 0
         self.multiplicateur_attack = 1

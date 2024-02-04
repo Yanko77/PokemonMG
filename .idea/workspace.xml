@@ -4,16 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="continue train.py&#10;beginning fight.py, dresseur.py">
-      <change afterPath="$PROJECT_DIR$/bot_fight_algo.py" afterDir="false" />
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="continue dresseur.py:&#10;- add init_inventory()">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/all_objets.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_objets.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/all_attaques.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_attaques.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_fight_algo.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_fight_algo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dresseur.py" beforeDir="false" afterPath="$PROJECT_DIR$/dresseur.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_infos.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_infos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
     </list>
-    <list id="f7cad1b1-f045-4dbb-9ceb-5798f3c23857" name="Changes by matva" comment="" />
+    <list id="f7cad1b1-f045-4dbb-9ceb-5798f3c23857" name="Changes by matva" comment="">
+      <change beforePath="$PROJECT_DIR$/attaques.py" beforeDir="false" afterPath="$PROJECT_DIR$/attaques.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_fight_algo.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_fight_algo.py" afterDir="false" />
+    </list>
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +49,23 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Dummy.txt" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/bot_fight_algo.py">
+      <ranges>
+        <range start1="0" end1="0" start2="0" end2="2" changelist="f7cad1b1-f045-4dbb-9ceb-5798f3c23857" />
+        <range start1="1" end1="2" start2="3" end2="5" changelist="f7cad1b1-f045-4dbb-9ceb-5798f3c23857" />
+        <range start1="8" end1="16" start2="11" end2="15" changelist="f7cad1b1-f045-4dbb-9ceb-5798f3c23857" />
+        <range start1="20" end1="24" start2="19" end2="19" changelist="f7cad1b1-f045-4dbb-9ceb-5798f3c23857" />
+        <range start1="25" end1="27" start2="20" end2="21" changelist="f7cad1b1-f045-4dbb-9ceb-5798f3c23857" />
+        <range start1="28" end1="29" start2="22" end2="23" changelist="f7cad1b1-f045-4dbb-9ceb-5798f3c23857" />
+        <range start1="30" end1="30" start2="24" end2="25" changelist="f7cad1b1-f045-4dbb-9ceb-5798f3c23857" />
+        <range start1="31" end1="31" start2="26" end2="58" changelist="f7cad1b1-f045-4dbb-9ceb-5798f3c23857" />
+        <range start1="33" end1="34" start2="60" end2="68" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="35" end1="35" start2="69" end2="70" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="36" end1="37" start2="71" end2="72" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -81,8 +102,8 @@
       <recent name="C:\Users\yanko\PycharmProjects\PokemonManagementGame" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.dresseur">
-    <configuration name="attaques" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.main">
+    <configuration name="bot_fight_algo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PokemonManagementGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -94,7 +115,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/attaques.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bot_fight_algo.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -116,6 +137,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dresseur.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="fight" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PokemonManagementGame" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/fight.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -166,27 +208,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="objet" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PokemonManagementGame" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/objet.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="pokemon" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PokemonManagementGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -210,11 +231,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.bot_fight_algo" />
+        <item itemvalue="Python.fight" />
         <item itemvalue="Python.dresseur" />
         <item itemvalue="Python.game" />
         <item itemvalue="Python.pokemon" />
-        <item itemvalue="Python.objet" />
-        <item itemvalue="Python.attaques" />
       </list>
     </recent_temporary>
   </component>
@@ -549,7 +570,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705694167777</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="continue dresseur.py:&#10;- add init_inventory()">
+      <created>1706895000843</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1706895000843</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -564,7 +592,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add spawn pokemon action functions" />
     <MESSAGE value="add pokemon names, lvls, hps and hp bar on game.classic_panel" />
     <MESSAGE value="add more pokemons&#10;add all pokemon icons for existing one" />
     <MESSAGE value="affichage des pokemons du joueur + interactions avec souris" />
@@ -589,6 +616,7 @@
     <MESSAGE value="attaques.py" />
     <MESSAGE value="continue train.py" />
     <MESSAGE value="continue train.py&#10;beginning fight.py, dresseur.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="continue train.py&#10;beginning fight.py, dresseur.py" />
+    <MESSAGE value="continue dresseur.py:&#10;- add init_inventory()" />
+    <option name="LAST_COMMIT_MESSAGE" value="continue dresseur.py:&#10;- add init_inventory()" />
   </component>
 </project>
