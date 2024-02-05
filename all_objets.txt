@@ -1,4 +1,4 @@
-name                spawn_d     categorie       Fonctionnement  achat       revente         Description
+# name              spawn_d     categorie       Fonctionnement  achat       revente         Description
 # Valeurs exemple   1:rarety:q  Objets          Use/Give        1:10000     1:1500
 #
 Poke_Ball           1:60:2-10   Balls           Throw           1:800       1:800           Une BALL pouvant capturer un Pokemon sauvage. Utilisable: Spawn.
