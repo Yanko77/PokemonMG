@@ -7,14 +7,21 @@ import objet
 
 class Dresseur:
 
-    def __init__(self, name: str, game, dresseur_type='Classic', power=1):
+    def __init__(self, name: str, game, dresseur_type='Classic', power=1, pk_list=None):
         self.game = game
         self.name = name
 
         self.type = dresseur_type
         self.power = power
+        self.fuyable = (self.type != 'Classic')
 
         # self.icon = pygame.image.load(f'assets/game/fight/dresseur/{self.name}.png')
+
+        if pk_list is None:
+            self.pokemon_list = []
+        else:
+            self.pokemon_list = pk_list
+
         self.inventory = []
         self.init_inventory()
 
@@ -67,6 +74,12 @@ class Name(Dresseur):
         self.pokemons_list = ['', '', '', '']
 
 '''
+
+
+class Sauvage(Dresseur):
+
+    def __init__(self, game, pk):
+        super().__init__('Sauvage', game, dresseur_type='Sauvage', pk_list=pk)
 
 
 class Alizee(Dresseur):

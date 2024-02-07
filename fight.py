@@ -24,6 +24,9 @@ class Fight:
         self.sac_button = self.img_load('sac_button')
         self.sac_button_rect = pygame.Rect(717, 527, 144, 144)
 
+        self.fuite_button = self.img_load('fuite_button')
+        self.fuite_button_rect = pygame.Rect(1188, 446, 72, 74)
+
     def update(self, surface: pygame.surface.Surface, possouris):
         surface.blit(self.background, (0, 0))
 
@@ -48,9 +51,15 @@ class Fight:
         else:
             surface.blit(self.sac_button, self.sac_button_rect, (0, 0, 144, 144))
 
+        if self.fuite_button_rect.collidepoint(possouris):
+            surface.blit(self.fuite_button, self.fuite_button_rect, (73, 0, 72, 74))
+        else:
+            surface.blit(self.fuite_button, self.fuite_button_rect, (0, 0, 72, 74))
+
     def is_hovering(self, possouris):
         return (self.sac_button_rect.collidepoint(possouris) or
-                self.combat_button_rect.collidepoint(possouris)
+                self.combat_button_rect.collidepoint(possouris) or
+                self.fuite_button_rect.collidepoint(possouris)
                 )
 
     def init_dresseur(self, dresseur):
