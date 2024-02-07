@@ -22,7 +22,7 @@ class Player:
                      None,
                      None,
                      None]
-        self.sac_page1 = [Objet('Velo', 3),
+        self.sac_page1 = [Objet('Casquette_de_Nathan', 3),
                           Objet('Pokeflute', 3),
                           Objet('Potion_Max', 2),
                           Objet('Baie_Oran', 2),
