@@ -46,8 +46,12 @@ while running:
             game.pressed[event.key] = True
 
             ## Touche de test admin
-            if event.key == pygame.K_p:
-                print(posSouris)
+            if event.key == pygame.K_a:
+                game.current_fight.player_pk.damage(5)
+            elif event.key == pygame.K_z:
+                game.current_fight.dresseur.pk.damage(5)
+            elif event.key == pygame.K_o:
+                game.start_fight(pokemon.Pokemon('Carapuce', 20, game.player), dresseur.Sauvage, pokemon.Pokemon('Dracaufeu', 20, game.player))
 
             if game.player.name_editing_mode:
                 if event.key == pygame.K_RETURN:
@@ -94,8 +98,7 @@ while running:
 
                 if game.is_playing:
                     if game.is_fighting:
-                        if game.current_fight.fuite_button_rect.collidepoint(posSouris):
-                            game.cancel_fight()
+                        game.current_fight.left_clic_interactions(posSouris)  # Interactions clic gauche dans fight.py
                     else:
                         if game.player.name_editing_mode:
                             if not game.classic_panel.ingame_window.main_window_rect.collidepoint(posSouris):
