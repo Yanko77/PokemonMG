@@ -78,9 +78,12 @@ class Game:
     '''def load_game(self):
         self.save_file'''
 
-    def start_fight(self):
-        self.init_fight(self.classic_panel.ingame_window.train_panel.training_pk)
+    def start_fight(self, player_pk, dresseur=None):
+        self.init_fight(player_pk, dresseur)
         self.is_fighting = True
+
+    def cancel_fight(self):
+        self.is_fighting = False
 
     def init_fight(self, player_pk, dresseur=None):
         self.current_fight = Fight(self, player_pk, dresseur)

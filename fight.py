@@ -1,6 +1,9 @@
 import pygame
 import random
-from dresseur import Alizee, Olea, Ondine, Pierre, Blue, Red, Iris
+
+import dresseur
+import pokemon
+from dresseur import Alizee, Olea, Ondine, Pierre, Blue, Red, Iris, Sauvage
 
 
 DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
@@ -8,10 +11,10 @@ DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
 
 class Fight:
 
-    def __init__(self, game, player_pk, dresseur=None):
+    def __init__(self, game, player_pk, dresseur_class=None):
         self.game = game
         self.player_pk = player_pk
-        self.dresseur = self.init_dresseur(dresseur)(self.game)
+        self.dresseur = self.init_dresseur(dresseur_class)(self.game)
 
         # Chargement des images
         self.path = 'assets/game/panels/fight_panel/'
@@ -32,6 +35,8 @@ class Fight:
 
         self.update_buttons(surface, possouris)
 
+        self.update_pokemons(surface)
+
         # GESTION CURSEUR INTERACTIONS
         if self.is_hovering(possouris):
             if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_HAND:
@@ -39,6 +44,11 @@ class Fight:
         else:
             if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_ARROW:
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+    def update_pokemons(self, surface):
+        surface.blit(pygame.transform.scale(self.player_pk.icon_image, (700, 350)), (180, 280), (0, 0, 350, 350))
+
+        surface.blit(pygame.transform.scale(self.dresseur.pk.icon_image, (700, 350)), (180, 280), (0, 0, 350, 350))
 
     def update_buttons(self, surface, possouris):
         if self.combat_button_rect.collidepoint(possouris):
