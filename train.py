@@ -1,4 +1,6 @@
 import pygame
+
+import dresseur
 import image
 import random
 import pokemon
@@ -108,6 +110,9 @@ class TrainPanel:
 
         if self.add_training_pk_mode:
             self.choose_training_pk_popup.update(surface, possouris, window_pos)
+
+    def start_training_fight(self):
+        self.game.start_fight(self.training_pk, dresseur.Sauvage(self.game, self.ennemy_pks[self.difficult]))
 
     def update_emp_training_pk(self, surface, possouris, window_pos):
         surface.blit(self.emp_training_pk, (self.emp_training_pk_pos[0] + window_pos[0],

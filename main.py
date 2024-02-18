@@ -3,6 +3,7 @@ from game import Game
 import player_name
 
 import pokemon
+import dresseur
 
 FPS = 144
 screen = pygame.display.set_mode((1280, 720))
@@ -46,9 +47,7 @@ while running:
 
             ## Touche de test admin
             if event.key == pygame.K_p:
-                game.classic_panel.ingame_window.train_panel.add_training_pk_mode = True
-            elif event.key == pygame.K_o:
-                game.classic_panel.ingame_window.train_panel.difficult = 'normal'
+                print(posSouris)
 
             if game.player.name_editing_mode:
                 if event.key == pygame.K_RETURN:
@@ -95,7 +94,8 @@ while running:
 
                 if game.is_playing:
                     if game.is_fighting:
-                        pass
+                        if game.current_fight.fuite_button_rect.collidepoint(posSouris):
+                            game.cancel_fight()
                     else:
                         if game.player.name_editing_mode:
                             if not game.classic_panel.ingame_window.main_window_rect.collidepoint(posSouris):
@@ -189,7 +189,8 @@ while running:
                                             elif game.classic_panel.ingame_window.train_panel.ennemy_pk_infos_stats_button_rect.collidepoint(posSouris):
                                                 game.classic_panel.ingame_window.train_panel.ennemy_pk_info_stats_mode = not(game.classic_panel.ingame_window.train_panel.ennemy_pk_info_stats_mode)
                                             elif game.classic_panel.ingame_window.train_panel.fight_button_rect.collidepoint(posSouris):
-                                                game.start_fight()
+                                                game.classic_panel.ingame_window.train_panel.start_training_fight()
+                                                pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
                                         if game.classic_panel.ingame_window.train_panel.add_training_pk_mode:
                                             if game.classic_panel.ingame_window.train_panel.choose_training_pk_popup.x_button_rect.collidepoint(posSouris):
