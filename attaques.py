@@ -6,6 +6,7 @@ class Attaque:
 
     def __init__(self, name):
         self.name = name
+        self.name_ = self.reformate_name()
         self.line = self.find_attaque_line()
 
         self.type = self.line[1]
@@ -34,6 +35,25 @@ class Attaque:
 
     def get_stats(self):
         return self.type, self.pp, self.puissance, self.precision, self.taux_crit, self.priorite, self.special_effect
+
+    def get_name(self, mode_affichage=False):
+        if mode_affichage:
+            return self.name_
+        else:
+            return self.name
+
+    def reformate_name(self):
+        name = ''
+        for mot in self.name.split("_"):
+            if mot == 'a':
+                name += 'à'
+            else:
+                name += mot
+
+            if not name == '':
+                name += ' '
+
+        return name
 
     def find_attaque_line(self) -> list:
         with open('all_attaques.txt') as file:

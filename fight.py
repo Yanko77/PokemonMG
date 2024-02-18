@@ -2,6 +2,7 @@ import pygame
 import random
 
 import dresseur
+import game_infos
 import pokemon
 from dresseur import Alizee, Olea, Ondine, Pierre, Blue, Red, Iris, Sauvage
 
@@ -35,10 +36,14 @@ class Fight:
         self.player_pk_info_bar_rect = (22, 561, 434, 144)
         self.dresseur_pk_info_bar_rect = (891, 22, 369, 122)
 
+        self.cover_attaque_button = self.img_load('attaque_button')
+        self.cover_attaque_button_hover = self.img_load('attaque_button_hover')
+
         # Chargement des fonts
         self.player_pk_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 40)
         self.dresseur_pk_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 30)
         self.pk_pv_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 25)
+        self.attaque_font = pygame.font.Font('assets/fonts/Cheesecake.ttf', 50)
 
         # Pré-chargement des noms des pokemons
         self.player_pk_name = self.player_pk_name_font.render(self.player_pk.name, False, (40, 40, 40))
@@ -47,12 +52,19 @@ class Fight:
 
         # Variable relatives aux boutons
         self.current_action = None
+        self.attaque_buttons_rects = [
+            pygame.Rect(907, 432, 356, 109),
+            pygame.Rect(535, 471, 356, 109),
+            pygame.Rect(907, 560, 356, 109),
+            pygame.Rect(535, 596, 356, 109)
+        ]
+        self.current_action_rect = pygame.Rect(477, 356, 803, 365)
 
     def update(self, surface: pygame.surface.Surface, possouris):
         surface.blit(self.background, (0, 0))
 
         self.update_buttons(surface, possouris)
-
+        self.update_current_action(possouris)
         self.update_pokemons(surface)
 
         # GESTION CURSEUR INTERACTIONS
@@ -62,6 +74,11 @@ class Fight:
         else:
             if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_ARROW:
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+    def update_current_action(self, possouris):
+        if self.current_action is not None:
+            if not self.current_action_rect.collidepoint(possouris):
+                self.current_action = None
 
     def update_pokemons(self, surface):
         # Pokemon du joueur
@@ -111,17 +128,32 @@ class Fight:
 
         # Si l'action en cours est 'COMBAT'
         elif self.current_action == 'COMBAT':
-            pass
+            for i in range(4):  # Chaque bouton d'attaque
+                button_rect = self.attaque_buttons_rects[i]
+                pygame.draw.rect(surface, game_infos.type_colors[self.player_pk.attaque_pool[i].type],
+                                 button_rect,
+                                 border_radius=15)
+
+                if button_rect.collidepoint(possouris):
+                    surface.blit(self.cover_attaque_button_hover, button_rect)
+                else:
+                    surface.blit(self.cover_attaque_button, button_rect)
+
+                attaque_name = self.attaque_font.render(self.player_pk.attaque_pool[i].name_, False, (255, 255, 255))
+                surface.blit(attaque_name, (button_rect.x + (356-attaque_name.get_width())/2, button_rect.y + (109-attaque_name.get_height())/2))
 
         # Si l'action en cours est 'SAC'
         elif self.current_action == 'SAC':
             pass
 
     def is_hovering(self, possouris):
-        return (self.sac_button_rect.collidepoint(possouris) or
-                self.combat_button_rect.collidepoint(possouris) or
-                self.fuite_button_rect.collidepoint(possouris)
-                )
+        if self.current_action is None:
+            return (self.sac_button_rect.collidepoint(possouris) or
+                    self.combat_button_rect.collidepoint(possouris) or
+                    self.fuite_button_rect.collidepoint(possouris)
+                    )
+        else:
+            return False
 
     def left_clic_interactions(self, possouris):  # Quand l'utilisateur utilise le clic gauche
         # Si aucune action n'est en cours
