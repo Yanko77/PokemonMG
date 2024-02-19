@@ -1,7 +1,11 @@
+# importation des module
 import pokemon
 import game_infos
 
+# declaration des constante
+SPEED_HEAL = 333 #valeur entre 0 et 1000
 
+#declaration des fonction
 def calcul_degats(pk, ennemy_pk, attaque, crit=False):
     cm = 1
     # Calcul avec stab ( attaque de type maternel )
@@ -30,6 +34,7 @@ def bot_fight_algo(ennemy_pk, pk , att:list):
             is_killing.append(attaque)
     if is_killing == []:
         for attaque in att:
+            
             degat = calcul_degats(pk, ennemy_pk, attaque, False)
             degat_crit = calcul_degats(pk, ennemy_pk, attaque, True)
             delta_degat = degat_crit - degat
@@ -42,6 +47,14 @@ def bot_fight_algo(ennemy_pk, pk , att:list):
                 scoretemp *= (1 + int(attaque.special_effect[0][2])/100)
 
             scoretemp *= taux
+            if attaque.special_effect[0][0] == 'heal_on_maxpv' or attaque.special_effect[0] == 'long_time_heal_par_tour_of_maxpv':
+                scoretemp = (pk.pv/pk.health) * SPEED_HEAL
+            if attaque.special_effect[0][0] == 'heal_on_atk':
+                taux_heal_on_atk, _ = attaque.special_effect[0][1].split("*")
+                #scoretemp = scoretemp * (1 + (SPEED_HEAL/400) * float(taux_heal_on_atk))
+                scoretemp = scoretemp * (1 + (SPEED_HEAL/400) * float(taux_heal_on_atk) * (-2*(pk.health/pk.pv)+2))
+                
+                
             print(scoretemp)
             esperence.append(scoretemp)
 
@@ -57,7 +70,7 @@ def bot_fight_algo(ennemy_pk, pk , att:list):
             j = i
     return att[j]
 
-
+# programe principal (test)
 if __name__ == '__main__':
     import game
     import attaques as att
@@ -65,8 +78,8 @@ if __name__ == '__main__':
     dracaufeu = pokemon.Pokemon('Dracaufeu', 20, game.player)
     tortank = pokemon.Pokemon('Tortank', 20, game.player)
     tortank2 = pokemon.Pokemon('Tortank', 20, game.player)
-    tortank2.health = 10
+    print(tortank.pv)
 
-    att_list = [att.Attaque('Feu_Sacre'), att.Attaque('Lance-Flammes')]
-
-    print(bot_fight_algo(tortank2, dracaufeu, att_list).name)
+    att_list = [att.Attaque('Griffe_Acier'), att.Attaque('Vampibaiser')]
+    
+    print(bot_fight_algo(tortank, tortank2, att_list).name)
