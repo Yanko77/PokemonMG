@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="continue fight.py">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="continue fight.py&#10;add sac_action, add curseur">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
     </list>
@@ -234,13 +234,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00008" summary="ingame_windows fonctionnelle">
-      <created>1688665829338</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1688665829338</updated>
     </task>
     <task id="LOCAL-00009" summary="ingame_windows with icons and titles&#10;classic_panel buttons hover animations">
       <created>1688681510476</created>
@@ -578,7 +571,14 @@
       <option name="project" value="LOCAL" />
       <updated>1708299158225</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="continue fight.py&#10;add sac_action, add curseur">
+      <created>1708342934374</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1708342934374</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -593,7 +593,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ajout des attaques et des objets&#10;2 fichiers txt pour les definir&#10;Nouveau calcul des degats des attaques&#10;ajout d'images pour les objets" />
     <MESSAGE value="new fonctionnalité : Move pokemon in game.classic_panel&#10;&#10;+ images pour tous les objets" />
     <MESSAGE value="add starter_window images&#10;fonctionnalité: choisir le starter" />
     <MESSAGE value="finished starter choice etape" />
@@ -618,6 +617,7 @@
     <MESSAGE value="continue fight.py&#10;&#10;begin user interactions w/ fight buttons" />
     <MESSAGE value="continue fight.py&#10;begin user interactions w/ fight buttons&#10;befin left click interaction in fight.py&#10;add pokemon info bar during fights" />
     <MESSAGE value="continue fight.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="continue fight.py" />
+    <MESSAGE value="continue fight.py&#10;add sac_action, add curseur" />
+    <option name="LAST_COMMIT_MESSAGE" value="continue fight.py&#10;add sac_action, add curseur" />
   </component>
 </project>
