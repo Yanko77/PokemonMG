@@ -13,9 +13,15 @@ DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
 class Fight:
 
     def __init__(self, game, player_pk, dresseur_class=None, dresseur_pk=None):
+        """
+        La classe Fight est définie par:
+        - Le pokemon envoyé par le joueur (player_pk)
+        - Le dresseur à affronter (dresseur_class)
+        """
+
+
         self.game = game
         self.player_pk = player_pk
-        # self.dresseur = self.init_dresseur(dresseur_class)(self.game)
         self.dresseur = self.init_dresseur(dresseur_class, dresseur_pk)
 
         # Chargement des images
@@ -99,12 +105,19 @@ class Fight:
         ]
         self.current_action_rect = pygame.Rect(477, 356, 803, 365)
 
+        # Variables relatives aux actions du tour
+        self.current_turn_action = ('NoAction', None)  # ('ITEM', item) ou ('ATTAQUE', attaque)
+
     def update(self, surface: pygame.surface.Surface, possouris):
         surface.blit(self.background, (0, 0))
 
         self.update_buttons(surface, possouris)
         self.update_current_action(possouris)
         self.update_pokemons(surface)
+
+        if not self.current_turn_action == ('NoAction', None):
+            self.turn(self.current_turn_action, ('ATTAQUE', get_npc_action(self.dresseur.pk, self.player_pk, self.dresseur.pk.attaque_pool)))
+
 
         # GESTION CURSEUR INTERACTIONS
         if self.is_hovering(possouris):
@@ -247,6 +260,9 @@ class Fight:
                      (item_rect.x + 90,
                       item_rect.y + 75))
 
+        # Hovering
+
+
     def sac_curseur_update(self, possouris):
         if not self.curseur_moving_mode:
             if self.sac_action_curseur_rect.collidepoint(possouris) and self.game.mouse_pressed[1]:
@@ -295,11 +311,63 @@ class Fight:
 
         # Si l'action en cours est 'COMBAT'
         elif self.current_action == 'COMBAT':
-            pass
+            if self.attaque_buttons_rects[0].collidepoint(possouris):
+                self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[0])
+
+            elif self.attaque_buttons_rects[1].collidepoint(possouris):
+                self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[1])
+
+            elif self.attaque_buttons_rects[2].collidepoint(possouris):
+                self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[2])
+
+            elif self.attaque_buttons_rects[3].collidepoint(possouris):
+                self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[3])
+
+
 
         # Si l'action en cours est 'SAC'
         elif self.current_action == 'SAC':
             pass
+
+    def turn(self, player_pk_action, dresseur_pk_action):
+        pk1, pk2 = self.get_action_order(player_pk_action, dresseur_pk_action)
+        if pk1[1][0] == 'ITEM' and pk1.is_alive:
+            pk1[0].use_item(pk1[1][1])
+
+        if pk2[1][0] == 'ITEM' and pk2.is_alive:
+            pk2[0].use_item(pk2[1][1])
+
+        if pk1[1][0] == 'ATTAQUE' and pk1.is_alive:
+            pk1[0].attaque(pk2[0], pk1[1][1])
+
+        if pk2[1][0] == 'ATTAQUE' and pk2.is_alive:
+            pk2[0].attaque(pk1[0], pk2[1][1])
+
+        self.current_turn_action = ('NoAction', None)
+
+    def get_action_order(self, player_pk_action, dresseur_pk_action):
+        """Déterminer l'ordre d'agissement des 2 pokemons"""
+
+        player_pk_action_type, dresseur_pk_action_type = player_pk_action[0], dresseur_pk_action[0]
+
+        if 'ITEM' in (player_pk_action_type, dresseur_pk_action_type):
+            if player_pk_action_type == 'ITEM':
+                return (self.player_pk,player_pk_action), (self.dresseur.pk,dresseur_pk_action)
+            elif dresseur_pk_action_type == 'ITEM':
+                return (self.dresseur.pk,dresseur_pk_action), (self.player_pk,player_pk_action)
+
+        else:
+            if not player_pk_action[1].priorite == dresseur_pk_action[1].priorite:
+                if player_pk_action[1].priorite > dresseur_pk_action[1].priorite:
+                    return (self.player_pk,player_pk_action), (self.dresseur.pk,dresseur_pk_action)
+                elif player_pk_action[1].priorite < dresseur_pk_action[1].priorite:
+                    return (self.dresseur.pk,dresseur_pk_action), (self.player_pk,player_pk_action)
+            else:
+                if self.player_pk.speed >= self.dresseur.pk.speed:
+                    return (self.player_pk,player_pk_action),(self.dresseur.pk,dresseur_pk_action)
+                else:
+                    return (self.dresseur.pk,dresseur_pk_action),(self.player_pk,player_pk_action)
+
 
     def init_dresseur(self, dresseur_class, dresseur_pk=None):
         if dresseur_class is None:

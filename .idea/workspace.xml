@@ -4,11 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="continue fight.py&#10;add sac_action, add curseur">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="continue fight.py&#10;add item icons in sac action during fights">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_fight_algo.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_fight_algo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
+    </list>
+    <list id="3785ed3a-4cd3-4d2c-ae3e-35913ac33e20" name="Changes by matva" comment="">
+      <change beforePath="$PROJECT_DIR$/bot_fight_algo.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_fight_algo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
     </list>
-    <list id="f7cad1b1-f045-4dbb-9ceb-5798f3c23857" name="Changes by matva" comment="Changes by matva" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +58,29 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Dummy.txt" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/fight.py">
+      <ranges>
+        <range start1="7" end1="7" start2="7" end2="8" changelist="3785ed3a-4cd3-4d2c-ae3e-35913ac33e20" />
+        <range start1="15" end1="15" start2="16" end2="23" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="17" end1="18" start2="25" end2="25" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="100" end1="100" start2="107" end2="110" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="107" end1="107" start2="117" end2="121" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="248" end1="248" start2="262" end2="265" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="297" end1="298" start2="314" end2="327" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="302" end1="302" start2="331" end2="371" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/bot_fight_algo.py">
+      <ranges>
+        <range start1="26" end1="27" start2="26" end2="27" changelist="3785ed3a-4cd3-4d2c-ae3e-35913ac33e20" />
+        <range start1="31" end1="32" start2="31" end2="32" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="57" end1="58" start2="57" end2="58" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="70" end1="70" start2="70" end2="71" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="84" end1="85" start2="85" end2="86" changelist="3785ed3a-4cd3-4d2c-ae3e-35913ac33e20" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -234,13 +262,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00009" summary="ingame_windows with icons and titles&#10;classic_panel buttons hover animations">
-      <created>1688681510476</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1688681510476</updated>
     </task>
     <task id="LOCAL-00010" summary="add starter mode&#10;assets for starters">
       <created>1688731928495</created>
@@ -578,7 +599,14 @@
       <option name="project" value="LOCAL" />
       <updated>1708342934374</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="continue fight.py&#10;add item icons in sac action during fights">
+      <created>1708362033767</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1708362033767</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -593,7 +621,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="new fonctionnalité : Move pokemon in game.classic_panel&#10;&#10;+ images pour tous les objets" />
     <MESSAGE value="add starter_window images&#10;fonctionnalité: choisir le starter" />
     <MESSAGE value="finished starter choice etape" />
     <MESSAGE value="finished starter choice etap" />
@@ -618,6 +645,7 @@
     <MESSAGE value="continue fight.py&#10;begin user interactions w/ fight buttons&#10;befin left click interaction in fight.py&#10;add pokemon info bar during fights" />
     <MESSAGE value="continue fight.py" />
     <MESSAGE value="continue fight.py&#10;add sac_action, add curseur" />
-    <option name="LAST_COMMIT_MESSAGE" value="continue fight.py&#10;add sac_action, add curseur" />
+    <MESSAGE value="continue fight.py&#10;add item icons in sac action during fights" />
+    <option name="LAST_COMMIT_MESSAGE" value="continue fight.py&#10;add item icons in sac action during fights" />
   </component>
 </project>
