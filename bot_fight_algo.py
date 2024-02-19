@@ -24,12 +24,12 @@ def calcul_degats(pk, ennemy_pk, attaque, crit=False):
     degats = round((((((pk.level * 0.4 + 2) * pk.attack * attaque.puissance) / pk.defense) / 50) + 2) * cm)
     return degats
 
-def bot_fight_algo(ennemy_pk, pk , att:list):
+def get_npc_action(pk, ennemy_pk , att:list):
     esperence = []
     is_killing = []
     for attaque in att:
         degat = calcul_degats(pk, ennemy_pk, attaque, False)
-        print(degat)
+        # print(degat)
         if degat > ennemy_pk.health:
             is_killing.append(attaque)
     if is_killing == []:
@@ -55,7 +55,7 @@ def bot_fight_algo(ennemy_pk, pk , att:list):
                 scoretemp = scoretemp * (1 + (SPEED_HEAL/400) * float(taux_heal_on_atk) * (-2*(pk.health/pk.pv)+2))
                 
                 
-            print(scoretemp)
+            print(attaque.name, scoretemp)
             esperence.append(scoretemp)
 
     else:
@@ -68,6 +68,7 @@ def bot_fight_algo(ennemy_pk, pk , att:list):
         if esperence[i] > max:
             max = esperence[i]
             j = i
+    print(att[j].name)
     return att[j]
 
 # programe principal (test)
@@ -82,4 +83,4 @@ if __name__ == '__main__':
 
     att_list = [att.Attaque('Griffe_Acier'), att.Attaque('Vampibaiser')]
     
-    print(bot_fight_algo(tortank, tortank2, att_list).name)
+    print(get_npc_action(tortank, tortank2, att_list).name)
