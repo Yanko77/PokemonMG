@@ -5,6 +5,7 @@ import dresseur
 import game_infos
 import pokemon
 from dresseur import Alizee, Olea, Ondine, Pierre, Blue, Red, Iris, Sauvage
+from bot_fight_algo import get_npc_action
 
 
 DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]

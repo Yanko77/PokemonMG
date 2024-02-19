@@ -24,7 +24,7 @@ def calcul_degats(pk, ennemy_pk, attaque, crit=False):
     degats = round((((((pk.level * 0.4 + 2) * pk.attack * attaque.puissance) / pk.defense) / 50) + 2) * cm)
     return degats
 
-def bot_fight_algo(ennemy_pk, pk , att:list):
+def get_npc_action(pk, ennemy_pk , att:list):
     esperence = []
     is_killing = []
     for attaque in att:
@@ -83,4 +83,4 @@ if __name__ == '__main__':
 
     att_list = [att.Attaque('Griffe_Acier'), att.Attaque('Vampibaiser')]
     
-    print(bot_fight_algo(tortank, tortank2, att_list).name)
+    print(get_npc_action(tortank, tortank2, att_list).name)
