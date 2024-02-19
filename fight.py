@@ -39,11 +39,23 @@ class Fight:
         self.cover_attaque_button = self.img_load('attaque_button')
         self.cover_attaque_button_hover = self.img_load('attaque_button_hover')
 
+        self.sac_action_background = self.img_load('sac_action_bg')
+        self.sac_action_background_rect = pygame.Rect(673, 360, 587, 335)
+
+        self.sac_action_curseur = self.img_load('sac_action_curseur')
+        self.sac_action_curseur_rect = pygame.Rect(673, 432, 27, 72)
+        self.sac_action_curseur_rects = [pygame.Rect(673, 432, 27, 88),
+                                         pygame.Rect(673, 520, 27, 88),
+                                         pygame.Rect(673, 608, 27, 88)]
+        self.sac_action_curseur_pos = 0
+        self.curseur_moving_mode = False
+
         # Chargement des fonts
         self.player_pk_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 40)
         self.dresseur_pk_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 30)
         self.pk_pv_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 25)
-        self.attaque_font = pygame.font.Font('assets/fonts/Cheesecake.ttf', 50)
+        self.attaque_font = pygame.font.Font('assets/fonts/Cheesecake.ttf', 55)
+        self.sac_page_font = pygame.font.Font('assets/fonts/Cheesecake.ttf', 65)
 
         # Pré-chargement des noms des pokemons
         self.player_pk_name = self.player_pk_name_font.render(self.player_pk.name, False, (40, 40, 40))
@@ -135,16 +147,66 @@ class Fight:
                                  border_radius=15)
 
                 if button_rect.collidepoint(possouris):
+                    surface.blit(self.cover_attaque_button, button_rect)
                     surface.blit(self.cover_attaque_button_hover, button_rect)
+
+                    attaque_name_shadow = self.attaque_font.render(self.player_pk.attaque_pool[i].name_, False,
+                                                                   (30, 30, 30))
+                    surface.blit(attaque_name_shadow, (button_rect.x + 1 + (356 - attaque_name_shadow.get_width()) / 2,
+                                                       button_rect.y + 3 + (
+                                                                   109 - attaque_name_shadow.get_height()) / 2))
+
+                    attaque_name = self.attaque_font.render(self.player_pk.attaque_pool[i].name_, False,
+                                                            (255, 255, 255))
+                    surface.blit(attaque_name, (button_rect.x + (356 - attaque_name.get_width()) / 2,
+                                                button_rect.y + (109 - attaque_name.get_height()) / 2))
+
                 else:
                     surface.blit(self.cover_attaque_button, button_rect)
 
-                attaque_name = self.attaque_font.render(self.player_pk.attaque_pool[i].name_, False, (255, 255, 255))
-                surface.blit(attaque_name, (button_rect.x + (356-attaque_name.get_width())/2, button_rect.y + (109-attaque_name.get_height())/2))
+                    attaque_name = self.attaque_font.render(self.player_pk.attaque_pool[i].name_, False,
+                                                            (240, 240, 240))
+                    surface.blit(attaque_name, (button_rect.x + (356 - attaque_name.get_width()) / 2,
+                                                button_rect.y + (109 - attaque_name.get_height()) / 2))
 
         # Si l'action en cours est 'SAC'
         elif self.current_action == 'SAC':
-            pass
+            surface.blit(self.sac_action_background, self.sac_action_background_rect)
+
+            self.sac_curseur_update(possouris)
+
+            surface.blit(self.sac_page_font.render(str(self.sac_action_curseur_pos + 1), False, (150, 150, 150)),
+                         (1218, 359))
+            surface.blit(self.sac_page_font.render(str(self.sac_action_curseur_pos+1), False, (255, 255, 255)),
+                         (1218, 357))
+
+            if self.sac_action_curseur_rect.collidepoint(possouris) or self.curseur_moving_mode:
+                img_rect = (23, 0, 23, 66)
+            else:
+                img_rect = (0, 0, 23, 66)
+
+            surface.blit(self.sac_action_curseur,
+                         (self.sac_action_curseur_rect.x + 2, self.sac_action_curseur_rect.y + 5*(self.sac_action_curseur_pos+1)),  # Co du curseur
+                         img_rect)
+
+    def sac_curseur_update(self, possouris):
+        if not self.curseur_moving_mode:
+            if self.sac_action_curseur_rect.collidepoint(possouris) and self.game.mouse_pressed[1]:
+                self.curseur_moving_mode = True
+
+        else:
+            if not self.game.mouse_pressed[1]:
+                self.curseur_moving_mode = False
+            else:
+                if possouris[1] < 520:
+                    self.sac_action_curseur_pos = 0
+                    self.sac_action_curseur_rect = self.sac_action_curseur_rects[0]
+                elif possouris[1] < 608:
+                    self.sac_action_curseur_pos = 1
+                    self.sac_action_curseur_rect = self.sac_action_curseur_rects[1]
+                else:
+                    self.sac_action_curseur_pos = 2
+                    self.sac_action_curseur_rect = self.sac_action_curseur_rects[2]
 
     def is_hovering(self, possouris):
         if self.current_action is None:
@@ -152,6 +214,14 @@ class Fight:
                     self.combat_button_rect.collidepoint(possouris) or
                     self.fuite_button_rect.collidepoint(possouris)
                     )
+        elif self.current_action == 'COMBAT':
+            return (self.attaque_buttons_rects[0].collidepoint(possouris) or
+                    self.attaque_buttons_rects[1].collidepoint(possouris) or
+                    self.attaque_buttons_rects[2].collidepoint(possouris) or
+                    self.attaque_buttons_rects[3].collidepoint(possouris)
+                    )
+        elif self.current_action == 'SAC':
+            return self.sac_action_curseur_rect.collidepoint(possouris) or self.curseur_moving_mode
         else:
             return False
 

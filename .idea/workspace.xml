@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="continue fight.py&#10;begin user interactions w/ fight buttons&#10;befin left click interaction in fight.py&#10;add pokemon info bar during fights">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="continue fight.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attaques.py" beforeDir="false" afterPath="$PROJECT_DIR$/attaques.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
     </list>
     <list id="f7cad1b1-f045-4dbb-9ceb-5798f3c23857" name="Changes by matva" comment="Changes by matva" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -236,20 +234,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00006" summary="beginning of game.is_playing structure&#10;fonction: change pseudo&#10;&#10;add intra-game windows">
-      <created>1687921612416</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1687921612416</updated>
-    </task>
-    <task id="LOCAL-00007" summary="no more interactions bugs">
-      <created>1687966383515</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1687966383515</updated>
     </task>
     <task id="LOCAL-00008" summary="ingame_windows fonctionnelle">
       <created>1688665829338</created>
@@ -580,7 +564,21 @@
       <option name="project" value="LOCAL" />
       <updated>1708280454339</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="continue fight.py">
+      <created>1708299153609</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1708299153609</updated>
+    </task>
+    <task id="LOCAL-00056" summary="continue fight.py">
+      <created>1708299158225</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1708299158225</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -595,7 +593,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add sac button in game.classic_panel" />
     <MESSAGE value="ajout des attaques et des objets&#10;2 fichiers txt pour les definir&#10;Nouveau calcul des degats des attaques&#10;ajout d'images pour les objets" />
     <MESSAGE value="new fonctionnalité : Move pokemon in game.classic_panel&#10;&#10;+ images pour tous les objets" />
     <MESSAGE value="add starter_window images&#10;fonctionnalité: choisir le starter" />
@@ -620,6 +617,7 @@
     <MESSAGE value="begin fight.py:&#10;- added images&#10;- added first methods" />
     <MESSAGE value="continue fight.py&#10;&#10;begin user interactions w/ fight buttons" />
     <MESSAGE value="continue fight.py&#10;begin user interactions w/ fight buttons&#10;befin left click interaction in fight.py&#10;add pokemon info bar during fights" />
-    <option name="LAST_COMMIT_MESSAGE" value="continue fight.py&#10;begin user interactions w/ fight buttons&#10;befin left click interaction in fight.py&#10;add pokemon info bar during fights" />
+    <MESSAGE value="continue fight.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="continue fight.py" />
   </component>
 </project>
