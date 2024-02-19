@@ -64,6 +64,11 @@ class Pokemon:
         self.item_pourcent_hp_activate = None
         self.passive_heal = 0
 
+        self.attaque_pool = [attaques.Attaque("Ailes_d'Acier"),
+                             attaques.Attaque("Balayage"),
+                             attaques.Attaque("Pistolet_a_O"),
+                             attaques.Attaque("Eclair_Croix")]
+
         self.random_seed = self.generate_random_seed_number()
 
     def find_pokemon_line(self) -> list:

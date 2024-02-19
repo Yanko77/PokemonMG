@@ -15,23 +15,23 @@ class Dresseur:
         self.power = power
         self.fuyable = (self.type != 'Classic')
 
-        self.pokemons_list = pk_list
-
-        if pk is None:
-            if pk_list is None:
-                self.pokemons_list = []
-            else:
-                self.pokemons_list = pk_list
-        else:
-            self.pk = pk
+        self.pk = self.init_pk(pk, pk_list)
 
         # self.icon = pygame.image.load(f'assets/game/fight/dresseur/{self.name}.png')
 
         self.inventory = []
         self.init_inventory()
 
-    def init_pk(self):
-        self.pk = random.choice(self.pokemons_list)
+    def init_pk(self, pk, pk_list):
+        # Eviter les erreurs de None != []
+        if pk_list is None:
+            pk_list = []
+
+        # Renvoyer le pokemon si renseigné, un random de la liste sinon
+        if pk is not None:
+            return pk
+        else:
+            return random.choice(pk_list)
 
     def init_inventory(self):
         temp_items = {}
@@ -87,56 +87,49 @@ class Name(Dresseur):
 class Sauvage(Dresseur):
 
     def __init__(self, game, pk):
-        super().__init__('Sauvage', game, dresseur_type='Sauvage', pk_list=pk)
+        super().__init__('Sauvage', game, dresseur_type='Sauvage', pk=pk)
 
 
 class Alizee(Dresseur):
 
     def __init__(self, game):
-        super().__init__('Alizée', game, power=3)
-        self.pokemons_list = ['Hélédelle', 'Altaria', 'Airmure', 'Bekipan', 'Corboss']
+        super().__init__('Alizée', game, power=3, pk_list=['Hélédelle', 'Altaria', 'Airmure', 'Bekipan', 'Corboss'])
 
 
 class Red(Dresseur):
 
     def __init__(self, game):
-        super().__init__('Red', game, power=4)
-        self.pokemons_list = ['Pikachu', 'Mentali', 'Ronflex', 'Tortank', 'Florizarre', 'Lokhlass', 'Mackogneur']
+        super().__init__('Red', game, power=4, pk_list=['Pikachu', 'Mentali', 'Ronflex', 'Tortank', 'Florizarre', 'Lokhlass', 'Mackogneur'])
 
 
 class Blue(Dresseur):
 
     def __init__(self, game):
-        super().__init__('Blue', game, power=4)
-        self.pokemons_list = ['Evoli (stat hyper hautes)', 'Roucarnage', 'Leviator', 'Arcanin', 'Alakazam', 'Dracaufeu', 'Melodelfe']
+        super().__init__('Blue', game, power=4, pk_list=['Evoli (stat hyper hautes)', 'Roucarnage', 'Leviator', 'Arcanin', 'Alakazam', 'Dracaufeu', 'Melodelfe'])
 
 
 class Pierre(Dresseur):
 
     def __init__(self, game):
-        super().__init__('Pierre', game, power=3)
-        self.pokemons_list = ['Onix', 'Racaillou', 'Kabutops', 'Tyranocif', 'Osselait']
+        super().__init__('Pierre', game, power=3, pk_list=['Onix', 'Racaillou', 'Kabutops', 'Tyranocif', 'Osselait'])
 
 
 class Ondine(Dresseur):
 
     def __init__(self, game):
-        super().__init__('Ondine', game, power=3)
-        self.pokemons_list = ['Stari', 'Staross', 'Psykokwak', 'Léviator', 'Flingouste']
+        super().__init__('Ondine', game, power=3, pk_list=['Stari', 'Staross', 'Psykokwak', 'Léviator', 'Flingouste'])
 
 
 class Olea(Dresseur):
 
     def __init__(self, game):
-        super().__init__('Oléa', game, power=2)
-        self.pokemons_list = ['Trousselin', 'Grodoudou', 'Granbull', 'Lampignon', 'Mystibule']
+        super().__init__('Oléa', game, power=2, pk_list=['Trousselin', 'Grodoudou', 'Granbull', 'Lampignon', 'Mystibule'])
 
 
 class Iris(Dresseur):
 
     def __init__(self, game):
-        super().__init__('Iris', game, power=2)
-        self.pokemons_list = ['Emolga', 'Griknot', 'Dracolosse', 'Vipélierre']
+        super().__init__('Iris', game, power=2, pk_list=['Emolga', 'Griknot', 'Dracolosse', 'Vipélierre'])
 
 
 if __name__ == '__main__':

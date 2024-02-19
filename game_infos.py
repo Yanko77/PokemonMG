@@ -433,5 +433,3 @@ def get_type_name_to_print(type):
 
 def get_type_color(type):
     return type_colors[type]
-
-
