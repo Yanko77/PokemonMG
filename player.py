@@ -31,7 +31,7 @@ class Player:
                           Objet('Bec_Pointu', 2),
                           Objet('Pic_Venin', 2),
                           Objet('Glace_Eternelle', 2),
-                          Objet('Croc_Dragon', 2),
+                          None,
                           Objet('Graine_Miracle', 2),
                           Objet('Charbon', 2)]
         self.sac_page2 = [Objet('Rune_Sort', 3),
