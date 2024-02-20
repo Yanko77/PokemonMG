@@ -24,6 +24,7 @@ def calcul_degats(pk, ennemy_pk, attaque, crit=False):
     degats = round((((((pk.level * 0.4 + 2) * pk.attack * attaque.puissance) / pk.defense) / 50) + 2) * cm)
     return degats
 
+
 def get_npc_action(pk, ennemy_pk , att:list):
     esperence = []
     is_killing = []

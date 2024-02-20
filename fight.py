@@ -87,6 +87,7 @@ class Fight:
         self.current_moving_item_rel_possouris = (0, 0)
 
         self.sac_item_hover = self.img_load('sac_item_hover')
+        self.use_item_rect = pygame.Rect(27, 565, 424, 134)
 
         # Chargement des fonts
         self.player_pk_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 40)
@@ -134,7 +135,7 @@ class Fight:
 
     def update_current_action(self, possouris):
         if self.current_action is not None:
-            if not self.current_action == 'SAC' and not self.item_moving_mode:
+            if not self.item_moving_mode:
                 if not self.current_action_rect.collidepoint(possouris):
                     self.current_action = None
 
@@ -290,7 +291,9 @@ class Fight:
                         if not self.game.mouse_pressed[1]:
                             self.item_moving_mode = False
                             self.item_moving_i = None
-                            # Rajouter l'endroit ou deposer l'item pour l'activer
+                            if self.use_item_rect.collidepoint(possouris):
+                                if 'Use' in item.fonctionnement:
+                                    self.current_turn_action = ('ITEM', item, i)
 
     def sac_curseur_update(self, possouris):
         if not self.item_moving_mode:
@@ -373,9 +376,17 @@ class Fight:
         pk1, pk2 = self.get_action_order(player_pk_action, dresseur_pk_action)
         if pk1[1][0] == 'ITEM' and pk1[0].is_alive:
             pk1[0].use_item(pk1[1][1])
+            pk1[1][1].quantite -= 1
+
+            if pk1[1][1].quantite <= 0:
+                if pk1[1][2] < 12:
+                    self.game.player.sac_page1[pk1[1][2]] = None
+                else:
+                    self.game.player.sac_page2[pk1[1][2] - 12] = None
 
         if pk2[1][0] == 'ITEM' and pk2[0].is_alive:
             pk2[0].use_item(pk2[1][1])
+            # GERER L'UTILISATION D'ITEM PAR LE DRESSEUR !
 
         if pk1[1][0] == 'ATTAQUE' and pk1[0].is_alive:
             pk1[0].attaque(pk2[0], pk1[1][1])
@@ -407,7 +418,6 @@ class Fight:
                     return (self.player_pk,player_pk_action),(self.dresseur.pk,dresseur_pk_action)
                 else:
                     return (self.dresseur.pk,dresseur_pk_action),(self.player_pk,player_pk_action)
-
 
     def init_dresseur(self, dresseur_class, dresseur_pk=None):
         if dresseur_class is None:
