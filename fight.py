@@ -332,16 +332,16 @@ class Fight:
 
     def turn(self, player_pk_action, dresseur_pk_action):
         pk1, pk2 = self.get_action_order(player_pk_action, dresseur_pk_action)
-        if pk1[1][0] == 'ITEM' and pk1.is_alive:
+        if pk1[1][0] == 'ITEM' and pk1[0].is_alive:
             pk1[0].use_item(pk1[1][1])
 
-        if pk2[1][0] == 'ITEM' and pk2.is_alive:
+        if pk2[1][0] == 'ITEM' and pk2[0].is_alive:
             pk2[0].use_item(pk2[1][1])
 
-        if pk1[1][0] == 'ATTAQUE' and pk1.is_alive:
+        if pk1[1][0] == 'ATTAQUE' and pk1[0].is_alive:
             pk1[0].attaque(pk2[0], pk1[1][1])
 
-        if pk2[1][0] == 'ATTAQUE' and pk2.is_alive:
+        if pk2[1][0] == 'ATTAQUE' and pk2[0].is_alive:
             pk2[0].attaque(pk1[0], pk2[1][1])
 
         self.current_turn_action = ('NoAction', None)
