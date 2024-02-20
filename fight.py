@@ -82,6 +82,11 @@ class Fight:
             pygame.Rect(998, 572, 122, 122),
             pygame.Rect(1138, 572, 122, 122),
         ]
+        self.item_moving_mode = False
+        self.item_moving_i = None
+        self.current_moving_item_rel_possouris = (0, 0)
+
+        self.sac_item_hover = self.img_load('sac_item_hover')
 
         # Chargement des fonts
         self.player_pk_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 40)
@@ -112,13 +117,12 @@ class Fight:
     def update(self, surface: pygame.surface.Surface, possouris):
         surface.blit(self.background, (0, 0))
 
+        self.update_pokemons(surface)
         self.update_buttons(surface, possouris)
         self.update_current_action(possouris)
-        self.update_pokemons(surface)
 
         if not self.current_turn_action == ('NoAction', None):
             self.turn(self.current_turn_action, ('ATTAQUE', get_npc_action(self.dresseur.pk, self.player_pk, self.dresseur.pk.attaque_pool)))
-
 
         # GESTION CURSEUR INTERACTIONS
         if self.is_hovering(possouris):
@@ -130,8 +134,9 @@ class Fight:
 
     def update_current_action(self, possouris):
         if self.current_action is not None:
-            if not self.current_action_rect.collidepoint(possouris):
-                self.current_action = None
+            if not self.current_action == 'SAC' and not self.item_moving_mode:
+                if not self.current_action_rect.collidepoint(possouris):
+                    self.current_action = None
 
     def update_pokemons(self, surface):
         # Pokemon du joueur
@@ -250,38 +255,62 @@ class Fight:
                     i += 1
 
     def sac_item_update(self, surface, possouris, item, i):
-        item_icon = pygame.transform.scale(item.icon_image, (90, 90))
-        item_rect = self.objet_icon_rects[i]
-
-        # Affichage icone
-        surface.blit(item_icon, (item_rect.x + (122 - item_icon.get_width()) / 2, item_rect.y + (122 - item_icon.get_height()) / 2))
-
-        # Affichage quantite
-        surface.blit(self.item_quantite_font.render(str(item.quantite), False, (255, 255, 255)),
-                     (item_rect.x + 90,
-                      item_rect.y + 75))
+        if self.item_moving_mode and self.item_moving_i == i:
+            item_rect = pygame.Rect(possouris[0] - self.current_moving_item_rel_possouris[0],
+                                    possouris[1] - self.current_moving_item_rel_possouris[1],
+                                    122,
+                                    122)
+        else:
+            item_rect = self.objet_icon_rects[i].copy()
 
         # Hovering
+        if item_rect.collidepoint(possouris):
+            surface.blit(self.sac_item_hover, item_rect)
 
+        if item is not None:
+            item_icon = pygame.transform.scale(item.icon_image, (90, 90))
+
+            # Affichage icone
+            surface.blit(item_icon, (item_rect.x + (122 - item_icon.get_width()) / 2, item_rect.y + (122 - item_icon.get_height()) / 2))
+
+            # Affichage quantite
+            surface.blit(self.item_quantite_font.render(str(item.quantite), False, (255, 255, 255)),
+                         (item_rect.x + 90,
+                          item_rect.y + 75))
+
+            if not self.curseur_moving_mode:
+                if not self.item_moving_mode:
+                    if self.game.mouse_pressed[1] and item_rect.collidepoint(possouris):
+                        self.item_moving_mode = True
+                        self.item_moving_i = i
+                        self.current_moving_item_rel_possouris = (possouris[0] - self.objet_icon_rects[i].x,
+                                                                  possouris[1] - self.objet_icon_rects[i].y)
+                else:
+                    if self.item_moving_i == i:
+                        if not self.game.mouse_pressed[1]:
+                            self.item_moving_mode = False
+                            self.item_moving_i = None
+                            # Rajouter l'endroit ou deposer l'item pour l'activer
 
     def sac_curseur_update(self, possouris):
-        if not self.curseur_moving_mode:
-            if self.sac_action_curseur_rect.collidepoint(possouris) and self.game.mouse_pressed[1]:
-                self.curseur_moving_mode = True
+        if not self.item_moving_mode:
+            if not self.curseur_moving_mode:
+                if self.sac_action_curseur_rect.collidepoint(possouris) and self.game.mouse_pressed[1]:
+                    self.curseur_moving_mode = True
 
-        else:
-            if not self.game.mouse_pressed[1]:
-                self.curseur_moving_mode = False
             else:
-                if possouris[1] < 520:
-                    self.sac_action_curseur_pos = 0
-                    self.sac_action_curseur_rect = self.sac_action_curseur_rects[0]
-                elif possouris[1] < 608:
-                    self.sac_action_curseur_pos = 1
-                    self.sac_action_curseur_rect = self.sac_action_curseur_rects[1]
+                if not self.game.mouse_pressed[1]:
+                    self.curseur_moving_mode = False
                 else:
-                    self.sac_action_curseur_pos = 2
-                    self.sac_action_curseur_rect = self.sac_action_curseur_rects[2]
+                    if possouris[1] < 520:
+                        self.sac_action_curseur_pos = 0
+                        self.sac_action_curseur_rect = self.sac_action_curseur_rects[0]
+                    elif possouris[1] < 608:
+                        self.sac_action_curseur_pos = 1
+                        self.sac_action_curseur_rect = self.sac_action_curseur_rects[1]
+                    else:
+                        self.sac_action_curseur_pos = 2
+                        self.sac_action_curseur_rect = self.sac_action_curseur_rects[2]
 
     def is_hovering(self, possouris):
         if self.current_action is None:
@@ -296,7 +325,17 @@ class Fight:
                     self.attaque_buttons_rects[3].collidepoint(possouris)
                     )
         elif self.current_action == 'SAC':
-            return self.sac_action_curseur_rect.collidepoint(possouris) or self.curseur_moving_mode
+            return (self.sac_action_curseur_rect.collidepoint(possouris) or self.curseur_moving_mode
+                    or self.objet_icon_rects[0].collidepoint(possouris)
+                    or self.objet_icon_rects[1].collidepoint(possouris)
+                    or self.objet_icon_rects[2].collidepoint(possouris)
+                    or self.objet_icon_rects[3].collidepoint(possouris)
+                    or self.objet_icon_rects[4].collidepoint(possouris)
+                    or self.objet_icon_rects[5].collidepoint(possouris)
+                    or self.objet_icon_rects[6].collidepoint(possouris)
+                    or self.objet_icon_rects[7].collidepoint(possouris)
+                    or self.item_moving_mode
+                    )
         else:
             return False
 

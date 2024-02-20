@@ -52,6 +52,8 @@ while running:
                 game.current_fight.dresseur.pk.damage(5)
             elif event.key == pygame.K_o:
                 game.start_fight(pokemon.Pokemon('Carapuce', 20, game.player), dresseur.Sauvage, pokemon.Pokemon('Dracaufeu', 20, game.player))
+            elif event.key == pygame.K_p:
+                print(posSouris)
 
             if game.player.name_editing_mode:
                 if event.key == pygame.K_RETURN:
