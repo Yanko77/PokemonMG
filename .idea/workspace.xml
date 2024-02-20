@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="sac_items during fight can move">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="items can be used during fights">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot_fight_algo.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_fight_algo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
     </list>
@@ -236,13 +235,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00013" summary="add more pokemons&#10;add all pokemon icons for existing one">
-      <created>1688946877689</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1688946877689</updated>
     </task>
     <task id="LOCAL-00014" summary="affichage des pokemons du joueur + interactions avec souris">
       <created>1689001008640</created>
@@ -580,7 +572,14 @@
       <option name="project" value="LOCAL" />
       <updated>1708451789691</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="items can be used during fights">
+      <created>1708469206839</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1708469206839</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -595,7 +594,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="finished starter choice etap" />
     <MESSAGE value="new fonctionnalité : changement place objet dans sac.&#10;résolution bug interactions entre :&#10;  window_modif_pos &amp; starter.pk_move_mode&#10;  window_modif_pos &amp; sac.emp_move_mode" />
     <MESSAGE value="add description  item name for sac d'objets" />
     <MESSAGE value="begin item system" />
@@ -620,6 +618,7 @@
     <MESSAGE value="game is playable !!!" />
     <MESSAGE value="Changes by matva" />
     <MESSAGE value="sac_items during fight can move" />
-    <option name="LAST_COMMIT_MESSAGE" value="sac_items during fight can move" />
+    <MESSAGE value="items can be used during fights" />
+    <option name="LAST_COMMIT_MESSAGE" value="items can be used during fights" />
   </component>
 </project>

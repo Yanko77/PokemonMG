@@ -87,7 +87,7 @@ class Fight:
         self.current_moving_item_rel_possouris = (0, 0)
 
         self.sac_item_hover = self.img_load('sac_item_hover')
-        self.use_item_rect = pygame.Rect(27, 565, 424, 134)
+        self.use_item_rect = pygame.Rect(12, 560, 454, 155)
 
         # Chargement des fonts
         self.player_pk_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 40)
@@ -264,6 +264,10 @@ class Fight:
         else:
             item_rect = self.objet_icon_rects[i].copy()
 
+        # Hovering use_item_rect
+        if self.use_item_rect.collidepoint(possouris) and self.item_moving_mode and self.item_moving_i == i:
+            pygame.draw.rect(surface, (42, 214, 0), self.use_item_rect, width=10, border_radius=25)
+
         # Hovering
         if item_rect.collidepoint(possouris):
             surface.blit(self.sac_item_hover, item_rect)
@@ -365,12 +369,6 @@ class Fight:
 
             elif self.attaque_buttons_rects[3].collidepoint(possouris):
                 self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[3])
-
-
-
-        # Si l'action en cours est 'SAC'
-        elif self.current_action == 'SAC':
-            pass
 
     def turn(self, player_pk_action, dresseur_pk_action):
         pk1, pk2 = self.get_action_order(player_pk_action, dresseur_pk_action)
