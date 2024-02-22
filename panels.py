@@ -67,12 +67,12 @@ class ClassicGamePanel:
         self.font_pokemon_info_lv = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 42)
         self.font_pokemon_info_name = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 23)
         self.font_pokemon_type = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 15)
-        
 
         # LOADING IMAGES --------------------------------------------
 
         # Elements permanents
         self.background = pygame.image.load('assets/game/panels/classic_panel/background.png')
+        self.no_action_background = pygame.image.load('assets/game/panels/classic_panel/no_action_background.png')
         self.sac = image.load_image('assets/game/panels/classic_panel/sac.png', True, (200, 200))
 
         # Elements spontanés
@@ -97,7 +97,11 @@ class ClassicGamePanel:
         self.item_pk_hover_give_error = pygame.image.load('assets/game/panels/classic_panel/item_error_give_pk_hover.png')
         #   # Buttons
         self.sac_button_hover = self.create_rect_alpha((218, 215), (113, 64, 30))  # pygame.Rect(667, 465, 218, 215)
-
+        self.go_fight_button = pygame.image.load('assets/game/panels/classic_panel/go_fight_button.png')
+        self.go_fight_button_v2 = pygame.image.load('assets/game/panels/classic_panel/go_fight_button_v2.png')
+        self.go_fight_button_hover = pygame.image.load('assets/game/panels/classic_panel/go_fight_button_hover.png')
+        self.go_fight_button_rect = pygame.Rect(-5, -46, 520, 180)
+        self.go_fight_button_compteur = 0
         # GENERATING RECTS --------------------------------------------
 
         #   # Player rects
@@ -148,10 +152,13 @@ class ClassicGamePanel:
 
     def update(self, surface, possouris):
         # BACKGROUND
-        surface.blit(self.background, (0, 0))
-
-        # PLAYER INFOS
-        self.update_player_infos(surface, possouris)
+        if self.game.player.actions > 0:
+            surface.blit(self.background, (0, 0))
+            self.update_player_infos(surface, possouris)  # PLAYER INFOS
+        else:
+            surface.blit(self.no_action_background, (0, 0))
+            self.update_player_infos(surface, possouris)  # PLAYER INFOS
+            self.update_go_fight_button(surface, possouris)
 
         # PLAYER TEAM
         self.update_hover_pokemon()
@@ -399,6 +406,20 @@ class ClassicGamePanel:
             if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_ARROW:
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
+    def update_go_fight_button(self, surface, possouris):
+
+        if not self.go_fight_button_rect.collidepoint(possouris):
+            if self.go_fight_button_compteur < 50:
+                surface.blit(self.go_fight_button, self.go_fight_button_rect)
+            else:
+                surface.blit(self.go_fight_button_v2, self.go_fight_button_rect)
+        else:
+            surface.blit(self.go_fight_button_hover, self.go_fight_button_rect)
+
+        self.go_fight_button_compteur += 1
+        if self.go_fight_button_compteur > 100:
+            self.go_fight_button_compteur = 0
+
     # INTERACTIONS -----------------------------
 
     def get_interactions(self, possouris):
@@ -420,6 +441,8 @@ class ClassicGamePanel:
             elif self.sac_button_rect.collidepoint(possouris):
                 return True
             elif self.is_hovering_pokemon_info_popup_buttons(possouris):
+                return True
+            elif self.game.player.actions <= 0 and self.go_fight_button_rect.collidepoint(possouris):
                 return True
             else:
                 return False

@@ -129,10 +129,6 @@ class Objet:
 
             self.quantite -= 1
 
-
-
-
-
     def reformate_name(self, name):
         reformated_name = ''
 

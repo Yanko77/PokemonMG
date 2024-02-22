@@ -6,8 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="items can be used during fights">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/pk_action_bar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/pk_action_bar_data_hover.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/pk_action_bar_items_hover.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/pk_action_bar_move_hover.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/pk_action_bar_relacher_hover.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/pk_action_bar_x_hover.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/objet.py" beforeDir="false" afterPath="$PROJECT_DIR$/objet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panels.py" beforeDir="false" afterPath="$PROJECT_DIR$/panels.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
     </list>
     <list id="3785ed3a-4cd3-4d2c-ae3e-35913ac33e20" name="Changes by matva" comment="Changes by matva" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />

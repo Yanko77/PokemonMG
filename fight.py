@@ -97,6 +97,7 @@ class Fight:
         self.sac_page_font = pygame.font.Font('assets/fonts/Cheesecake.ttf', 65)
         self.item_quantite_font = pygame.font.Font('assets/fonts/Impact.ttf', 30)
 
+
         # Pré-chargement des noms des pokemons
         self.player_pk_name = self.player_pk_name_font.render(self.player_pk.name, False, (40, 40, 40))
         self.dresseur_pk_name = self.dresseur_pk_name_font.render(self.dresseur.pk.name,
