@@ -96,7 +96,7 @@ class Fight:
         self.attaque_font = pygame.font.Font('assets/fonts/Cheesecake.ttf', 55)
         self.sac_page_font = pygame.font.Font('assets/fonts/Cheesecake.ttf', 65)
         self.item_quantite_font = pygame.font.Font('assets/fonts/Impact.ttf', 30)
-
+        self.fight_logs_font = pygame.font.Font('assets/fonts/Cheesecake.ttf', 40)
 
         # Pré-chargement des noms des pokemons
         self.player_pk_name = self.player_pk_name_font.render(self.player_pk.name, False, (40, 40, 40))
@@ -115,6 +115,7 @@ class Fight:
 
         # Variables relatives aux actions du tour
         self.current_turn_action = ('NoAction', None)  # ('ITEM', item) ou ('ATTAQUE', attaque)
+        self.fight_logs = []
 
     def update(self, surface: pygame.surface.Surface, possouris):
         surface.blit(self.background, (0, 0))
@@ -125,6 +126,8 @@ class Fight:
 
         if not self.current_turn_action == ('NoAction', None):
             self.turn(self.current_turn_action, ('ATTAQUE', get_npc_action(self.dresseur.pk, self.player_pk, self.dresseur.pk.attaque_pool)))
+
+        self.update_fight_logs(surface)
 
         # GESTION CURSEUR INTERACTIONS
         if self.is_hovering(possouris):
@@ -139,6 +142,29 @@ class Fight:
             if not self.item_moving_mode:
                 if not self.current_action_rect.collidepoint(possouris):
                     self.current_action = None
+
+    def update_fight_logs(self, surface):
+        x = 13
+        y = 248
+
+        logs = self.fight_logs.copy()
+        logs.reverse()
+
+        for pk, attaque in logs:
+            if pk == self.player_pk:
+                pk_color = (0, 36, 255)
+            else:
+                pk_color = (255, 0, 0)
+
+            nom = self.fight_logs_font.render(f'{pk.name} ', False, pk_color)
+            utilise = self.fight_logs_font.render('utilise ', False, (51, 51, 51))
+            attaque_render = self.fight_logs_font.render(f'{attaque.name_}', False, (0, 0, 0))
+
+            surface.blit(nom, (x, y))
+            surface.blit(utilise, (x + nom.get_width(), y))
+            surface.blit(attaque_render, (x + nom.get_width() + utilise.get_width(), y))
+
+            y -= 45
 
     def update_pokemons(self, surface):
         # Pokemon du joueur
@@ -371,6 +397,11 @@ class Fight:
             elif self.attaque_buttons_rects[3].collidepoint(possouris):
                 self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[3])
 
+    def add_logs(self, action):
+        if len(self.fight_logs) >= 6:
+            self.fight_logs.pop(0)
+        self.fight_logs.append(action)
+
     def turn(self, player_pk_action, dresseur_pk_action):
         pk1, pk2 = self.get_action_order(player_pk_action, dresseur_pk_action)
         if pk1[1][0] == 'ITEM' and pk1[0].is_alive:
@@ -383,15 +414,23 @@ class Fight:
                 else:
                     self.game.player.sac_page2[pk1[1][2] - 12] = None
 
+            self.add_logs((pk1[0], pk1[1][1]))
+
         if pk2[1][0] == 'ITEM' and pk2[0].is_alive:
             pk2[0].use_item(pk2[1][1])
             # GERER L'UTILISATION D'ITEM PAR LE DRESSEUR !
 
+            self.add_logs((pk2[0], pk2[1][1]))
+
         if pk1[1][0] == 'ATTAQUE' and pk1[0].is_alive:
             pk1[0].attaque(pk2[0], pk1[1][1])
 
+            self.add_logs((pk1[0], pk1[1][1]))
+
         if pk2[1][0] == 'ATTAQUE' and pk2[0].is_alive:
             pk2[0].attaque(pk1[0], pk2[1][1])
+
+            self.add_logs((pk2[0], pk2[1][1]))
 
         self.current_turn_action = ('NoAction', None)
 

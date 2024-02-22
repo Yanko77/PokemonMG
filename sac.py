@@ -84,8 +84,8 @@ class SacIngamePanel:
         self.update_rect_pos(window_pos)
 
         if self.selected_item is not None:
-            surface.blit(self.title_item_font.render(self.selected_item.name_to_blit.upper(), False, (0, 0, 0)),
-                         (window_pos[0] + (885-self.title_item_font.render(self.selected_item.name_to_blit.upper(), False, (0, 0, 0)).get_rect().w), window_pos[1] + 380))
+            surface.blit(self.title_item_font.render(self.selected_item.name_.upper(), False, (0, 0, 0)),
+                         (window_pos[0] + (885-self.title_item_font.render(self.selected_item.name_.upper(), False, (0, 0, 0)).get_rect().w), window_pos[1] + 380))
 
             surface.blit(self.desc_item_font.render(self.selected_item.description[0], False, (20, 20, 20)),
                          (window_pos[0] + (885-self.desc_item_font.render(self.selected_item.description[0], False, (0, 0, 0)).get_rect().w), window_pos[1] + 430))

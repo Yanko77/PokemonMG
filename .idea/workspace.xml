@@ -4,18 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="items can be used during fights">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="added end turn fight button">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/pk_action_bar.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/pk_action_bar_data_hover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/pk_action_bar_items_hover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/pk_action_bar_move_hover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/pk_action_bar_relacher_hover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/pk_action_bar_x_hover.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/objet.py" beforeDir="false" afterPath="$PROJECT_DIR$/objet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panels.py" beforeDir="false" afterPath="$PROJECT_DIR$/panels.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sac.py" beforeDir="false" afterPath="$PROJECT_DIR$/sac.py" afterDir="false" />
     </list>
     <list id="3785ed3a-4cd3-4d2c-ae3e-35913ac33e20" name="Changes by matva" comment="Changes by matva" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -243,13 +236,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00014" summary="affichage des pokemons du joueur + interactions avec souris">
-      <created>1689001008640</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1689001008640</updated>
     </task>
     <task id="LOCAL-00015" summary="ajout de la fenetre pour le sac&#10;assets pour sac d'objets">
       <created>1689018885976</created>
@@ -587,7 +573,14 @@
       <option name="project" value="LOCAL" />
       <updated>1708469206839</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="added end turn fight button">
+      <created>1708629388446</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1708629388446</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -602,7 +595,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="new fonctionnalité : changement place objet dans sac.&#10;résolution bug interactions entre :&#10;  window_modif_pos &amp; starter.pk_move_mode&#10;  window_modif_pos &amp; sac.emp_move_mode" />
     <MESSAGE value="add description  item name for sac d'objets" />
     <MESSAGE value="begin item system" />
     <MESSAGE value="add hover cursor when item give or use on pokemon" />
@@ -627,6 +619,7 @@
     <MESSAGE value="Changes by matva" />
     <MESSAGE value="sac_items during fight can move" />
     <MESSAGE value="items can be used during fights" />
-    <option name="LAST_COMMIT_MESSAGE" value="items can be used during fights" />
+    <MESSAGE value="added end turn fight button" />
+    <option name="LAST_COMMIT_MESSAGE" value="added end turn fight button" />
   </component>
 </project>
