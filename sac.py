@@ -249,6 +249,12 @@ class SacIngamePanel:
                 elif self.game.player.sac_page2[i-1].quantite > 99:
                     self.game.player.sac_page2[i-1].quantite = 99
 
+    def left_clic_interactions(self, possouris):
+        if self.page1_rect.collidepoint(possouris):
+            self.change_page(1)
+        elif self.page2_rect.collidepoint(possouris):
+            self.change_page(2)
+
     def is_hovering_buttons(self, possouris, window_pos):
         return (self.all_emp_rect[1].collidepoint(possouris) or self.all_emp_rect[2].collidepoint(possouris) or
                 self.all_emp_rect[3].collidepoint(possouris) or self.all_emp_rect[4].collidepoint(possouris) or

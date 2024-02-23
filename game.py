@@ -59,7 +59,7 @@ class Game:
 
     def init_new_game(self):
         self.is_starter_selected = False
-        self.classic_panel.ingame_window.update_name('Starters')
+        self.classic_panel.ingame_window.update_panel('Starters')
         self.classic_panel.ingame_window.minimize()
         self.classic_panel.ingame_window.open()
 

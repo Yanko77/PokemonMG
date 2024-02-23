@@ -244,6 +244,25 @@ class SpawnPanel:
 
         self.game.player.use_action()
 
+    def left_clic_interactions(self, possouris):
+        if self.spawn_button_rect.collidepoint(possouris):
+
+            if self.game.player.actions > 0:
+                if not self.boolspawn_confirm:
+                    self.boolspawn_confirm = True
+                else:
+                    self.spawn_pk()
+                    self.boolspawn_confirm = False
+        elif self.catch_button_rect.collidepoint(possouris):
+
+            if self.game.player.actions > 0 and self.spawning_pk is not None:
+                if self.is_spawning_pk_lock:
+                    if not self.boolcatch_confirm:
+                        self.boolcatch_confirm = True
+                    else:
+                        self.catch_pk()
+                        self.boolcatch_confirm = False
+
     def is_hovering_buttons(self, possouris):
         if self.button_aide_rect.collidepoint(possouris):
             return True
