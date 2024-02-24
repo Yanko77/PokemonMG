@@ -162,6 +162,8 @@ class Objet:
             l2 = l2[:-(len(l2.split()[-1])+1)]
 
         return l1, l2, l3
+    def set_quantite_at_spawn(self):
+        self.quantite = random.randint(self.quantite_at_spawn[0],self.quantite_at_spawn[1])
 
 if __name__ == '__main__':
     a = Objet('Baie_Oran')
