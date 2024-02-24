@@ -1,3 +1,4 @@
+# importation des modules
 import pygame
 import random
 
@@ -7,13 +8,17 @@ import pokemon
 from dresseur import Alizee, Olea, Ondine, Pierre, Blue, Red, Iris, Sauvage
 from bot_fight_algo import get_npc_action
 
+# modif
+import private_func
+from objet import Objet
 
+# declaration des constante
 DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
 
-
+# declaration de fighte
 class Fight:
 
-    def __init__(self, game, player_pk, dresseur_class=None, dresseur_pk=None):
+    def __init__(self, game, player_pk, dresseur_class=None, dresseur_pk=None, difficult='easy'):# passage de self.difficult en paramettre
         """
         La classe Fight est définie par:
         - Le pokemon envoyé par le joueur (player_pk)
@@ -113,6 +118,10 @@ class Fight:
 
         # Variables relatives aux actions du tour
         self.current_turn_action = ('NoAction', None)  # ('ITEM', item) ou ('ATTAQUE', attaque)
+        
+        # get_the_rewards modif
+        self.reward_quatity = 5
+        self.difficult = difficult
 
     def update(self, surface: pygame.surface.Surface, possouris):
         surface.blit(self.background, (0, 0))
@@ -417,6 +426,45 @@ class Fight:
 
     def img_load(self, file_name):
         return pygame.image.load(self.path + file_name + '.png')
+    
+    
+    
+    def get_the_rewards(self,is_not_boss_fight=True):# modif l'endroit ou sa se trouve 
+        # utilisation d'une action pour reclamer recompense
+        if is_not_boss_fight:
+            self.game.player.use_action()
+        
+        # obtention des objet de recompense
+        name_rarity_quantity = _get_rarity_and_name()
+        total_rarity = _get_total_rarity(name_rarity_quantity)
+        actual_reward_quantity = 0
+        all_reward = []
+        while actual_reward_quantity < self.reward_quatity:
+            nb_of_reward = random.randint(0,total_rarity)
+            previous_reward = name_rarity_quantity[0][0]
+            actual_reward = name_rarity_quantity[0][0]
+            i = 0
+            while acc < nb_of_reward:
+                acc += name_rarity_quantity[i][1]
+                previous_reward = actual_reward
+                actual_reward = name_rarity_quantity[i][0]
+                i+=1
+            quantity = random.randint(list(map(int ,name_rarity_quantity[i][1].split("-"))))
+            all_reward.append(Objet(previous_reward,quantity))
+            
+        # level up du pokemon
+        if self.difficult == 'easy':
+            player_pk.level_up()
+        elif self.difficult == 'normal':
+            player_pk.level_up(2)
+        elif self.difficult == 'hard':
+            player_pk.level_up(3)
+            
+        # return the reward
+        return all_reward
+        
+                
+            
 
 
 if __name__ == '__main__':
