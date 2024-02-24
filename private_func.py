@@ -1,34 +1,29 @@
-## move les fonction plutard comme je savait pas ou les ranger j'ai fait un fichier a part
+## Move les fonctions plus tard, comme je ne savais pas où les ranger, j'ai créé un fichier à part
 
 # importation des modules
-
+from objet import Objet
 # declaration des fonction
 
-def _get_rarity_and_name(): # witch one who can spawn in wild
-    name_rarity_quantity = []
+
+def _get_total_rarity(list_all_object):
+    total_rarety = 0
+    for OBJECT in list_all_object:
+        total_rarety += abs(OBJECT.rarety-100)
+    return total_rarety
+
+
+def list_all_objet():# on pourait le mettre dans objet.py directement
+    
+    list_all_object = []
     with open('all_objets.txt') as file:
         for line in file.readlines():
-            line_ = line.split()
-            if line_[0] != '#':
-                name,rarity = line_[0],line_[1]
-                rarity = rarity.split(":")
-                if rarity[0] != 0:
-                    print(rarity[1])
-                    rarity[1] = abs(int(rarity[1])-100)# inversion of rarity for future calcul
-                    name_rarity_quantity.append((name,rarity[1],rarity[2]))
-    return tuple(name_rarity_quantity)
-
-def _get_total_rarity(name_rarity_quantity):
-    total_rarity = 0
-    for i in name_rarity_quantity:
-        total_rarity += i[1]
-    return total_rarity
+            list_all_object.append(Objet(line.split()[0]))
+    return list_all_object
+    
     
 # fonction principale
 def main():
-    name_rarity_quantity = _get_rarity_and_name()
-    print(name_rarity_quantity)
-    print(_get_total_rarity(name_rarity_quantity))
+    pass
     
 
 # programe principale
