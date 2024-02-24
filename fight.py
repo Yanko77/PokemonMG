@@ -14,6 +14,8 @@ from objet import Objet
 
 # declaration des constante
 DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
+OBJET_LIST = private_func.list_all_objet()
+total_rarety = private_func._get_total_rarity(OBJET_LIST)
 
 # declaration de fighte
 class Fight:
@@ -120,7 +122,7 @@ class Fight:
         self.current_turn_action = ('NoAction', None)  # ('ITEM', item) ou ('ATTAQUE', attaque)
         
         # get_the_rewards modif
-        self.reward_quatity = 5
+        self.reward_quantity = 2
         self.difficult = difficult
 
     def update(self, surface: pygame.surface.Surface, possouris):
@@ -429,28 +431,24 @@ class Fight:
     
     
     
-    def get_the_rewards(self,is_not_boss_fight=True):# modif l'endroit ou sa se trouve 
+    def get_rewards(self,is_not_boss_fight=True):# modif l'endroit ou sa se trouve 
         # utilisation d'une action pour reclamer recompense
         if is_not_boss_fight:
             self.game.player.use_action()
         
         # obtention des objet de recompense
-        name_rarity_quantity = _get_rarity_and_name()
-        total_rarity = _get_total_rarity(name_rarity_quantity)
-        actual_reward_quantity = 0
+        
         all_reward = []
-        while actual_reward_quantity < self.reward_quatity:
-            nb_of_reward = random.randint(0,total_rarity)
-            previous_reward = name_rarity_quantity[0][0]
-            actual_reward = name_rarity_quantity[0][0]
-            i = 0
-            while acc < nb_of_reward:
-                acc += name_rarity_quantity[i][1]
-                previous_reward = actual_reward
-                actual_reward = name_rarity_quantity[i][0]
-                i+=1
-            quantity = random.randint(list(map(int ,name_rarity_quantity[i][1].split("-"))))
-            all_reward.append(Objet(previous_reward,quantity))
+        reward_nbs = []
+        acc = 0
+        for y in range(self.reward_quantity):
+            reward_nbs.append(random.randint(0,total_rarety))
+        for OBJECT in OBJET_LIST:
+            for x in reward_nbs
+                if acc + abs(OBJECT.rarety-100) < x and x > acc:
+                    OBJECT.set_quantite_at_spawn()
+                    all_reward.append[OBJECT]
+            acc + abs(OBJECT.rarety-100)
             
         # level up du pokemon
         if self.difficult == 'easy':
@@ -460,7 +458,7 @@ class Fight:
         elif self.difficult == 'hard':
             player_pk.level_up(3)
             
-        # return the reward
+        
         return all_reward
         
                 
