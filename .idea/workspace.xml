@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="added end turn fight button">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="refonte du code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/objet.py" beforeDir="false" afterPath="$PROJECT_DIR$/objet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sac.py" beforeDir="false" afterPath="$PROJECT_DIR$/sac.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ingame_windows.py" beforeDir="false" afterPath="$PROJECT_DIR$/ingame_windows.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
     </list>
     <list id="3785ed3a-4cd3-4d2c-ae3e-35913ac33e20" name="Changes by matva" comment="Changes by matva" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -27,7 +27,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Test" />
+        <entry key="$PROJECT_DIR$" value="mathias_3" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -79,13 +79,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;git-widget-placeholder&quot;: &quot;Yanko&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/yanko/PycharmProjects/PokemonManagementGame&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "Yanko__code__refonte__test",
+    "last_opened_file_path": "C:/Users/yanko/PycharmProjects/PokemonManagementGame",
+    "run.code.analysis.last.selected.profile": "pProject Default"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\yanko\PycharmProjects\PokemonManagementGame" />
@@ -236,6 +236,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
+    </task>
+    <task id="LOCAL-00013" summary="add more pokemons&#10;add all pokemon icons for existing one">
+      <created>1688946877689</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1688946877689</updated>
+    </task>
+    <task id="LOCAL-00014" summary="affichage des pokemons du joueur + interactions avec souris">
+      <created>1689001008640</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1689001008640</updated>
     </task>
     <task id="LOCAL-00015" summary="ajout de la fenetre pour le sac&#10;assets pour sac d'objets">
       <created>1689018885976</created>
@@ -559,28 +573,14 @@
       <option name="project" value="LOCAL" />
       <updated>1708373496601</updated>
     </task>
-    <task id="LOCAL-00061" summary="sac_items during fight can move">
-      <created>1708451789691</created>
+    <task id="LOCAL-00061" summary="refonte du code">
+      <created>1708858456236</created>
       <option name="number" value="00061" />
       <option name="presentableId" value="LOCAL-00061" />
       <option name="project" value="LOCAL" />
-      <updated>1708451789691</updated>
+      <updated>1708858456236</updated>
     </task>
-    <task id="LOCAL-00062" summary="items can be used during fights">
-      <created>1708469206839</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1708469206839</updated>
-    </task>
-    <task id="LOCAL-00063" summary="added end turn fight button">
-      <created>1708629388446</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1708629388446</updated>
-    </task>
-    <option name="localTasksCounter" value="64" />
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -595,6 +595,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="finished starter choice etap" />
+    <MESSAGE value="new fonctionnalité : changement place objet dans sac.&#10;résolution bug interactions entre :&#10;  window_modif_pos &amp; starter.pk_move_mode&#10;  window_modif_pos &amp; sac.emp_move_mode" />
     <MESSAGE value="add description  item name for sac d'objets" />
     <MESSAGE value="begin item system" />
     <MESSAGE value="add hover cursor when item give or use on pokemon" />
@@ -617,9 +619,18 @@
     <MESSAGE value="continue fight.py&#10;add item icons in sac action during fights" />
     <MESSAGE value="game is playable !!!" />
     <MESSAGE value="Changes by matva" />
-    <MESSAGE value="sac_items during fight can move" />
-    <MESSAGE value="items can be used during fights" />
-    <MESSAGE value="added end turn fight button" />
-    <option name="LAST_COMMIT_MESSAGE" value="added end turn fight button" />
+    <MESSAGE value="refonte du code" />
+    <option name="LAST_COMMIT_MESSAGE" value="refonte du code" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/starters.py</url>
+          <line>37</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

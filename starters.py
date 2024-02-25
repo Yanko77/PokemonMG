@@ -133,10 +133,18 @@ class StartersPanel:
         self.game.is_starter_selected = True
         self.reset_player_team(i_team)
 
-        self.game.classic_panel.ingame_window.init_train_panel()
+        # self.game.classic_panel.ingame_window.init_train_panel()
 
     def decouvrir_pk(self, i):
         self.pk_decouverts[i] = True
+
+    def left_clic_interactions(self, possouris):
+        if self.pk_rects[0].collidepoint(possouris):
+            self.decouvrir_pk(0)
+        elif self.pk_rects[1].collidepoint(possouris):
+            self.decouvrir_pk(1)
+        elif self.pk_rects[2].collidepoint(possouris):
+            self.decouvrir_pk(2)
 
     def is_hovering_buttons(self, possouris):
         if self.pk_rects[0].collidepoint(possouris) or self.pk_rects[1].collidepoint(possouris) \

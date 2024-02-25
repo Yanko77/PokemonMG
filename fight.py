@@ -20,7 +20,6 @@ class Fight:
         - Le dresseur à affronter (dresseur_class)
         """
 
-
         self.game = game
         self.player_pk = player_pk
         self.dresseur = self.init_dresseur(dresseur_class, dresseur_pk)
@@ -103,7 +102,7 @@ class Fight:
         self.dresseur_pk_name = self.dresseur_pk_name_font.render(self.dresseur.pk.name,
                                                                   False, (40, 40, 40))
 
-        # Variable relatives aux boutons
+        # Variables relatives aux boutons
         self.current_action = None
         self.attaque_buttons_rects = [
             pygame.Rect(907, 432, 356, 109),
@@ -116,6 +115,7 @@ class Fight:
         # Variables relatives aux actions du tour
         self.current_turn_action = ('NoAction', None)  # ('ITEM', item) ou ('ATTAQUE', attaque)
         self.fight_logs = []
+        self.fight_result = None
 
     def update(self, surface: pygame.surface.Surface, possouris):
         surface.blit(self.background, (0, 0))
@@ -124,8 +124,9 @@ class Fight:
         self.update_buttons(surface, possouris)
         self.update_current_action(possouris)
 
-        if not self.current_turn_action == ('NoAction', None):
-            self.turn(self.current_turn_action, ('ATTAQUE', get_npc_action(self.dresseur.pk, self.player_pk, self.dresseur.pk.attaque_pool)))
+        if self.fight_result is None:
+            if not self.current_turn_action == ('NoAction', None):
+                self.turn(self.current_turn_action, ('ATTAQUE', get_npc_action(self.dresseur.pk, self.player_pk, self.dresseur.pk.attaque_pool)))
 
         self.update_fight_logs(surface)
 
@@ -143,6 +144,12 @@ class Fight:
                 if not self.current_action_rect.collidepoint(possouris):
                     self.current_action = None
 
+    def add_logs(self, info):
+        if len(self.fight_logs) >= 6:
+            self.fight_logs.pop(0)
+
+        self.fight_logs.append(info)
+
     def update_fight_logs(self, surface):
         x = 13
         y = 248
@@ -151,6 +158,7 @@ class Fight:
         logs.reverse()
 
         for pk, attaque in logs:
+
             if pk == self.player_pk:
                 pk_color = (0, 36, 255)
             else:
@@ -397,11 +405,6 @@ class Fight:
             elif self.attaque_buttons_rects[3].collidepoint(possouris):
                 self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[3])
 
-    def add_logs(self, action):
-        if len(self.fight_logs) >= 6:
-            self.fight_logs.pop(0)
-        self.fight_logs.append(action)
-
     def turn(self, player_pk_action, dresseur_pk_action):
         pk1, pk2 = self.get_action_order(player_pk_action, dresseur_pk_action)
         if pk1[1][0] == 'ITEM' and pk1[0].is_alive:
@@ -433,6 +436,11 @@ class Fight:
             self.add_logs((pk2[0], pk2[1][1]))
 
         self.current_turn_action = ('NoAction', None)
+
+        if not self.player_pk.is_alive:
+            self.fight_result = 'Defeat'
+        elif not self.dresseur.pk.is_alive:
+            self.fight_result = 'Victory'
 
     def get_action_order(self, player_pk_action, dresseur_pk_action):
         """Déterminer l'ordre d'agissement des 2 pokemons"""

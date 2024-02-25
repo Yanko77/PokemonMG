@@ -249,16 +249,22 @@ class SacIngamePanel:
                 elif self.game.player.sac_page2[i-1].quantite > 99:
                     self.game.player.sac_page2[i-1].quantite = 99
 
-    def is_hovering_buttons(self, possouris, window_pos):
+    def left_clic_interactions(self, possouris):
+        if self.page1_rect.collidepoint(possouris):
+            self.change_page(1)
+        elif self.page2_rect.collidepoint(possouris):
+            self.change_page(2)
+
+    def is_hovering_buttons(self, possouris):
         return (self.all_emp_rect[1].collidepoint(possouris) or self.all_emp_rect[2].collidepoint(possouris) or
                 self.all_emp_rect[3].collidepoint(possouris) or self.all_emp_rect[4].collidepoint(possouris) or
                 self.all_emp_rect[5].collidepoint(possouris) or self.all_emp_rect[6].collidepoint(possouris) or
                 self.all_emp_rect[7].collidepoint(possouris) or self.all_emp_rect[8].collidepoint(possouris) or
                 self.all_emp_rect[9].collidepoint(possouris) or self.all_emp_rect[10].collidepoint(possouris) or
-                self.all_emp_rect[11].collidepoint(possouris) or self.all_emp_rect[12].collidepoint(possouris) or
-                pygame.Rect(331+window_pos[0], 40+window_pos[1], 52, 52).collidepoint(possouris) or
-                pygame.Rect(387+window_pos[0], 40+window_pos[1], 52, 52).collidepoint(possouris))
-
+                self.all_emp_rect[11].collidepoint(possouris) or self.all_emp_rect[12].collidepoint(possouris)  # or
+                # pygame.Rect(331+window_pos[0], 40+window_pos[1], 52, 52).collidepoint(possouris) or
+                # pygame.Rect(387+window_pos[0], 40+window_pos[1], 52, 52).collidepoint(possouris))
+                )
     def change_page(self, num):
         self.page = num
 
