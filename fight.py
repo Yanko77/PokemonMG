@@ -443,7 +443,7 @@ class Fight:
         acc = 0
         for y in range(self.reward_quantity):
             reward_nbs.append(random.randint(0,total_rarety))
-        for OBJECT in OBJET_LIST:
+        for OBJECT in self.game.get_items_list()['Spawnable']:
             for x in reward_nbs
                 if acc + abs(OBJECT.rarety-100) < x and x > acc:
                     OBJECT_c = OBJECT.copy()
