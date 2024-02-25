@@ -1,3 +1,4 @@
+# importation des modules
 import pygame
 import random
 
@@ -7,13 +8,19 @@ import pokemon
 from dresseur import Alizee, Olea, Ondine, Pierre, Blue, Red, Iris, Sauvage
 from bot_fight_algo import get_npc_action
 
+# modif
+import private_func
+import Objet
 
+# declaration des constante
 DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
+OBJET_LIST = Objet.list_all_objet()
+total_rarety = private_func._get_total_rarity(OBJET_LIST)
 
-
+# declaration de fighte
 class Fight:
 
-    def __init__(self, game, player_pk, dresseur_class=None, dresseur_pk=None):
+    def __init__(self, game, player_pk, dresseur_class=None, dresseur_pk=None, difficult='easy'):# passage de self.difficult en paramettre
         """
         La classe Fight est définie par:
         - Le pokemon envoyé par le joueur (player_pk)
@@ -114,8 +121,15 @@ class Fight:
 
         # Variables relatives aux actions du tour
         self.current_turn_action = ('NoAction', None)  # ('ITEM', item) ou ('ATTAQUE', attaque)
+
+        
+        # get_the_rewards modif
+        self.reward_quantity = 2
+        self.difficult = difficult
+        
         self.fight_logs = []
         self.fight_result = None
+
 
     def update(self, surface: pygame.surface.Surface, possouris):
         surface.blit(self.background, (0, 0))
@@ -473,6 +487,42 @@ class Fight:
 
     def img_load(self, file_name):
         return pygame.image.load(self.path + file_name + '.png')
+    
+    
+    
+    def get_rewards(self,is_not_boss_fight=True):# modif l'endroit ou sa se trouve 
+        # utilisation d'une action pour reclamer recompense
+        if is_not_boss_fight:
+            self.game.player.use_action()
+        
+        # obtention des objet de recompense
+        
+        all_reward = []
+        reward_nbs = []
+        acc = 0
+        for y in range(self.reward_quantity):
+            reward_nbs.append(random.randint(0,total_rarety))
+        for OBJECT in self.game.get_items_list()['Spawnable']:
+            for x in reward_nbs
+                if acc + abs(OBJECT.rarety-100) < x and x > acc:
+                    OBJECT_c = OBJECT.copy()
+                    all_reward.append[OBJECT_c]
+                    OBJECT_c.set_quantite_at_spawn()
+            acc + abs(OBJECT.rarety-100)
+            
+        # level up du pokemon
+        if self.difficult == 'easy':
+            player_pk.level_up()
+        elif self.difficult == 'normal':
+            player_pk.level_up(2)
+        elif self.difficult == 'hard':
+            player_pk.level_up(3)
+            
+        
+        return all_reward
+        
+                
+            
 
 
 if __name__ == '__main__':
