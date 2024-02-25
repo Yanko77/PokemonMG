@@ -13,7 +13,7 @@ class Objet:
         self.line = self.find_item_line()
 
         self.boolSpawnable = int(self.line[1].split(':')[0])
-        self.rarety = int(self.line[1].split(':')[1])
+        self.rarity = int(self.line[1].split(':')[1])
         self.quantite_at_spawn = (int(self.line[1].split(':')[2].split('-')[0]),
                                   int(self.line[1].split(':')[2].split('-')[1]))
 
@@ -158,6 +158,10 @@ class Objet:
             l2 = l2[:-(len(l2.split()[-1])+1)]
 
         return l1, l2, l3
+    def set_quantite_at_spawn(self):
+        self.quantite = random.randint(self.quantite_at_spawn[0],self.quantite_at_spawn[1])
+
+
 
 if __name__ == '__main__':
     a = Objet('Baie_Oran')

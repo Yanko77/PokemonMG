@@ -78,15 +78,15 @@ class Game:
     '''def load_game(self):
         self.save_file'''
 
-    def start_fight(self, player_pk, dresseur_class=None, dresseur_pk=None):
+    def start_fight(self, player_pk, dresseur_class=None, dresseur_pk=None, difficult="easy"):# passage de self.difficult en paramettre
         self.init_fight(player_pk, dresseur_class, dresseur_pk)
         self.is_fighting = True
 
     def cancel_fight(self):
         self.is_fighting = False
 
-    def init_fight(self, player_pk, dresseur_class=None, dresseur_pk=None):
-        self.current_fight = Fight(self, player_pk, dresseur_class, dresseur_pk)
+    def init_fight(self, player_pk, dresseur_class=None, dresseur_pk=None, difficult="easy"):# passage de self.difficult en paramettre
+        self.current_fight = Fight(self, player_pk, dresseur_class, dresseur_pk, difficult)# passage de self.difficult en paramettre
 
     def next_turn(self):
         self.general_seed = self.generate_general_random_seed()
@@ -141,6 +141,15 @@ class Game:
 
     def get_items_list(self):
         return self.items_list
+
+    def get_total_items_rarity(self):
+        """
+        Methode qui renvoie la somme de toutes les raretés des objets du jeu obtenable via spawn
+        """
+        total_rarity = 0
+        for OBJECT in self.get_items_list()['Spawnable']:
+            total_rarity += abs(OBJECT.rarity - 100)
+        return total_rarity
 
     def generate_general_random_seed(self):
         return int(str(random.randint(0, 255))

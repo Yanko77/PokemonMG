@@ -1,3 +1,4 @@
+# importation des modules
 import pygame
 import random
 
@@ -7,13 +8,17 @@ import pokemon
 from dresseur import Alizee, Olea, Ondine, Pierre, Blue, Red, Iris, Sauvage
 from bot_fight_algo import get_npc_action
 
+# modif
+import private_func
+import objet
 
+# declaration des constante
 DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
 
-
+# declaration de fighte
 class Fight:
 
-    def __init__(self, game, player_pk, dresseur_class=None, dresseur_pk=None):
+    def __init__(self, game, player_pk, dresseur_class=None, dresseur_pk=None, difficult='easy'):# passage de self.difficult en paramettre
         """
         La classe Fight est définie par:
         - Le pokemon envoyé par le joueur (player_pk)
@@ -114,8 +119,15 @@ class Fight:
 
         # Variables relatives aux actions du tour
         self.current_turn_action = ('NoAction', None)  # ('ITEM', item) ou ('ATTAQUE', attaque)
+
+        
+        # get_the_rewards modif
+        self.reward_quantity = 2
+        self.difficult = difficult
+        
         self.fight_logs = []
         self.fight_result = None
+
 
     def update(self, surface: pygame.surface.Surface, possouris):
         surface.blit(self.background, (0, 0))
@@ -441,6 +453,13 @@ class Fight:
             self.fight_result = 'Defeat'
         elif not self.dresseur.pk.is_alive:
             self.fight_result = 'Victory'
+            print(self.get_rewards())
+            for reward in self.get_rewards():
+                print(reward.name)
+
+        print(self.fight_result)
+        print(self.player_pk.is_alive)
+        print(self.dresseur.pk.is_alive)
 
     def get_action_order(self, player_pk_action, dresseur_pk_action):
         """Déterminer l'ordre d'agissement des 2 pokemons"""
@@ -473,6 +492,53 @@ class Fight:
 
     def img_load(self, file_name):
         return pygame.image.load(self.path + file_name + '.png')
+
+    def get_rewards(self, is_not_boss_fight=True):# modif l'endroit ou sa se trouve
+        # utilisation d'une action pour reclamer recompense
+        if is_not_boss_fight:
+            self.game.player.use_action()
+        
+        '''# obtention des objet de recompense
+        reward_nbs = [20, 110, 200]
+        acc = 0
+        for i in range(self.reward_quantity):
+            reward_nbs.append(random.randint(0, self.game.get_total_items_rarity()))
+
+        all_rewards = []
+        for objet in self.game.get_items_list()['Spawnable']:
+            for x in reward_nbs:
+                if acc + abs(objet.rarety-100) < x and x > acc:
+                    objet_c = objet.copy()
+                    all_rewards.append[objet_c]
+                    objet_c.set_quantite_at_spawn()
+                acc += abs(objet.rarety-100)'''
+
+        # Obtention des objets de récompense
+        r_values_list = []
+        rewards = []
+        i = 0
+        for n in range(self.reward_quantity):
+            r_values_list.append(random.randint(0, self.game.get_total_items_rarity()))
+
+        acc = 0
+        for objet in self.game.get_items_list()['Spawnable']:
+            for r_value in r_values_list:
+                if r_value in range(acc, acc + (100 - objet.rarity)):
+                    rewards.append(objet)
+                acc += (100 - objet.rarity)
+            
+        # level up du pokemon
+        if self.difficult == 'easy':
+            self.player_pk.level_up()
+        elif self.difficult == 'normal':
+            self.player_pk.level_up(2)
+        elif self.difficult == 'hard':
+            self.player_pk.level_up(3)
+        
+        return rewards
+        
+                
+            
 
 
 if __name__ == '__main__':
