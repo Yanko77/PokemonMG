@@ -23,19 +23,7 @@ old_posSouris = (0, 0)
 while running:
     posSouris = list(pygame.mouse.get_pos())
 
-    """if game.mouse_pressed[1]:
-        if not game.classic_panel.pk_move_mode and not game.classic_panel.ingame_window.sac_panel.emp_move_mode and not \
-                game.classic_panel.ingame_window.starters_panel.pk_move_mode and not game.classic_panel.ingame_window.spawn_panel.spawning_pk_move_mode:
-            if game.classic_panel.ingame_window.main_window_bar_rect.collidepoint(posSouris):
-                game.classic_panel.ingame_window.window_pos_modif_mode = True
-            if game.classic_panel.ingame_window.window_pos_modif_mode:
-                if posSouris != old_posSouris:
-                    game.classic_panel.ingame_window.basic_window_rect.x += posSouris[0] - old_posSouris[0]
-                    game.classic_panel.ingame_window.basic_window_rect.y += posSouris[1] - old_posSouris[1]"""
-
     game.update(screen, posSouris)
-
-    """old_posSouris = posSouris"""
 
     pygame.display.flip()  # Update de la fenetre
 

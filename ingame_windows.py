@@ -17,6 +17,7 @@ class IngameWindow:
         self.game = game
 
         self.current_panel_name = 'Unknown'
+        self.current_panel = None
 
         # Chargement des images
         self.basic_window = self.img_load('main')
@@ -65,6 +66,14 @@ class IngameWindow:
         self.train_panel = train.TrainPanel(self.game)
         self.items_panel = items.ItemsPanel(self.game)
 
+        self.all_panels = {
+            "Sac d'objets": self.sac_panel,
+            "Starters": self.starters_panel,
+            "Spawn": self.spawn_panel,
+            "Train": self.train_panel,
+            "Items": self.items_panel
+        }
+
     def update(self, surface, possouris):
         if self.is_open:
             if self.is_minimized:
@@ -82,20 +91,11 @@ class IngameWindow:
                              (self.basic_window_pos[0] + self.title_marge, self.basic_window_pos[1]))
                 surface.blit(self.icon, self.basic_window_pos)
 
-                self.update_current_panel(surface, possouris)
+                # self.update_current_panel(surface, possouris)
+                self.current_panel.update(surface, possouris, self.basic_window_pos)
                 self.update_buttons(surface, possouris)
 
                 self.update_window_pos(possouris)
-
-    def update_current_panel(self, surface, possouris):
-        if self.current_panel_name == "Sac d'objets":
-            self.sac_panel.update(surface, possouris, self.basic_window_pos)
-        elif self.current_panel_name == "Starters":
-            self.starters_panel.update(surface, possouris, self.basic_window_pos)
-        elif self.current_panel_name == "Spawn":
-            self.spawn_panel.update(surface, possouris, self.basic_window_pos)
-        elif self.current_panel_name == "Train":
-            self.train_panel.update(surface, possouris, self.basic_window_pos)
 
     def update_buttons(self, surface, possouris):
         """
@@ -158,7 +158,7 @@ class IngameWindow:
         self.min_button_rect.x, self.min_button_rect.y = self.basic_window_pos[0] + 816, self.basic_window_pos[1] + 4
 
     def update_panel(self, panel_name):
-        self.current_panel_name = panel_name
+        self.current_panel_name, self.current_panel = panel_name, self.all_panels[panel_name]
         self.title = self.title_font.render(self.current_panel_name, False, (0, 0, 0))
         self.icon = self.icon = pygame.image.load(f'assets/game/ingame_windows/{self.current_panel_name}/icon.png')
 
@@ -192,14 +192,17 @@ class IngameWindow:
         elif self.min_button_rect.collidepoint(possouris):
             return True
         else:
-            if self.current_panel_name == "Sac d'objets":
+
+            '''if self.current_panel_name == "Sac d'objets":
                 return self.sac_panel.is_hovering_buttons(possouris, self.basic_window_pos)
             elif self.current_panel_name == "Starters":
                 return self.starters_panel.is_hovering_buttons(possouris)
             elif self.current_panel_name == "Spawn":
                 return self.spawn_panel.is_hovering_buttons(possouris)
             elif self.current_panel_name == "Train":
-                return self.train_panel.is_hovering_buttons(possouris)
+                return self.train_panel.is_hovering_buttons(possouris)'''
+
+            return self.current_panel.is_hovering_buttons(possouris)
 
     def left_clic_interactions(self, possouris):
         if self.is_open:

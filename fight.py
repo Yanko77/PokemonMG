@@ -20,7 +20,6 @@ class Fight:
         - Le dresseur à affronter (dresseur_class)
         """
 
-
         self.game = game
         self.player_pk = player_pk
         self.dresseur = self.init_dresseur(dresseur_class, dresseur_pk)
@@ -103,7 +102,7 @@ class Fight:
         self.dresseur_pk_name = self.dresseur_pk_name_font.render(self.dresseur.pk.name,
                                                                   False, (40, 40, 40))
 
-        # Variable relatives aux boutons
+        # Variables relatives aux boutons
         self.current_action = None
         self.attaque_buttons_rects = [
             pygame.Rect(907, 432, 356, 109),
