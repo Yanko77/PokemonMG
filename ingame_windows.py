@@ -31,6 +31,15 @@ class IngameWindow:
         self.title = self.title_font.render(self.current_panel_name, False, (0, 0, 0))
         self.min_title_marge = 55
         self.title_marge = 75
+        self.title_marges = {
+            "Spawn": 75,
+            "Train": 70,
+            "Grind": 95,
+            "Items": 70,
+            "Evolutions": 75,
+            "Sac d'objets": 105,
+            "Starters": 120,
+        }
 
         # Variables relatives au positionnement de la fenetre
         self.basic_window_pos = [0, 0]
@@ -80,7 +89,8 @@ class IngameWindow:
                 surface.blit(self.min_window, self.min_window_rect)
                 surface.blit(self.icon, (self.min_window_rect.x - 20, self.min_window_rect.y + 3))
                 surface.blit(self.title,
-                             (self.min_window_rect.x + self.title_marge, self.min_window_rect.y))
+                             (self.min_window_rect.x + self.title_marges[self.current_panel_name] - 20,
+                              self.min_window_rect.y))
 
                 if self.min_window_rect.collidepoint(possouris):
                     surface.blit(self.min_window_hover, self.min_window_rect)
@@ -88,7 +98,8 @@ class IngameWindow:
             else:
                 surface.blit(self.basic_window, (self.basic_window_pos[0], self.basic_window_pos[1]))
                 surface.blit(self.title,
-                             (self.basic_window_pos[0] + self.title_marge, self.basic_window_pos[1]))
+                             (self.basic_window_pos[0] + self.title_marges[self.current_panel_name],
+                              self.basic_window_pos[1]))
                 surface.blit(self.icon, self.basic_window_pos)
 
                 # self.update_current_panel(surface, possouris)

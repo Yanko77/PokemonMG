@@ -109,7 +109,9 @@ class Game:
             'Use': use_items,
             'Give': give_items,
             'Sell': sell_items,
-            'Enable': enable_items }
+            'Enable': enable_items,
+            'Spawnble': spawnable_items
+             }
 
         :return: items_list, dict
         """
@@ -120,6 +122,7 @@ class Game:
             'Give': [],
             'Sell': [],
             'Enable': [],
+            'Spawnable': [],
         }
         for item in self.init_items_list():
             items_list['All'].append(item)
@@ -131,6 +134,8 @@ class Game:
                 items_list['Sell'].append(item)
             elif item.fonctionnement.split(":")[0] == 'Enable':
                 items_list['Enable'].append(item)
+            elif item.boolSpawnable:
+                items_list['Spawnable'].append(item)
 
         return items_list
 
