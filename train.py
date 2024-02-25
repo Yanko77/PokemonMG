@@ -286,6 +286,44 @@ class TrainPanel:
         self.fight_button_rect = image.get_custom_rect(self.fight_button, self.fight_button_pos[0] + window_pos[0],
                                                        self.fight_button_pos[1] + window_pos[1])
 
+    def left_clic_interactions(self, possouris):
+        if self.settings_button_rect.collidepoint(possouris):
+            if self.boolSettings_popup:
+                self.boolSettings_popup = False
+            else:
+                self.boolSettings_popup = True
+
+        if self.boolSettings_popup:
+            if self.easy_button_rect.collidepoint(possouris):
+                self.set_difficult('easy')
+                self.close_settings_popup()
+            elif self.normal_button_rect.collidepoint(possouris):
+                self.set_difficult('normal')
+                self.close_settings_popup()
+            elif self.hard_button_rect.collidepoint(possouris):
+                self.set_difficult('hard')
+                self.close_settings_popup()
+
+        if self.training_pk is None:
+            if self.add_button_rect.collidepoint(possouris):
+                self.add_training_pk_mode = True
+        else:
+            if self.training_pk_rect.collidepoint(possouris):
+                self.training_pk = None
+                self.add_training_pk_mode = True
+            elif self.ennemy_pk_infos_stats_button_rect.collidepoint(possouris):
+                self.ennemy_pk_info_stats_mode = not (
+                    self.ennemy_pk_info_stats_mode)
+            elif self.fight_button_rect.collidepoint(possouris):
+                self.start_training_fight()
+                pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+        if self.add_training_pk_mode:
+            if self.choose_training_pk_popup.x_button_rect.collidepoint(
+                    possouris):
+                self.add_training_pk_mode = False
+
+
     def is_hovering_settings_popup_buttons(self, possouris):
         if self.boolSettings_popup:
             return (self.easy_button_rect.collidepoint(possouris) or self.normal_button_rect.collidepoint(possouris) or

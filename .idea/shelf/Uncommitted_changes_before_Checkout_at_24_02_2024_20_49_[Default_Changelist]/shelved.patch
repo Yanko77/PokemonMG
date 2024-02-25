@@ -1,0 +1,55 @@
+Index: private_func.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>## move les fonction plutard comme je savait pas ou les ranger j'ai fait un fichier a part\r\n\r\n# importation des modules\r\n\r\n# declaration des fonction\r\n\r\ndef _get_rarity_and_name(): # witch one who can spawn in wild\r\n    name_rarity_quantity = []\r\n    with open('all_objets.txt') as file:\r\n        for line in file.readlines():\r\n            line_ = line.split()\r\n            if line_[0] != '#':\r\n                name,rarity = line_[0],line_[1]\r\n                rarity = rarity.split(\":\")\r\n                if rarity[0] != 0:\r\n                    print(rarity[1])\r\n                    rarity[1] = abs(int(rarity[1])-100)# inversion of rarity for future calcul\r\n                    name_rarity_quantity.append((name,rarity[1],rarity[2]))\r\n    return tuple(name_rarity_quantity)\r\n\r\ndef _get_total_rarity(name_rarity_quantity):\r\n    total_rarity = 0\r\n    for i in name_rarity_quantity:\r\n        total_rarity += i[1]\r\n    return total_rarity\r\n    \r\n# fonction principale\r\ndef main():\r\n    name_rarity_quantity = _get_rarity_and_name()\r\n    print(name_rarity_quantity)\r\n    print(_get_total_rarity(name_rarity_quantity))\r\n    \r\n\r\n# programe principale\r\nif __name__ == '__main__':\r\n    main()\r\n
+===================================================================
+diff --git a/private_func.py b/private_func.py
+--- a/private_func.py	
++++ b/private_func.py	
+@@ -1,29 +1,31 @@
+-## move les fonction plutard comme je savait pas ou les ranger j'ai fait un fichier a part
++# move les fonctions plus tard comme je savais pas où les ranger j'ai fait un fichier à part
+ 
+ # importation des modules
+ 
+-# declaration des fonction
++# declaration des fonctions
+ 
+-def _get_rarity_and_name(): # witch one who can spawn in wild
++def _get_rarity_and_name():  # witch one who can spawn in wild
+     name_rarity_quantity = []
+     with open('all_objets.txt') as file:
+         for line in file.readlines():
+             line_ = line.split()
+             if line_[0] != '#':
+-                name,rarity = line_[0],line_[1]
++                name, rarity = line_[0], line_[1]
+                 rarity = rarity.split(":")
+                 if rarity[0] != 0:
+                     print(rarity[1])
+-                    rarity[1] = abs(int(rarity[1])-100)# inversion of rarity for future calcul
+-                    name_rarity_quantity.append((name,rarity[1],rarity[2]))
++                    rarity[1] = abs(int(rarity[1])-100)  # inversion of rarity for future calcul
++                    name_rarity_quantity.append((name, rarity[1], rarity[2]))
+     return tuple(name_rarity_quantity)
+ 
++
+ def _get_total_rarity(name_rarity_quantity):
+     total_rarity = 0
+     for i in name_rarity_quantity:
+         total_rarity += i[1]
+     return total_rarity
+-    
++
++
+ # fonction principale
+ def main():
+     name_rarity_quantity = _get_rarity_and_name()
+@@ -31,6 +33,6 @@
+     print(_get_total_rarity(name_rarity_quantity))
+     
+ 
+-# programe principale
++# programme principal
+ if __name__ == '__main__':
+     main()
