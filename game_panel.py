@@ -124,7 +124,8 @@ class GamePanel:
 
         # PLAYER TEAM
         self.update_hover_pokemon()
-        self.update_team_pokemons(surface, possouris)
+        if not self.pk_move_mode:
+            self.update_team_pokemons(surface, possouris)
 
         # PANEL BUTTONS
         self.buttons.update(surface, possouris, self.ingame_window)
@@ -146,6 +147,9 @@ class GamePanel:
 
         # INGAME WINDOW
         self.ingame_window.update(surface, possouris)
+
+        if self.pk_move_mode:
+            self.update_team_pokemons(surface, possouris)
 
     def update_player_infos(self, surface, possouris):
         # PLAYER NAME
@@ -295,8 +299,8 @@ class GamePanel:
             color = (163, 171, 255)
 
         if self.pk_rects[i].collidepoint(possouris):
+            surface.blit(self.create_rect_alpha((369, 69), color), (self.pk_rects[i].x, self.pk_rects[i].y))
             if not self.ingame_window.is_hovering(possouris):
-                surface.blit(self.create_rect_alpha((369, 69), color), (self.pk_rects[i].x, self.pk_rects[i].y))
                 self.current_hover_pokemon_register[i] = True
 
                 if self.ingame_window.sac_panel.emp_move_mode:

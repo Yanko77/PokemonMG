@@ -4,9 +4,7 @@ import objet
 from player import Player
 
 import pygame
-
 import accueil
-import panels
 from game_panel import GamePanel
 from fight import Fight
 from game_round import Round

@@ -150,13 +150,26 @@ class TrainPanel:
 
             # Afficher le bouton FIGHT
             if self.fight_button_rect.collidepoint(possouris):
-                surface.blit(self.fight_button, self.fight_button_rect)
-            else:
                 surface.blit(self.fight_button_h, self.fight_button_rect)
+            else:
+                surface.blit(self.fight_button, self.fight_button_rect)
 
         # Affichage du popup SETTINGS
         if self.boolSettings_popup:
             self.update_settings_popup(surface, possouris)
+
+        self.update_training_pk(possouris)
+
+    def update_training_pk(self, possouris):
+        """
+        Methode permettant de changer le pokémon à entrainer du joueur
+        """
+
+        if self.game.classic_panel.pk_move_mode and self.training_pk_rect.collidepoint(possouris):
+            if not self.game.mouse_pressed[1]:
+                self.training_pk = self.game.player.team[self.game.classic_panel.moving_pk.index(True)]
+                self.set_ennemy_pks()
+                self.load_ennemy_pk()
 
     def update_training_pk_emp(self, surface, possouris):
         """
@@ -185,14 +198,13 @@ class TrainPanel:
 
         # Affichages des boutons relatifs au pokémon à entrainer
         if self.training_pk is None:
+            # Affichage du texte NO SELECTED PK
+            surface.blit(self.no_pk_selected_text, self.no_pk_selected_text_pos)
 
             # Affichage de l'emplacement bloqué
             surface.blit(self.locked, self.locked_pos)
 
         else:
-
-            # Affichage du texte NO SELECTED PK
-            surface.blit(self.no_pk_selected_text, self.no_pk_selected_text_pos)
 
             # Affichages des boutons relatifs au popup ADD_TRAINING_PK
             if self.boolAdd_training_pk_popup:
@@ -233,14 +245,15 @@ class TrainPanel:
             surface.blit(self.ennemy_pk_infos_stats_button, self.ennemy_pk_infos_stats_button_rect)
 
         # Affichages relatifs aux stats
-        if self.boolEnnemy_pk_stats:
+        if not self.boolEnnemy_pk_stats:
 
             # Affichage du type1 du pokémon ennemi
             surface.blit(self.ennemy_pk_type1, self.ennemy_pk_type1_pos)
 
             # Affichage du type 2 du pokémon ennemi, s'il en a un
-            if ennemy_pk_type2 is not None:
-                surface.blit(self.ennemy_pk_type2, self.ennemy_pk_type2_pos)
+            if self.ennemy_pk_type2 is not None:
+                surface.blit(self.ennemy_pk_type2, (self.ennemy_pk_type2_pos[0] + self.ennemy_pk_type1.get_width(),
+                                                    self.ennemy_pk_type2_pos[1]))
 
             # Affichage de la difficulté
             surface.blit(self.ENNEMY_PK_PREVIEW_DIFF_TEXT[self.difficult], self.ennemy_pk_preview_diff_text_pos)
@@ -309,6 +322,7 @@ class TrainPanel:
         self.ennemy_pk_def_pos = (749 + self.window_pos[0], 348 + self.window_pos[1])
         self.ennemy_pk_vit_pos = (749 + self.window_pos[0], 373 + self.window_pos[1])
         self.stats_popup_pos = (612 + self.window_pos[0], 352 + self.window_pos[1])
+        self.ennemy_pk_preview_diff_text_pos = (700 + self.window_pos[0], 367 + self.window_pos[1])
 
     def start_fight(self):
         self.game.start_fight(self.training_pk, dresseur.Sauvage, self.ennemy_pks[self.difficult],
@@ -338,7 +352,7 @@ class TrainPanel:
         
         if self.ennemy_pk is not None:
             self.ennemy_pk_icon = pygame.transform.scale(self.ennemy_pk.get_icon(), (300, 150))
-            self.ennemy_pk_name = self.ennemy_pk_name_font.render(f"{self.ennemy_pk.get_name()}  Lv.{pk.get_level()}", False, (0, 0, 0))
+            self.ennemy_pk_name = self.ennemy_pk_name_font.render(f"{self.ennemy_pk.get_name()}  Lv.{self.ennemy_pk.get_level()}", False, (0, 0, 0))
             self.ennemy_pk_type1 = self.ennemy_pk_type_font.render(
                 game_infos.type_names_to_print[self.ennemy_pk.get_type()],
                 False,
@@ -352,10 +366,10 @@ class TrainPanel:
             else:
                 self.ennemy_pk_type2 = None
                 
-            self.ennemy_pk_pv = self.ennemy_pk_stats_font.render(str(self.ennemy_pk.get_stats[0]), False, (2, 137, 0))
-            self.ennemy_pk_atk = self.ennemy_pk_stats_font.render(str(self.ennemy_pk.get_stats[1]), False, (189, 0, 0))
-            self.ennemy_pk_def = self.ennemy_pk_stats_font.render(str(self.ennemy_pk.get_stats[2]), False, (191, 200, 0))
-            self.ennemy_pk_vit = self.ennemy_pk_stats_font.render(str(self.ennemy_pk.get_stats[3]), False, (0, 139, 230))
+            self.ennemy_pk_pv = self.ennemy_pk_stats_font.render(str(self.ennemy_pk.get_stats()[0]), False, (2, 137, 0))
+            self.ennemy_pk_atk = self.ennemy_pk_stats_font.render(str(self.ennemy_pk.get_stats()[1]), False, (189, 0, 0))
+            self.ennemy_pk_def = self.ennemy_pk_stats_font.render(str(self.ennemy_pk.get_stats()[2]), False, (191, 200, 0))
+            self.ennemy_pk_vit = self.ennemy_pk_stats_font.render(str(self.ennemy_pk.get_stats()[3]), False, (0, 139, 230))
             
     def get_ennemy_pk_name(self, diff) -> str or None:
         """
@@ -378,6 +392,17 @@ class TrainPanel:
         Methode qui determine le level du pokémon ennemi à affronter selon la difficulté choisie
         """
 
+        #
+        if diff == 'easy':
+            n = 1
+        elif diff == 'normal':
+            n = 2
+        else:
+            n = 3
+
+        r = random.Random()
+        r.seed(self.training_pk.random_seed + n)
+
         # Calcul du niveau minimum
         min_lv = round(self.game.player.get_level() / 2
                        + self.LV_DIFFICULT_COEFS[diff][0] * self.game.player.get_moyenne_team())
@@ -386,7 +411,7 @@ class TrainPanel:
         max_lv = round(self.game.player.get_level() / 2
                        + self.LV_DIFFICULT_COEFS[diff][1] * self.game.player.get_moyenne_team())
 
-        ennemy_pk_lv = random.randint(min_lv, max_lv)
+        ennemy_pk_lv = r.randint(min_lv, max_lv)
         return ennemy_pk_lv
     
     def spawn_ennemy_pk(self, diff) -> pokemon.Pokemon or None:
@@ -427,7 +452,7 @@ class TrainPanel:
             if self.training_pk_rect.collidepoint(possouris):
                 self.training_pk = None
             elif self.ennemy_pk_infos_stats_button_rect.collidepoint(possouris):
-                self.boolEnnemy_pk_stats = not boolEnnemy_pk_stats
+                self.boolEnnemy_pk_stats = not self.boolEnnemy_pk_stats
             elif self.fight_button_rect.collidepoint(possouris):
                 self.start_training_fight()
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
