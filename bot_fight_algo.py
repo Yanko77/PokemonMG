@@ -1,11 +1,12 @@
-# importation des module
+# importation des modules
 import pokemon
 import game_infos
 
-# declaration des constante
-SPEED_HEAL = 333 #valeur entre 0 et 1000
+# declaration des constantes
+SPEED_HEAL = 333  # valeur entre 0 et 1000
 
-#declaration des fonction
+
+# declaration des fonctions
 def calcul_degats(pk, ennemy_pk, attaque, crit=False):
     cm = 1
     # Calcul avec stab ( attaque de type maternel )
@@ -25,7 +26,7 @@ def calcul_degats(pk, ennemy_pk, attaque, crit=False):
     return degats
 
 
-def get_npc_action(pk, ennemy_pk , att:list):
+def get_npc_action(pk, ennemy_pk, att:list):
     esperence = []
     is_killing = []
     for attaque in att:
@@ -54,9 +55,7 @@ def get_npc_action(pk, ennemy_pk , att:list):
                 taux_heal_on_atk, _ = attaque.special_effect[0][1].split("*")
                 #scoretemp = scoretemp * (1 + (SPEED_HEAL/400) * float(taux_heal_on_atk))
                 scoretemp = scoretemp * (1 + (SPEED_HEAL/400) * float(taux_heal_on_atk) * (-2*(pk.health/pk.pv)+2))
-                
-                
-            print(attaque.name, scoretemp)
+
             esperence.append(scoretemp)
 
     else:
@@ -69,7 +68,6 @@ def get_npc_action(pk, ennemy_pk , att:list):
         if esperence[i] > max:
             max = esperence[i]
             j = i
-    print(att[j].name)
     return att[j]
 
 # programe principal (test)
