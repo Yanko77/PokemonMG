@@ -11,14 +11,6 @@ def _get_total_rarity(list_all_object):
         total_rarety += abs(OBJECT.rarety-100)
     return total_rarety
 
-
-def list_all_objet():# on pourait le mettre dans objet.py directement
-    
-    list_all_object = []
-    with open('all_objets.txt') as file:
-        for line in file.readlines():
-            list_all_object.append(Objet(line.split()[0]))
-    return list_all_object
     
     
 # fonction principale

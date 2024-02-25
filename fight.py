@@ -446,8 +446,9 @@ class Fight:
         for OBJECT in OBJET_LIST:
             for x in reward_nbs
                 if acc + abs(OBJECT.rarety-100) < x and x > acc:
-                    OBJECT.set_quantite_at_spawn()
-                    all_reward.append[OBJECT]
+                    OBJECT_c = OBJECT.copy()
+                    all_reward.append[OBJECT_c]
+                    OBJECT_c.set_quantite_at_spawn()
             acc + abs(OBJECT.rarety-100)
             
         # level up du pokemon
