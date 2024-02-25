@@ -166,13 +166,6 @@ class Objet:
         self.quantite = random.randint(self.quantite_at_spawn[0],self.quantite_at_spawn[1])
 
 
-def list_all_objet():
-    
-    list_all_object = []
-    with open('all_objets.txt') as file:
-        for line in file.readlines():
-            list_all_object.append(Objet(line.split()[0]))
-    return list_all_object
 
 if __name__ == '__main__':
     a = Objet('Baie_Oran')
