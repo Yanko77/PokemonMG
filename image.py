@@ -194,47 +194,41 @@ class ClassicGamePanelButtons:
         self.edit_actions_button_hover = load_image('assets/game/panels/classic_panel/edit_actions_button_hover.png')
 
     def update(self, surface, possouris, ingame_window):
-        if self.edit_actions_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(
-                possouris):
+        if self.edit_actions_button_rect.collidepoint(possouris) and not ingame_window.is_hovering(possouris):
             surface.blit(self.edit_actions_button_hover, self.edit_actions_button_rect)
         else:
             surface.blit(self.edit_actions_button, self.edit_actions_button_rect)
 
         if self.unlocked_buttons['Spawn']:
-            if self.spawn_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(
-                    possouris):
+            if self.spawn_button_rect.collidepoint(possouris) and not ingame_window.is_hovering(possouris):
                 surface.blit(self.spawn_button, self.spawn_button_pos)
                 surface.blit(self.spawn_button_hover, self.spawn_button_pos)
             else:
                 surface.blit(self.spawn_button, self.spawn_button_pos)
 
         if self.unlocked_buttons['Train']:
-            if self.train_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(
-                    possouris):
+            if self.train_button_rect.collidepoint(possouris) and not ingame_window.is_hovering(possouris):
                 surface.blit(self.train_button, self.train_button_pos)
                 surface.blit(self.train_button_hover, self.train_button_pos)
             else:
                 surface.blit(self.train_button, self.train_button_pos)
 
         if self.unlocked_buttons['Grind']:
-            if self.grind_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(
-                    possouris):
+            if self.grind_button_rect.collidepoint(possouris) and not ingame_window.is_hovering(possouris):
                 surface.blit(self.grind_button, self.grind_button_pos)
                 surface.blit(self.grind_button_hover, self.grind_button_pos)
             else:
                 surface.blit(self.grind_button, self.grind_button_pos)
 
         if self.unlocked_buttons['Items']:
-            if self.items_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(
-                    possouris):
+            if self.items_button_rect.collidepoint(possouris) and not ingame_window.is_hovering(possouris):
                 surface.blit(self.items_button, self.items_button_pos)
                 surface.blit(self.items_button_hover, self.items_button_pos)
             else:
                 surface.blit(self.items_button, self.items_button_pos)
 
         if self.unlocked_buttons['Evol']:
-            if self.evol_button_rect.collidepoint(possouris) and not ingame_window.main_window_rect.collidepoint(
-                    possouris):
+            if self.evol_button_rect.collidepoint(possouris) and not ingame_window.is_hovering(possouris):
                 surface.blit(self.evol_button, self.evol_button_pos)
                 surface.blit(self.evol_button_hover, self.evol_button_pos)
             else:

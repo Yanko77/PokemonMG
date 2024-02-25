@@ -133,8 +133,10 @@ class Pokemon:
 
         # Calcul avec affinités des types
         cm *= game_infos.get_mutiliplicateur(attaque.type, pokemon.type)
+
         if not pokemon.type2 == 'NoType':
             cm *= game_infos.get_mutiliplicateur(attaque.type, pokemon.type2)
+
         # Calcul avec taux de crit
         t = round(int(self.line[6]) / 2) * attaque.taux_crit
         ncrit = random.randint(0, 256)
@@ -147,8 +149,7 @@ class Pokemon:
             cm *= (2 * self.level + 5) / (self.level + 5)
 
         if not self.objet_tenu is None:
-            if "augmentation_degats" in self.objet_tenu.classes:
-                cm *= self.objet_tenu.multiplicateur_degats()
+            cm *= self.objet_tenu.multiplicateur_attaque_dmg
         random_cm = random.randint(85, 100)
         cm = cm * random_cm / 100
         degats = round((((((self.level * 0.4 + 2) * self.attack * attaque.puissance) / self.defense) / 50) + 2) * cm)

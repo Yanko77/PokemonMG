@@ -6,7 +6,7 @@ class Objet:
 
     def __init__(self, name, quantite=1):
         self.name = name[0].upper() + name[1:]
-        self.name_to_blit = self.reformate_name(self.name)
+        self.name_ = self.reformate_name(self.name)
         self.icon_image = pygame.image.load(f'assets/items/{self.name}.png')
         self.quantite = int(quantite)
 
@@ -128,10 +128,6 @@ class Objet:
                 player.always_shiny_on = True
 
             self.quantite -= 1
-
-
-
-
 
     def reformate_name(self, name):
         reformated_name = ''
