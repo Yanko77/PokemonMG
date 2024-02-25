@@ -4,6 +4,7 @@ import pygame
 
 import game_infos
 import pokemon
+import dresseur
 
 
 class TrainPanel:
@@ -325,8 +326,7 @@ class TrainPanel:
         self.ennemy_pk_preview_diff_text_pos = (700 + self.window_pos[0], 367 + self.window_pos[1])
 
     def start_fight(self):
-        self.game.start_fight(self.training_pk, dresseur.Sauvage, self.ennemy_pks[self.difficult],
-                              self.difficult)
+        self.game.start_fight(self.training_pk, dresseur.Sauvage, self.ennemy_pks[self.difficult], self.difficult)
     
     def set_difficult(self, diff='easy'):
         self.difficult = diff
@@ -450,11 +450,12 @@ class TrainPanel:
 
         if self.training_pk is not None:
             if self.training_pk_rect.collidepoint(possouris):
-                self.training_pk = None
+                if not self.game.classic_panel.pk_move_mode:
+                    self.training_pk = None
             elif self.ennemy_pk_infos_stats_button_rect.collidepoint(possouris):
                 self.boolEnnemy_pk_stats = not self.boolEnnemy_pk_stats
             elif self.fight_button_rect.collidepoint(possouris):
-                self.start_training_fight()
+                self.start_fight()
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
     def is_hovering_settings_popup_buttons(self, possouris):

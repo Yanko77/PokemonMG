@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="train code refonte">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="fix level spawn random issue">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_fight_algo.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_fight_algo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_panel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panels.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
@@ -238,13 +239,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00015" summary="ajout de la fenetre pour le sac&#10;assets pour sac d'objets">
-      <created>1689018885976</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1689018885976</updated>
     </task>
     <task id="LOCAL-00016" summary="add interactions to sac d'objets window">
       <created>1689032040737</created>
@@ -582,7 +576,14 @@
       <option name="project" value="LOCAL" />
       <updated>1708890316425</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="fix level spawn random issue">
+      <created>1708892472245</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1708892472245</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -597,7 +598,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add description  item name for sac d'objets" />
     <MESSAGE value="begin item system" />
     <MESSAGE value="add hover cursor when item give or use on pokemon" />
     <MESSAGE value="des milliards de trucs" />
@@ -622,6 +622,7 @@
     <MESSAGE value="refonte du code" />
     <MESSAGE value="fix random spawning ennemy pk level error in train.py" />
     <MESSAGE value="train code refonte" />
-    <option name="LAST_COMMIT_MESSAGE" value="train code refonte" />
+    <MESSAGE value="fix level spawn random issue" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix level spawn random issue" />
   </component>
 </project>

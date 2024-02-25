@@ -77,15 +77,15 @@ class Game:
     '''def load_game(self):
         self.save_file'''
 
-    def start_fight(self, player_pk, dresseur_class=None, dresseur_pk=None, difficult="easy"):# passage de self.difficult en paramettre
-        self.init_fight(player_pk, dresseur_class, dresseur_pk)
+    def start_fight(self, player_pk, dresseur_class=None, dresseur_pk=None, difficult="easy"):
+        self.init_fight(player_pk, dresseur_class, dresseur_pk, difficult)
         self.is_fighting = True
 
     def cancel_fight(self):
         self.is_fighting = False
 
-    def init_fight(self, player_pk, dresseur_class=None, dresseur_pk=None, difficult="easy"):# passage de self.difficult en paramettre
-        self.current_fight = Fight(self, player_pk, dresseur_class, dresseur_pk, difficult)# passage de self.difficult en paramettre
+    def init_fight(self, player_pk, dresseur_class=None, dresseur_pk=None, difficult='easy'):
+        self.current_fight = Fight(self, player_pk, dresseur_class, dresseur_pk, difficult)
 
     def next_turn(self):
         self.general_seed = self.generate_general_random_seed()

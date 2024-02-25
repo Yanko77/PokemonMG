@@ -31,7 +31,6 @@ def get_npc_action(pk, ennemy_pk, att:list):
     is_killing = []
     for attaque in att:
         degat = calcul_degats(pk, ennemy_pk, attaque, False)
-        # print(degat)
         if degat > ennemy_pk.health:
             is_killing.append(attaque)
     if is_killing == []:
@@ -57,6 +56,7 @@ def get_npc_action(pk, ennemy_pk, att:list):
                 scoretemp = scoretemp * (1 + (SPEED_HEAL/400) * float(taux_heal_on_atk) * (-2*(pk.health/pk.pv)+2))
 
             esperence.append(scoretemp)
+            print(attaque.name, scoretemp)
 
     else:
         for attaque in att:
@@ -68,6 +68,7 @@ def get_npc_action(pk, ennemy_pk, att:list):
         if esperence[i] > max:
             max = esperence[i]
             j = i
+
     return att[j]
 
 # programe principal (test)

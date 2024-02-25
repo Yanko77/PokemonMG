@@ -18,7 +18,7 @@ DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
 # declaration de fighte
 class Fight:
 
-    def __init__(self, game, player_pk, dresseur_class=None, dresseur_pk=None, difficult='easy'):# passage de self.difficult en paramettre
+    def __init__(self, game, player_pk, dresseur_class=None, dresseur_pk=None, difficult='easy'):
         """
         La classe Fight est définie par:
         - Le pokemon envoyé par le joueur (player_pk)
@@ -127,7 +127,6 @@ class Fight:
         
         self.fight_logs = []
         self.fight_result = None
-
 
     def update(self, surface: pygame.surface.Surface, possouris):
         surface.blit(self.background, (0, 0))
