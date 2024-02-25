@@ -293,16 +293,16 @@ class SpawnPanel:
         return valable_pks
 
     def get_pk_rarity(self, pokemon):
-        pokemon_rarety = int(self.find_pokemon_line(pokemon)[1])
-        pokemon_rarety = 100 - pokemon_rarety
-        return pokemon_rarety
+        pokemon_rarity = int(self.find_pokemon_line(pokemon)[1])
+        pokemon_rarity = 100 - pokemon_rarity
+        return pokemon_rarity
 
     def get_total_spawn_chances(self, valable_pks):
-        total_rarety = 0
+        total_rarity = 0
         for pokemon in valable_pks:
-            pokemon_rarety = self.get_pk_rarity(pokemon)
-            total_rarety += pokemon_rarety
-        return total_rarety
+            pokemon_rarity = self.get_pk_rarity(pokemon)
+            total_rarity += pokemon_rarity
+        return total_rarity
 
     def get_spawning_pokemon(self, player_level):
         generated_number = random.randint(0, self.get_total_spawn_chances(self.get_valable_pokemons(player_level)))
