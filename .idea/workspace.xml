@@ -4,20 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="refonte du code">
-      <change afterPath="$PROJECT_DIR$/game_panel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_25_02_2024_12_37__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_25_02_2024_12_37__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_02_2024_12_38__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_02_2024_12_38__Default_Changelist_.xml" afterDir="false" />
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="fix random spawning ennemy pk level error in train.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accueil.py" beforeDir="false" afterPath="$PROJECT_DIR$/accueil.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot_fight_algo.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_fight_algo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ingame_windows.py" beforeDir="false" afterPath="$PROJECT_DIR$/ingame_windows.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panels.py" beforeDir="false" afterPath="$PROJECT_DIR$/panels.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/private_func.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp.py" beforeDir="false" afterPath="$PROJECT_DIR$/temp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <list id="3785ed3a-4cd3-4d2c-ae3e-35913ac33e20" name="Changes by matva" comment="Changes by matva" />
@@ -246,13 +235,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00013" summary="add more pokemons&#10;add all pokemon icons for existing one">
-      <created>1688946877689</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1688946877689</updated>
     </task>
     <task id="LOCAL-00014" summary="affichage des pokemons du joueur + interactions avec souris">
       <created>1689001008640</created>
@@ -590,7 +572,14 @@
       <option name="project" value="LOCAL" />
       <updated>1708858456236</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="fix random spawning ennemy pk level error in train.py">
+      <created>1708877060164</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1708877060164</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -605,7 +594,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="finished starter choice etap" />
     <MESSAGE value="new fonctionnalité : changement place objet dans sac.&#10;résolution bug interactions entre :&#10;  window_modif_pos &amp; starter.pk_move_mode&#10;  window_modif_pos &amp; sac.emp_move_mode" />
     <MESSAGE value="add description  item name for sac d'objets" />
     <MESSAGE value="begin item system" />
@@ -630,6 +618,18 @@
     <MESSAGE value="game is playable !!!" />
     <MESSAGE value="Changes by matva" />
     <MESSAGE value="refonte du code" />
-    <option name="LAST_COMMIT_MESSAGE" value="refonte du code" />
+    <MESSAGE value="fix random spawning ennemy pk level error in train.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix random spawning ennemy pk level error in train.py" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/temp.py</url>
+          <line>470</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
