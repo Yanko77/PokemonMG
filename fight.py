@@ -10,11 +10,11 @@ from bot_fight_algo import get_npc_action
 
 # modif
 import private_func
-from objet import Objet
+import Objet
 
 # declaration des constante
 DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
-OBJET_LIST = private_func.list_all_objet()
+OBJET_LIST = Objet.list_all_objet()
 total_rarety = private_func._get_total_rarity(OBJET_LIST)
 
 # declaration de fighte
