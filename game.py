@@ -4,9 +4,8 @@ import objet
 from player import Player
 
 import pygame
-
 import accueil
-import panels
+from game_panel import GamePanel
 from fight import Fight
 from game_round import Round
 
@@ -35,7 +34,7 @@ class Game:
                          random.choice(self.all_starters['eau'])
                          ]
 
-        self.classic_panel = panels.ClassicGamePanel(self)
+        self.classic_panel = GamePanel(self)
         self.current_fight = None
         self.round = Round()
 
@@ -78,15 +77,15 @@ class Game:
     '''def load_game(self):
         self.save_file'''
 
-    def start_fight(self, player_pk, dresseur_class=None, dresseur_pk=None, difficult="easy"):# passage de self.difficult en paramettre
-        self.init_fight(player_pk, dresseur_class, dresseur_pk)
+    def start_fight(self, player_pk, dresseur_class=None, dresseur_pk=None, difficult="easy"):
+        self.init_fight(player_pk, dresseur_class, dresseur_pk, difficult)
         self.is_fighting = True
 
     def cancel_fight(self):
         self.is_fighting = False
 
-    def init_fight(self, player_pk, dresseur_class=None, dresseur_pk=None, difficult="easy"):# passage de self.difficult en paramettre
-        self.current_fight = Fight(self, player_pk, dresseur_class, dresseur_pk, difficult)# passage de self.difficult en paramettre
+    def init_fight(self, player_pk, dresseur_class=None, dresseur_pk=None, difficult='easy'):
+        self.current_fight = Fight(self, player_pk, dresseur_class, dresseur_pk, difficult)
 
     def next_turn(self):
         self.general_seed = self.generate_general_random_seed()
@@ -134,7 +133,7 @@ class Game:
                 items_list['Sell'].append(item)
             elif item.fonctionnement.split(":")[0] == 'Enable':
                 items_list['Enable'].append(item)
-            elif item.boolSpawnable:
+            if item.boolSpawnable:
                 items_list['Spawnable'].append(item)
 
         return items_list

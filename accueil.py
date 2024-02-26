@@ -1,6 +1,5 @@
 import pygame
 import image
-import panels
 
 
 class Accueil:
@@ -21,7 +20,7 @@ class Accueil:
 
         self.buttons = image.AccueilButtons()
 
-        self.start_game_panel = panels.StartGamePanel()
+        self.start_game_panel = StartGamePanel()
 
     def update(self, surface):
         possouris = pygame.mouse.get_pos()
@@ -55,3 +54,44 @@ class Accueil:
                     self.background.update_animation()
         else:
             self.debut_compteur += 1
+
+
+class StartGamePanel:
+
+    def __init__(self):
+        self.panel = image.load_image('assets/accueil/panels/start_game/panel.png')
+
+        self.new_game_button = image.load_image('assets/accueil/panels/start_game/new_game_button.png')
+        self.new_game_button_rect = image.get_custom_rect(self.new_game_button, 791, 508)
+        self.new_game_button_h = image.load_image('assets/accueil/panels/start_game/new_game_button_hover.png')
+
+        self.load_game_button = image.load_image('assets/accueil/panels/start_game/load_game_button.png')
+        self.load_game_button_rect = image.get_custom_rect(self.load_game_button, 130, 508)
+        self.load_game_button_h = image.load_image('assets/accueil/panels/start_game/load_game_button_hover.png')
+
+        self.x_button = image.load_image('assets/accueil/panels/start_game/x_button.png')
+        self.x_button_rect = image.get_custom_rect(self.x_button, 1144, 68)
+        self.x_button_h = image.load_image('assets/accueil/panels/start_game/x_button_hover.png')
+
+    def update(self, surface, possouris, basic_accueil):
+        surface.blit(self.panel, (0, 0))
+
+        # Bouton NEW GAME
+        self.update_button(self.new_game_button, self.new_game_button_rect, self.new_game_button_h, surface, possouris, basic_accueil)
+
+        # Bouton LOAD GAME
+        self.update_button(self.load_game_button, self.load_game_button_rect, self.load_game_button_h, surface, possouris, basic_accueil)
+
+        # Bouton NEW GAME
+        self.update_button(self.x_button, self.x_button_rect, self.x_button_h, surface, possouris, basic_accueil)
+
+        if not (self.x_button_rect.collidepoint(possouris) or self.new_game_button_rect.collidepoint(possouris)
+                or self.load_game_button_rect.collidepoint(possouris)):
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+    def update_button(self, button, button_rect, button_hover, surface, possouris, basic_accueil):
+        if button_rect.collidepoint(possouris) and not basic_accueil:
+            surface.blit(button_hover, button_rect)
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+        else:
+            surface.blit(button, button_rect)

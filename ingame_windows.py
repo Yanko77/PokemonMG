@@ -42,7 +42,7 @@ class IngameWindow:
         }
 
         # Variables relatives au positionnement de la fenetre
-        self.basic_window_pos = [0, 0]
+        self.basic_window_pos = [-16, 4]
         self.basic_window_rect = pygame.Rect(21, 1, 870, 528)
         self.min_window_rect = pygame.Rect(22, 675, 230, 45)
 

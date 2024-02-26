@@ -119,7 +119,7 @@ while running:
 
             if event.button == 3:
                 if game.is_playing:
-                    if not game.classic_panel.ingame_window.basic_window_rect.collidepoint(posSouris) and not game.classic_panel.ingame_window.is_open:
+                    if not game.classic_panel.ingame_window.is_hovering(posSouris):
                         if game.classic_panel.PK_RECTS[0].collidepoint(posSouris):
                             game.classic_panel.pokemon_info_mode = True
                             game.classic_panel.pokemon_info_i = 0
