@@ -120,8 +120,6 @@ class Fight:
         # Variables relatives aux actions du tour
         self.current_turn_action = ('NoAction', None)  # ('ITEM', item) ou ('ATTAQUE', attaque)
 
-        
-        # get_the_rewards modif
         self.reward_quantity = 2
         self.difficult = difficult
         

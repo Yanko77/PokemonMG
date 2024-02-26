@@ -65,10 +65,6 @@ class TrainPanel:
         self.settings_button_h = self.img_load('settings_button_hover')
         self.settings_button_rect = pygame.Rect(22, 90, 90, 120)
 
-        self.add_button = self.img_load('add_button')  # Bouton ADD (+)
-        self.add_button_h = self.img_load('add_button_hover')
-        self.add_button_rect = pygame.Rect(127, 144, 215, 215)
-
         self.ennemy_pk_infos_stats_button = self.img_load('info_stats_button')  # Bouton INFOS STATS
         self.ennemy_pk_infos_stats_button_h = self.img_load('info_stats_button_hover')
         self.ennemy_pk_infos_stats_button_rect = pygame.Rect(715, 408, 105, 31)
@@ -468,8 +464,6 @@ class TrainPanel:
     def is_hovering_buttons(self, possouris):
         return (self.settings_button_rect.collidepoint(possouris)
                 or self.is_hovering_settings_popup_buttons(possouris)
-                or (self.add_button_rect.collidepoint(
-                    possouris) and self.training_pk is None and not self.boolAdd_training_pk_popup)
                 or (self.training_pk_rect.collidepoint(possouris) and self.training_pk is not None)
                 or (self.ennemy_pk_infos_stats_button_rect.collidepoint(possouris) and self.training_pk is not None)
                 or (self.fight_button_rect.collidepoint(possouris) and self.training_pk is not None)
