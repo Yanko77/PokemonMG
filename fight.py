@@ -126,7 +126,13 @@ class Fight:
         self.fight_logs = []
         self.fight_result = None
 
+        self.can_get_reward = False
+
+        self.compteur = 0
+        self.compteur_action_file = []
+
     def update(self, surface: pygame.surface.Surface, possouris):
+
         surface.blit(self.background, (0, 0))
 
         self.update_pokemons(surface)
@@ -136,6 +142,23 @@ class Fight:
         if self.fight_result is None:
             if not self.current_turn_action == ('NoAction', None):
                 self.turn(self.current_turn_action, ('ATTAQUE', get_npc_action(self.dresseur.pk, self.player_pk, self.dresseur.pk.attaque_pool)))
+
+        if self.compteur != 0:
+            if self.compteur == 100 or self.compteur == 50:
+                if self.fight_result is None:
+                    f = self.compteur_action_file[0][0]
+                    param1 = self.compteur_action_file[0][1]
+                    param2 = self.compteur_action_file[0][2]
+                    param3 = self.compteur_action_file[0][3]
+
+                    f(param1, param2, param3)
+                self.compteur_action_file.pop(0)
+                self.compteur -= 1
+            else:
+                self.compteur -= 1
+        elif self.can_get_reward:
+            print(self.get_rewards())
+            self.can_get_reward = False
 
         self.update_fight_logs(surface)
 
@@ -173,13 +196,23 @@ class Fight:
             else:
                 pk_color = (255, 0, 0)
 
-            nom = self.fight_logs_font.render(f'{pk.name} ', False, pk_color)
-            utilise = self.fight_logs_font.render('utilise ', False, (51, 51, 51))
-            attaque_render = self.fight_logs_font.render(f'{attaque.name_}', False, (0, 0, 0))
+            if attaque == 'Defeat':
+                nom = self.fight_logs_font.render(f'{pk.name} ', False, (180, 0, 0))
+                liaison = self.fight_logs_font.render('a ', False, (180, 0, 0))
+                attaque_render = self.fight_logs_font.render('perdu.', False, (180, 0, 0))
+            elif attaque == 'Victory':
+                nom = self.fight_logs_font.render(f'{pk.name} ', False, (0, 180, 30))
+                liaison = self.fight_logs_font.render('a ', False, (0, 180, 30))
+                attaque_render = self.fight_logs_font.render('gagné !', False, (0, 180, 30))
+            else:
+
+                nom = self.fight_logs_font.render(f'{pk.name} ', False, pk_color)
+                liaison = self.fight_logs_font.render('utilise ', False, (51, 51, 51))
+                attaque_render = self.fight_logs_font.render(f'{attaque.name_}', False, (0, 0, 0))
 
             surface.blit(nom, (x, y))
-            surface.blit(utilise, (x + nom.get_width(), y))
-            surface.blit(attaque_render, (x + nom.get_width() + utilise.get_width(), y))
+            surface.blit(liaison, (x + nom.get_width(), y))
+            surface.blit(attaque_render, (x + nom.get_width() + liaison.get_width(), y))
 
             y -= 45
 
@@ -417,41 +450,55 @@ class Fight:
     def turn(self, player_pk_action, dresseur_pk_action):
         pk1, pk2 = self.get_action_order(player_pk_action, dresseur_pk_action)
         if pk1[1][0] == 'ITEM' and pk1[0].is_alive:
-            pk1[0].use_item(pk1[1][1])
-            pk1[1][1].quantite -= 1
-
-            if pk1[1][1].quantite <= 0:
-                if pk1[1][2] < 12:
-                    self.game.player.sac_page1[pk1[1][2]] = None
-                else:
-                    self.game.player.sac_page2[pk1[1][2] - 12] = None
-
-            self.add_logs((pk1[0], pk1[1][1]))
+            self.compteur_action_file.append((self.apply_item_action, pk[0], pk[1][1], pk[1][2]))
 
         if pk2[1][0] == 'ITEM' and pk2[0].is_alive:
-            pk2[0].use_item(pk2[1][1])
-            # GERER L'UTILISATION D'ITEM PAR LE DRESSEUR !
-
-            self.add_logs((pk2[0], pk2[1][1]))
+            self.compteur_action_file.append((self.apply_item_action, pk2[0], pk2[1][1], pk2[1][2]))
 
         if pk1[1][0] == 'ATTAQUE' and pk1[0].is_alive:
-            pk1[0].attaque(pk2[0], pk1[1][1])
-
-            self.add_logs((pk1[0], pk1[1][1]))
+            self.compteur_action_file.append((self.apply_attaque_action, pk1[0], pk2[0], pk1[1][1]))
 
         if pk2[1][0] == 'ATTAQUE' and pk2[0].is_alive:
-            pk2[0].attaque(pk1[0], pk2[1][1])
-
-            self.add_logs((pk2[0], pk2[1][1]))
+            self.compteur_action_file.append((self.apply_attaque_action, pk2[0], pk1[0], pk2[1][1]))
 
         self.current_turn_action = ('NoAction', None)
 
+        self.compteur = 100
+
+    def apply_item_action(self, pk, item, item_i):
+        pk.use_item(item)
+
+        if pk == self.player_pk:
+            item.quantite -= 1
+
+            if item.quantite <= 0:
+                if item_i < 12:
+                    self.game.player.sac_page1[item_i] = None
+                else:
+                    self.game.player.sac_page2[item_i - 12] = None
+
+        self.add_logs((pk, item))
+
         if not self.player_pk.is_alive:
             self.fight_result = 'Defeat'
+            self.add_logs((self.player_pk, 'Defeat'))
         elif not self.dresseur.pk.is_alive:
             self.fight_result = 'Victory'
-            for reward in self.get_rewards():
-                print(reward.name)
+            self.can_get_reward = True
+            self.add_logs((self.player_pk, 'Victory'))
+
+    def apply_attaque_action(self, pk, ennemy_pk, attaque):
+        pk.attaque(ennemy_pk, attaque)
+
+        self.add_logs((pk, attaque))
+
+        if not self.player_pk.is_alive:
+            self.fight_result = 'Defeat'
+            self.add_logs((self.player_pk, 'Defeat'))
+        elif not self.dresseur.pk.is_alive:
+            self.fight_result = 'Victory'
+            self.can_get_reward = True
+            self.add_logs((self.player_pk, 'Victory'))
 
     def get_action_order(self, player_pk_action, dresseur_pk_action):
         """Déterminer l'ordre d'agissement des 2 pokemons"""
