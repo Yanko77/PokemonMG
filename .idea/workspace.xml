@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="delete useless lines and files">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add classic panel new pokemon moving icon design.&#10;rework train panel training pk selection">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_panel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp.py" beforeDir="false" afterPath="$PROJECT_DIR$/temp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
     </list>
     <list id="3785ed3a-4cd3-4d2c-ae3e-35913ac33e20" name="Changes by matva" comment="Changes by matva" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -235,13 +234,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00018" summary="ajout des attaques et des objets&#10;2 fichiers txt pour les definir&#10;Nouveau calcul des degats des attaques&#10;ajout d'images pour les objets">
-      <created>1689098015428</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1689098015428</updated>
     </task>
     <task id="LOCAL-00019" summary="Changes by Mathias Farvacque">
       <created>1689098019661</created>
@@ -579,7 +571,14 @@
       <option name="project" value="LOCAL" />
       <updated>1708906246705</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="add classic panel new pokemon moving icon design.&#10;rework train panel training pk selection">
+      <created>1708988817065</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1708988817066</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -594,7 +593,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="des milliards de trucs" />
     <MESSAGE value="Spawn action working&#10;System of actions working&#10;begin reformating code ( player_name done )&#10;&#10;add player_name.py" />
     <MESSAGE value="continue code reformating" />
     <MESSAGE value="continue code reformating&#10;&#10;reformating panels.py" />
@@ -619,6 +617,7 @@
     <MESSAGE value="fix level spawn random issue" />
     <MESSAGE value="fix level up reward" />
     <MESSAGE value="delete useless lines and files" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete useless lines and files" />
+    <MESSAGE value="add classic panel new pokemon moving icon design.&#10;rework train panel training pk selection" />
+    <option name="LAST_COMMIT_MESSAGE" value="add classic panel new pokemon moving icon design.&#10;rework train panel training pk selection" />
   </component>
 </project>
