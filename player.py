@@ -1,3 +1,4 @@
+import objet
 import player_name
 import pokemon
 from objet import Objet
@@ -22,8 +23,8 @@ class Player:
                      None,
                      None,
                      None]
-        self.sac_page1 = [None,
-                          None,
+        self.sac_page1 = [objet.Objet('Super_Bonbon', 100),
+                          objet.Objet('Potion_Max', 100),
                           None,
                           None,
                           None,

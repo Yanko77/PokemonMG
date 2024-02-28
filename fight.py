@@ -101,19 +101,19 @@ class Fight:
 
         self.stats_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 60)
 
-        self.lv = self.stats_font.render('Lv :', False, (0, 0, 0)).convert_alpha()
+        self.lv = self.img_load('end_fight_panel/lv').convert_alpha()
         self.lv_rect = pygame.Rect(576, 228, 0, 0)
 
-        self.pv = self.stats_font.render('PV :', False, (0, 0, 0)).convert_alpha()
+        self.pv = self.img_load('end_fight_panel/pv').convert_alpha()
         self.pv_rect = pygame.Rect(576, 339, 0, 0)
 
-        self.atk = self.stats_font.render('ATK :', False, (0, 0, 0)).convert_alpha()
+        self.atk = self.img_load('end_fight_panel/atk').convert_alpha()
         self.atk_rect = pygame.Rect(576, 406, 0, 0)
 
-        self.defense = self.stats_font.render('DEF :', False, (0, 0, 0)).convert_alpha()
+        self.defense = self.img_load('end_fight_panel/def').convert_alpha()
         self.defense_rect = pygame.Rect(576, 476, 0, 0)
 
-        self.vit = self.stats_font.render('VIT :', False, (0, 0, 0)).convert_alpha()
+        self.vit = self.img_load('end_fight_panel/vit').convert_alpha()
         self.vit_rect = pygame.Rect(576, 546, 0, 0)
 
         self.pk_icon = pygame.transform.scale(self.player_pk.icon_image, (960, 480)).convert_alpha()
@@ -141,6 +141,12 @@ class Fight:
             pygame.Rect(535, 596, 356, 109)
         ]
         self.current_action_rect = pygame.Rect(477, 356, 803, 365)
+
+        # Variables relatives aux status
+        self.sommeil_compteur_tour = {self.player_pk: -1,
+                                      self.dresseur.pk: -1}
+        self.confusion_compteur_tour = {self.player_pk: -1,
+                                        self.dresseur.pk: -1}
 
         # Variables relatives aux actions du tour
         self.current_turn_action = ('NoAction', None)  # ('ITEM', item) ou ('ATTAQUE', attaque)
@@ -180,6 +186,13 @@ class Fight:
 
                         f(param1, param2, param3)
                     self.compteur_action_file.pop(0)
+                    self.compteur -= 1
+                elif self.compteur == 1:
+                    if self.fight_result is None:
+                        self.apply_status_effect(self.player_pk)
+                    if self.fight_result is None:
+                        self.apply_status_effect(self.dresseur.pk)
+
                     self.compteur -= 1
                 else:
                     self.compteur -= 1
@@ -233,7 +246,6 @@ class Fight:
         surface.blit(self.pk_icon, (42, 124), (0, 0, 480, 480))
 
         self.compteur_end_fight += 1
-
 
     def update_current_action(self, possouris):
         if self.current_action is not None:
@@ -534,9 +546,13 @@ class Fight:
                     self.boolEnding = True
 
     def turn(self, player_pk_action, dresseur_pk_action):
+
+        self.update_status_effect(self.player_pk)
+        self.update_status_effect(self.dresseur.pk)
+
         pk1, pk2 = self.get_action_order(player_pk_action, dresseur_pk_action)
         if pk1[1][0] == 'ITEM' and pk1[0].is_alive:
-            self.compteur_action_file.append((self.apply_item_action, pk[0], pk[1][1], pk[1][2]))
+            self.compteur_action_file.append((self.apply_item_action, pk1[0], pk1[1][1], pk1[1][2]))
 
         if pk2[1][0] == 'ITEM' and pk2[0].is_alive:
             self.compteur_action_file.append((self.apply_item_action, pk2[0], pk2[1][1], pk2[1][2]))
@@ -573,7 +589,23 @@ class Fight:
             self.add_logs((self.player_pk, 'Victory'))
 
     def apply_attaque_action(self, pk, ennemy_pk, attaque):
-        pk.attaque(ennemy_pk, attaque)
+
+        pk_can_atk = True
+
+        if pk.status['Sommeil']:
+            pk_can_atk = False
+        if pk.status['Gel']:
+            pk_can_atk = False
+        if pk.status['Paralysie']:
+            if random.randint(1, 4) == 1:
+                pk_can_atk = False
+        if pk.status['Confusion']:
+            if random.randint(1, 3) == 1:
+                pk_can_atk = False
+                pk.attaque(pk, attaque.Attaque('Charge'))
+
+        if pk_can_atk:
+            pk.attaque(ennemy_pk, attaque)
 
         self.add_logs((pk, attaque))
 

@@ -38,15 +38,18 @@ class Pokemon:
 
         self.bonus_attack = 0
         self.multiplicateur_attack = 1
-        self.attack = round((2 * int(self.line[4]) * self.level)/100 + 5) + self.bonus_attack
+        self.base_attack = round((2 * int(self.line[4]) * self.level)/100 + 5) + self.bonus_attack
+        self.attack = self.base_attack
 
         self.bonus_defense = 0
         self.multiplicateur_defense = 1
-        self.defense = round((2 * int(self.line[5]) * self.level)/100 + 5) + self.bonus_defense
+        self.base_defense = round((2 * int(self.line[5]) * self.level)/100 + 5) + self.bonus_defense
+        self.defense = self.base_defense
 
         self.bonus_speed = 0
         self.multiplicateur_speed = 1
-        self.speed = round((2 * int(self.line[6]) * self.level)/100 + 5) + self.bonus_speed
+        self.base_speed = round((2 * int(self.line[6]) * self.level)/100 + 5) + self.bonus_speed
+        self.speed = self.base_speed
 
         self.evolution_level = int(self.line[7])
         self.evolution_name = str(self.line[8])
@@ -84,9 +87,9 @@ class Pokemon:
         diff = self.pv - self.health
         self.pv = round((round((2*int(self.line[3])*self.level)/100 + self.level + 10) + self.bonus_pvmax) * self.multiplicateur_pvmax)
         self.health = self.pv - diff
-        self.attack = round((round((2 * int(self.line[4]) * self.level)/100 + 5) + self.bonus_attack) * self.multiplicateur_attack)
-        self.defense = round((round((2 * int(self.line[5]) * self.level)/100 + 5) + self.bonus_defense) * self.multiplicateur_defense)
-        self.speed = round((round((2 * int(self.line[6]) * self.level)/100 + 5) + self.bonus_speed) * self.multiplicateur_speed)
+        self.base_attack = round((round((2 * int(self.line[4]) * self.level)/100 + 5) + self.bonus_attack) * self.multiplicateur_attack)
+        self.base_defense = round((round((2 * int(self.line[5]) * self.level)/100 + 5) + self.bonus_defense) * self.multiplicateur_defense)
+        self.base_speed = round((round((2 * int(self.line[6]) * self.level)/100 + 5) + self.bonus_speed) * self.multiplicateur_speed)
 
     def evolution(self):
         if self.evolution_name == '0':

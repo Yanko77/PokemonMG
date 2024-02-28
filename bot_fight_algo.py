@@ -55,6 +55,8 @@ def get_npc_action(pk, ennemy_pk, att:list):
                 #scoretemp = scoretemp * (1 + (SPEED_HEAL/400) * float(taux_heal_on_atk))
                 scoretemp = scoretemp * (1 + (SPEED_HEAL/400) * float(taux_heal_on_atk) * (-2*(pk.health/pk.pv)+2))
 
+            print(attaque.name, scoretemp)
+
             score.append(scoretemp)
 
         max = score[0]

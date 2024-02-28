@@ -38,7 +38,7 @@ while running:
 
             # Touche de test admin
             if event.key == pygame.K_a:
-                game.current_fight.player_pk.damage(5)
+                game.current_fight.player_pk.level_up(200)
             elif event.key == pygame.K_z:
                 game.player.sac_page1[0] = objet.Objet(input())
             elif event.key == pygame.K_o:
