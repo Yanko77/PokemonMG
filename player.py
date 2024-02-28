@@ -138,5 +138,3 @@ class Player:
 
 if __name__ == "__main__":
     player = Player()
-    player.team[0], player.team[1] = pokemon.Pokemon('Dracaufeu', 10), pokemon.Pokemon('Dracaufeu', 15)
-    print(player.get_moyenne_team())

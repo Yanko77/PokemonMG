@@ -26,6 +26,8 @@ class Game:
 
         self.accueil = accueil.Accueil()
 
+        self.next_pk_id = 1
+
         self.all_starters = {'feu': ['Salameche', 'Poussifeu'],
                              'eau': ['Carapuce', 'Gobou'],
                              'plante': ['Bulbizarre', 'Arcko']}
@@ -90,6 +92,11 @@ class Game:
     def next_turn(self):
         self.general_seed = self.generate_general_random_seed()
         # add everything that have to be edited for each turn
+
+    def get_init_pokemon_id(self):
+        id = self.next_pk_id
+        self.next_pk_id += 1
+        return id
 
     def init_items_list(self):
         with open('all_objets.txt', 'r') as file:

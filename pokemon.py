@@ -4,13 +4,15 @@ import objet
 import game_infos
 import attaques
 
+
 class Pokemon:
 
-    def __init__(self, name, level, player, is_shiny=None, objet_tenu=None):
-        self.player = player
+    def __init__(self, name, level, game, is_shiny=None, objet_tenu=None):
+        self.game = game
 
         self.name = name[0].upper() + name[1:].lower()
         self.is_shiny = self.def_shiny(is_shiny)
+        self.id = self.game.get_init_pokemon_id()
 
         self.objet_tenu = objet_tenu
         self.status = {
@@ -95,6 +97,9 @@ class Pokemon:
                 return Pokemon(self.evolution_name, self.level, self.is_shiny)
             else:
                 return Pokemon(self.name, self.level, self.is_shiny)
+
+    def get_id(self):
+        return self.id
 
     def get_stats(self):
         return self.pv, self.attack, self.defense, self.speed
@@ -264,7 +269,7 @@ class Pokemon:
                     self.speed = round(self.speed * self.objet_tenu.multiplicateur_stats[stat])
 
     def def_shiny(self, is_shiny):
-        if self.player.always_shiny_on:
+        if self.game.player.always_shiny_on:
             return True
         elif is_shiny is None:
             n = random.randint(1, 256)

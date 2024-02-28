@@ -1,4 +1,6 @@
 import pygame
+
+import objet
 from game import Game
 import player_name
 
@@ -38,9 +40,9 @@ while running:
             if event.key == pygame.K_a:
                 game.current_fight.player_pk.damage(5)
             elif event.key == pygame.K_z:
-                game.current_fight.dresseur.pk.damage(5)
+                game.player.sac_page1[0] = objet.Objet(input())
             elif event.key == pygame.K_o:
-                game.start_fight(pokemon.Pokemon('Carapuce', 20, game.player), dresseur.Sauvage, pokemon.Pokemon('Dracaufeu', 20, game.player))
+                game.start_fight(pokemon.Pokemon('Carapuce', 5, game), dresseur.Sauvage, pokemon.Pokemon('Nidoran-m', 6, game))
             elif event.key == pygame.K_p:
                 print(posSouris)
 
