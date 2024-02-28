@@ -106,6 +106,8 @@ class TrainPanel:
         }
         self.ennemy_pk = self.ennemy_pks[self.difficult]
 
+        self.ennemy_pks_backup = {}
+
         self.load_ennemy_pk()
 
         self.ennemy_pk_icon_pos = (455, 273)
@@ -334,12 +336,18 @@ class TrainPanel:
         """
         Methode d'actualisation des pokémons ennemis en fonction du pokémon à entrainer du joueur
         """
-        self.ennemy_pks = {
-            'easy': self.spawn_ennemy_pk('easy'),
-            'normal': self.spawn_ennemy_pk('normal'),
-            'hard': self.spawn_ennemy_pk('hard')
-        }
-        self.ennemy_pk = self.ennemy_pks[self.difficult]
+
+        if self.training_pk.get_id() in self.ennemy_pks_backup.keys():
+            self.ennemy_pks = self.ennemy_pks_backup[self.training_pk.get_id()]
+            self.ennemy_pk = self.ennemy_pks[self.difficult]
+        else:
+            self.ennemy_pks = {
+                'easy': self.spawn_ennemy_pk('easy'),
+                'normal': self.spawn_ennemy_pk('normal'),
+                'hard': self.spawn_ennemy_pk('hard')
+            }
+            self.ennemy_pk = self.ennemy_pks[self.difficult]
+            self.ennemy_pks_backup[self.training_pk.get_id()] = self.ennemy_pks
         
     def load_ennemy_pk(self):
         """
@@ -418,7 +426,7 @@ class TrainPanel:
         if ennemy_pk_name is None:
             return None
         else:
-            return pokemon.Pokemon(ennemy_pk_name, self.get_ennemy_pk_level(diff), self.game.player)
+            return pokemon.Pokemon(ennemy_pk_name, self.get_ennemy_pk_level(diff), self.game)
         
     def open_settings_popup(self):
         self.boolSettings_popup = True
@@ -451,8 +459,9 @@ class TrainPanel:
             elif self.ennemy_pk_infos_stats_button_rect.collidepoint(possouris):
                 self.boolEnnemy_pk_stats = not self.boolEnnemy_pk_stats
             elif self.fight_button_rect.collidepoint(possouris):
-                self.start_fight()
-                pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+                if self.training_pk.is_alive:
+                    self.start_fight()
+                    pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
     def is_hovering_settings_popup_buttons(self, possouris):
         if self.boolSettings_popup:
