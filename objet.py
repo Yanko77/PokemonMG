@@ -13,7 +13,7 @@ class Objet:
         self.line = self.find_item_line()
 
         self.boolSpawnable = int(self.line[1].split(':')[0])
-        self.rarety = int(self.line[1].split(':')[1])
+        self.rarity = int(self.line[1].split(':')[1])
         self.quantite_at_spawn = (int(self.line[1].split(':')[2].split('-')[0]),
                                   int(self.line[1].split(':')[2].split('-')[1]))
 

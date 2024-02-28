@@ -10,12 +10,10 @@ from bot_fight_algo import get_npc_action
 
 # modif
 import private_func
-import Objet
+import objet
 
 # declaration des constante
 DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
-OBJET_LIST = Objet.list_all_objet()
-total_rarety = private_func._get_total_rarity(OBJET_LIST)
 
 # declaration de fighte
 class Fight:
@@ -455,6 +453,13 @@ class Fight:
             self.fight_result = 'Defeat'
         elif not self.dresseur.pk.is_alive:
             self.fight_result = 'Victory'
+            print(self.get_rewards())
+            for reward in self.get_rewards():
+                print(reward.name)
+
+        print(self.fight_result)
+        print(self.player_pk.is_alive)
+        print(self.dresseur.pk.is_alive)
 
     def get_action_order(self, player_pk_action, dresseur_pk_action):
         """Déterminer l'ordre d'agissement des 2 pokemons"""
@@ -487,39 +492,50 @@ class Fight:
 
     def img_load(self, file_name):
         return pygame.image.load(self.path + file_name + '.png')
-    
-    
-    
-    def get_rewards(self,is_not_boss_fight=True):# modif l'endroit ou sa se trouve 
+
+    def get_rewards(self, is_not_boss_fight=True):# modif l'endroit ou sa se trouve
         # utilisation d'une action pour reclamer recompense
         if is_not_boss_fight:
             self.game.player.use_action()
         
-        # obtention des objet de recompense
-        
-        all_reward = []
-        reward_nbs = []
+        '''# obtention des objet de recompense
+        reward_nbs = [20, 110, 200]
         acc = 0
-        for y in range(self.reward_quantity):
-            reward_nbs.append(random.randint(0,total_rarety))
-        for OBJECT in self.game.get_items_list()['Spawnable']:
-            for x in reward_nbs
-                if acc + abs(OBJECT.rarety-100) < x and x > acc:
-                    OBJECT_c = OBJECT.copy()
-                    all_reward.append[OBJECT_c]
-                    OBJECT_c.set_quantite_at_spawn()
-            acc + abs(OBJECT.rarety-100)
+        for i in range(self.reward_quantity):
+            reward_nbs.append(random.randint(0, self.game.get_total_items_rarity()))
+
+        all_rewards = []
+        for objet in self.game.get_items_list()['Spawnable']:
+            for x in reward_nbs:
+                if acc + abs(objet.rarety-100) < x and x > acc:
+                    objet_c = objet.copy()
+                    all_rewards.append[objet_c]
+                    objet_c.set_quantite_at_spawn()
+                acc += abs(objet.rarety-100)'''
+
+        # Obtention des objets de récompense
+        r_values_list = []
+        rewards = []
+        i = 0
+        for n in range(self.reward_quantity):
+            r_values_list.append(random.randint(0, self.game.get_total_items_rarity()))
+
+        acc = 0
+        for objet in self.game.get_items_list()['Spawnable']:
+            for r_value in r_values_list:
+                if r_value in range(acc, acc + (100 - objet.rarity)):
+                    rewards.append(objet)
+                acc += (100 - objet.rarity)
             
         # level up du pokemon
         if self.difficult == 'easy':
-            player_pk.level_up()
+            self.player_pk.level_up()
         elif self.difficult == 'normal':
-            player_pk.level_up(2)
+            self.player_pk.level_up(2)
         elif self.difficult == 'hard':
-            player_pk.level_up(3)
-            
+            self.player_pk.level_up(3)
         
-        return all_reward
+        return rewards
         
                 
             

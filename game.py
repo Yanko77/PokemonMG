@@ -142,6 +142,15 @@ class Game:
     def get_items_list(self):
         return self.items_list
 
+    def get_total_items_rarity(self):
+        """
+        Methode qui renvoie la somme de toutes les raretés des objets du jeu obtenable via spawn
+        """
+        total_rarity = 0
+        for OBJECT in self.get_items_list()['Spawnable']:
+            total_rarity += abs(OBJECT.rarity - 100)
+        return total_rarity
+
     def generate_general_random_seed(self):
         return int(str(random.randint(0, 255))
                    + str(random.randint(0, 255))

@@ -25,7 +25,7 @@ class Pokemon:
         self.line = self.find_pokemon_line()
 
         self.level = int(level)
-        self.rarety = int(self.line[1])
+        self.rarity = int(self.line[1])
         self.type = str(self.line[2])
         self.type2 = str(self.line[10])
 
