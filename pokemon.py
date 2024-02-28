@@ -162,7 +162,12 @@ class Pokemon:
         cm = cm * random_cm / 100
         degats = round((((((self.level * 0.4 + 2) * self.attack * attaque.puissance) / self.defense) / 50) + 2) * cm)
         pokemon.damage(degats)
-        print(degats)
+
+        if attaque.special_effect[0][0] == "status":
+            pokemon.status[attaque.special_effect[0][1]] = True
+            print(attaque.special_effect[0][1], 'appliqué sur', pokemon.name)
+
+        # print(degats)
 
     def reset_status(self):
         self.status = {
@@ -290,6 +295,7 @@ class Pokemon:
                    + str(random.randint(0, 255))
                    + str(random.randint(0, 255))
                    + str(random.randint(0, 255)))
+
 
 
 if __name__ == "__main__":

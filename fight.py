@@ -675,7 +675,80 @@ class Fight:
             self.player_pk.level_up(3)
         
         return rewards
-        
+
+    def apply_status_effect(self, pk):
+        print('Application des effets du pokemon :', pk.name)
+        if pk.status["Brulure"]:
+            pk.damage(round(pk.pv / 16))
+            print('Degats brulure')
+
+        if pk.status["Poison"]:
+             pk.damage(round(pk.pv / 8))
+             print('Degats poison')
+
+        if pk.status["Paralysie"]:
+            pk.speed = round(pk.base_speed / 2)
+            print('Baisse de la speed de la paralysie. Nouvelle speed:', pk.speed)
+
+        if pk.status["Gel"]:
+            print('Effet Gel ')
+
+        if pk.status["Sommeil"]:
+            print('Effet Sommeil')
+
+        if pk.status["Confusion"]:
+            print('Effet confusion')
+
+        if not self.player_pk.is_alive:
+            self.fight_result = 'Defeat'
+            self.add_logs((self.player_pk, 'Defeat'))
+        elif not self.dresseur.pk.is_alive:
+            self.fight_result = 'Victory'
+            self.add_logs((self.player_pk, 'Victory'))
+
+    def update_status_effect(self, pk):
+        print('Update des effets du pokemon :', pk.name)
+        if pk.status["Brulure"]:
+            if random.randint(1, 8) == 3:
+                pk.status["Brulure"] = False
+                print('Effet brulure retiré')
+
+        if pk.status["Poison"]:
+            if random.randint(1, 4) == 3:
+                pk.status["Poison"] = False
+                print('Effet poison retiré')
+
+        if pk.status["Paralysie"]:
+            if random.randint(1, 10) == 3:
+                pk.status["Paralysie"] = False
+                pk.speed = pk.base_speed
+                print('Effet paralysie retiré')
+
+        if pk.status["Gel"]:
+            if random.randint(1, 5) == 3:
+                pk.status["Gel"] = False
+                print('Effet gel retiré')
+
+        if pk.status["Sommeil"]:
+            if self.sommeil_compteur_tour[pk] == -1:
+                self.sommeil_compteur_tour[pk] = 3
+            if random.randint(1, 1 + self.sommeil_compteur_tour[pk]) == 1:
+                pk.status["Sommeil"] = False
+                self.sommeil_compteur_tour[pk] = -1
+                print('Effet sommeil retiré')
+            else:
+                self.sommeil_compteur_tour -= 1
+
+        if pk.status["Confusion"]:
+            if self.confusion_compteur_tour[pk] == -1:
+                self.confusion_compteur_tour[pk] = 4
+            if random.randint(1, 1 + self.confusion_compteur_tour[pk]) == 1:
+                pk.status["Confusion"] = False
+                self.confusion_compteur_tour[pk] = -1
+                print('Effet confusion retiré')
+            else:
+                self.confusion_compteur_tour -= 1
+
 
 if __name__ == '__main__':
     pass
