@@ -439,7 +439,7 @@ class GamePanel:
             if self.player_name_rect.collidepoint(possouris):
                 if self.pokemon_info_mode:
                     if not self.pokemon_info_popup_rect.collidepoint(possouris):
-                        game.player.enable_name_editing_mode()
+                        self.game.player.enable_name_editing_mode()
                         self.pokemon_info_mode = False
                 else:
                     self.game.player.enable_name_editing_mode()
