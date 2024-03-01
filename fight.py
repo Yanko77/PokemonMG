@@ -8,14 +8,9 @@ import pokemon
 from dresseur import Alizee, Olea, Ondine, Pierre, Blue, Red, Iris, Sauvage
 from bot_fight_algo import get_npc_action
 
-# modif
-import objet
-
 # declaration des constante
 DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
 
-
-# declaration de fighte
 class Fight:
 
     def __init__(self, game, player_pk, dresseur_class=None, dresseur_pk=None, difficult='easy'):
@@ -24,7 +19,6 @@ class Fight:
         - Le pokemon envoyé par le joueur (player_pk)
         - Le dresseur à affronter (dresseur_class)
         """
-
         self.game = game
         self.player_pk = player_pk
         self.dresseur = self.init_dresseur(dresseur_class, dresseur_pk)
@@ -150,10 +144,13 @@ class Fight:
 
         # Variables relatives aux actions du tour
         self.current_turn_action = ('NoAction', None)  # ('ITEM', item) ou ('ATTAQUE', attaque)
+        self.dresseur_pk_action = None
+        self.executing_turn = False
+        self.current_turn_order = None
 
         self.reward_quantity = 2
         self.difficult = difficult
-        
+
         self.fight_logs = []
         self.fight_result = None
 
@@ -163,44 +160,26 @@ class Fight:
         self.boolEnding = False
         self.compteur_end_fight = 0
 
-    def update(self, surface: pygame.surface.Surface, possouris):
+    def update(self, surface, possouris):
 
+        # Background du combat
         surface.blit(self.background, (0, 0))
 
+        # Pokemons
         self.update_pokemons(surface)
-        self.update_buttons(surface, possouris)
+
+        # Boutons du combat
+        self.update_fight_buttons(surface, possouris)
+
+        # Action en cours
         self.update_current_action(possouris)
 
-        if not self.boolEnding:
-            if self.fight_result is None:
-                if not self.current_turn_action == ('NoAction', None):
-                    self.turn(self.current_turn_action, ('ATTAQUE', get_npc_action(self.dresseur.pk, self.player_pk, self.dresseur.pk.attaque_pool)))
-
-            if self.compteur != 0:
-                if self.compteur == 100 or self.compteur == 50:
-                    if self.fight_result is None:
-                        f = self.compteur_action_file[0][0]
-                        param1 = self.compteur_action_file[0][1]
-                        param2 = self.compteur_action_file[0][2]
-                        param3 = self.compteur_action_file[0][3]
-
-                        f(param1, param2, param3)
-                    self.compteur_action_file.pop(0)
-                    self.compteur -= 1
-                elif self.compteur == 1:
-                    if self.fight_result is None:
-                        self.apply_status_effect(self.player_pk)
-                    if self.fight_result is None:
-                        self.apply_status_effect(self.dresseur.pk)
-
-                    self.compteur -= 1
-                else:
-                    self.compteur -= 1
-
+        # Logs
         self.update_fight_logs(surface)
 
-        if self.boolEnding:
-            self.update_fight_end(surface, possouris)
+        # Execution du tour
+        if self.executing_turn:
+            self.turn(self.current_turn_action)
 
         # GESTION CURSEUR INTERACTIONS
         if self.is_hovering(possouris):
@@ -210,118 +189,13 @@ class Fight:
             if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_ARROW:
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
-    def update_fight_end(self, surface, possouris):
-
-        # Panel
-        alpha_panel = self.compteur_end_fight**2/2
-        if alpha_panel > 255:
-            alpha_panel = 255
-        self.end_fight_panel.set_alpha(alpha_panel)
-
-        surface.blit(self.end_fight_panel, (0, 0))
-
-        # Stats
-        alpha_stats = -150 + self.compteur_end_fight*5
-        if alpha_stats > 255:
-            alpha_stats = 255
-
-        self.lv.set_alpha(alpha_stats)
-        self.pv.set_alpha(alpha_stats)
-        self.atk.set_alpha(alpha_stats)
-        self.defense.set_alpha(alpha_stats)
-        self.vit.set_alpha(alpha_stats)
-
-        x_stats = 80 - self.compteur_end_fight
-        if x_stats < 0:
-            x_stats = 0
-
-        surface.blit(self.lv, (self.lv_rect.x + x_stats, self.lv_rect.y))
-        surface.blit(self.pv, (self.pv_rect.x + x_stats, self.pv_rect.y))
-        surface.blit(self.atk, (self.atk_rect.x + x_stats, self.atk_rect.y))
-        surface.blit(self.defense, (self.defense_rect.x + x_stats, self.defense_rect.y))
-        surface.blit(self.vit, (self.vit_rect.x + x_stats, self.vit_rect.y))
-
-        # Icone
-        self.pk_icon.set_alpha(alpha_stats)
-        surface.blit(self.pk_icon, (42, 124), (0, 0, 480, 480))
-
-        self.compteur_end_fight += 1
-
     def update_current_action(self, possouris):
         if self.current_action is not None:
             if not self.item_moving_mode:
                 if not self.current_action_rect.collidepoint(possouris):
                     self.current_action = None
 
-    def add_logs(self, info):
-        if len(self.fight_logs) >= 6:
-            self.fight_logs.pop(0)
-
-        self.fight_logs.append(info)
-
-    def update_fight_logs(self, surface):
-        x = 13
-        y = 248
-
-        logs = self.fight_logs.copy()
-        logs.reverse()
-
-        for pk, attaque in logs:
-
-            if pk == self.player_pk:
-                pk_color = (0, 36, 255)
-            else:
-                pk_color = (255, 0, 0)
-
-            if attaque == 'Defeat':
-                nom = self.fight_logs_font.render(f'{pk.name} ', False, (180, 0, 0))
-                liaison = self.fight_logs_font.render('a ', False, (180, 0, 0))
-                attaque_render = self.fight_logs_font.render('perdu.', False, (180, 0, 0))
-            elif attaque == 'Victory':
-                nom = self.fight_logs_font.render(f'{pk.name} ', False, (0, 180, 30))
-                liaison = self.fight_logs_font.render('a ', False, (0, 180, 30))
-                attaque_render = self.fight_logs_font.render('gagné !', False, (0, 180, 30))
-            else:
-
-                nom = self.fight_logs_font.render(f'{pk.name} ', False, pk_color)
-                liaison = self.fight_logs_font.render('utilise ', False, (51, 51, 51))
-                attaque_render = self.fight_logs_font.render(f'{attaque.name_}', False, (0, 0, 0))
-
-            surface.blit(nom, (x, y))
-            surface.blit(liaison, (x + nom.get_width(), y))
-            surface.blit(attaque_render, (x + nom.get_width() + liaison.get_width(), y))
-
-            y -= 45
-
-    def update_pokemons(self, surface):
-        # Pokemon du joueur
-        # Icone
-        surface.blit(pygame.transform.scale(self.player_pk.icon_image, (700, 350)), (180, 270), (0, 0, 350, 350))
-        # Barre d'info
-        surface.blit(self.pk_info_bar, self.player_pk_info_bar_rect, (0, 0, 434, 144))
-        # Barre de vie verte
-        pygame.draw.rect(surface, (42, 214, 0),
-                         pygame.Rect(31, 646, self.player_pk.health / self.player_pk.pv * 263, 24))
-        # PV
-        surface.blit(
-            self.pk_pv_font.render(str(self.player_pk.health) + "/" + str(self.player_pk.pv),
-                                        False, (40, 40, 40)), (39, 669))
-        # Nom
-        surface.blit(self.player_pk_name, (40, 584))
-
-        # Pokemon du dresseur
-        # Icone
-        surface.blit(pygame.transform.scale(self.dresseur.pk.icon_image, (600, 300)), (770, 80), (0, 0, 300, 300))
-        # Barre d'info
-        surface.blit(self.pk_info_bar, self.dresseur_pk_info_bar_rect, (434, 0, 369, 123))
-        # Barre de vie verte
-        pygame.draw.rect(surface, (42, 214, 0),
-                         pygame.Rect(899, 94, self.dresseur.pk.health / self.dresseur.pk.pv * 225, 21))
-        # Nom
-        surface.blit(self.dresseur_pk_name, (905, 51))
-
-    def update_buttons(self, surface, possouris):
-
+    def update_fight_buttons(self, surface, possouris):
         if self.fight_result is None:
 
             # Si aucun bouton n'a été cliqué
@@ -355,9 +229,10 @@ class Fight:
 
                         attaque_name_shadow = self.attaque_font.render(self.player_pk.attaque_pool[i].name_, False,
                                                                        (30, 30, 30))
-                        surface.blit(attaque_name_shadow, (button_rect.x + 1 + (356 - attaque_name_shadow.get_width()) / 2,
-                                                           button_rect.y + 3 + (
-                                                                       109 - attaque_name_shadow.get_height()) / 2))
+                        surface.blit(attaque_name_shadow,
+                                     (button_rect.x + 1 + (356 - attaque_name_shadow.get_width()) / 2,
+                                      button_rect.y + 3 + (
+                                              109 - attaque_name_shadow.get_height()) / 2))
 
                         attaque_name = self.attaque_font.render(self.player_pk.attaque_pool[i].name_, False,
                                                                 (255, 255, 255))
@@ -380,7 +255,7 @@ class Fight:
 
                 surface.blit(self.sac_page_font.render(str(self.sac_action_curseur_pos + 1), False, (150, 150, 150)),
                              (1218, 359))
-                surface.blit(self.sac_page_font.render(str(self.sac_action_curseur_pos+1), False, (255, 255, 255)),
+                surface.blit(self.sac_page_font.render(str(self.sac_action_curseur_pos + 1), False, (255, 255, 255)),
                              (1218, 357))
 
                 if self.sac_action_curseur_rect.collidepoint(possouris) or self.curseur_moving_mode:
@@ -389,7 +264,8 @@ class Fight:
                     img_rect = (0, 0, 23, 66)
 
                 surface.blit(self.sac_action_curseur,
-                             (self.sac_action_curseur_rect.x + 2, self.sac_action_curseur_rect.y + 5*(self.sac_action_curseur_pos+1)),  # Co du curseur
+                             (self.sac_action_curseur_rect.x + 2,
+                              self.sac_action_curseur_rect.y + 5 * (self.sac_action_curseur_pos + 1)),  # Co du curseur
                              img_rect)
 
                 if self.sac_action_curseur_pos == 0:
@@ -417,6 +293,33 @@ class Fight:
             else:
                 surface.blit(self.fin_du_combat_button, self.fin_du_combat_button_rect, (0, 0, 424, 101))
 
+    def update_pokemons(self, surface):
+        # Pokemon du joueur
+        # Icone
+        surface.blit(pygame.transform.scale(self.player_pk.icon_image, (700, 350)), (180, 270), (0, 0, 350, 350))
+        # Barre d'info
+        surface.blit(self.pk_info_bar, self.player_pk_info_bar_rect, (0, 0, 434, 144))
+        # Barre de vie verte
+        pygame.draw.rect(surface, (42, 214, 0),
+                         pygame.Rect(31, 646, self.player_pk.health / self.player_pk.pv * 263, 24))
+        # PV
+        surface.blit(
+            self.pk_pv_font.render(str(self.player_pk.health) + "/" + str(self.player_pk.pv),
+                                   False, (40, 40, 40)), (39, 669))
+        # Nom
+        surface.blit(self.player_pk_name, (40, 584))
+
+        # Pokemon du dresseur
+        # Icone
+        surface.blit(pygame.transform.scale(self.dresseur.pk.icon_image, (600, 300)), (770, 80), (0, 0, 300, 300))
+        # Barre d'info
+        surface.blit(self.pk_info_bar, self.dresseur_pk_info_bar_rect, (434, 0, 369, 123))
+        # Barre de vie verte
+        pygame.draw.rect(surface, (42, 214, 0),
+                         pygame.Rect(899, 94, self.dresseur.pk.health / self.dresseur.pk.pv * 225, 21))
+        # Nom
+        surface.blit(self.dresseur_pk_name, (905, 51))
+
     def sac_item_update(self, surface, possouris, item, i):
         if self.item_moving_mode and self.item_moving_i == i:
             item_rect = pygame.Rect(possouris[0] - self.current_moving_item_rel_possouris[0],
@@ -438,7 +341,8 @@ class Fight:
             item_icon = pygame.transform.scale(item.icon_image, (90, 90))
 
             # Affichage icone
-            surface.blit(item_icon, (item_rect.x + (122 - item_icon.get_width()) / 2, item_rect.y + (122 - item_icon.get_height()) / 2))
+            surface.blit(item_icon, (
+            item_rect.x + (122 - item_icon.get_width()) / 2, item_rect.y + (122 - item_icon.get_height()) / 2))
 
             # Affichage quantite
             surface.blit(self.item_quantite_font.render(str(item.quantite), False, (255, 255, 255)),
@@ -460,6 +364,7 @@ class Fight:
                             if self.use_item_rect.collidepoint(possouris):
                                 if 'Use' in item.fonctionnement:
                                     self.current_turn_action = ('ITEM', item, i)
+                                    self.executing_turn = True
 
     def sac_curseur_update(self, possouris):
         if not self.item_moving_mode:
@@ -481,117 +386,179 @@ class Fight:
                         self.sac_action_curseur_pos = 2
                         self.sac_action_curseur_rect = self.sac_action_curseur_rects[2]
 
-    def is_hovering(self, possouris):
-        if self.fight_result is None:
-            if self.current_action is None:
-                return (self.sac_button_rect.collidepoint(possouris) or
-                        self.combat_button_rect.collidepoint(possouris) or
-                        self.fuite_button_rect.collidepoint(possouris)
-                        )
-            elif self.current_action == 'COMBAT':
-                return (self.attaque_buttons_rects[0].collidepoint(possouris) or
-                        self.attaque_buttons_rects[1].collidepoint(possouris) or
-                        self.attaque_buttons_rects[2].collidepoint(possouris) or
-                        self.attaque_buttons_rects[3].collidepoint(possouris)
-                        )
-            elif self.current_action == 'SAC':
-                return (self.sac_action_curseur_rect.collidepoint(possouris) or self.curseur_moving_mode
-                        or self.objet_icon_rects[0].collidepoint(possouris)
-                        or self.objet_icon_rects[1].collidepoint(possouris)
-                        or self.objet_icon_rects[2].collidepoint(possouris)
-                        or self.objet_icon_rects[3].collidepoint(possouris)
-                        or self.objet_icon_rects[4].collidepoint(possouris)
-                        or self.objet_icon_rects[5].collidepoint(possouris)
-                        or self.objet_icon_rects[6].collidepoint(possouris)
-                        or self.objet_icon_rects[7].collidepoint(possouris)
-                        or self.item_moving_mode
-                        )
+    def get_action_order(self, player_pk_action, dresseur_pk_action):
+        """
+        Déterminer l'ordre d'agissement des 2 pokemons.
+        Renvoie le premier pokémon à attaquer.
+
+        || in : player_pk_action, dresseur_pk_action --> ('ITEM', objet.Objet(), i) ou ('ATTAQUE', attaque.Attaque())
+        || out : str --> "player_pk" ou "dresseur_pk"
+
+        """
+
+        player_pk_action_type = player_pk_action[0]
+        dresseur_pk_action_type = dresseur_pk_action[0]
+
+        if player_pk_action_type == 'ITEM':  # Si le joueur utlise un objet, il est 1er
+            return 'player_pk'
+        elif dresseur_pk_action_type == 'ITEM':  # Si le dresseur utilise un objet mais pas le joueur, il est 1er
+            return 'dresseur_pk'
+        else:  # Si aucun des deux n'utilise d'objet
+            player_pk_attaque = player_pk_action[1]
+            dresseur_pk_attaque = dresseur_pk_action[1]
+
+            if player_pk_attaque.priorite > dresseur_pk_attaque.priorite:
+                return 'player_pk'
+            elif player_pk_attaque.priorite < dresseur_pk_attaque.priorite:
+                return 'dresseur_pk'
             else:
-                return False
+                # Si les deux attaques ont la meme priorité
+                if self.player_pk.speed > self.dresseur.pk.speed:
+                    # Si le pk du joueur est plus rapide
+                    return 'player_pk'
+                elif self.player_pk.speed < self.dresseur.pk.speed:
+                    # Si le pk du dresseur est plus rapide
+                    return 'dresseur_pk'
+                else:
+                    # Si les 2 pokemons ont la meme vitesse -> aléatoire
+                    r_value = random.randint(0, 1)
+                    if r_value:
+                        return 'player_pk'
+                    else:
+                        return 'dresseur_pk'
+
+    def turn(self, player_pk_action):
+        """
+        Methode qui réalise le tour de combat.
+        Ordre :
+            - Actualisation des effets de status des 2 pokémons
+            - Attaque du 1er pokemon
+            - Attaque du 2e pokemon (si encore vivant)
+            - Application des effets de status sur le 1er pokémon (si encore vivant)
+            - Application des effets de status sur le 2e pokémon (si encore vivant)
+
+        """
+
+        if self.compteur == 0:
+            self.compteur = 300
+            self.dresseur_pk_action = ('ATTAQUE', get_npc_action(self.dresseur.pk, self.player_pk, self.dresseur.pk.attaque_pool))
+            self.current_turn_order = self.get_action_order(player_pk_action, self.dresseur_pk_action)
+
+        dresseur_pk_action = self.dresseur_pk_action
+
+        # # # Actualisation des effets de status des 2 pokémons
+        if self.compteur == 300:
+            self.update_status_effects(self.player_pk)
+            self.update_status_effects(self.dresseur.pk)
+
+            print('Update des effets...')
+
+        # Si le premier pokémon à attaquer est le pokemon du joueur
+        if self.current_turn_order == 'player_pk':
+
+            # # # Actions des pokémons
+
+            if player_pk_action[0] == 'ITEM':
+                if self.compteur == 300:
+
+                    item = player_pk_action[1]
+                    i = player_pk_action[2]
+
+                    self.exec_item_action(self.player_pk, item, i)
+
+            if dresseur_pk_action[0] == 'ITEM':
+                if self.compteur == 270:
+                    item = dresseur_pk_action[1]
+
+                    self.exec_item_action(self.dresseur.pk, item, None)
+
+            if player_pk_action[0] == 'ATTAQUE':
+                if self.compteur == 300:
+                    if self.player_pk.is_alive:
+                        attaque = player_pk_action[1]
+                        self.exec_attaque_action(self.player_pk, self.dresseur.pk, attaque)
+
+            if dresseur_pk_action[0] == 'ATTAQUE':
+                if self.compteur == 270:
+                    if self.dresseur.pk.is_alive:
+                        attaque = dresseur_pk_action[1]
+                        self.exec_attaque_action(self.dresseur.pk, self.player_pk, attaque)
+
+            # # # Application des effets de status
+            if self.compteur == 250:
+                self.apply_status_effects(self.player_pk)
+            if self.compteur == 230:
+                self.apply_status_effects(self.dresseur.pk)
+
+        # Si le premier pokémon à attaquer est le pokémon du dresseur
         else:
-            if self.boolEnding:
-                pass
-            else:
-                return self.fin_du_combat_button_rect.collidepoint(possouris)
+            if dresseur_pk_action[0] == 'ITEM':
+                if self.compteur == 300:
+                    item = dresseur_pk_action[1]
+                    self.exec_item_action(self.dresseur.pk, item, None)
 
-    def left_clic_interactions(self, possouris):  # Quand l'utilisateur utilise le clic gauche
-        if self.fight_result is None:
-            # Si aucune action n'est en cours
-            if self.current_action is None:
-                    if self.fuite_button_rect.collidepoint(possouris):
-                        self.game.cancel_fight()
-                    elif self.combat_button_rect.collidepoint(possouris):
-                        self.current_action = 'COMBAT'
-                    elif self.sac_button_rect.collidepoint(possouris):
-                        self.current_action = 'SAC'
+            if player_pk_action[0] == 'ITEM':
+                if self.compteur == 270:
+                    item = player_pk_action[1]
+                    i = player_pk_action[2]
+                    self.exec_item_action(self.player_pk, item, i)
 
-            # Si l'action en cours est 'COMBAT'
-            elif self.current_action == 'COMBAT':
-                if self.attaque_buttons_rects[0].collidepoint(possouris):
-                    self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[0])
+            if dresseur_pk_action[0] == 'ATTAQUE':
+                if self.compteur == 300:
+                    if self.dresseur.pk.is_alive:
+                        attaque = dresseur_pk_action[1]
+                        self.exec_attaque_action(self.dresseur.pk, self.player_pk, attaque)
 
-                elif self.attaque_buttons_rects[1].collidepoint(possouris):
-                    self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[1])
+            if player_pk_action[0] == 'ATTAQUE':
+                if self.compteur == 270:
+                    if self.player_pk.is_alive:
+                        attaque = player_pk_action[1]
+                        self.exec_attaque_action(self.player_pk, self.dresseur.pk, attaque)
 
-                elif self.attaque_buttons_rects[2].collidepoint(possouris):
-                    self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[2])
+                # # # Application des effets de status
+                if self.compteur == 250:
+                    self.apply_status_effects(self.dresseur.pk)
+                if self.compteur == 230:
+                    self.apply_status_effects(self.player_pk)
 
-                elif self.attaque_buttons_rects[3].collidepoint(possouris):
-                    self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[3])
-        else:
-            if self.boolEnding:
-                pass
-            else:
-                if self.fin_du_combat_button_rect.collidepoint(possouris):
-                    self.boolEnding = True
+        if self.compteur == 200:
+            if not self.player_pk.is_alive:
+                self.fight_result = 'Defeat'
+                self.add_logs(('Result', "Defeat"))
+                self.boolEnding = True
+            elif not self.dresseur.pk.is_alive:
+                self.fight_result = 'Victory'
+                self.add_logs(('Result', "Victory"))
+                self.boolEnding = True
 
-    def turn(self, player_pk_action, dresseur_pk_action):
+            self.executing_turn = False
+            self.compteur = 1
 
-        self.update_status_effect(self.player_pk)
-        self.update_status_effect(self.dresseur.pk)
+        self.compteur -= 1
 
-        pk1, pk2 = self.get_action_order(player_pk_action, dresseur_pk_action)
-        if pk1[1][0] == 'ITEM' and pk1[0].is_alive:
-            self.compteur_action_file.append((self.apply_item_action, pk1[0], pk1[1][1], pk1[1][2]))
-
-        if pk2[1][0] == 'ITEM' and pk2[0].is_alive:
-            self.compteur_action_file.append((self.apply_item_action, pk2[0], pk2[1][1], pk2[1][2]))
-
-        if pk1[1][0] == 'ATTAQUE' and pk1[0].is_alive:
-            self.compteur_action_file.append((self.apply_attaque_action, pk1[0], pk2[0], pk1[1][1]))
-
-        if pk2[1][0] == 'ATTAQUE' and pk2[0].is_alive:
-            self.compteur_action_file.append((self.apply_attaque_action, pk2[0], pk1[0], pk2[1][1]))
-
-        self.current_turn_action = ('NoAction', None)
-
-        self.compteur = 100
-
-    def apply_item_action(self, pk, item, item_i):
+    def exec_item_action(self, pk, item, i):
+        """
+        Methode qui execute l'action d'un pokémon d'utiliser un item lors du tour
+        """
         pk.use_item(item)
 
-        if pk == self.player_pk:
-            item.quantite -= 1
-
+        item.quantite -= 1
+        if i is not None:
             if item.quantite <= 0:
-                if item_i < 12:
-                    self.game.player.sac_page1[item_i] = None
+                if i < 12:
+                    self.game.player.sac_page1[i] = None
                 else:
-                    self.game.player.sac_page2[item_i - 12] = None
+                    self.game.player.sac_page2[i - 12] = None
 
-        self.add_logs((pk, item))
+        self.add_logs(('ITEM', pk, item))
 
-        if not self.player_pk.is_alive:
-            self.fight_result = 'Defeat'
-            self.add_logs((self.player_pk, 'Defeat'))
-        elif not self.dresseur.pk.is_alive:
-            self.fight_result = 'Victory'
-            self.add_logs((self.player_pk, 'Victory'))
+    def exec_attaque_action(self, pk, ennemy_pk, attaque):
+        """
+        Methode qui execute l'action du pokémon d'attaquer
+        """
 
-    def apply_attaque_action(self, pk, ennemy_pk, attaque):
-
+        # Verifications de status
         pk_can_atk = True
-
         if pk.status['Sommeil']:
             pk_can_atk = False
         if pk.status['Gel']:
@@ -607,37 +574,53 @@ class Fight:
         if pk_can_atk:
             pk.attaque(ennemy_pk, attaque)
 
-        self.add_logs((pk, attaque))
+        self.add_logs(('ATTAQUE', pk, attaque))
 
-        if not self.player_pk.is_alive:
-            self.fight_result = 'Defeat'
-            self.add_logs((self.player_pk, 'Defeat'))
-        elif not self.dresseur.pk.is_alive:
-            self.fight_result = 'Victory'
-            self.add_logs((self.player_pk, 'Victory'))
+    def add_logs(self, info):
+        if len(self.fight_logs) >= 6:
+            self.fight_logs.pop(0)
 
-    def get_action_order(self, player_pk_action, dresseur_pk_action):
-        """Déterminer l'ordre d'agissement des 2 pokemons"""
+        self.fight_logs.append(info)
 
-        player_pk_action_type, dresseur_pk_action_type = player_pk_action[0], dresseur_pk_action[0]
+    def update_fight_logs(self, surface):
+        x = 13
+        y = 248
 
-        if 'ITEM' in (player_pk_action_type, dresseur_pk_action_type):
-            if player_pk_action_type == 'ITEM':
-                return (self.player_pk,player_pk_action), (self.dresseur.pk,dresseur_pk_action)
-            elif dresseur_pk_action_type == 'ITEM':
-                return (self.dresseur.pk,dresseur_pk_action), (self.player_pk,player_pk_action)
+        logs = self.fight_logs.copy()
+        logs.reverse()
 
-        else:
-            if not player_pk_action[1].priorite == dresseur_pk_action[1].priorite:
-                if player_pk_action[1].priorite > dresseur_pk_action[1].priorite:
-                    return (self.player_pk,player_pk_action), (self.dresseur.pk,dresseur_pk_action)
-                elif player_pk_action[1].priorite < dresseur_pk_action[1].priorite:
-                    return (self.dresseur.pk,dresseur_pk_action), (self.player_pk,player_pk_action)
+        for info in logs:
+
+            if info[1] == self.player_pk:
+                pk_color = (0, 36, 255)
             else:
-                if self.player_pk.speed >= self.dresseur.pk.speed:
-                    return (self.player_pk,player_pk_action),(self.dresseur.pk,dresseur_pk_action)
+                pk_color = (255, 0, 0)
+
+            if info[0] == 'ITEM' or info[0] == 'ATTAQUE':
+                nom = self.fight_logs_font.render(f'{info[1].name} ', False, pk_color)
+                utilise = self.fight_logs_font.render('utilise ', False, (51, 51, 51))
+                action = self.fight_logs_font.render(f'{info[2].name_}', False, (0, 0, 0))
+
+                surface.blit(nom, (x, y))
+                surface.blit(utilise, (x + nom.get_width(), y))
+                surface.blit(action, (x + nom.get_width() + utilise.get_width(), y))
+
+            elif info[0] == 'Result':
+                if info[1] == 'Victory':
+                    color = (0, 180, 30)
+                    resultat = self.fight_logs_font.render('gagné !', False, color)
                 else:
-                    return (self.dresseur.pk,dresseur_pk_action),(self.player_pk,player_pk_action)
+                    resultat = self.fight_logs_font.render('perdu.', False, (180, 0, 0))
+                    color = (180, 0, 0)
+
+                nom = self.fight_logs_font.render(f'{self.player_pk.name} ', False, color)
+                a = self.fight_logs_font.render('a ', False, color)
+
+                surface.blit(nom, (x, y))
+                surface.blit(a, (x + nom.get_width(), y))
+                surface.blit(resultat, (x + nom.get_width() + a.get_width(), y))
+
+            y -= 45
 
     def init_dresseur(self, dresseur_class, dresseur_pk=None):
         if dresseur_class is None:
@@ -665,7 +648,7 @@ class Fight:
                 if r_value in range(acc, acc + (100 - objet.rarity)):
                     rewards.append(objet)
             acc += (100 - objet.rarity)
-            
+
         # level up du pokemon
         if self.difficult == 'easy':
             self.player_pk.level_up()
@@ -673,18 +656,18 @@ class Fight:
             self.player_pk.level_up(2)
         elif self.difficult == 'hard':
             self.player_pk.level_up(3)
-        
+
         return rewards
 
-    def apply_status_effect(self, pk):
+    def apply_status_effects(self, pk):
         print('Application des effets du pokemon :', pk.name)
         if pk.status["Brulure"]:
             pk.damage(round(pk.pv / 16))
             print('Degats brulure')
 
         if pk.status["Poison"]:
-             pk.damage(round(pk.pv / 8))
-             print('Degats poison')
+            pk.damage(round(pk.pv / 8))
+            print('Degats poison')
 
         if pk.status["Paralysie"]:
             pk.speed = round(pk.base_speed / 2)
@@ -699,14 +682,7 @@ class Fight:
         if pk.status["Confusion"]:
             print('Effet confusion')
 
-        if not self.player_pk.is_alive:
-            self.fight_result = 'Defeat'
-            self.add_logs((self.player_pk, 'Defeat'))
-        elif not self.dresseur.pk.is_alive:
-            self.fight_result = 'Victory'
-            self.add_logs((self.player_pk, 'Victory'))
-
-    def update_status_effect(self, pk):
+    def update_status_effects(self, pk):
         print('Update des effets du pokemon :', pk.name)
         if pk.status["Brulure"]:
             if random.randint(1, 8) == 3:
@@ -749,6 +725,71 @@ class Fight:
             else:
                 self.confusion_compteur_tour -= 1
 
+    def left_clic_interactions(self, possouris):  # Quand l'utilisateur utilise le clic gauche
+        if not self.executing_turn:
+            if self.fight_result is None:
+                # Si aucune action n'est en cours
+                if self.current_action is None:
+                    if self.fuite_button_rect.collidepoint(possouris):
+                        self.game.cancel_fight()
+                    elif self.combat_button_rect.collidepoint(possouris):
+                        self.current_action = 'COMBAT'
+                    elif self.sac_button_rect.collidepoint(possouris):
+                        self.current_action = 'SAC'
 
-if __name__ == '__main__':
-    pass
+                # Si l'action en cours est 'COMBAT'
+                elif self.current_action == 'COMBAT':
+                    if self.attaque_buttons_rects[0].collidepoint(possouris):
+                        self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[0])
+                        self.executing_turn = True
+
+                    elif self.attaque_buttons_rects[1].collidepoint(possouris):
+                        self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[1])
+                        self.executing_turn = True
+
+                    elif self.attaque_buttons_rects[2].collidepoint(possouris):
+                        self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[2])
+                        self.executing_turn = True
+
+                    elif self.attaque_buttons_rects[3].collidepoint(possouris):
+                        self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[3])
+                        self.executing_turn = True
+            else:
+                if self.boolEnding:
+                    pass
+                else:
+                    if self.fin_du_combat_button_rect.collidepoint(possouris):
+                        self.boolEnding = True
+
+    def is_hovering(self, possouris):
+        if self.fight_result is None:
+            if self.current_action is None:
+                return (self.sac_button_rect.collidepoint(possouris) or
+                        self.combat_button_rect.collidepoint(possouris) or
+                        self.fuite_button_rect.collidepoint(possouris)
+                        )
+            elif self.current_action == 'COMBAT':
+                return (self.attaque_buttons_rects[0].collidepoint(possouris) or
+                        self.attaque_buttons_rects[1].collidepoint(possouris) or
+                        self.attaque_buttons_rects[2].collidepoint(possouris) or
+                        self.attaque_buttons_rects[3].collidepoint(possouris)
+                        )
+            elif self.current_action == 'SAC':
+                return (self.sac_action_curseur_rect.collidepoint(possouris) or self.curseur_moving_mode
+                        or self.objet_icon_rects[0].collidepoint(possouris)
+                        or self.objet_icon_rects[1].collidepoint(possouris)
+                        or self.objet_icon_rects[2].collidepoint(possouris)
+                        or self.objet_icon_rects[3].collidepoint(possouris)
+                        or self.objet_icon_rects[4].collidepoint(possouris)
+                        or self.objet_icon_rects[5].collidepoint(possouris)
+                        or self.objet_icon_rects[6].collidepoint(possouris)
+                        or self.objet_icon_rects[7].collidepoint(possouris)
+                        or self.item_moving_mode
+                        )
+            else:
+                return False
+        else:
+            if self.boolEnding:
+                pass
+            else:
+                return self.fin_du_combat_button_rect.collidepoint(possouris)
