@@ -20,7 +20,7 @@ class Pokemon:
             'Brulure': False,
             'Confusion': False,
             'Gel': False,
-            'Poison': True,
+            'Poison': False,
             'Paralysie': False
             }
 
