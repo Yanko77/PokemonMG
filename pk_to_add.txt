@@ -68,8 +68,8 @@ name              rarity    type    pv      att    def     speed  evol_lv   evol
 Mélofée             20      fee     65      65      60      63      15      Mélodelfe       0           NoType
 Mélodelfe           57      fee     80      87      73      69      0       0               2           NoType
 #
-Goupix
-Feunard
+Goupix              20      feu     50      60      53      65      12      Feunard         0           NoType
+Feunard             63      feu     80      85      84      85      0       0               3           NoType
 #
 Mystherbe
 Ortide

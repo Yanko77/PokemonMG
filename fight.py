@@ -276,6 +276,20 @@ class Fight:
                               self.sac_action_curseur_rect.y + 5 * (self.sac_action_curseur_pos + 1)),  # Co du curseur
                              img_rect)
 
+                user_usable_items = []
+
+                for item in self.game.player.sac_page1:
+                    if item is not None:
+                        if item.fonctionnement.split(":")[0] == 'Use':
+                            user_usable_items.append(item)
+
+                for item in self.game.player.sac_page2:
+                    if item is not None:
+                        if item.fonctionnement.split(":")[0] == 'Use':
+                            user_usable_items.append(item)
+                for i in range(24 - len(user_usable_items)):
+                    user_usable_items.append(None)
+
                 if self.sac_action_curseur_pos == 0:
                     i = 0
                     for objet in user_usable_items[0:8]:
