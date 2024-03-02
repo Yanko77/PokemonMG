@@ -7,9 +7,11 @@ import game_infos
 import pokemon
 from dresseur import Alizee, Olea, Ondine, Pierre, Blue, Red, Iris, Sauvage
 from bot_fight_algo import get_npc_action
+import attaques
 
 # declaration des constante
 DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
+
 
 class Fight:
 
@@ -120,6 +122,7 @@ class Fight:
         self.sac_page_font = pygame.font.Font('assets/fonts/Cheesecake.ttf', 65)
         self.item_quantite_font = pygame.font.Font('assets/fonts/Impact.ttf', 30)
         self.fight_logs_font = pygame.font.Font('assets/fonts/Cheesecake.ttf', 40)
+        self.turn_exec_info_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 25)
 
         # Pré-chargement des noms des pokemons
         self.player_pk_name = self.player_pk_name_font.render(self.player_pk.name, False, (40, 40, 40))
@@ -147,6 +150,7 @@ class Fight:
         self.dresseur_pk_action = None
         self.executing_turn = False
         self.current_turn_order = None
+        self.turn_exec_info = ''
 
         self.reward_quantity = 2
         self.difficult = difficult
@@ -179,6 +183,7 @@ class Fight:
 
         # Execution du tour
         if self.executing_turn:
+            self.update_turn_exec_info(surface)
             self.turn(self.current_turn_action)
 
         # GESTION CURSEUR INTERACTIONS
@@ -194,6 +199,9 @@ class Fight:
             if not self.item_moving_mode:
                 if not self.current_action_rect.collidepoint(possouris):
                     self.current_action = None
+
+    def update_turn_exec_info(self, surface):
+        surface.blit(self.turn_exec_info_font.render(self.turn_exec_info, False, (255, 255, 255)), (502, 9))
 
     def update_fight_buttons(self, surface, possouris):
         if self.fight_result is None:
@@ -440,18 +448,17 @@ class Fight:
         """
 
         if self.compteur == 0:
-            self.compteur = 300
+            self.compteur = 310
             self.dresseur_pk_action = ('ATTAQUE', get_npc_action(self.dresseur.pk, self.player_pk, self.dresseur.pk.attaque_pool))
             self.current_turn_order = self.get_action_order(player_pk_action, self.dresseur_pk_action)
 
         dresseur_pk_action = self.dresseur_pk_action
 
         # # # Actualisation des effets de status des 2 pokémons
-        if self.compteur == 300:
+        if self.compteur == 310:
+            self.turn_exec_info = 'Actualisation des effets de status...'
             self.update_status_effects(self.player_pk)
             self.update_status_effects(self.dresseur.pk)
-
-            print('Update des effets...')
 
         # Si le premier pokémon à attaquer est le pokemon du joueur
         if self.current_turn_order == 'player_pk':
@@ -465,30 +472,36 @@ class Fight:
                     i = player_pk_action[2]
 
                     self.exec_item_action(self.player_pk, item, i)
+                    self.turn_exec_info = "Utilisation d'un objet..."
 
             if dresseur_pk_action[0] == 'ITEM':
                 if self.compteur == 270:
                     item = dresseur_pk_action[1]
 
                     self.exec_item_action(self.dresseur.pk, item, None)
+                    self.turn_exec_info = "Utilisation d'un objet..."
 
             if player_pk_action[0] == 'ATTAQUE':
                 if self.compteur == 300:
                     if self.player_pk.is_alive:
                         attaque = player_pk_action[1]
                         self.exec_attaque_action(self.player_pk, self.dresseur.pk, attaque)
+                        self.turn_exec_info = "Attaque des pokémons..."
 
             if dresseur_pk_action[0] == 'ATTAQUE':
                 if self.compteur == 270:
                     if self.dresseur.pk.is_alive:
                         attaque = dresseur_pk_action[1]
                         self.exec_attaque_action(self.dresseur.pk, self.player_pk, attaque)
+                        self.turn_exec_info = "Attaque des pokémons..."
 
             # # # Application des effets de status
             if self.compteur == 250:
                 self.apply_status_effects(self.player_pk)
+                self.turn_exec_info = "Application des effets de status..."
             if self.compteur == 230:
                 self.apply_status_effects(self.dresseur.pk)
+                self.turn_exec_info = "Application des effets de status..."
 
         # Si le premier pokémon à attaquer est le pokémon du dresseur
         else:
@@ -496,43 +509,55 @@ class Fight:
                 if self.compteur == 300:
                     item = dresseur_pk_action[1]
                     self.exec_item_action(self.dresseur.pk, item, None)
+                    self.turn_exec_info = "Utilisation d'un objet..."
 
             if player_pk_action[0] == 'ITEM':
                 if self.compteur == 270:
                     item = player_pk_action[1]
                     i = player_pk_action[2]
                     self.exec_item_action(self.player_pk, item, i)
+                    self.turn_exec_info = "Utilisation d'un objet..."
 
             if dresseur_pk_action[0] == 'ATTAQUE':
                 if self.compteur == 300:
                     if self.dresseur.pk.is_alive:
                         attaque = dresseur_pk_action[1]
                         self.exec_attaque_action(self.dresseur.pk, self.player_pk, attaque)
+                        self.turn_exec_info = "Attaque des pokémons..."
 
             if player_pk_action[0] == 'ATTAQUE':
                 if self.compteur == 270:
                     if self.player_pk.is_alive:
                         attaque = player_pk_action[1]
                         self.exec_attaque_action(self.player_pk, self.dresseur.pk, attaque)
+                        self.turn_exec_info = "Attaque des pokémons..."
 
                 # # # Application des effets de status
                 if self.compteur == 250:
                     self.apply_status_effects(self.dresseur.pk)
+                    self.turn_exec_info = "Application des effets de status..."
                 if self.compteur == 230:
                     self.apply_status_effects(self.player_pk)
+                    self.turn_exec_info = "Application des effets de status..."
 
         if self.compteur == 200:
+            self.turn_exec_info = "Vérification de victoire/défaite..."
             if not self.player_pk.is_alive:
                 self.fight_result = 'Defeat'
                 self.add_logs(('Result', "Defeat"))
                 self.boolEnding = True
+                self.dresseur.pk.reset_stats()
+                self.player_pk.reset_stats()
             elif not self.dresseur.pk.is_alive:
                 self.fight_result = 'Victory'
                 self.add_logs(('Result', "Victory"))
                 self.boolEnding = True
+                self.dresseur.pk.reset_stats()
+                self.player_pk.reset_stats()
 
             self.executing_turn = False
             self.compteur = 1
+            self.turn_exec_info = ""
 
         self.compteur -= 1
 
@@ -569,12 +594,13 @@ class Fight:
         if pk.status['Confusion']:
             if random.randint(1, 3) == 1:
                 pk_can_atk = False
-                pk.attaque(pk, attaque.Attaque('Charge'))
+                pk.attaque(pk, attaques.Attaque('Charge'))
+                print(f'{pk.name} se blesse dans sa confusion')
 
         if pk_can_atk:
             pk.attaque(ennemy_pk, attaque)
 
-        self.add_logs(('ATTAQUE', pk, attaque))
+            self.add_logs(('ATTAQUE', pk, attaque))
 
     def add_logs(self, info):
         if len(self.fight_logs) >= 6:
@@ -723,7 +749,7 @@ class Fight:
                 self.confusion_compteur_tour[pk] = -1
                 print('Effet confusion retiré')
             else:
-                self.confusion_compteur_tour -= 1
+                self.confusion_compteur_tour[pk] -= 1
 
     def left_clic_interactions(self, possouris):  # Quand l'utilisateur utilise le clic gauche
         if not self.executing_turn:

@@ -19,7 +19,7 @@ class Pokemon:
             'Sommeil': False,
             'Brulure': False,
             'Confusion': False,
-            'Gel': False,
+            'Gel': True,
             'Poison': False,
             'Paralysie': False
             }
@@ -178,6 +178,11 @@ class Pokemon:
             'Poison': False,
             'Paralysie': False
             }
+
+    def reset_stats(self):
+        self.attack = self.base_attack
+        self.defense = self.base_defense
+        self.speed = self.base_speed
 
     def use_item(self, item):
 
