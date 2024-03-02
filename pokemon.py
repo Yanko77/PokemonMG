@@ -19,7 +19,7 @@ class Pokemon:
             'Sommeil': False,
             'Brulure': False,
             'Confusion': False,
-            'Gel': True,
+            'Gel': False,
             'Poison': False,
             'Paralysie': False
             }

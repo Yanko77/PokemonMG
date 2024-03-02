@@ -7,10 +7,13 @@
     <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="status effect in fight.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pk_to_add.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pk_to_add.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
     </list>
-    <list id="3785ed3a-4cd3-4d2c-ae3e-35913ac33e20" name="Changes by matva" comment="Changes by matva" />
+    <list id="3785ed3a-4cd3-4d2c-ae3e-35913ac33e20" name="Changes by matva" comment="Changes by matva">
+      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pk_to_add.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pk_to_add.txt" afterDir="false" />
+    </list>
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +58,38 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Dummy.txt" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/fight.py">
+      <ranges>
+        <range start1="277" end1="277" start2="277" end2="291" changelist="3785ed3a-4cd3-4d2c-ae3e-35913ac33e20" />
+        <range start1="280" end1="281" start2="294" end2="295" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="285" end1="286" start2="299" end2="300" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="288" end1="291" start2="302" end2="302" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="293" end1="294" start2="304" end2="305" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="588" end1="588" start2="599" end2="600" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="590" end1="590" start2="602" end2="603" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="593" end1="593" start2="606" end2="607" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="596" end1="596" start2="610" end2="611" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="597" end1="598" start2="612" end2="613" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="647" end1="647" start2="662" end2="704" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="715" end1="716" start2="772" end2="773" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="720" end1="721" start2="777" end2="778" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="726" end1="727" start2="783" end2="784" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="731" end1="732" start2="788" end2="789" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="739" end1="740" start2="796" end2="797" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="741" end1="742" start2="798" end2="799" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="749" end1="750" start2="806" end2="807" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="821" end1="821" start2="878" end2="888" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/pk_to_add.txt">
+      <ranges>
+        <range start1="0" end1="2" start2="0" end2="69" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="3" end1="5" start2="70" end2="72" changelist="3785ed3a-4cd3-4d2c-ae3e-35913ac33e20" />
+        <range start1="42" end1="43" start2="109" end2="109" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -220,8 +255,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.bot_fight_algo" />
         <item itemvalue="Python.fight" />
+        <item itemvalue="Python.bot_fight_algo" />
         <item itemvalue="Python.dresseur" />
         <item itemvalue="Python.game" />
         <item itemvalue="Python.pokemon" />

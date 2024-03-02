@@ -278,20 +278,17 @@ class Fight:
 
                 if self.sac_action_curseur_pos == 0:
                     i = 0
-                    for objet in self.game.player.sac_page1[0:8]:
+                    for objet in user_usable_items[0:8]:
                         self.sac_item_update(surface, possouris, objet, i)
                         i += 1
                 elif self.sac_action_curseur_pos == 1:
                     i = 8
-                    for objet in self.game.player.sac_page1[8:]:
-                        self.sac_item_update(surface, possouris, objet, i)
-                        i += 1
-                    for objet in self.game.player.sac_page2[0:4]:
+                    for objet in user_usable_items[8:16]:
                         self.sac_item_update(surface, possouris, objet, i)
                         i += 1
                 else:
                     i = 16
-                    for objet in self.game.player.sac_page2[4:]:
+                    for objet in self.game.player.sac_page2[16:]:
                         self.sac_item_update(surface, possouris, objet, i)
                         i += 1
 
@@ -586,16 +583,19 @@ class Fight:
         pk_can_atk = True
         if pk.status['Sommeil']:
             pk_can_atk = False
+            self.add_logs(('Status effect', pk, 'Sommeil'))
         if pk.status['Gel']:
             pk_can_atk = False
+            self.add_logs(('Status effect', pk, 'Gel'))
         if pk.status['Paralysie']:
             if random.randint(1, 4) == 1:
                 pk_can_atk = False
+                self.add_logs(('Status effect', pk, 'Paralysie'))
         if pk.status['Confusion']:
             if random.randint(1, 3) == 1:
                 pk_can_atk = False
+                self.add_logs(('Status effect', pk, 'Confusion'))
                 pk.attaque(pk, attaques.Attaque('Charge'))
-                print(f'{pk.name} se blesse dans sa confusion')
 
         if pk_can_atk:
             pk.attaque(ennemy_pk, attaque)
@@ -645,6 +645,48 @@ class Fight:
                 surface.blit(nom, (x, y))
                 surface.blit(a, (x + nom.get_width(), y))
                 surface.blit(resultat, (x + nom.get_width() + a.get_width(), y))
+
+            elif info[0] == 'End of Status':
+                if info[2] == 'Brulure':
+                    status = self.fight_logs_font.render(f'brûlé ', False, (255, 143, 0))
+                elif info[2] == 'Poison':
+                    status = self.fight_logs_font.render(f'empoisonné ', False, (220, 0, 255))
+                elif info[2] == 'Gel':
+                    status = self.fight_logs_font.render(f'gelé ', False, (0, 236, 255))
+                elif info[2] == 'Sommeil':
+                    status = self.fight_logs_font.render(f'endormi ', False, (0, 36, 108))
+                elif info[2] == 'Confusion':
+                    status = self.fight_logs_font.render(f'confus ', False, (159, 157, 0))
+                elif info[2] == 'Paralysie':
+                    status = self.fight_logs_font.render(f'paralysé ', False, (254, 239, 0))
+
+                nom = self.fight_logs_font.render(f'{info[1].name} ', False, pk_color)
+                phrase = self.fight_logs_font.render("n'est plus ", False, (51, 51, 51))
+
+                surface.blit(nom, (x, y))
+                surface.blit(phrase, (x + nom.get_width(), y))
+                surface.blit(status, (x + nom.get_width() + phrase.get_width(), y))
+
+            elif info[0] == 'Status effect':
+                if info[2] == 'Brulure':
+                    status = self.fight_logs_font.render(f'brûlé ', False, (255, 143, 0))
+                elif info[2] == 'Poison':
+                    status = self.fight_logs_font.render(f'empoisonné ', False, (220, 0, 255))
+                elif info[2] == 'Gel':
+                    status = self.fight_logs_font.render(f'gelé ', False, (0, 236, 255))
+                elif info[2] == 'Sommeil':
+                    status = self.fight_logs_font.render(f'endormi ', False, (0, 36, 108))
+                elif info[2] == 'Confusion':
+                    status = self.fight_logs_font.render(f'confus ', False, (159, 157, 0))
+                elif info[2] == 'Paralysie':
+                    status = self.fight_logs_font.render(f'paralysé ', False, (254, 239, 0))
+
+                nom = self.fight_logs_font.render(f'{info[1].name} ', False, pk_color)
+                phrase = self.fight_logs_font.render("est ", False, (51, 51, 51))
+
+                surface.blit(nom, (x, y))
+                surface.blit(phrase, (x + nom.get_width(), y))
+                surface.blit(status, (x + nom.get_width() + phrase.get_width(), y))
 
             y -= 45
 
@@ -713,23 +755,23 @@ class Fight:
         if pk.status["Brulure"]:
             if random.randint(1, 8) == 3:
                 pk.status["Brulure"] = False
-                print('Effet brulure retiré')
+                self.add_logs(('End of Status', pk, 'Brulure'))
 
         if pk.status["Poison"]:
             if random.randint(1, 4) == 3:
                 pk.status["Poison"] = False
-                print('Effet poison retiré')
+                self.add_logs(('End of Status', pk, 'Poison'))
 
         if pk.status["Paralysie"]:
             if random.randint(1, 10) == 3:
                 pk.status["Paralysie"] = False
                 pk.speed = pk.base_speed
-                print('Effet paralysie retiré')
+                self.add_logs(('End of Status', pk, 'Paralysie'))
 
         if pk.status["Gel"]:
             if random.randint(1, 5) == 3:
                 pk.status["Gel"] = False
-                print('Effet gel retiré')
+                self.add_logs(('End of Status', pk, 'Gel'))
 
         if pk.status["Sommeil"]:
             if self.sommeil_compteur_tour[pk] == -1:
@@ -737,9 +779,9 @@ class Fight:
             if random.randint(1, 1 + self.sommeil_compteur_tour[pk]) == 1:
                 pk.status["Sommeil"] = False
                 self.sommeil_compteur_tour[pk] = -1
-                print('Effet sommeil retiré')
+                self.add_logs(('End of Status', pk, 'Sommeil'))
             else:
-                self.sommeil_compteur_tour -= 1
+                self.sommeil_compteur_tour[pk] -= 1
 
         if pk.status["Confusion"]:
             if self.confusion_compteur_tour[pk] == -1:
@@ -747,7 +789,7 @@ class Fight:
             if random.randint(1, 1 + self.confusion_compteur_tour[pk]) == 1:
                 pk.status["Confusion"] = False
                 self.confusion_compteur_tour[pk] = -1
-                print('Effet confusion retiré')
+                self.add_logs(('End of Status', pk, 'Confusion'))
             else:
                 self.confusion_compteur_tour[pk] -= 1
 
@@ -819,3 +861,13 @@ class Fight:
                 pass
             else:
                 return self.fin_du_combat_button_rect.collidepoint(possouris)
+
+
+if __name__ == '__main__':
+    user_usable_items = ['Item', 'Item']
+    print(user_usable_items)
+    user_usable_items[0] = 1
+    print(user_usable_items)
+    for i in range(24 - len(user_usable_items)):
+        user_usable_items.append(None)
+    print(user_usable_items)
