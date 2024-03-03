@@ -71,17 +71,17 @@ Mélodelfe           57      fee     80      87      73      69      0       0  
 Goupix              20      feu     50      60      53      65      12      Feunard         0           NoType
 Feunard             63      feu     80      85      84      85      0       0               3           NoType
 #
-Mystherbe
-Ortide
-Rafflesia
+Mystherbe           10      plante  49      50      50      46      12      Ortide          0           poison
+Ortide              35      plante  67      74      69      60      24      Rafflesia       2           poison
+Rafflesia           77      plante  76      89      80      72      0       0               5           poison
 #
-Nostenfer
+Nostenfer           80      poison  68      95      71      105     0       0               2           vol
 #
-Paras
-Parasect
+Paras               20      insect  35      75      60      38      12      Parasect        0           plante
+Parasect            40      insect  58      88      74      38      0       0               1           plante
 #
-Taupiqueur
-Triopikeur
+Taupiqueur          25      sol     35      59      55      75      12      Triopikeur      0           NoType
+Triopikeur          75      sol     60      80      67      85      0       0               2           NoType
 #
 Miaouss
 Persian
