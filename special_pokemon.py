@@ -11,7 +11,7 @@ SPECIAL_PKS_LIST = ["Blue's Evoli"]
 
 class Pokemon:
 
-    def __init__(self, name, level, game, is_shiny=None, objet_tenu=None):
+    def __init__(self, name, level, game, is_shiny=False, objet_tenu=None):
         self.game = game
 
         self.name = name

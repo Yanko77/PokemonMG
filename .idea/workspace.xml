@@ -4,25 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="rework fight items usable (fix #63)&#10;status effect logs infos in fight.py">
-      <change afterPath="$PROJECT_DIR$/special_pokemon.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/special_pokemons.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_02_2024_20_38_[Default_Changelist]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_02_2024_20_38__Default_Changelist_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_02_2024_20_49_[Default_Changelist]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_02_2024_20_49__Default_Changelist_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/all_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dresseur.py" beforeDir="false" afterPath="$PROJECT_DIR$/dresseur.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_panel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_round.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_round.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
-    </list>
-    <list id="3ab2a7a4-e91e-43e9-a5d9-7d5605b3f4b3" name="Changes by matva" comment="">
-      <change beforePath="$PROJECT_DIR$/pk_to_add.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pk_to_add.txt" afterDir="false" />
-    </list>
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add end turn fight&#10;add special pokemons ( pokemons with edited stats )" />
+    <list id="3ab2a7a4-e91e-43e9-a5d9-7d5605b3f4b3" name="Changes by matva" comment="Changes by matva on new pokemons" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -248,20 +231,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00022" summary="finished starter choice etape">
-      <created>1689373338131</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1689373338131</updated>
-    </task>
-    <task id="LOCAL-00023" summary="new fonctionnalité : changement place objet dans sac.&#10;résolution bug interactions entre :&#10;  window_modif_pos &amp; starter.pk_move_mode&#10;  window_modif_pos &amp; sac.emp_move_mode">
-      <created>1689510680767</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1689510680767</updated>
     </task>
     <task id="LOCAL-00024" summary="add description  item name for sac d'objets">
       <created>1689609331701</created>
@@ -592,7 +561,21 @@
       <option name="project" value="LOCAL" />
       <updated>1709390833644</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="add end turn fight&#10;add special pokemons ( pokemons with edited stats )">
+      <created>1709441192290</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1709441192290</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Changes by matva on new pokemons">
+      <created>1709441215889</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1709441215890</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -607,8 +590,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="continue code reformating" />
-    <MESSAGE value="continue code reformating&#10;&#10;reformating panels.py" />
     <MESSAGE value="begin train panel" />
     <MESSAGE value="Changes by Mathias Farvacque" />
     <MESSAGE value="attaques.py" />
@@ -632,6 +613,8 @@
     <MESSAGE value="status effect in fight.py" />
     <MESSAGE value="rework fight items usable (fix #63)&#10;status effect logs infos in fight.py" />
     <MESSAGE value="Add a few pokemons" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add a few pokemons" />
+    <MESSAGE value="add end turn fight&#10;add special pokemons ( pokemons with edited stats )" />
+    <MESSAGE value="Changes by matva on new pokemons" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes by matva on new pokemons" />
   </component>
 </project>
