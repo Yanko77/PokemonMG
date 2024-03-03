@@ -327,6 +327,9 @@ class Fight:
                                    False, (40, 40, 40)), (39, 669))
         # Nom
         surface.blit(self.player_pk_name, (40, 584))
+        # Level
+        surface.blit(self.player_pk_name_font.render(f" Lv.{self.player_pk.level}", False, (0, 0, 0)),
+                     (40 + self.player_pk_name.get_width(), 584))
 
         # Pokemon du dresseur
         # Icone
@@ -338,6 +341,9 @@ class Fight:
                          pygame.Rect(899, 94, self.dresseur.pk.health / self.dresseur.pk.pv * 225, 21))
         # Nom
         surface.blit(self.dresseur_pk_name, (905, 51))
+        # Level
+        surface.blit(self.dresseur_pk_name_font.render(f"  Lv.{self.dresseur.pk.level}", False, (0, 0, 0)),
+                     (905 + self.dresseur_pk_name.get_width(), 51))
 
     def sac_item_update(self, surface, possouris, item, i):
         if self.item_moving_mode and self.item_moving_i == i:
@@ -705,8 +711,14 @@ class Fight:
             y -= 45
 
     def init_dresseur(self, dresseur_class, dresseur_pk=None):
+        r = random.Random()
+        r.seed(self.game.round.random_seed)
+
         if dresseur_class is None:
-            dresseur_class = random.choice(DRESSEUR_LIST)  # À modifier avec les niveaux de difficultés des dresseurs...
+            # dresseur_class = r.choice(DRESSEUR_LIST)
+            return Blue(self.game, pk=dresseur_pk)
+
+        print(dresseur_class)
 
         return dresseur_class(self.game, pk=dresseur_pk)
 

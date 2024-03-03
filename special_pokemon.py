@@ -3,6 +3,10 @@ import random
 import objet
 import game_infos
 import attaques
+import game
+
+
+SPECIAL_PKS_LIST = ["Blue's Evoli"]
 
 
 class Pokemon:
@@ -10,7 +14,7 @@ class Pokemon:
     def __init__(self, name, level, game, is_shiny=None, objet_tenu=None):
         self.game = game
 
-        self.name = name[0].upper() + name[1:].lower()
+        self.name = name
         self.is_shiny = self.def_shiny(is_shiny)
         self.id = self.game.get_init_pokemon_id()
 
@@ -25,6 +29,7 @@ class Pokemon:
             }
 
         self.line = self.find_pokemon_line()
+        print(self.line)
 
         self.level = int(level)
         self.rarity = int(self.line[1])
@@ -33,7 +38,7 @@ class Pokemon:
 
         self.bonus_pvmax = 0
         self.multiplicateur_pvmax = 1
-        self.pv = round((2 * int(self.line[3]) * self.level)/100 + self.level + 10) + self.bonus_pvmax  #  PV MAX
+        self.pv = round((2 * int(self.line[3]) * self.level)/100 + self.level + 10) + self.bonus_pvmax  # PV MAX
         self.health = self.pv + self.bonus_pvmax  # PV ACTUELS
 
         self.bonus_attack = 0
@@ -77,10 +82,11 @@ class Pokemon:
         self.random_seed = self.generate_random_seed_number()
 
     def find_pokemon_line(self) -> list:
-        with open('all_pokemons.txt') as file:
+        with open('special_pokemons.txt') as file:
             for line in file.readlines():
-                if line.split()[0] == self.name:
-                    return line.split()
+                print(line.split(','))
+                if line.split(",")[0] == self.name:
+                    return line.split(",")
 
     def level_up(self, nb_lv=1):
         self.level += nb_lv
@@ -303,4 +309,5 @@ class Pokemon:
 
 
 if __name__ == "__main__":
-    pass
+    g = game.Game()
+    p = Pokemon("Blue's Evoli", 20, g)

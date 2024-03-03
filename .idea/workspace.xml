@@ -4,14 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="status effect in fight.py">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="rework fight items usable (fix #63)&#10;status effect logs infos in fight.py">
+      <change afterPath="$PROJECT_DIR$/special_pokemon.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/special_pokemons.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_02_2024_20_38_[Default_Changelist]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_02_2024_20_38__Default_Changelist_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_02_2024_20_49_[Default_Changelist]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_02_2024_20_49__Default_Changelist_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/all_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dresseur.py" beforeDir="false" afterPath="$PROJECT_DIR$/dresseur.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pk_to_add.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pk_to_add.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_panel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_round.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_round.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
     </list>
-    <list id="3785ed3a-4cd3-4d2c-ae3e-35913ac33e20" name="Changes by matva" comment="Changes by matva">
-      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
+    <list id="3ab2a7a4-e91e-43e9-a5d9-7d5605b3f4b3" name="Changes by matva" comment="">
       <change beforePath="$PROJECT_DIR$/pk_to_add.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pk_to_add.txt" afterDir="false" />
     </list>
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -58,38 +67,6 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Dummy.txt" root0="SKIP_HIGHLIGHTING" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/fight.py">
-      <ranges>
-        <range start1="277" end1="277" start2="277" end2="291" changelist="3785ed3a-4cd3-4d2c-ae3e-35913ac33e20" />
-        <range start1="280" end1="281" start2="294" end2="295" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="285" end1="286" start2="299" end2="300" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="288" end1="291" start2="302" end2="302" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="293" end1="294" start2="304" end2="305" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="588" end1="588" start2="599" end2="600" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="590" end1="590" start2="602" end2="603" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="593" end1="593" start2="606" end2="607" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="596" end1="596" start2="610" end2="611" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="597" end1="598" start2="612" end2="613" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="647" end1="647" start2="662" end2="704" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="715" end1="716" start2="772" end2="773" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="720" end1="721" start2="777" end2="778" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="726" end1="727" start2="783" end2="784" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="731" end1="732" start2="788" end2="789" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="739" end1="740" start2="796" end2="797" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="741" end1="742" start2="798" end2="799" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="749" end1="750" start2="806" end2="807" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="821" end1="821" start2="878" end2="888" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/pk_to_add.txt">
-      <ranges>
-        <range start1="0" end1="2" start2="0" end2="69" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="3" end1="5" start2="70" end2="72" changelist="3785ed3a-4cd3-4d2c-ae3e-35913ac33e20" />
-        <range start1="42" end1="43" start2="109" end2="109" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -232,7 +209,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="pokemon" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="special_pokemon" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PokemonManagementGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -244,7 +221,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pokemon.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/special_pokemon.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -255,11 +232,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.special_pokemon" />
         <item itemvalue="Python.fight" />
         <item itemvalue="Python.bot_fight_algo" />
         <item itemvalue="Python.dresseur" />
         <item itemvalue="Python.game" />
-        <item itemvalue="Python.pokemon" />
       </list>
     </recent_temporary>
   </component>
@@ -271,20 +248,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00020" summary="new fonctionnalité : Move pokemon in game.classic_panel&#10;&#10;+ images pour tous les objets">
-      <created>1689195358790</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1689195358790</updated>
-    </task>
-    <task id="LOCAL-00021" summary="add starter_window images&#10;fonctionnalité: choisir le starter">
-      <created>1689209517418</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1689209517418</updated>
     </task>
     <task id="LOCAL-00022" summary="finished starter choice etape">
       <created>1689373338131</created>
@@ -615,7 +578,21 @@
       <option name="project" value="LOCAL" />
       <updated>1709305896498</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="rework fight items usable (fix #63)&#10;status effect logs infos in fight.py">
+      <created>1709390824184</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1709390824184</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Add a few pokemons">
+      <created>1709390833644</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1709390833644</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -630,8 +607,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="des milliards de trucs" />
-    <MESSAGE value="Spawn action working&#10;System of actions working&#10;begin reformating code ( player_name done )&#10;&#10;add player_name.py" />
     <MESSAGE value="continue code reformating" />
     <MESSAGE value="continue code reformating&#10;&#10;reformating panels.py" />
     <MESSAGE value="begin train panel" />
@@ -655,6 +630,8 @@
     <MESSAGE value="Changes by matva" />
     <MESSAGE value="try status effect in fight.py" />
     <MESSAGE value="status effect in fight.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="status effect in fight.py" />
+    <MESSAGE value="rework fight items usable (fix #63)&#10;status effect logs infos in fight.py" />
+    <MESSAGE value="Add a few pokemons" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add a few pokemons" />
   </component>
 </project>

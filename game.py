@@ -38,7 +38,7 @@ class Game:
 
         self.classic_panel = GamePanel(self)
         self.current_fight = None
-        self.round = Round()
+        self.round = Round(self)
 
         self.save_file = open('save.txt', 'r+')
 
