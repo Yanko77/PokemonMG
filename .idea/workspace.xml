@@ -4,20 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add new dresseur : Alizee&#10;add Alizee pokemons and evolution family">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="end turn fight 100% working&#10;add next turn system&#10;replace game random seed system&#10;replace game round system">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_panel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_round.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_round.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ingame_windows.py" beforeDir="false" afterPath="$PROJECT_DIR$/ingame_windows.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/items.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sac.py" beforeDir="false" afterPath="$PROJECT_DIR$/sac.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spawn.py" beforeDir="false" afterPath="$PROJECT_DIR$/spawn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/starters.py" beforeDir="false" afterPath="$PROJECT_DIR$/starters.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <list id="3ab2a7a4-e91e-43e9-a5d9-7d5605b3f4b3" name="Changes by matva" comment="Changes by matva on new pokemons" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -248,13 +237,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00026" summary="begin item system">
-      <created>1689638338797</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1689638338797</updated>
     </task>
     <task id="LOCAL-00027" summary="add hover cursor when item give or use on pokemon">
       <created>1689706816103</created>
@@ -592,7 +574,14 @@
       <option name="project" value="LOCAL" />
       <updated>1709529514106</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="end turn fight 100% working&#10;add next turn system&#10;replace game random seed system&#10;replace game round system">
+      <created>1709534374078</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1709534374078</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -608,7 +597,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Changes by Mathias Farvacque" />
     <MESSAGE value="attaques.py" />
     <MESSAGE value="continue train.py" />
     <MESSAGE value="continue train.py&#10;beginning fight.py, dresseur.py" />
@@ -633,6 +621,7 @@
     <MESSAGE value="Changes by matva on new pokemons" />
     <MESSAGE value="add end turn fight&#10;add special pokemons ( pokemons with edited stats )" />
     <MESSAGE value="add new dresseur : Alizee&#10;add Alizee pokemons and evolution family" />
-    <option name="LAST_COMMIT_MESSAGE" value="add new dresseur : Alizee&#10;add Alizee pokemons and evolution family" />
+    <MESSAGE value="end turn fight 100% working&#10;add next turn system&#10;replace game random seed system&#10;replace game round system" />
+    <option name="LAST_COMMIT_MESSAGE" value="end turn fight 100% working&#10;add next turn system&#10;replace game random seed system&#10;replace game round system" />
   </component>
 </project>

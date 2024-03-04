@@ -75,6 +75,9 @@ class GamePanel:
         self.fight_sac_button_rect = pygame.Rect(184, 211, 75, 92)
         self.fight_equipe_button = pygame.image.load('assets/game/panels/classic_panel/dresseur_equipe_button.png')
         self.fight_equipe_button_rect = pygame.Rect(265, 211, 75, 92)
+
+        self.fight_popup_x_button = pygame.image.load('assets/game/panels/classic_panel/x_fight_popup_button.png')
+        self.fight_popup_x_button_rect = pygame.Rect(557, 82, 70, 70)
         # GENERATING RECTS --------------------------------------------
 
         #   # Player rects
@@ -173,6 +176,11 @@ class GamePanel:
         surface.blit(self.fight_popup, (0, 0))
 
         # BUTTONS
+        if self.fight_popup_x_button_rect.collidepoint(possouris):
+            surface.blit(self.fight_popup_x_button, self.fight_popup_x_button_rect, (70, 0, 70, 70))
+        else:
+            surface.blit(self.fight_popup_x_button, self.fight_popup_x_button_rect, (0, 0, 70, 70))
+
         if self.fight_sac_button_rect.collidepoint(possouris):
             surface.blit(self.fight_sac_button, self.fight_sac_button_rect, (75, 0, 75, 92))
         else:
@@ -521,8 +529,12 @@ class GamePanel:
                 self.ingame_window.maximize()
 
             if self.game.player.actions <= 0:
-                if self.go_fight_button_rect.collidepoint(possouris):
-                    self.boolFight_popup = True
+                if not self.boolFight_popup:
+                    if self.go_fight_button_rect.collidepoint(possouris):
+                        self.boolFight_popup = True
+                else:
+                    if self.fight_popup_x_button_rect.collidepoint(possouris):
+                        self.boolFight_popup = False
 
             if self.pokemon_info_mode:
                 if pygame.Rect(1210, 9, 59, 59).collidepoint(possouris):
@@ -543,16 +555,18 @@ class GamePanel:
 
             elif self.pk_move_mode:
                 return True
+            elif self.sac_button_rect.collidepoint(possouris):
+                return True
             elif self.boolFight_popup:
                 if self.fight_sac_button_rect.collidepoint(possouris) or self.fight_equipe_button_rect.collidepoint(possouris):
+                    return True
+                elif self.fight_popup_x_button_rect.collidepoint(possouris):
                     return True
             elif self.game.player.actions <= 0 and self.go_fight_button_rect.collidepoint(possouris):
                 return True
             elif self.buttons.is_hovering_button(possouris):
                 return not self.boolFight_popup
             elif self.is_hovering_team_pokemon(possouris):
-                return True
-            elif self.sac_button_rect.collidepoint(possouris):
                 return True
             elif self.is_hovering_pokemon_info_popup_buttons(possouris):
                 return True
