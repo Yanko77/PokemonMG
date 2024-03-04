@@ -113,8 +113,17 @@ class Sauvage(Dresseur):
 class Alizee(Dresseur):
 
     def __init__(self, game, pk=None):
-        super().__init__('Alizée', game, power=3, pk_lists=['Hélédelle', 'Altaria', 'Airmure', 'Bekipan', 'Corboss'], pk=pk)
-
+        super().__init__('Alizée', game, power=3,
+                         pk_lists=[
+                             ["Alizee's Altaria"],  # Level 1
+                             ["Alizee's Altaria", 'Heledelle'],  # Level 2
+                             ["Alizee's Altaria", 'Airmure'],  # Level 3
+                             ["Alizee's Altaria", 'Bekipan'],  # Level 4
+                             ["Alizee's Altaria", 'Corboss'],  # Level 5
+                             ["Alizee's Altaria"]  # Level 6+
+                         ],
+                         pk=pk)
+        self.init_pk()
 
 class Red(Dresseur):
 

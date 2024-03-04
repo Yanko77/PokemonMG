@@ -716,9 +716,7 @@ class Fight:
 
         if dresseur_class is None:
             # dresseur_class = r.choice(DRESSEUR_LIST)
-            return Blue(self.game, pk=dresseur_pk)
-
-        print(dresseur_class)
+            return Alizee(self.game, pk=dresseur_pk)
 
         return dresseur_class(self.game, pk=dresseur_pk)
 

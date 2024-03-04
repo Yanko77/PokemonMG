@@ -6,7 +6,7 @@ import attaques
 import game
 
 
-SPECIAL_PKS_LIST = ["Blue's Evoli"]
+SPECIAL_PKS_LIST = ["Blue's Evoli", "Alizee's Altaria"]
 
 
 class Pokemon:

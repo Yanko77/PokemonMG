@@ -1,3 +1,4 @@
 # name            rarity    type    pv      att    def     speed  evol_lv   evol_name       player_lv   type2
 # Moyennes:         50        -    68/80   75/90  70/83    70/85
 Blue's Evoli,0,normal,85,90,75,93,0,0,0,NoType
+Alizee's Altaria,0,dragon,90,85,105,90,0,0,0,vol

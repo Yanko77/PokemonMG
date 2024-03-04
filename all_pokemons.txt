@@ -80,3 +80,18 @@ Parasect            40      insect  58      88      74      38      0       0   
 #
 Taupiqueur          25      sol     35      59      55      75      12      Triopikeur      0           NoType
 Triopikeur          75      sol     60      80      67      85      0       0               2           NoType
+#
+Tylton              40      normal  55      65      70      67      20      Altaria         1           vol
+Altaria             80      dragon  80      80      95      85      0       0               3           vol
+#
+Nirondelle          25      normal  58      70      50      72      15      Heledelle       0           vol
+Heledelle           50      normal  70      85      65      90      0       0               1           vol
+#
+Airmure             45      acier   68      73      90      70      0       0               2           vol
+#
+Goelise             20      eau     50      65      50      75      12      Bekipan         0           vol
+Bekipan             40      eau     70      77      77      75      0       0               2           vol
+#
+Cornebre            30      dark    60      75      58      75      15      Corboss         1           vol
+Corboss             50      dark    80      95      65      78      0       0               3           vol
+#
