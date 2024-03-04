@@ -15,7 +15,7 @@ DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
 
 class Fight:
 
-    def __init__(self, game, player_pk, dresseur_class=None, dresseur_pk=None, difficult='easy'):
+    def __init__(self, game, player_pk, dresseur_class=None, dresseur_pk=None, difficult='easy', fight_type='Classic'):
         """
         La classe Fight est définie par:
         - Le pokemon envoyé par le joueur (player_pk)
@@ -24,6 +24,7 @@ class Fight:
         self.game = game
         self.player_pk = player_pk
         self.dresseur = self.init_dresseur(dresseur_class, dresseur_pk)
+        self.fight_type = fight_type
 
         # Chargement des images
         self.path = 'assets/game/panels/fight_panel/'
@@ -562,13 +563,11 @@ class Fight:
             if not self.player_pk.is_alive:
                 self.fight_result = 'Defeat'
                 self.add_logs(('Result', "Defeat"))
-                self.boolEnding = True
                 self.dresseur.pk.reset_stats()
                 self.player_pk.reset_stats()
             elif not self.dresseur.pk.is_alive:
                 self.fight_result = 'Victory'
                 self.add_logs(('Result', "Victory"))
-                self.boolEnding = True
                 self.dresseur.pk.reset_stats()
                 self.player_pk.reset_stats()
 
@@ -751,6 +750,13 @@ class Fight:
 
         return rewards
 
+    def end_fight(self):
+        self.get_rewards()
+        if self.fight_type == 'Boss':  # A inclure dans rewards
+            self.player_pk.full_heal()
+
+        self.game.end_fight()
+
     def apply_status_effects(self, pk):
         print('Application des effets du pokemon :', pk.name)
         if pk.status["Brulure"]:
@@ -852,6 +858,8 @@ class Fight:
                 else:
                     if self.fin_du_combat_button_rect.collidepoint(possouris):
                         self.boolEnding = True
+                        self.end_fight()
+                        print('end')
 
     def is_hovering(self, possouris):
         if self.fight_result is None:

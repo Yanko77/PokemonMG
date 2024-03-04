@@ -315,4 +315,8 @@ class SpawnPanel:
             else:
                 return pokemon
 
+    def reset(self):
+        self.spawning_pk = None
+        self.is_spawning_pk_lock = True
+
 

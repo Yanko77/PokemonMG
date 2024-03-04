@@ -186,6 +186,10 @@ class IngameWindow:
     def maximize(self):
         self.is_minimized = False
 
+    def reset_all_panels(self):
+        for panel in self.all_panels.values():
+            panel.reset()
+
     def is_hovering(self, possouris):
         if self.is_open:
             if self.is_minimized and self.min_window_rect.collidepoint(possouris):

@@ -249,6 +249,9 @@ class SacIngamePanel:
                 elif self.game.player.sac_page2[i-1].quantite > 99:
                     self.game.player.sac_page2[i-1].quantite = 99
 
+    def reset(self):
+        pass
+
     def left_clic_interactions(self, possouris):
         if self.page1_rect.collidepoint(possouris):
             self.change_page(1)

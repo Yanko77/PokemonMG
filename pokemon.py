@@ -33,7 +33,7 @@ class Pokemon:
 
         self.bonus_pvmax = 0
         self.multiplicateur_pvmax = 1
-        self.pv = round((2 * int(self.line[3]) * self.level)/100 + self.level + 10) + self.bonus_pvmax  #  PV MAX
+        self.pv = round((2 * int(self.line[3]) * self.level)/100 + self.level + 10) + self.bonus_pvmax  # PV MAX
         self.health = self.pv + self.bonus_pvmax  # PV ACTUELS
 
         self.bonus_attack = 0
@@ -100,6 +100,9 @@ class Pokemon:
                 return Pokemon(self.evolution_name, self.level, self.is_shiny)
             else:
                 return Pokemon(self.name, self.level, self.is_shiny)
+
+    def full_heal(self):
+        self.health = self.pv
 
     def get_id(self):
         return self.id

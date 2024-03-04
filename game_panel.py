@@ -467,7 +467,10 @@ class GamePanel:
             self.go_fight_button_compteur = 0
 
     def start_fight(self):
-        self.game.start_fight(self.fighting_pk)
+        self.game.start_fight(self.fighting_pk, fight_type='Boss')
+
+    def next_turn(self):
+        self.ingame_window.reset_all_panels()
 
     # INTERACTIONS -----------------------------
 

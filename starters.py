@@ -138,6 +138,9 @@ class StartersPanel:
     def decouvrir_pk(self, i):
         self.pk_decouverts[i] = True
 
+    def reset(self):
+        pass
+
     def left_clic_interactions(self, possouris):
         if self.pk_rects[0].collidepoint(possouris):
             self.decouvrir_pk(0)

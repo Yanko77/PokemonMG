@@ -71,12 +71,18 @@ class Player:
         self.name_edited = False
         self.name_editing_mode = False
 
+    def reset_actions(self):
+        self.actions = self.max_actions
+
     def evol_pk(self, i=0):
         if self.team[i] is not None:
             self.team[i] = self.team[i].evolution()
 
     def use_action(self, amount=1):
         self.actions -= amount
+
+    def level_up(self, nb_lv=1):
+        self.level += nb_lv
 
     def rise_max_actions_value(self):
         self.max_actions += 1

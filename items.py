@@ -58,6 +58,9 @@ class ItemsPanel:
                     self.game.player.money += objet.sell_price
             objet.quantite -= 1
 
+    def reset(self):
+        pass
+
     def left_clic_interactions(self, possouris):
         pass
 

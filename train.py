@@ -433,6 +433,28 @@ class TrainPanel:
         
     def close_settings_popup(self):
         self.boolSettings_popup = False
+
+    def reset(self):
+        self.training_pk = None
+        self.ennemy_pks_backup = {}
+
+        self.difficult = 'easy'
+        self.boolEnnemy_pk_stats = False
+
+        # Variables relatives aux pokémons ennemis
+        self.ennemy_pks = {
+            'easy': self.spawn_ennemy_pk('easy'),
+            'normal': self.spawn_ennemy_pk('normal'),
+            'hard': self.spawn_ennemy_pk('hard')
+        }
+        self.ennemy_pk = self.ennemy_pks[self.difficult]
+
+        self.ennemy_pks_backup = {}
+
+        self.load_ennemy_pk()
+
+        self.boolSettings_popup = False
+        self.boolAdd_training_pk_popup = False
         
     def left_clic_interactions(self, possouris):
         if self.settings_button_rect.collidepoint(possouris):

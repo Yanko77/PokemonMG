@@ -4,40 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add end turn fight&#10;add special pokemons ( pokemons with edited stats )">
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Airmure.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Airmure_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Alizee's Altaria.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Altaria.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Altaria_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Bekipan.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Bekipan_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Corboss.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Corboss_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Cornebre.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Cornebre_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Goelise.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Goelise_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Heledelle.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Heledelle_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Nirondelle.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Nirondelle_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Tylton.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Tylton_.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_25_02_2024_12_37_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_25_02_2024_12_37__Default_Changelist_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_25_02_2024_14_17_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_25_02_2024_14_17__Default_Changelist_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_02_2024_12_38_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_02_2024_12_38__Default_Changelist_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_02_2024_14_20_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_02_2024_14_20__Default_Changelist_.xml" beforeDir="false" />
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add new dresseur : Alizee&#10;add Alizee pokemons and evolution family">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/all_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dresseur.py" beforeDir="false" afterPath="$PROJECT_DIR$/dresseur.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/special_pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/special_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemons.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_panel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_round.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_round.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ingame_windows.py" beforeDir="false" afterPath="$PROJECT_DIR$/ingame_windows.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/items.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sac.py" beforeDir="false" afterPath="$PROJECT_DIR$/sac.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spawn.py" beforeDir="false" afterPath="$PROJECT_DIR$/spawn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/starters.py" beforeDir="false" afterPath="$PROJECT_DIR$/starters.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <list id="3ab2a7a4-e91e-43e9-a5d9-7d5605b3f4b3" name="Changes by matva" comment="Changes by matva on new pokemons" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -110,14 +90,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "git-widget-placeholder": "Yanko",
-    "last_opened_file_path": "C:/Users/yanko/PycharmProjects/PokemonManagementGame",
-    "run.code.analysis.last.selected.profile": "pProject Default"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Yanko&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/yanko/PycharmProjects/PokemonManagementGame&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\yanko\PycharmProjects\PokemonManagementGame" />
@@ -268,13 +248,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00025" summary="add description  item name for sac d'objets">
-      <created>1689609336765</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1689609336765</updated>
     </task>
     <task id="LOCAL-00026" summary="begin item system">
       <created>1689638338797</created>
@@ -612,7 +585,14 @@
       <option name="project" value="LOCAL" />
       <updated>1709441297101</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="add new dresseur : Alizee&#10;add Alizee pokemons and evolution family">
+      <created>1709529514106</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1709529514106</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -628,7 +608,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="begin train panel" />
     <MESSAGE value="Changes by Mathias Farvacque" />
     <MESSAGE value="attaques.py" />
     <MESSAGE value="continue train.py" />
@@ -653,6 +632,7 @@
     <MESSAGE value="Add a few pokemons" />
     <MESSAGE value="Changes by matva on new pokemons" />
     <MESSAGE value="add end turn fight&#10;add special pokemons ( pokemons with edited stats )" />
-    <option name="LAST_COMMIT_MESSAGE" value="add end turn fight&#10;add special pokemons ( pokemons with edited stats )" />
+    <MESSAGE value="add new dresseur : Alizee&#10;add Alizee pokemons and evolution family" />
+    <option name="LAST_COMMIT_MESSAGE" value="add new dresseur : Alizee&#10;add Alizee pokemons and evolution family" />
   </component>
 </project>
