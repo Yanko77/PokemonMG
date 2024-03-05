@@ -41,8 +41,7 @@ class GamePanel:
 
         # Elements spontanés
         #    # Player infos
-        self.mode_changement_pseudo_image = pygame.image.load(
-            'assets/game/panels/classic_panel/mode_changement_pseudo.png')
+        self.mode_changement_pseudo_image = pygame.image.load('assets/game/panels/classic_panel/mode_changement_pseudo.png')
         self.player_name_hover = pygame.image.load("assets/game/panels/classic_panel/player_name_hover.png")
         self.curseur_changement_pseudo = image.CursorChangePseudoMode()
         self.player_name_image = self.font.render(self.game.player.name, False, (15, 0, 124))
@@ -51,17 +50,15 @@ class GamePanel:
         #   # Pokemon infos
         self.pokemon_info_popup = pygame.image.load('assets/game/panels/classic_panel/pokemon_infos.png')
         self.pokemon_info_popup_unknown = pygame.image.load('assets/game/panels/classic_panel/pokemon_info_unknown.png')
-        self.pokemon_info_popup_x_button_hover = pygame.image.load(
-            'assets/game/panels/classic_panel/pokemon_infos_x_button_hover.png')
+        self.pokemon_info_popup_x_button_hover = pygame.image.load('assets/game/panels/classic_panel/pokemon_infos_x_button_hover.png')
         #   # Pokemon team
-        self.logo_pk_suppr = pygame.image.load('assets/game/panels/classic_panel/logo_suppr_pk.png')
-        self.logo_pk_suppr_hover = pygame.image.load('assets/game/panels/classic_panel/logo_suppr_pk_hover.png')
+        self.delete_pk_button = pygame.image.load('assets/game/panels/classic_panel/delete_pk_button.png')
+        self.delete_pk_button_rect = pygame.Rect(1065, 23, 194, 194)
         self.interface_sombre_team = pygame.image.load('assets/game/panels/classic_panel/item_to_pokemon.png')
         self.item_pk_hover_use = pygame.image.load('assets/game/panels/classic_panel/item_use_pk_hover.png')
         self.item_pk_hover_give = pygame.image.load('assets/game/panels/classic_panel/item_give_pk_hover.png')
         self.item_pk_hover_error = pygame.image.load('assets/game/panels/classic_panel/item_error_pk_hover.png')
-        self.item_pk_hover_give_error = pygame.image.load(
-            'assets/game/panels/classic_panel/item_error_give_pk_hover.png')
+        self.item_pk_hover_give_error = pygame.image.load('assets/game/panels/classic_panel/item_error_give_pk_hover.png')
         #   # Buttons
         self.sac_button_hover = self.create_rect_alpha((218, 215), (113, 64, 30))  # pygame.Rect(667, 465, 218, 215)
         self.go_fight_button = pygame.image.load('assets/game/panels/classic_panel/go_fight_button.png')
@@ -240,6 +237,17 @@ class GamePanel:
             surface.blit(self.mode_changement_pseudo_image, (0, 0))
 
     def update_team_pokemons(self, surface, possouris):
+        # Bouton delete pokemon
+        if self.pk_move_mode:
+            if self.delete_pk_button_rect.collidepoint(possouris):
+                surface.blit(self.delete_pk_button,
+                             (self.delete_pk_button_rect.x + 3, self.delete_pk_button_rect.y + 4),
+                             (183, 0, 183, 183))
+            else:
+                surface.blit(self.delete_pk_button,
+                             (self.delete_pk_button_rect.x + 3, self.delete_pk_button_rect.y + 4),
+                             (0, 0, 183, 183))
+
         # Pokemon 1
         self.update_pokemon(surface, possouris, 0)
         # Pokemon 2
@@ -278,9 +286,9 @@ class GamePanel:
             if self.pk_rects[i].collidepoint(possouris):
                 surface.blit(self.create_rect_alpha((369, 69), color), (self.pk_rects[i].x, self.pk_rects[i].y))
 
-            d = ((1082 - pk_rect.x)**2 + (494 - pk_rect.y)**2)**0.5
+            d = ((1272 - pk_rect.x) ** 2 + (637 - pk_rect.y) ** 2) ** 0.5
 
-            alpha = 272 + 255 - d
+            alpha = 1582 + 255 - d*3
             if alpha < 0:
                 alpha = 0
 
@@ -392,7 +400,10 @@ class GamePanel:
         else:
             if self.moving_pk[i]:
                 if not self.game.mouse_pressed[1]:
-                    if self.pk_rects[0].collidepoint(possouris):
+                    if self.delete_pk_button_rect.collidepoint(possouris):
+                        if self.game.player.get_nb_team_members() != 1:
+                            self.game.player.team[i] = None
+                    elif self.pk_rects[0].collidepoint(possouris):
                         self.change_pk_place(i, 0)
                     elif self.pk_rects[1].collidepoint(possouris):
                         self.change_pk_place(i, 1)

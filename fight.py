@@ -751,7 +751,8 @@ class Fight:
         return rewards
 
     def end_fight(self):
-        self.get_rewards()
+        if self.fight_result == 'Victory':
+            self.get_rewards()
         if self.fight_type == 'Boss':  # A inclure dans rewards
             self.player_pk.full_heal()
 

@@ -25,7 +25,7 @@ class Player:
                      None]
         self.sac_page1 = [objet.Objet('Super_Bonbon', 100),
                           objet.Objet('Potion_Max', 100),
-                          None,
+                          objet.Objet('Baie_Oran', 100),
                           None,
                           None,
                           None,

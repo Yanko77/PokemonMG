@@ -481,7 +481,7 @@ class TrainPanel:
             elif self.ennemy_pk_infos_stats_button_rect.collidepoint(possouris):
                 self.boolEnnemy_pk_stats = not self.boolEnnemy_pk_stats
             elif self.fight_button_rect.collidepoint(possouris):
-                if self.training_pk.is_alive:
+                if self.training_pk.is_alive and self.ennemy_pk.is_alive:
                     self.start_fight()
                     pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 

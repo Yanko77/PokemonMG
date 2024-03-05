@@ -88,9 +88,15 @@ class IngameWindow:
             if self.is_minimized:
                 surface.blit(self.min_window, self.min_window_rect)
                 surface.blit(self.icon, (self.min_window_rect.x - 20, self.min_window_rect.y + 3))
-                surface.blit(self.title,
-                             (self.min_window_rect.x + self.title_marges[self.current_panel_name] - 20,
-                              self.min_window_rect.y))
+
+                if self.current_panel_name == "Sac d'objets":
+                    surface.blit(self.title_font.render("Sac", False, (0, 0, 0)),
+                                 (self.min_window_rect.x + self.title_marges[self.current_panel_name] - 20,
+                                  self.min_window_rect.y))
+                else:
+                    surface.blit(self.title,
+                                 (self.min_window_rect.x + self.title_marges[self.current_panel_name] - 20,
+                                  self.min_window_rect.y))
 
                 if self.min_window_rect.collidepoint(possouris):
                     surface.blit(self.min_window_hover, self.min_window_rect)
