@@ -5,7 +5,7 @@ import player_name
 import game_infos
 
 import ingame_windows
-
+from notif import Notif
 
 class GamePanel:
     """
@@ -335,7 +335,9 @@ class GamePanel:
             surface.blit(pv, (pk_rect.x + 205, pk_rect.y + 40))
 
             if pk.objet_tenu is not None:
-                surface.blit(self.font_pokemon_type.render('ITEM', False, (30, 30, 30)),
+                item_tenu = self.font_pokemon_type.render('ITEM', False, (30, 30, 30)).convert_alpha()
+                item_tenu.set_alpha(alpha)
+                surface.blit(item_tenu,
                              (pk_rect.x + 327, pk_rect.y + 6))
 
             bg_rect = self.create_rect_alpha((86, 86), (255, 255, 255), 200 - alpha)

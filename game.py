@@ -2,6 +2,7 @@ import random
 
 import objet
 from player import Player
+from notif import Notif
 
 import pygame
 import accueil
@@ -22,7 +23,7 @@ class Game:
         self.mouse_pressed = {1: False,
                               3: False}
 
-        self.player = Player()
+        self.player = Player(self)
 
         self.accueil = accueil.Accueil()
 
@@ -39,6 +40,7 @@ class Game:
         self.classic_panel = GamePanel(self)
         self.current_fight = None
         self.round = Round(self)
+        self.notifs = Notif()
 
         self.save_file = open('save.txt', 'r+')
 
@@ -57,6 +59,12 @@ class Game:
                 self.accueil.update(screen)
             else:
                 self.is_playing = True
+
+        # Affichage des notifications
+        self.notifs.update(screen)
+
+    def notif(self, text, color):
+        self.notifs.new_notif(text, color)
 
     def init_new_game(self):
         self.is_starter_selected = False

@@ -6,7 +6,9 @@ from objet import Objet
 
 class Player:
 
-    def __init__(self):
+    def __init__(self, game):
+        self.game = game
+
         self.level = 0
         self.name = "Nom"
         self.name_edited = False
@@ -80,6 +82,13 @@ class Player:
 
     def use_action(self, amount=1):
         self.actions -= amount
+
+        if amount > 1:
+            text = f'{amount} actions utilisées'
+        else:
+            text = f'{amount} action utilisée'
+
+        self.game.notif(text=text, color=(225, 0, 0))
 
     def level_up(self, nb_lv=1):
         self.level += nb_lv

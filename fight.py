@@ -722,9 +722,9 @@ class Fight:
     def img_load(self, file_name):
         return pygame.image.load(self.path + file_name + '.png')
 
-    def get_rewards(self, is_not_boss_fight=True):
+    def get_rewards(self):
         # utilisation d'une action pour reclamer recompense
-        if is_not_boss_fight:
+        if self.fight_type != 'Boss':
             self.game.player.use_action()
 
         # Obtention des objets de récompense

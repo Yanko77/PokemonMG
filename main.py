@@ -44,7 +44,7 @@ while running:
             elif event.key == pygame.K_o:
                 game.start_fight(pokemon.Pokemon('Carapuce', 5, game), dresseur.Sauvage, pokemon.Pokemon('Nidoran-m', 6, game))
             elif event.key == pygame.K_p:
-                print(posSouris)
+                game.notifs.new_notif("1 Action utilisée", (255, 0, 0))
 
             if game.player.name_editing_mode:
                 if event.key == pygame.K_RETURN:
