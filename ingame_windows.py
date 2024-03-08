@@ -6,6 +6,7 @@ import train
 import spawn
 import sac
 import items
+import evolutions
 
 
 class IngameWindow:
@@ -42,7 +43,7 @@ class IngameWindow:
         }
 
         # Variables relatives au positionnement de la fenetre
-        self.basic_window_pos = [0, 0]
+        self.basic_window_pos = [-16, 4]
         self.basic_window_rect = pygame.Rect(21, 1, 870, 528)
         self.min_window_rect = pygame.Rect(22, 675, 230, 45)
 
@@ -74,13 +75,15 @@ class IngameWindow:
         self.spawn_panel = spawn.SpawnPanel(self.game)
         self.train_panel = train.TrainPanel(self.game)
         self.items_panel = items.ItemsPanel(self.game)
+        self.evol_panel = evolutions.EvolPanel(self.game)
 
         self.all_panels = {
             "Sac d'objets": self.sac_panel,
             "Starters": self.starters_panel,
             "Spawn": self.spawn_panel,
             "Train": self.train_panel,
-            "Items": self.items_panel
+            "Items": self.items_panel,
+            "Evolutions": self.evol_panel,
         }
 
     def update(self, surface, possouris):
@@ -88,9 +91,15 @@ class IngameWindow:
             if self.is_minimized:
                 surface.blit(self.min_window, self.min_window_rect)
                 surface.blit(self.icon, (self.min_window_rect.x - 20, self.min_window_rect.y + 3))
-                surface.blit(self.title,
-                             (self.min_window_rect.x + self.title_marges[self.current_panel_name] - 20,
-                              self.min_window_rect.y))
+
+                if self.current_panel_name == "Sac d'objets":
+                    surface.blit(self.title_font.render("Sac", False, (0, 0, 0)),
+                                 (self.min_window_rect.x + self.title_marges[self.current_panel_name] - 20,
+                                  self.min_window_rect.y))
+                else:
+                    surface.blit(self.title,
+                                 (self.min_window_rect.x + self.title_marges[self.current_panel_name] - 20,
+                                  self.min_window_rect.y))
 
                 if self.min_window_rect.collidepoint(possouris):
                     surface.blit(self.min_window_hover, self.min_window_rect)
@@ -186,6 +195,10 @@ class IngameWindow:
     def maximize(self):
         self.is_minimized = False
 
+    def reset_all_panels(self):
+        for panel in self.all_panels.values():
+            panel.reset()
+
     def is_hovering(self, possouris):
         if self.is_open:
             if self.is_minimized and self.min_window_rect.collidepoint(possouris):
@@ -203,16 +216,6 @@ class IngameWindow:
         elif self.min_button_rect.collidepoint(possouris):
             return True
         else:
-
-            '''if self.current_panel_name == "Sac d'objets":
-                return self.sac_panel.is_hovering_buttons(possouris, self.basic_window_pos)
-            elif self.current_panel_name == "Starters":
-                return self.starters_panel.is_hovering_buttons(possouris)
-            elif self.current_panel_name == "Spawn":
-                return self.spawn_panel.is_hovering_buttons(possouris)
-            elif self.current_panel_name == "Train":
-                return self.train_panel.is_hovering_buttons(possouris)'''
-
             return self.current_panel.is_hovering_buttons(possouris)
 
     def left_clic_interactions(self, possouris):
@@ -241,7 +244,7 @@ class IngameWindow:
                     elif self.current_panel_name == "Items":
                         self.items_panel.left_clic_interactions(possouris)
                     elif self.current_panel_name == "Evolutions":
-                        pass
+                        self.evol_panel.left_clic_interactions(possouris)
                     elif self.current_panel_name == "Sac d'objets":
                         self.sac_panel.left_clic_interactions(possouris)
 

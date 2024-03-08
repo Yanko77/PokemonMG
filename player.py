@@ -1,3 +1,4 @@
+import objet
 import player_name
 import pokemon
 from objet import Objet
@@ -5,7 +6,9 @@ from objet import Objet
 
 class Player:
 
-    def __init__(self):
+    def __init__(self, game):
+        self.game = game
+
         self.level = 0
         self.name = "Nom"
         self.name_edited = False
@@ -22,30 +25,30 @@ class Player:
                      None,
                      None,
                      None]
-        self.sac_page1 = [Objet('Casquette_de_Nathan', 3),
-                          Objet('Pokeflute', 3),
-                          Objet('Potion_Max', 2),
-                          Objet('Baie_Oran', 2),
-                          Objet('Baie_Sitrus', 2),
-                          Objet('Mouchoir_Soie', 2),
-                          Objet('Bec_Pointu', 2),
-                          Objet('Pic_Venin', 2),
-                          Objet('Glace_Eternelle', 2),
+        self.sac_page1 = [objet.Objet('Super_Bonbon', 100),
+                          objet.Objet('Potion_Max', 100),
+                          objet.Objet('Baie_Oran', 100),
                           None,
-                          Objet('Graine_Miracle', 2),
-                          Objet('Charbon', 2)]
-        self.sac_page2 = [Objet('Rune_Sort', 3),
-                          Objet('Lunettes_Noires', 3),
-                          Objet('Cuillere_Tordue', 2),
-                          Objet('Aimant', 2),
-                          Objet('Vive_Griffe', 2),
-                          Objet('Bandeau_Muscle', 2),
-                          Objet('Poussiere_Etoile', 2),
-                          Objet('Poussiere_Bleute', 2),
-                          Objet('Poussiere_Jaunete', 2),
-                          Objet('Poudre_Verdatre', 2),
-                          Objet('Charme_Chroma', 2),
-                          Objet('Caillou', 2)]
+                          None,
+                          None,
+                          None,
+                          None,
+                          None,
+                          None,
+                          None,
+                          None]
+        self.sac_page2 = [None,
+                          None,
+                          None,
+                          None,
+                          None,
+                          None,
+                          None,
+                          None,
+                          None,
+                          None,
+                          None,
+                          None]
 
         self.money = 1000
 
@@ -70,12 +73,25 @@ class Player:
         self.name_edited = False
         self.name_editing_mode = False
 
+    def reset_actions(self):
+        self.actions = self.max_actions
+
     def evol_pk(self, i=0):
         if self.team[i] is not None:
             self.team[i] = self.team[i].evolution()
 
     def use_action(self, amount=1):
         self.actions -= amount
+
+        if amount > 1:
+            text = f'{amount} actions utilisées'
+        else:
+            text = f'{amount} action utilisée'
+
+        self.game.notif(text=text, color=(225, 0, 0))
+
+    def level_up(self, nb_lv=1):
+        self.level += nb_lv
 
     def rise_max_actions_value(self):
         self.max_actions += 1
@@ -138,5 +154,3 @@ class Player:
 
 if __name__ == "__main__":
     player = Player()
-    player.team[0], player.team[1] = pokemon.Pokemon('Dracaufeu', 10), pokemon.Pokemon('Dracaufeu', 15)
-    print(player.get_moyenne_team())

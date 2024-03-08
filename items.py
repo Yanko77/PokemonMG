@@ -22,7 +22,7 @@ class ItemsPanel:
         self.sell_popup = SellPopup(self)
         
     def update(self, surface, window_pos, possouris):
-        surface.blit(self.background, (window_pos.x + 20, window_pos.y + 40))
+        surface.blit(self.background, (window_pos[0] + 20, window_pos[0] + 40))
 
         self.buy_popup.update(surface, window_pos, possouris)
 
@@ -57,6 +57,9 @@ class ItemsPanel:
                 if self.game.player.money + objet.sell_price >= 0:
                     self.game.player.money += objet.sell_price
             objet.quantite -= 1
+
+    def reset(self):
+        pass
 
     def left_clic_interactions(self, possouris):
         pass

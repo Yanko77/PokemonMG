@@ -2,11 +2,11 @@ import random
 
 import objet
 from player import Player
+from notif import Notif
 
 import pygame
-
 import accueil
-import panels
+from game_panel import GamePanel
 from fight import Fight
 from game_round import Round
 
@@ -23,9 +23,11 @@ class Game:
         self.mouse_pressed = {1: False,
                               3: False}
 
-        self.player = Player()
+        self.player = Player(self)
 
         self.accueil = accueil.Accueil()
+
+        self.next_pk_id = 1
 
         self.all_starters = {'feu': ['Salameche', 'Poussifeu'],
                              'eau': ['Carapuce', 'Gobou'],
@@ -35,13 +37,14 @@ class Game:
                          random.choice(self.all_starters['eau'])
                          ]
 
-        self.classic_panel = panels.ClassicGamePanel(self)
+        self.classic_panel = GamePanel(self)
         self.current_fight = None
-        self.round = Round()
+        self.round = Round(self)
+        self.notifs = Notif()
 
         self.save_file = open('save.txt', 'r+')
 
-        self.general_seed = self.generate_general_random_seed()
+        self.general_seed = self.round.get_random_seed()
         self.items_list = self.get_all_items_list()
 
     def update(self, screen, possouris):
@@ -56,6 +59,12 @@ class Game:
                 self.accueil.update(screen)
             else:
                 self.is_playing = True
+
+        # Affichage des notifications
+        self.notifs.update(screen)
+
+    def notif(self, text, color):
+        self.notifs.new_notif(text, color)
 
     def init_new_game(self):
         self.is_starter_selected = False
@@ -78,19 +87,35 @@ class Game:
     '''def load_game(self):
         self.save_file'''
 
-    def start_fight(self, player_pk, dresseur_class=None, dresseur_pk=None, difficult="easy"):# passage de self.difficult en paramettre
-        self.init_fight(player_pk, dresseur_class, dresseur_pk)
+    def start_fight(self, player_pk, dresseur_class=None, dresseur_pk=None, difficult="easy", fight_type='Classic'):
+        self.init_fight(player_pk, dresseur_class, dresseur_pk, difficult, fight_type)
         self.is_fighting = True
 
     def cancel_fight(self):
+        self.current_fight = None
         self.is_fighting = False
 
-    def init_fight(self, player_pk, dresseur_class=None, dresseur_pk=None, difficult="easy"):# passage de self.difficult en paramettre
-        self.current_fight = Fight(self, player_pk, dresseur_class, dresseur_pk, difficult)# passage de self.difficult en paramettre
+    def end_fight(self):
+        if self.current_fight.fight_type == 'Boss':
+            self.next_turn()
+        self.current_fight = None
+        self.is_fighting = False
+
+    def init_fight(self, player_pk, dresseur_class=None, dresseur_pk=None, difficult='easy', fight_type='Classic'):
+        self.current_fight = Fight(self, player_pk, dresseur_class, dresseur_pk, difficult, fight_type)
 
     def next_turn(self):
-        self.general_seed = self.generate_general_random_seed()
+        self.round.next()
+        self.update_random_seed()
+        self.player.reset_actions()
+        self.player.level_up()
+        self.classic_panel.next_turn()
         # add everything that have to be edited for each turn
+
+    def get_init_pokemon_id(self):
+        id = self.next_pk_id
+        self.next_pk_id += 1
+        return id
 
     def init_items_list(self):
         with open('all_objets.txt', 'r') as file:
@@ -134,7 +159,7 @@ class Game:
                 items_list['Sell'].append(item)
             elif item.fonctionnement.split(":")[0] == 'Enable':
                 items_list['Enable'].append(item)
-            elif item.boolSpawnable:
+            if item.boolSpawnable:
                 items_list['Spawnable'].append(item)
 
         return items_list
@@ -151,11 +176,8 @@ class Game:
             total_rarity += abs(OBJECT.rarity - 100)
         return total_rarity
 
-    def generate_general_random_seed(self):
-        return int(str(random.randint(0, 255))
-                   + str(random.randint(0, 255))
-                   + str(random.randint(0, 255))
-                   + str(random.randint(0, 255)))
+    def update_random_seed(self):
+        self.general_seed = self.round.get_random_seed()
 
 
 if __name__ == '__main__':

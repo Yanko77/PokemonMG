@@ -23,9 +23,9 @@ class StartersPanel:
         self.pk_hover = pygame.image.load('assets/game/ingame_windows/Starters/pokeball_hover.png')
         self.pk_hover = pygame.transform.scale(self.pk_hover, (190, 190))
 
-        self.starters = [pokemon.Pokemon(self.game.starters[0], 5, self.game.player),
-                         pokemon.Pokemon(self.game.starters[1], 5, self.game.player),
-                         pokemon.Pokemon(self.game.starters[2], 5, self.game.player)]
+        self.starters = [pokemon.Pokemon(self.game.starters[0], 5, self.game),
+                         pokemon.Pokemon(self.game.starters[1], 5, self.game),
+                         pokemon.Pokemon(self.game.starters[2], 5, self.game)]
         self.pk_decouverts = [False, False, False]
 
         self.pk_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 30)
@@ -137,6 +137,9 @@ class StartersPanel:
 
     def decouvrir_pk(self, i):
         self.pk_decouverts[i] = True
+
+    def reset(self):
+        pass
 
     def left_clic_interactions(self, possouris):
         if self.pk_rects[0].collidepoint(possouris):

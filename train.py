@@ -1,297 +1,467 @@
+import random
+
 import pygame
 
-import dresseur
-import image
-import random
-import pokemon
-import random
 import game_infos
+import pokemon
+import dresseur
 
 
 class TrainPanel:
 
     def __init__(self, game):
         self.game = game
-        self.path = 'assets/game/ingame_windows/Train/'
-        # LOADING IMAGES --------------------------
-        self.background = self.load_image('background.png')
-        self.emp_training_pk = self.load_image('emp_training_pk.png')
-        self.settings_button = self.load_image('settings_button.png')
-        self.settings_button_hover = self.load_image('settings_button_hover.png')
-        self.diff_ind_easy = self.load_image('diff_ind_easy.png')
-        self.diff_ind_normal = self.load_image('diff_ind_normal.png')
-        self.diff_ind_hard = self.load_image('diff_ind_hard.png')
-        self.locked = self.load_image('locked.png')
-        self.add_button = self.load_image('add_button.png')
-        self.add_button_hover = self.load_image('add_button_hover.png')
-        self.settings_popup = self.load_image('settings_popup.png')
-        self.easy_button = self.load_image('easy_button.png')
-        self.easy_button_hover = self.load_image('easy_button_hover.png')
-        self.normal_button = self.load_image('normal_button.png')
-        self.normal_button_hover = self.load_image('normal_button_hover.png')
-        self.hard_button = self.load_image('hard_button.png')
-        self.hard_button_hover = self.load_image('hard_button_hover.png')
-        self.ennemy_pk_popup = pygame.image.load('assets/game/ingame_windows/Train/ennemy_pk_popup.png')
-        self.ennemy_pk_infos_stats = pygame.image.load('assets/game/ingame_windows/Train/ennemy_pk_stats.png')
-        self.ennemy_pk_infos_stats_button = pygame.image.load('assets/game/ingame_windows/Train/info_stats_button.png')
-        self.ennemy_pk_infos_stats_button_hover = pygame.image.load('assets/game/ingame_windows/Train/info_stats_button_hover.png')
-        self.fight_button = pygame.image.load('assets/game/ingame_windows/Train/fight_button.png')
-        self.fight_button_hover = pygame.image.load('assets/game/ingame_windows/Train/fight_button_hover.png')
-        # LOADING FONTS ---------------------
-        self.difficulty_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 35)
-        self.lv_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 45)
+
+        # FONTS
+        self.info_select_pk_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 22)
         self.ennemy_pk_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 22)
         self.ennemy_pk_type_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 17)
         self.ennemy_pk_stats_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 20)
-        self.info_select_pk_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 22)
-        # RENDER TEXTS
-        self.no_pk_selected_text = self.info_select_pk_font.render('NO POKEMON SELECTED', False, (255, 255, 255))
-        self.change_pk_text = self.info_select_pk_font.render('SWAP POKEMON', False, (255, 255, 255))
-        # DEFAULT VARIABLES --------------------------
+
+        # CONSTANTES
+        self.PATH = 'assets/game/ingame_windows/Train/'
+
+        self.LV_DIFFICULT_COEFS = {
+            'easy': (0.6, 1.2),
+            'normal': (0.7, 1.3),
+            'hard': (0.8, 1.4)
+        }
+
+        self.DIFF_COLORS = {
+            'easy': (0, 140, 0),
+            'normal': (255, 180, 0),
+            'hard': (150, 0, 0)
+        }
+
+        self.ENNEMY_PK_PREVIEW_DIFF_TEXT = {
+            'easy': self.ennemy_pk_type_font.render('EASY', False, self.DIFF_COLORS['easy']),
+            'normal': self.ennemy_pk_type_font.render('NORMAL', False, self.DIFF_COLORS['normal']),
+            'hard': self.ennemy_pk_type_font.render('HARD', False, self.DIFF_COLORS['hard']),
+        }
+        self.ennemy_pk_preview_diff_text_pos = (700, 367)
+
+        # Chargement des images
+        self.background = self.img_load('background')  # Background
         self.background_pos = (-13, -21)
-        self.emp_training_pk_pos = (78, 96)
-        self.pk_selected_indicator_pos = (135, 414)
-        self.settings_button_rect = pygame.Rect(22, 90, 90, 120)
-        self.settings_button_pos = (35, 100)
-        self.diff_ind_pos = (80, 177)
+
+        self.training_pk_emp = self.img_load('emp_training_pk')  # Emplacement du pokemon à entrainer
+        self.training_pk_emp_pos = (78, 96)
+        self.locked = self.img_load('locked')
         self.locked_pos = (70, 80)
-        self.no_pk_selected_text_pos = (90, 65)
-        self.add_button_pos = (127, 144)
-        self.add_button_rect = image.get_custom_rect(self.add_button, self.add_button_pos[0], self.add_button_pos[1])
-        self.settings_popup_pos = (59, 59)
-        self.easy_button_pos = (92, 68)
-        self.easy_button_rect = image.get_custom_rect(self.easy_button, self.easy_button_pos[0], self.easy_button_pos[1])
-        self.normal_button_pos = (171, 68)
-        self.normal_button_rect = image.get_custom_rect(self.normal_button, self.normal_button_pos[0], self.normal_button_pos[1])
-        self.hard_button_pos = (249, 68)
-        self.hard_button_rect = image.get_custom_rect(self.hard_button, self.hard_button_pos[0], self.hard_button_pos[1])
-        self.ennemy_pk_infos_stats_button_rect = image.get_custom_rect(self.ennemy_pk_infos_stats_button, 715, 408)
 
+        self.diff_ind = {'easy': self.img_load('diff_ind_easy'),  # Indicateur de difficulté
+                         'normal': self.img_load('diff_ind_normal'),
+                         'hard': self.img_load('diff_ind_hard')}
+        self.diff_ind_pos = (80, 177)
+
+        self.ennemy_pk_popup = self.img_load('ennemy_pk_popup')
         self.ennemy_pk_popup_pos = (446, 39)
-        self.ennemy_pk_info_stats_mode = False
 
-        self.fight_button_pos = (613, 448)
-        self.fight_button_rect = image.get_custom_rect(self.fight_button, self.fight_button_pos[0], self.fight_button_pos[1])
+        self.fight_button = self.img_load('fight_button')  # Bouton FIGHT
+        self.fight_button_h = self.img_load('fight_button_hover')
+        self.fight_button_rect = pygame.Rect(613, 448, 266, 73)
 
-        self.difficult = 'easy'
-        self.training_pk = None
+        self.settings_button = self.img_load('settings_button')  # Bouton SETTINGS
+        self.settings_button_h = self.img_load('settings_button_hover')
+        self.settings_button_rect = pygame.Rect(22, 90, 90, 120)
+
+        self.ennemy_pk_infos_stats_button = self.img_load('info_stats_button')  # Bouton INFOS STATS
+        self.ennemy_pk_infos_stats_button_h = self.img_load('info_stats_button_hover')
+        self.ennemy_pk_infos_stats_button_rect = pygame.Rect(715, 408, 105, 31)
+        
+        self.settings_popup = self.img_load('settings_popup')  # Popup SETTINGS
+        self.settings_popup_pos = (59, 59)
+        
+        self.easy_button = self.img_load('easy_button')  # Bouton EASY
+        self.easy_button_h = self.img_load('easy_button_hover')
+        self.easy_button_rect = pygame.Rect(92, 68, 74, 44)
+        
+        self.normal_button = self.img_load('normal_button')  # Bouton NORMAL
+        self.normal_button_h = self.img_load('normal_button_hover')
+        self.normal_button_rect = pygame.Rect(171, 68, 74, 44)
+        
+        self.hard_button = self.img_load('hard_button')  # Bouton HARD
+        self.hard_button_h = self.img_load('hard_button_hover')
+        self.hard_button_rect = pygame.Rect(249, 68, 74, 44)
+        
+        # Pré-chargement des textes
+        self.no_pk_selected_text = self.info_select_pk_font.render('NO POKEMON SELECTED', False, (255, 255, 255))
+        self.no_pk_selected_text_pos = (90, 65)
+
+        # Rects
         self.training_pk_rect = pygame.Rect(111, 123, 252, 252)
+
+        # Variables relatives au pokémon à entrainer
+        self.training_pk = None
+
+        # Variables relatives au jeu
+        self.difficult = 'easy'
+        self.boolEnnemy_pk_stats = False
+
+        # Variables relatives aux pokémons ennemis
         self.ennemy_pks = {
             'easy': self.spawn_ennemy_pk('easy'),
             'normal': self.spawn_ennemy_pk('normal'),
             'hard': self.spawn_ennemy_pk('hard')
         }
-        self.boolSettings_popup = False
-        self.add_training_pk_mode = False
+        self.ennemy_pk = self.ennemy_pks[self.difficult]
 
-        self.choose_training_pk_popup = ChooseTrainingPkPopup(self.game)
+        self.ennemy_pks_backup = {}
+
+        self.load_ennemy_pk()
+
+        self.ennemy_pk_icon_pos = (455, 273)
+        self.ennemy_pk_name_pos = (617, 317)
+        self.ennemy_pk_type1_pos = (670, 346)
+        self.ennemy_pk_type2_pos = (675, 346)
+        self.ennemy_pk_pv_pos = (653, 348)
+        self.ennemy_pk_atk_pos = (653, 373)
+        self.ennemy_pk_def_pos = (749, 348)
+        self.ennemy_pk_vit_pos = (749, 373)
+        #
+
+        # Variables relatives aux popups
+        self.boolSettings_popup = False
+        self.boolAdd_training_pk_popup = False
+
+        self.stats_popup = self.img_load('ennemy_pk_stats')
+        self.stats_popup_pos = (612, 352)
+
+        # Variables de la fenetre ingame
+        self.window_pos = [0, 0]
 
     def update(self, surface, possouris, window_pos):
-        self.update_rects_pos(window_pos)
+        # Actualiser les variables relatives à la position de la fenetre ingame
+        if self.window_pos != window_pos:
+            self.update_all_rects(window_pos)
 
-        surface.blit(self.background, (window_pos[0] + self.background_pos[0], window_pos[1] + self.background_pos[1]))
+        # Affichage du background
+        surface.blit(self.background, self.background_pos)
 
-        self.update_emp_training_pk(surface, possouris, window_pos)
+        # Affichage de l'emplacement du pokemon à entrainer
+        self.update_training_pk_emp(surface, possouris)
 
+        # Gestion des affichages relatifs au pokémon à entrainer
         if self.training_pk is not None:
-            self.update_preview_ennemy(surface, window_pos, possouris)
+
+            # Afficher la preview du pokemon ennemi
+            self.update_ennemy_preview(surface, possouris)
+
+            # Afficher le bouton FIGHT
             if self.fight_button_rect.collidepoint(possouris):
-                surface.blit(self.fight_button_hover, self.fight_button_rect)
+                surface.blit(self.fight_button_h, self.fight_button_rect)
             else:
                 surface.blit(self.fight_button, self.fight_button_rect)
-        else:
-            surface.blit(self.locked, (self.locked_pos[0] + window_pos[0],
-                                       self.locked_pos[1] + window_pos[1]))
-            surface.blit(self.no_pk_selected_text, (self.no_pk_selected_text_pos[0] + window_pos[0],
-                                                    self.no_pk_selected_text_pos[1] + window_pos[1]))
 
+        # Affichage du popup SETTINGS
         if self.boolSettings_popup:
-            self.update_settings_popup(surface, possouris, window_pos)
+            self.update_settings_popup(surface, possouris)
 
-        if self.add_training_pk_mode:
-            self.choose_training_pk_popup.update(surface, possouris, window_pos)
+        self.update_training_pk(possouris)
 
-    def start_training_fight(self):
-        self.game.start_fight(self.training_pk, dresseur.Sauvage, self.ennemy_pks[self.difficult], self.difficult)# passage de self.difficult en paramettre
+    def update_training_pk(self, possouris):
+        """
+        Methode permettant de changer le pokémon à entrainer du joueur
+        """
 
-    def update_emp_training_pk(self, surface, possouris, window_pos):
-        surface.blit(self.emp_training_pk, (self.emp_training_pk_pos[0] + window_pos[0],
-                                            self.emp_training_pk_pos[1] + window_pos[1]))
+        if self.game.classic_panel.pk_move_mode and self.training_pk_rect.collidepoint(possouris):
+            if not self.game.mouse_pressed[1]:
+                self.training_pk = self.game.player.team[self.game.classic_panel.moving_pk.index(True)]
+                self.set_ennemy_pks()
+                self.load_ennemy_pk()
 
-        if self.difficult == 'easy':
-            surface.blit(self.diff_ind_easy, (self.diff_ind_pos[0] + window_pos[0],
-                                              self.diff_ind_pos[1] + window_pos[1]))
-        elif self.difficult == 'normal':
-            surface.blit(self.diff_ind_normal, (self.diff_ind_pos[0] + window_pos[0],
-                                              self.diff_ind_pos[1] + window_pos[1]))
-        elif self.difficult == 'hard':
-            surface.blit(self.diff_ind_hard, (self.diff_ind_pos[0] + window_pos[0],
-                                              self.diff_ind_pos[1] + window_pos[1]))
+    def update_training_pk_emp(self, surface, possouris):
+        """
+        Methode qui gère l'affichage de l'emplacement du pokémon à entrainer du joueur
+        """
 
+        # Affichage de l'emplacement
+        surface.blit(self.training_pk_emp, self.training_pk_emp_pos)
+
+        # Affichage de l'indicateur de difficulté
+        surface.blit(self.diff_ind[self.difficult], self.diff_ind_pos)
+
+        # Affichage du bouton SETTINGS
         if self.settings_button_rect.collidepoint(possouris):
-            surface.blit(self.settings_button_hover, (self.settings_button_pos[0] + window_pos[0],
-                                                      self.settings_button_pos[1] + window_pos[1]))
+            surface.blit(self.settings_button_h, (self.settings_button_rect.x + 13,
+                                                  self.settings_button_rect.y + 10))
         else:
-            surface.blit(self.settings_button, (self.settings_button_pos[0] + window_pos[0],
-                                                self.settings_button_pos[1] + window_pos[1]))
+            surface.blit(self.settings_button, (self.settings_button_rect.x + 13,
+                                                self.settings_button_rect.y + 10))
 
+        # Affichage de l'effet d'hovering sur le pokémon de l'emplacement
+        if self.training_pk_rect.collidepoint(possouris):
+            surface.blit(self.create_rect_alpha((self.training_pk_rect.w, self.training_pk_rect.h),
+                                                 (255, 255, 255)),
+                         self.training_pk_rect)
+
+        # Affichages des boutons relatifs au pokémon à entrainer
         if self.training_pk is None:
-            if not self.add_training_pk_mode:
+            # Affichage du texte NO SELECTED PK
+            surface.blit(self.no_pk_selected_text, self.no_pk_selected_text_pos)
+
+            # Affichage de l'emplacement bloqué
+            surface.blit(self.locked, self.locked_pos)
+
+        else:
+
+            # Affichages des boutons relatifs au popup ADD_TRAINING_PK
+            if self.boolAdd_training_pk_popup:
+
+                # Affichage du bouton +
                 if self.add_button_rect.collidepoint(possouris):
-                    surface.blit(self.add_button_hover, self.add_button_rect)
+                    surface.blit(self.add_button_h, self.add_button_rect)
                 else:
                     surface.blit(self.add_button, self.add_button_rect)
-
-            elif self.training_pk_rect.collidepoint(possouris):
-                surface.blit(self.create_rect_alpha((self.training_pk_rect.w, self.training_pk_rect.h), (255, 255, 255)), self.training_pk_rect)
-
-            surface.blit(self.no_pk_selected_text, (self.no_pk_selected_text_pos[0] + window_pos[0],
-                                                    self.no_pk_selected_text_pos[1] + window_pos[1]))
-
-        else:
-            if self.training_pk_rect.collidepoint(possouris):
-                surface.blit(self.create_rect_alpha((self.training_pk_rect.w, self.training_pk_rect.h), (255, 255, 255)), self.training_pk_rect)
-                surface.blit(self.change_pk_text, (self.no_pk_selected_text_pos[0] + window_pos[0] + 30,
-                                                   self.no_pk_selected_text_pos[1] + window_pos[1]))
-
-            surface.blit(pygame.transform.scale(self.training_pk.icon_image, (504, 252)), (self.training_pk_rect.x, self.training_pk_rect.y - 25), (0, 0, 252, 252))
-
-        surface.blit(self.locked, (self.locked_pos[0] + window_pos[0],
-                                   self.locked_pos[1] + window_pos[1]))
-
-    def update_settings_popup(self, surface, possouris, window_pos):
-        surface.blit(self.settings_popup, (self.settings_popup_pos[0] + window_pos[0],
-                                           self.settings_popup_pos[1] + window_pos[1]))
-
-        if self.easy_button_rect.collidepoint(possouris):
-            surface.blit(self.easy_button_hover, self.easy_button_rect)
-        else:
-            surface.blit(self.easy_button, self.easy_button_rect)
-
-        if self.normal_button_rect.collidepoint(possouris):
-            surface.blit(self.normal_button_hover, self.normal_button_rect)
-        else:
-            surface.blit(self.normal_button,  self.normal_button_rect)
-
-        if self.hard_button_rect.collidepoint(possouris):
-            surface.blit(self.hard_button_hover, self.hard_button_rect)
-        else:
-            surface.blit(self.hard_button, self.hard_button_rect)
-
-    def update_preview_ennemy(self, surface, window_pos, possouris):
-        pk = self.ennemy_pks[self.difficult]
-        surface.blit(self.ennemy_pk_popup, (self.ennemy_pk_popup_pos[0] + window_pos[0], self.ennemy_pk_popup_pos[1] + window_pos[1]))
-
-        icon = pygame.transform.scale(pk.get_icon(), (300, 150))
-        name = self.ennemy_pk_name_font.render(f"{pk.get_name()}  Lv.{pk.get_level()}", False, (0, 0, 0))
-
-        surface.blit(icon, (455 + window_pos[0], 273 + window_pos[1]), (0, 0, 150, 150))
-        surface.blit(name, (617 + window_pos[0], 317 + window_pos[1]))
-
-        if not self.ennemy_pk_info_stats_mode:
-            type1 = self.ennemy_pk_type_font.render(game_infos.type_names_to_print[pk.get_type()], False,
-                                                    game_infos.get_type_color(pk.get_type()))
-            surface.blit(type1, (670 + window_pos[0], 346 + window_pos[1]))
-
-            if not pk.get_type2() == 'NoType':
-                type2 = self.ennemy_pk_type_font.render(
-                    game_infos.type_names_to_print[pk.get_type2()], False,
-                    game_infos.get_type_color(pk.get_type2()))
-                surface.blit(type2, (675 + type1.get_width() + window_pos[0], 346 + window_pos[1]))
-
-            if self.difficult == 'easy':
-                text = 'EASY'
-                color = (0, 140, 0)
-            elif self.difficult == 'normal':
-                text = 'NORMAL'
-                color = (255, 180, 0)
             else:
-                text = 'HARD'
-                color = (150, 0, 0)
 
-            surface.blit(self.ennemy_pk_type_font.render(text, False, color),
-                         (700 + window_pos[0], 367 + window_pos[1]))
+                # Affichage du pokémon à entrainer
+                surface.blit(pygame.transform.scale(self.training_pk.icon_image, (504, 252)),
+                             (self.training_pk_rect.x, self.training_pk_rect.y - 25),
+                             (0, 0, 252, 252))
 
-        else:
-            surface.blit(self.ennemy_pk_infos_stats, (612 + window_pos[0], 352 + window_pos[1]))
+    def update_ennemy_preview(self, surface, possouris):
+        """
+        Methode qui gère l'affichage de la preview du pokemon ennemi
+        """
 
-            pk_stats = pk.get_stats()
+        # Affichage du popup
+        surface.blit(self.ennemy_pk_popup, self.ennemy_pk_popup_pos)
 
-            surface.blit(self.ennemy_pk_stats_font.render(str(pk_stats[0]), False, (2, 137, 0)), (653 + window_pos[0],
-                                                                                             348 + window_pos[1]))
-            surface.blit(self.ennemy_pk_stats_font.render(str(pk_stats[1]), False, (189, 0, 0)), (653 + window_pos[0],
-                                                                                             373 + window_pos[1]))
-            surface.blit(self.ennemy_pk_stats_font.render(str(pk_stats[2]), False, (191, 200, 0)), (749 + window_pos[0],
-                                                                                             348 + window_pos[1]))
-            surface.blit(self.ennemy_pk_stats_font.render(str(pk_stats[3]), False, (0, 139, 230)), (749 + window_pos[0],
-                                                                                             373 + window_pos[1]))
+        # Affichage de l'icone du pokémon ennemi
+        surface.blit(self.ennemy_pk_icon,
+                     self.ennemy_pk_icon_pos,
+                     (0, 0, 150, 150))
 
+        # Affichage du nom du pokémon ennemi
+        surface.blit(self.ennemy_pk_name,
+                     self.ennemy_pk_name_pos)
+
+        # Affichage du bouton STATS
         if self.ennemy_pk_infos_stats_button_rect.collidepoint(possouris):
-            surface.blit(self.ennemy_pk_infos_stats_button_hover, self.ennemy_pk_infos_stats_button_rect)
+            surface.blit(self.ennemy_pk_infos_stats_button_h, self.ennemy_pk_infos_stats_button_rect)
         else:
             surface.blit(self.ennemy_pk_infos_stats_button, self.ennemy_pk_infos_stats_button_rect)
 
-    def set_difficult(self, diff_value='easy'):
-        self.difficult = diff_value
+        # Affichages relatifs aux stats
+        if not self.boolEnnemy_pk_stats:
 
-    def set_ennemy_pokemons(self):
+            # Affichage du type1 du pokémon ennemi
+            surface.blit(self.ennemy_pk_type1, self.ennemy_pk_type1_pos)
+
+            # Affichage du type 2 du pokémon ennemi, s'il en a un
+            if self.ennemy_pk_type2 is not None:
+                surface.blit(self.ennemy_pk_type2, (self.ennemy_pk_type2_pos[0] + self.ennemy_pk_type1.get_width(),
+                                                    self.ennemy_pk_type2_pos[1]))
+
+            # Affichage de la difficulté
+            surface.blit(self.ENNEMY_PK_PREVIEW_DIFF_TEXT[self.difficult], self.ennemy_pk_preview_diff_text_pos)
+
+        else:
+
+            # Affichage du cache pour les stats
+            surface.blit(self.stats_popup, self.stats_popup_pos)
+
+            # Affichage des stats du pokémon
+            surface.blit(self.ennemy_pk_pv, self.ennemy_pk_pv_pos)
+            surface.blit(self.ennemy_pk_atk, self.ennemy_pk_atk_pos)
+            surface.blit(self.ennemy_pk_def, self.ennemy_pk_def_pos)
+            surface.blit(self.ennemy_pk_vit, self.ennemy_pk_vit_pos)
+
+    def update_settings_popup(self, surface, possouris):
+        """
+        Methode qui gère l'affichage du popup SETTINGS
+        """
+        
+        # Affichage du popup SETTINGS
+        surface.blit(self.settings_popup, self.settings_popup_pos)
+
+        # Affichage du bouton EASY
+        if self.easy_button_rect.collidepoint(possouris):
+            surface.blit(self.easy_button_h, self.easy_button_rect)
+        else:
+            surface.blit(self.easy_button, self.easy_button_rect)
+
+        # Affichage du bouton NORMAL
+        if self.normal_button_rect.collidepoint(possouris):
+            surface.blit(self.normal_button_h, self.normal_button_rect)
+        else:
+            surface.blit(self.normal_button, self.normal_button_rect)
+
+        # Affichage du bouton HARD
+        if self.hard_button_rect.collidepoint(possouris):
+            surface.blit(self.hard_button_h, self.hard_button_rect)
+        else:
+            surface.blit(self.hard_button, self.hard_button_rect)
+
+    def update_all_rects(self, window_pos):
+        self.window_pos = window_pos.copy()
+
+        self.background_pos = (-13 + self.window_pos[0], -21 + self.window_pos[1])
+        self.training_pk_emp_pos = (78 + self.window_pos[0], 96 + self.window_pos[1])
+        self.locked_pos = (70 + self.window_pos[0], 80 + self.window_pos[1])
+        self.diff_ind_pos = (80 + self.window_pos[0], 177 + self.window_pos[1])
+        self.ennemy_pk_popup_pos = (446 + self.window_pos[0], 39 + self.window_pos[1])
+        self.fight_button_rect = pygame.Rect(613 + self.window_pos[0], 448 + self.window_pos[1], 266, 73)
+        self.settings_button_rect = pygame.Rect(22 + self.window_pos[0], 90 + self.window_pos[1], 90, 120)
+        self.add_button_rect = pygame.Rect(127 + self.window_pos[0], 144 + self.window_pos[1], 215, 215)
+        self.ennemy_pk_infos_stats_button_rect = pygame.Rect(715 + self.window_pos[0], 408 + self.window_pos[1], 105, 31)
+        self.settings_popup_pos = (59 + self.window_pos[0], 59 + self.window_pos[1])
+        self.easy_button_rect = pygame.Rect(92 + self.window_pos[0], 68 + self.window_pos[1], 74, 44 + self.window_pos[1])
+        self.normal_button_rect = pygame.Rect(171 + self.window_pos[0], 68 + self.window_pos[1], 74, 44)
+        self.hard_button_rect = pygame.Rect(249 + self.window_pos[0], 68 + self.window_pos[1], 74, 44)
+        self.no_pk_selected_text_pos = (90 + self.window_pos[0], 65 + self.window_pos[1])
+        self.training_pk_rect = pygame.Rect(111 + self.window_pos[0], 123 + self.window_pos[1], 252, 252)
+        self.ennemy_pk_icon_pos = (455 + self.window_pos[0], 273 + self.window_pos[1])
+        self.ennemy_pk_name_pos = (617 + self.window_pos[0], 317 + self.window_pos[1])
+        self.ennemy_pk_type1_pos = (670 + self.window_pos[0], 346 + self.window_pos[1])
+        self.ennemy_pk_type2_pos = (675 + self.window_pos[0], 346 + self.window_pos[1])
+        self.ennemy_pk_pv_pos = (653 + self.window_pos[0], 348 + self.window_pos[1])
+        self.ennemy_pk_atk_pos = (653 + self.window_pos[0], 373 + self.window_pos[1])
+        self.ennemy_pk_def_pos = (749 + self.window_pos[0], 348 + self.window_pos[1])
+        self.ennemy_pk_vit_pos = (749 + self.window_pos[0], 373 + self.window_pos[1])
+        self.stats_popup_pos = (612 + self.window_pos[0], 352 + self.window_pos[1])
+        self.ennemy_pk_preview_diff_text_pos = (700 + self.window_pos[0], 367 + self.window_pos[1])
+
+    def start_fight(self):
+        self.game.start_fight(self.training_pk, dresseur.Sauvage, self.ennemy_pks[self.difficult], self.difficult)
+    
+    def set_difficult(self, diff='easy'):
+        self.difficult = diff
+        
+        self.ennemy_pk = self.ennemy_pks[self.difficult]
+        self.load_ennemy_pk()
+        
+    def set_ennemy_pks(self):
+        """
+        Methode d'actualisation des pokémons ennemis en fonction du pokémon à entrainer du joueur
+        """
+
+        if self.training_pk.get_id() in self.ennemy_pks_backup.keys():
+            self.ennemy_pks = self.ennemy_pks_backup[self.training_pk.get_id()]
+            self.ennemy_pk = self.ennemy_pks[self.difficult]
+        else:
+            self.ennemy_pks = {
+                'easy': self.spawn_ennemy_pk('easy'),
+                'normal': self.spawn_ennemy_pk('normal'),
+                'hard': self.spawn_ennemy_pk('hard')
+            }
+            self.ennemy_pk = self.ennemy_pks[self.difficult]
+            self.ennemy_pks_backup[self.training_pk.get_id()] = self.ennemy_pks
+        
+    def load_ennemy_pk(self):
+        """
+        Methode qui charge les images liées au pokémon ennemi pour limiter les chargements répétés
+        """
+        
+        if self.ennemy_pk is not None:
+            self.ennemy_pk_icon = pygame.transform.scale(self.ennemy_pk.get_icon(), (300, 150))
+            self.ennemy_pk_name = self.ennemy_pk_name_font.render(f"{self.ennemy_pk.get_name()}  Lv.{self.ennemy_pk.get_level()}", False, (0, 0, 0))
+            self.ennemy_pk_type1 = self.ennemy_pk_type_font.render(
+                game_infos.type_names_to_print[self.ennemy_pk.get_type()],
+                False,
+                game_infos.get_type_color(self.ennemy_pk.get_type()))
+            
+            if self.ennemy_pk.get_type2() != 'NoType':
+                self.ennemy_pk_type2 = self.ennemy_pk_type_font.render(
+                    game_infos.type_names_to_print[self.ennemy_pk.get_type2()],
+                    False,
+                    game_infos.get_type_color(self.ennemy_pk.get_type2()))
+            else:
+                self.ennemy_pk_type2 = None
+                
+            self.ennemy_pk_pv = self.ennemy_pk_stats_font.render(str(self.ennemy_pk.get_stats()[0]), False, (2, 137, 0))
+            self.ennemy_pk_atk = self.ennemy_pk_stats_font.render(str(self.ennemy_pk.get_stats()[1]), False, (189, 0, 0))
+            self.ennemy_pk_def = self.ennemy_pk_stats_font.render(str(self.ennemy_pk.get_stats()[2]), False, (191, 200, 0))
+            self.ennemy_pk_vit = self.ennemy_pk_stats_font.render(str(self.ennemy_pk.get_stats()[3]), False, (0, 139, 230))
+            
+    def get_ennemy_pk_name(self, diff) -> str or None:
+        """
+        Methode qui détermine le nom du pokémon ennemi en fonction de la difficulté
+        """
+        
+        if self.training_pk is None:
+            return None
+        
+        r = random.Random()
+        r.seed(self.training_pk.random_seed + self.game.general_seed)
+        
+        spawnable_pks = game_infos.get_all_diff_pokemons(self.training_pk.get_type(), diff)
+        ennemy_pk_name = r.choice(spawnable_pks)
+        
+        return ennemy_pk_name
+    
+    def get_ennemy_pk_level(self, diff) -> int:
+        """
+        Methode qui determine le level du pokémon ennemi à affronter selon la difficulté choisie
+        """
+
+        #
+        if diff == 'easy':
+            n = 1
+        elif diff == 'normal':
+            n = 2
+        else:
+            n = 3
+
+        r = random.Random()
+        r.seed(self.training_pk.random_seed + n)
+
+        # Calcul du niveau minimum
+        min_lv = round(self.game.player.get_level() / 2
+                       + self.LV_DIFFICULT_COEFS[diff][0] * self.game.player.get_moyenne_team())
+
+        # Calcul du niveau maximum
+        max_lv = round(self.game.player.get_level() / 2
+                       + self.LV_DIFFICULT_COEFS[diff][1] * self.game.player.get_moyenne_team())
+
+        ennemy_pk_lv = r.randint(min_lv, max_lv)
+        return ennemy_pk_lv
+    
+    def spawn_ennemy_pk(self, diff) -> pokemon.Pokemon or None:
+        """
+        Methode qui génére et renvoie le pokémon ennemi en fonction de la difficulté
+        """
+        ennemy_pk_name = self.get_ennemy_pk_name(diff)
+        if ennemy_pk_name is None:
+            return None
+        else:
+            return pokemon.Pokemon(ennemy_pk_name, self.get_ennemy_pk_level(diff), self.game)
+        
+    def open_settings_popup(self):
+        self.boolSettings_popup = True
+        
+    def close_settings_popup(self):
+        self.boolSettings_popup = False
+
+    def reset(self):
+        self.training_pk = None
+        self.ennemy_pks_backup = {}
+
+        self.difficult = 'easy'
+        self.boolEnnemy_pk_stats = False
+
+        # Variables relatives aux pokémons ennemis
         self.ennemy_pks = {
             'easy': self.spawn_ennemy_pk('easy'),
             'normal': self.spawn_ennemy_pk('normal'),
             'hard': self.spawn_ennemy_pk('hard')
         }
+        self.ennemy_pk = self.ennemy_pks[self.difficult]
 
-    def get_spawn_ennemy_pk(self, difficult):
+        self.ennemy_pks_backup = {}
 
-        if self.training_pk is None:
-            return None
+        self.load_ennemy_pk()
 
-        random.seed(self.training_pk.random_seed + self.game.general_seed)
-
-        all_spawnable_pk = game_infos.get_all_diff_pokemons(self.training_pk.get_type(), difficult)
-        pokemon_name = random.choice(all_spawnable_pk)
-
-        return pokemon_name
-
-    def spawn_ennemy_pk(self, difficult):
-        ennemy_pk_name = self.get_spawn_ennemy_pk(difficult)
-        if ennemy_pk_name is None:
-            return None
-
-        min_lv = round(0.6*self.game.player.get_moyenne_team() + self.game.player.get_level())
-        max_lv = round(1.2*self.game.player.get_moyenne_team() + self.game.player.get_level())
-        ennemy_pk_lv = random.randint(min_lv, max_lv)
-
-        return pokemon.Pokemon(self.get_spawn_ennemy_pk(difficult), ennemy_pk_lv, self.game.player)
-
-    def open_settings_popup(self):
-        self.boolSettings_popup = True
-
-    def close_settings_popup(self):
         self.boolSettings_popup = False
-
-    def update_rects_pos(self, window_pos):
-        self.settings_button_rect = pygame.Rect(22 + window_pos[0], 90 + window_pos[1], 90, 120)
-        self.add_button_rect = image.get_custom_rect(self.add_button, self.add_button_pos[0] + window_pos[0],
-                                                                      self.add_button_pos[1] + window_pos[1])
-        self.easy_button_rect = image.get_custom_rect(self.easy_button, self.easy_button_pos[0] + window_pos[0],
-                                                      self.easy_button_pos[1] + window_pos[1])
-        self.normal_button_rect = image.get_custom_rect(self.normal_button, self.normal_button_pos[0] + window_pos[0],
-                                                      self.normal_button_pos[1] + window_pos[1])
-        self.hard_button_rect = image.get_custom_rect(self.hard_button, self.hard_button_pos[0] + window_pos[0],
-                                                      self.hard_button_pos[1] + window_pos[1])
-        self.training_pk_rect = pygame.Rect(111 + window_pos[0], 123 + window_pos[1], 252, 252)
-        self.ennemy_pk_infos_stats_button_rect = image.get_custom_rect(self.ennemy_pk_infos_stats_button,
-                                                                       715 + window_pos[0], 408 + window_pos[1])
-        self.fight_button_rect = image.get_custom_rect(self.fight_button, self.fight_button_pos[0] + window_pos[0],
-                                                       self.fight_button_pos[1] + window_pos[1])
-
+        self.boolAdd_training_pk_popup = False
+        
     def left_clic_interactions(self, possouris):
         if self.settings_button_rect.collidepoint(possouris):
             if self.boolSettings_popup:
-                self.boolSettings_popup = False
+                self.close_settings_popup()
             else:
-                self.boolSettings_popup = True
+                self.open_settings_popup()
 
         if self.boolSettings_popup:
             if self.easy_button_rect.collidepoint(possouris):
@@ -304,25 +474,16 @@ class TrainPanel:
                 self.set_difficult('hard')
                 self.close_settings_popup()
 
-        if self.training_pk is None:
-            if self.add_button_rect.collidepoint(possouris):
-                self.add_training_pk_mode = True
-        else:
+        if self.training_pk is not None:
             if self.training_pk_rect.collidepoint(possouris):
-                self.training_pk = None
-                self.add_training_pk_mode = True
+                if not self.game.classic_panel.pk_move_mode:
+                    self.training_pk = None
             elif self.ennemy_pk_infos_stats_button_rect.collidepoint(possouris):
-                self.ennemy_pk_info_stats_mode = not (
-                    self.ennemy_pk_info_stats_mode)
+                self.boolEnnemy_pk_stats = not self.boolEnnemy_pk_stats
             elif self.fight_button_rect.collidepoint(possouris):
-                self.start_training_fight()
-                pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
-
-        if self.add_training_pk_mode:
-            if self.choose_training_pk_popup.x_button_rect.collidepoint(
-                    possouris):
-                self.add_training_pk_mode = False
-
+                if self.training_pk.is_alive and self.ennemy_pk.is_alive:
+                    self.start_fight()
+                    pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
     def is_hovering_settings_popup_buttons(self, possouris):
         if self.boolSettings_popup:
@@ -334,172 +495,16 @@ class TrainPanel:
     def is_hovering_buttons(self, possouris):
         return (self.settings_button_rect.collidepoint(possouris)
                 or self.is_hovering_settings_popup_buttons(possouris)
-                or (self.add_button_rect.collidepoint(possouris) and self.training_pk is None and not self.add_training_pk_mode)
                 or (self.training_pk_rect.collidepoint(possouris) and self.training_pk is not None)
-                or (self.choose_training_pk_popup.is_hovering(possouris) and self.add_training_pk_mode)
                 or (self.ennemy_pk_infos_stats_button_rect.collidepoint(possouris) and self.training_pk is not None)
                 or (self.fight_button_rect.collidepoint(possouris) and self.training_pk is not None)
                 )
+        
+    def img_load(self, file_name):
+        return pygame.image.load(f'{self.PATH}{file_name}.png')
 
     def create_rect_alpha(self, dimensions, color, opacite=90):
         rect = pygame.Surface(dimensions)
         rect.set_alpha(opacite)
-        rect.fill(color)
-        return rect
-
-    def load_image(self, file_name, boolTransfromScale=False, size=None):
-        image = pygame.image.load(self.path + file_name)
-
-        if boolTransfromScale:
-            image = pygame.transform.scale(image, size)
-
-        return image
-
-
-class ChooseTrainingPkPopup:
-
-    def __init__(self, game):
-        self.game = game
-        self.path = 'assets/game/ingame_windows/Train/'
-        self.popup = self.load_image('choose_training_pk_popup.png')
-        self.x_button = self.load_image('choose_training_pk_x_button.png')
-        self.x_button_hover = self.load_image('choose_training_pk_x_button_hover.png')
-
-        self.popup_pos = (419, 40)
-        self.x_button_pos = (802, 57)
-        self.x_button_rect = image.get_custom_rect(self.x_button, self.x_button_pos[0], self.x_button_pos[1])
-
-        self.pk_emps = ChooseTrainingPkEmps(self.game)
-
-    def update(self, surface, possouris, window_pos):
-        self.update_rects_pos(window_pos)
-
-        surface.blit(self.popup, (self.popup_pos[0] + window_pos[0],
-                                  self.popup_pos[1] + window_pos[1]))
-
-        if self.x_button_rect.collidepoint(possouris):
-            surface.blit(self.x_button_hover, self.x_button_rect)
-        else:
-            surface.blit(self.x_button, self.x_button_rect)
-
-        self.pk_emps.update(surface, window_pos, possouris)
-
-    def update_rects_pos(self, window_pos):
-        self.x_button_rect = image.get_custom_rect(self.x_button, self.x_button_pos[0] + window_pos[0],
-                                                                  self.x_button_pos[1] + window_pos[1])
-
-    def is_hovering(self, possouris):
-        return self.x_button_rect.collidepoint(possouris) or self.pk_emps.is_hovering_emp(possouris)
-
-    def load_image(self, file_name, boolTransfromScale=False, size=None):
-        image = pygame.image.load(self.path + file_name)
-
-        if boolTransfromScale:
-            image = pygame.transform.scale(image, size)
-
-        return image
-
-
-class ChooseTrainingPkEmps:
-
-    def __init__(self, game):
-        self.game = game
-
-        self.emp1 = PkEmp(self.game, 0, (432, 103), self)
-        self.emp2 = PkEmp(self.game, 1, (567, 103), self)
-        self.emp3 = PkEmp(self.game, 2, (702, 103), self)
-        self.emp4 = PkEmp(self.game, 3, (432, 232), self)
-        self.emp5 = PkEmp(self.game, 4, (567, 232), self)
-        self.emp6 = PkEmp(self.game, 5, (702, 232), self)
-
-        self.emp_moving = False
-
-    def update(self, surface, window_pos, possouris):
-        self.emp1.update(surface, window_pos, possouris)
-        self.emp2.update(surface, window_pos, possouris)
-        self.emp3.update(surface, window_pos, possouris)
-        self.emp4.update(surface, window_pos, possouris)
-        self.emp5.update(surface, window_pos, possouris)
-        self.emp6.update(surface, window_pos, possouris)
-
-    def is_another_pk_moving(self):
-        return (self.emp1.moving or
-                self.emp2.moving or
-                self.emp3.moving or
-                self.emp4.moving or
-                self.emp5.moving or
-                self.emp6.moving)
-
-    def is_hovering_emp(self, possouris):
-        return (self.emp1.is_hovering(possouris)
-                or self.emp2.is_hovering(possouris)
-                or self.emp3.is_hovering(possouris)
-                or self.emp4.is_hovering(possouris)
-                or self.emp5.is_hovering(possouris)
-                or self.emp6.is_hovering(possouris)
-                )
-
-
-class PkEmp:
-
-    def __init__(self, game, i, pos, emp_group):
-        self.game = game
-        self.group = emp_group
-        self.i = i
-        self.POS = pos
-        self.pos = pos
-        self.rect = pygame.Rect(self.pos[0], self.pos[1], 120, 120)
-
-        self.pk = self.game.player.team[self.i]
-
-        self.moving = False
-        self.clic_pos = (0, 0)
-
-    def update(self, surface, window_pos, possouris):
-        self.update_rects_pos(window_pos)
-        self.update_pk()
-
-        if self.pk is not None:
-            if self.moving:
-                surface.blit(self.create_rect_alpha((self.rect.w - 10, self.rect.h - 10), (255, 255, 255)),
-                             (self.rect.x + 5, self.rect.y + 5))
-            else:
-                if self.rect.collidepoint(possouris) and not self.group.is_another_pk_moving():
-                    surface.blit(self.create_rect_alpha((self.rect.w - 10, self.rect.h - 10), (255, 255, 255)),
-                                 (self.rect.x + 5, self.rect.y + 5))
-
-            surface.blit(pygame.transform.scale(self.pk.get_icon(), (250, 125)),
-                         (self.rect[0] - 5, self.rect[1] - 15), (0, 0, 125, 125))
-
-            if not self.moving:
-                if not self.group.is_another_pk_moving():
-                    if self.game.mouse_pressed[1] and self.rect.collidepoint(possouris):
-                        self.moving = True
-                        self.clic_pos = possouris
-            else:
-                if not self.game.mouse_pressed[1]:
-                    if self.game.classic_panel.ingame_window.train_panel.add_button_rect.collidepoint(possouris):
-                        self.game.classic_panel.ingame_window.train_panel.training_pk = self.game.player.team[self.i]
-                        self.game.classic_panel.ingame_window.train_panel.set_ennemy_pokemons()
-                        self.game.classic_panel.ingame_window.train_panel.add_training_pk_mode = False
-                    self.moving = False
-                    self.pos = self.POS
-                else:
-                    self.pos = (self.POS[0] + possouris[0] - self.clic_pos[0],
-                                self.POS[1] + possouris[1] - self.clic_pos[1])
-
-    def update_pk(self):
-        if not self.game.player.team[self.i] == self.pk:
-            self.pk = self.game.player.team[self.i]
-
-    def update_rects_pos(self, window_pos):
-        self.rect = pygame.Rect(self.pos[0] + window_pos[0], self.pos[1] + window_pos[1], 120, 120)
-
-    def is_hovering(self, possouris):
-        return self.rect.collidepoint(possouris) and self.pk is not None
-
-    def create_rect_alpha(self, dimensions, color):
-        rect = pygame.Surface(dimensions)
-        rect.set_alpha(90)
         rect.fill(color)
         return rect

@@ -3,14 +3,18 @@ import random
 import objet
 import game_infos
 import attaques
+import game
+
+
+SPECIAL_PKS_LIST = ["Blue's Evoli", "Alizee's Altaria"]
 
 
 class Pokemon:
 
-    def __init__(self, name, level, game, is_shiny=None, objet_tenu=None):
+    def __init__(self, name, level, game, is_shiny=False, objet_tenu=None):
         self.game = game
 
-        self.name = name[0].upper() + name[1:].lower()
+        self.name = name
         self.is_shiny = self.def_shiny(is_shiny)
         self.id = self.game.get_init_pokemon_id()
 
@@ -25,6 +29,7 @@ class Pokemon:
             }
 
         self.line = self.find_pokemon_line()
+        print(self.line)
 
         self.level = int(level)
         self.rarity = int(self.line[1])
@@ -77,10 +82,11 @@ class Pokemon:
         self.random_seed = self.generate_random_seed_number()
 
     def find_pokemon_line(self) -> list:
-        with open('all_pokemons.txt') as file:
+        with open('special_pokemons.txt') as file:
             for line in file.readlines():
-                if line.split()[0] == self.name:
-                    return line.split()
+                print(line.split(','))
+                if line.split(",")[0] == self.name:
+                    return line.split(",")
 
     def level_up(self, nb_lv=1):
         self.level += nb_lv
@@ -97,12 +103,9 @@ class Pokemon:
             return self
         else:
             if self.level >= self.evolution_level:
-                return Pokemon(self.evolution_name, self.level, self.game, self.is_shiny)
+                return Pokemon(self.evolution_name, self.level, self.is_shiny)
             else:
-                return self
-
-    def full_heal(self):
-        self.health = self.pv
+                return Pokemon(self.name, self.level, self.is_shiny)
 
     def get_id(self):
         return self.id
@@ -306,4 +309,5 @@ class Pokemon:
 
 
 if __name__ == "__main__":
-    pass
+    g = game.Game()
+    p = Pokemon("Blue's Evoli", 20, g)

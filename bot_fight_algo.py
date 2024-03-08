@@ -1,11 +1,12 @@
-# importation des module
+# importation des modules
 import pokemon
 import game_infos
 
-# declaration des constante
-SPEED_HEAL = 333 #valeur entre 0 et 1000
+# declaration des constantes
+SPEED_HEAL = 333  # valeur entre 0 et 1000
 
-#declaration des fonction
+
+# declaration des fonctions
 def calcul_degats(pk, ennemy_pk, attaque, crit=False):
     cm = 1
     # Calcul avec stab ( attaque de type maternel )
@@ -25,12 +26,11 @@ def calcul_degats(pk, ennemy_pk, attaque, crit=False):
     return degats
 
 
-def get_npc_action(pk, ennemy_pk , att:list):
-    esperence = []
+def get_npc_action(pk, ennemy_pk, att:list):
+    score = []
     is_killing = []
     for attaque in att:
         degat = calcul_degats(pk, ennemy_pk, attaque, False)
-        # print(degat)
         if degat > ennemy_pk.health:
             is_killing.append(attaque)
     if is_killing == []:
@@ -54,25 +54,35 @@ def get_npc_action(pk, ennemy_pk , att:list):
                 taux_heal_on_atk, _ = attaque.special_effect[0][1].split("*")
                 #scoretemp = scoretemp * (1 + (SPEED_HEAL/400) * float(taux_heal_on_atk))
                 scoretemp = scoretemp * (1 + (SPEED_HEAL/400) * float(taux_heal_on_atk) * (-2*(pk.health/pk.pv)+2))
-                
-                
+
             print(attaque.name, scoretemp)
-            esperence.append(scoretemp)
+
+            score.append(scoretemp)
+
+        max = score[0]
+        j = 0
+        for i in range(len(score)):
+            if score[i] > max:
+                max = score[i]
+                j = i
+
+        return att[j]
 
     else:
-        for attaque in att:
-            esperence.append(attaque.precision)
+        for attaque in is_killing:
+            score.append(attaque.precision)
 
-    max = esperence[0]
-    j = 0
-    for i in range(len(esperence)):
-        if esperence[i] > max:
-            max = esperence[i]
-            j = i
-    print(att[j].name)
-    return att[j]
+        max = score[0]
+        j = 0
+        for i in range(len(score)):
+            if score[i] > max:
+                max = score[i]
+                j = i
+        return is_killing[j]
 
-# programe principal (test)
+
+
+# programme principal (test)
 if __name__ == '__main__':
     import game
     import attaques as att
