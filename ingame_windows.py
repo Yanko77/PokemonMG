@@ -6,6 +6,7 @@ import train
 import spawn
 import sac
 import items
+import evolutions
 
 
 class IngameWindow:
@@ -74,13 +75,15 @@ class IngameWindow:
         self.spawn_panel = spawn.SpawnPanel(self.game)
         self.train_panel = train.TrainPanel(self.game)
         self.items_panel = items.ItemsPanel(self.game)
+        self.evol_panel = evolutions.EvolPanel(self.game)
 
         self.all_panels = {
             "Sac d'objets": self.sac_panel,
             "Starters": self.starters_panel,
             "Spawn": self.spawn_panel,
             "Train": self.train_panel,
-            "Items": self.items_panel
+            "Items": self.items_panel,
+            "Evolutions": self.evol_panel,
         }
 
     def update(self, surface, possouris):
@@ -213,16 +216,6 @@ class IngameWindow:
         elif self.min_button_rect.collidepoint(possouris):
             return True
         else:
-
-            '''if self.current_panel_name == "Sac d'objets":
-                return self.sac_panel.is_hovering_buttons(possouris, self.basic_window_pos)
-            elif self.current_panel_name == "Starters":
-                return self.starters_panel.is_hovering_buttons(possouris)
-            elif self.current_panel_name == "Spawn":
-                return self.spawn_panel.is_hovering_buttons(possouris)
-            elif self.current_panel_name == "Train":
-                return self.train_panel.is_hovering_buttons(possouris)'''
-
             return self.current_panel.is_hovering_buttons(possouris)
 
     def left_clic_interactions(self, possouris):
@@ -251,7 +244,7 @@ class IngameWindow:
                     elif self.current_panel_name == "Items":
                         self.items_panel.left_clic_interactions(possouris)
                     elif self.current_panel_name == "Evolutions":
-                        pass
+                        self.evol_panel.left_clic_interactions(possouris)
                     elif self.current_panel_name == "Sac d'objets":
                         self.sac_panel.left_clic_interactions(possouris)
 

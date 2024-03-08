@@ -417,6 +417,8 @@ class GamePanel:
                         self.change_pk_place(i, 4)
                     elif self.pk_rects[5].collidepoint(possouris):
                         self.change_pk_place(i, 5)
+                    elif self.ingame_window.current_panel_name == 'Evolutions' and self.ingame_window.evol_panel.evolving_pk_rect.collidepoint(possouris):
+                        self.ingame_window.evol_panel.update_evolving_pk(possouris)
                     elif self.boolFight_popup:
                         if self.fight_popup_drop_pk_rect.collidepoint(possouris):
                             self.fighting_pk = self.game.player.team[i]
@@ -475,7 +477,7 @@ class GamePanel:
 
     def update_go_fight_button(self, surface, possouris):
 
-        if not self.go_fight_button_rect.collidepoint(possouris):
+        if not self.go_fight_button_rect.collidepoint(possouris) or self.ingame_window.is_hovering(possouris):
             if self.go_fight_button_compteur < 50:
                 surface.blit(self.go_fight_button, self.go_fight_button_rect)
             else:
@@ -570,6 +572,8 @@ class GamePanel:
                 return True
             elif self.sac_button_rect.collidepoint(possouris):
                 return True
+            elif self.is_hovering_team_pokemon(possouris):
+                return True
             elif self.boolFight_popup:
                 if self.fight_sac_button_rect.collidepoint(possouris) or self.fight_equipe_button_rect.collidepoint(possouris):
                     return True
@@ -579,8 +583,6 @@ class GamePanel:
                 return True
             elif self.buttons.is_hovering_button(possouris):
                 return not self.boolFight_popup
-            elif self.is_hovering_team_pokemon(possouris):
-                return True
             elif self.is_hovering_pokemon_info_popup_buttons(possouris):
                 return True
             else:

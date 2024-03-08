@@ -4,18 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add pokemon from team delete system&#10;rework pokemon from team icon moving mode fade">
-      <change afterPath="$PROJECT_DIR$/notif.py" afterDir="false" />
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add game notifications system">
+      <change afterPath="$PROJECT_DIR$/assets/game/ingame_windows/Evolutions/background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/ingame_windows/Evolutions/evol_button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/ingame_windows/Evolutions/evol_button_logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/ingame_windows/Evolutions/pk_emp.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evolutions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_28_02_2024_15_15_[Default_Changelist]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_28_02_2024_15_15__Default_Changelist_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_02_2024_14_56_[Default_Changelist]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_02_2024_14_56__Default_Changelist_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_02_2024_15_16_[Default_Changelist]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_02_2024_15_16__Default_Changelist_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/logo_suppr_pk.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/logo_suppr_pk_hover.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/panels/fight_panel/end_fight_panel/name_background.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_panel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ingame_windows.py" beforeDir="false" afterPath="$PROJECT_DIR$/ingame_windows.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
     </list>
-    <list id="3ab2a7a4-e91e-43e9-a5d9-7d5605b3f4b3" name="Changes by matva" comment="Changes by matva on new pokemons" />
+    <list id="6085e2ad-84dc-4101-8108-2a69c65d4003" name="Changes by matva" comment="">
+      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
+    </list>
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +71,14 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Dummy.txt" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/pokemon.py">
+      <ranges>
+        <range start1="99" end1="100" start2="99" end2="100" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="101" end1="102" start2="101" end2="102" changelist="6085e2ad-84dc-4101-8108-2a69c65d4003" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -244,13 +263,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00029" summary="Spawn action working&#10;System of actions working&#10;begin reformating code ( player_name done )&#10;&#10;add player_name.py">
-      <created>1695490220601</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1695490220601</updated>
     </task>
     <task id="LOCAL-00030" summary="continue code reformating">
       <created>1695502164504</created>
@@ -588,7 +600,14 @@
       <option name="project" value="LOCAL" />
       <updated>1709604788159</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="add game notifications system">
+      <created>1709608111757</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1709608111757</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -604,7 +623,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="continue train.py&#10;beginning fight.py, dresseur.py" />
     <MESSAGE value="continue dresseur.py:&#10;- add init_inventory()" />
     <MESSAGE value="continue dresseur.py:&#10;- added a few new dresseurs&#10;&#10;continue bot_algo..." />
     <MESSAGE value="begin fight.py:&#10;- added images&#10;- added first methods" />
@@ -629,6 +647,7 @@
     <MESSAGE value="end turn fight 100% working&#10;add next turn system&#10;replace game random seed system&#10;replace game round system" />
     <MESSAGE value="add fight popup x button" />
     <MESSAGE value="add pokemon from team delete system&#10;rework pokemon from team icon moving mode fade" />
-    <option name="LAST_COMMIT_MESSAGE" value="add pokemon from team delete system&#10;rework pokemon from team icon moving mode fade" />
+    <MESSAGE value="add game notifications system" />
+    <option name="LAST_COMMIT_MESSAGE" value="add game notifications system" />
   </component>
 </project>

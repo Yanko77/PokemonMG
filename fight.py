@@ -163,29 +163,35 @@ class Fight:
         self.compteur_action_file = []
 
         self.boolEnding = False
-        self.compteur_end_fight = 0
+        self.is_animating_end_panel = False
+        self.compteur_end = 0
 
     def update(self, surface, possouris):
 
-        # Background du combat
-        surface.blit(self.background, (0, 0))
+        if not self.boolEnding:
 
-        # Pokemons
-        self.update_pokemons(surface)
+            # Background du combat
+            surface.blit(self.background, (0, 0))
 
-        # Boutons du combat
-        self.update_fight_buttons(surface, possouris)
+            # Pokemons
+            self.update_pokemons(surface)
 
-        # Action en cours
-        self.update_current_action(possouris)
+            # Boutons du combat
+            self.update_fight_buttons(surface, possouris)
 
-        # Logs
-        self.update_fight_logs(surface)
+            # Action en cours
+            self.update_current_action(possouris)
 
-        # Execution du tour
-        if self.executing_turn:
-            self.update_turn_exec_info(surface)
-            self.turn(self.current_turn_action)
+            # Logs
+            self.update_fight_logs(surface)
+
+            # Execution du tour
+            if self.executing_turn:
+                self.update_turn_exec_info(surface)
+                self.turn(self.current_turn_action)
+        else:
+            # Ecran de fin de combat
+            self.update_end_panel(surface, possouris)
 
         # GESTION CURSEUR INTERACTIONS
         if self.is_hovering(possouris):
@@ -194,6 +200,26 @@ class Fight:
         else:
             if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_ARROW:
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+    def update_end_panel(self, surface, possouris):
+        if self.compteur_end < 200:
+            self.is_animating_end_panel = True
+        else:
+            self.is_animating_end_panel = False
+
+        if self.is_animating_end_panel:
+            # Background
+            pos_compteur = 720 - self.compteur_end*4
+            if pos_compteur < 0:
+                pos_compteur = 0
+            bg_pos = (0, pos_compteur)
+
+            surface.blit(self.end_fight_panel, bg_pos)
+
+            self.compteur_end += 1
+        else:
+            pass
+            # surface.blit(self.end_fight_panel, (0, 0))
 
     def update_current_action(self, possouris):
         if self.current_action is not None:
@@ -858,9 +884,8 @@ class Fight:
                     pass
                 else:
                     if self.fin_du_combat_button_rect.collidepoint(possouris):
-                        self.boolEnding = True
+                        # self.boolEnding = True
                         self.end_fight()
-                        print('end')
 
     def is_hovering(self, possouris):
         if self.fight_result is None:

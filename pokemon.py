@@ -97,7 +97,7 @@ class Pokemon:
             return self
         else:
             if self.level >= self.evolution_level:
-                return Pokemon(self.evolution_name, self.level, self.is_shiny)
+                return Pokemon(self.evolution_name, self.level, self.game, self.is_shiny)
             else:
                 return Pokemon(self.name, self.level, self.is_shiny)
 
