@@ -30,34 +30,36 @@ def get_npc_action(pk, ennemy_pk, att:list):
     score = []
     is_killing = []
     for attaque in att:
-        degat = calcul_degats(pk, ennemy_pk, attaque, False)
-        if degat > ennemy_pk.health:
-            is_killing.append(attaque)
+        if attaque is not None:
+            degat = calcul_degats(pk, ennemy_pk, attaque, False)
+            if degat > ennemy_pk.health:
+                is_killing.append(attaque)
+
     if is_killing == []:
         for attaque in att:
-            
-            degat = calcul_degats(pk, ennemy_pk, attaque, False)
-            degat_crit = calcul_degats(pk, ennemy_pk, attaque, True)
-            delta_degat = degat_crit - degat
-            t = round(int(pk.line[6]) / 2) * attaque.taux_crit
-            scoretemp = degat + delta_degat * t
-            taux = attaque.precision/100
+            if attaque is not None:
+                degat = calcul_degats(pk, ennemy_pk, attaque, False)
+                degat_crit = calcul_degats(pk, ennemy_pk, attaque, True)
+                delta_degat = degat_crit - degat
+                t = round(int(pk.line[6]) / 2) * attaque.taux_crit
+                scoretemp = degat + delta_degat * t
+                taux = attaque.precision/100
 
-            # Calcul des bonus spéciaux des attaques ( altération de status, double attaque, invnlnérabilités,
-            if attaque.special_effect[0][0] == 'status' and ennemy_pk.status[str(attaque.special_effect[0][1])] is not True:
-                scoretemp *= (1 + int(attaque.special_effect[0][2])/100)
+                # Calcul des bonus spéciaux des attaques ( altération de status, double attaque, invnlnérabilités,
+                if attaque.special_effect[0][0] == 'status' and ennemy_pk.status[str(attaque.special_effect[0][1])] is not True:
+                    scoretemp *= (1 + int(attaque.special_effect[0][2])/100)
 
-            scoretemp *= taux
-            if attaque.special_effect[0][0] == 'heal_on_maxpv' or attaque.special_effect[0] == 'long_time_heal_par_tour_of_maxpv':
-                scoretemp = (pk.pv/pk.health) * SPEED_HEAL
-            if attaque.special_effect[0][0] == 'heal_on_atk':
-                taux_heal_on_atk, _ = attaque.special_effect[0][1].split("*")
-                #scoretemp = scoretemp * (1 + (SPEED_HEAL/400) * float(taux_heal_on_atk))
-                scoretemp = scoretemp * (1 + (SPEED_HEAL/400) * float(taux_heal_on_atk) * (-2*(pk.health/pk.pv)+2))
+                scoretemp *= taux
+                if attaque.special_effect[0][0] == 'heal_on_maxpv' or attaque.special_effect[0] == 'long_time_heal_par_tour_of_maxpv':
+                    scoretemp = (pk.pv/pk.health) * SPEED_HEAL
+                if attaque.special_effect[0][0] == 'heal_on_atk':
+                    taux_heal_on_atk, _ = attaque.special_effect[0][1].split("*")
+                    #scoretemp = scoretemp * (1 + (SPEED_HEAL/400) * float(taux_heal_on_atk))
+                    scoretemp = scoretemp * (1 + (SPEED_HEAL/400) * float(taux_heal_on_atk) * (-2*(pk.health/pk.pv)+2))
 
-            print(attaque.name, scoretemp)
+                print(attaque.name, scoretemp)
 
-            score.append(scoretemp)
+                score.append(scoretemp)
 
         max = score[0]
         j = 0

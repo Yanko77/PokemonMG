@@ -18,20 +18,20 @@ class Attaque:
         else:
             self.puissance = int(self.line[3])
 
-        self.special_precision = ':' in self.line[4]  # Bool
-        if self.special_precision:
-            self.precision = self.line[4]
+        self.bool_special_precision = ':' in self.line[4]  # Bool
+        self.special_precision = None
+        if self.bool_special_precision:
+            self.special_precision = self.line[4].split(":")
+            if self.special_precision[0] == 'd':
+                self.precision = int(self.special_precision[1].split("-")[0])  # Pour les precisions diminutives
         else:
             self.precision = int(self.line[4])
 
-        self.taux_crit = int(self.line[5])
+        self.taux_crit = float(self.line[5])
         self.priorite = int(self.line[6])
 
         self.special_effect = self.line[7].split(',')
-        tem = []
-        for effet in self.special_effect:
-            tem.append(tuple(effet.split(":")))
-        self.special_effect = tuple(tem)
+        self.special_effect = [effet.split(':') for effet in self.special_effect]
 
     def get_stats(self):
         return self.type, self.pp, self.puissance, self.precision, self.taux_crit, self.priorite, self.special_effect
@@ -63,5 +63,5 @@ class Attaque:
 
 
 if __name__ == '__main__':
-    croc = Attaque('Detection')
+    croc = Attaque('Vive-Attaque')
     print(croc.get_stats())

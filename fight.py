@@ -253,34 +253,35 @@ class Fight:
             # Si l'action en cours est 'COMBAT'
             elif self.current_action == 'COMBAT':
                 for i in range(4):  # Chaque bouton d'attaque
-                    button_rect = self.attaque_buttons_rects[i]
-                    pygame.draw.rect(surface, game_infos.type_colors[self.player_pk.attaque_pool[i].type],
-                                     button_rect,
-                                     border_radius=15)
+                    if self.player_pk.attaque_pool[i] is not None:
+                        button_rect = self.attaque_buttons_rects[i]
+                        pygame.draw.rect(surface, game_infos.type_colors[self.player_pk.attaque_pool[i].type],
+                                         button_rect,
+                                         border_radius=15)
 
-                    if button_rect.collidepoint(possouris):
-                        surface.blit(self.cover_attaque_button, button_rect)
-                        surface.blit(self.cover_attaque_button_hover, button_rect)
+                        if button_rect.collidepoint(possouris):
+                            surface.blit(self.cover_attaque_button, button_rect)
+                            surface.blit(self.cover_attaque_button_hover, button_rect)
 
-                        attaque_name_shadow = self.attaque_font.render(self.player_pk.attaque_pool[i].name_, False,
-                                                                       (30, 30, 30))
-                        surface.blit(attaque_name_shadow,
-                                     (button_rect.x + 1 + (356 - attaque_name_shadow.get_width()) / 2,
-                                      button_rect.y + 3 + (
-                                              109 - attaque_name_shadow.get_height()) / 2))
+                            attaque_name_shadow = self.attaque_font.render(self.player_pk.attaque_pool[i].name_, False,
+                                                                           (30, 30, 30))
+                            surface.blit(attaque_name_shadow,
+                                         (button_rect.x + 1 + (356 - attaque_name_shadow.get_width()) / 2,
+                                          button_rect.y + 3 + (
+                                                  109 - attaque_name_shadow.get_height()) / 2))
 
-                        attaque_name = self.attaque_font.render(self.player_pk.attaque_pool[i].name_, False,
-                                                                (255, 255, 255))
-                        surface.blit(attaque_name, (button_rect.x + (356 - attaque_name.get_width()) / 2,
-                                                    button_rect.y + (109 - attaque_name.get_height()) / 2))
+                            attaque_name = self.attaque_font.render(self.player_pk.attaque_pool[i].name_, False,
+                                                                    (255, 255, 255))
+                            surface.blit(attaque_name, (button_rect.x + (356 - attaque_name.get_width()) / 2,
+                                                        button_rect.y + (109 - attaque_name.get_height()) / 2))
 
-                    else:
-                        surface.blit(self.cover_attaque_button, button_rect)
+                        else:
+                            surface.blit(self.cover_attaque_button, button_rect)
 
-                        attaque_name = self.attaque_font.render(self.player_pk.attaque_pool[i].name_, False,
-                                                                (240, 240, 240))
-                        surface.blit(attaque_name, (button_rect.x + (356 - attaque_name.get_width()) / 2,
-                                                    button_rect.y + (109 - attaque_name.get_height()) / 2))
+                            attaque_name = self.attaque_font.render(self.player_pk.attaque_pool[i].name_, False,
+                                                                    (240, 240, 240))
+                            surface.blit(attaque_name, (button_rect.x + (356 - attaque_name.get_width()) / 2,
+                                                        button_rect.y + (109 - attaque_name.get_height()) / 2))
 
             # Si l'action en cours est 'SAC'
             elif self.current_action == 'SAC':
@@ -597,6 +598,9 @@ class Fight:
                 self.dresseur.pk.reset_stats()
                 self.player_pk.reset_stats()
 
+            self.update_pk_attaques(player_pk_action, dresseur_pk_action)
+            self.player_pk.reset_turn_effects()
+            self.dresseur.pk.reset_turn_effects()
             self.executing_turn = False
             self.compteur = 1
             self.turn_exec_info = ""
@@ -643,9 +647,11 @@ class Fight:
                 pk.attaque(pk, attaques.Attaque('Charge'))
 
         if pk_can_atk:
-            pk.attaque(ennemy_pk, attaque)
+            # Attaque le pokemon ennemi et affecte le resultat de l'attaque dans reussite_attaque (bool)
+            reussite_attaque = pk.attaque(ennemy_pk, attaque)
 
-            self.add_logs(('ATTAQUE', pk, attaque))
+            if reussite_attaque:
+                self.add_logs(('ATTAQUE', pk, attaque))
 
     def add_logs(self, info):
         if len(self.fight_logs) >= 6:
@@ -849,6 +855,27 @@ class Fight:
                 self.add_logs(('End of Status', pk, 'Confusion'))
             else:
                 self.confusion_compteur_tour[pk] -= 1
+
+    def update_pk_attaques(self, player_pk_action, dresseur_pk_action):
+        # Pokémon du joueur
+        for attaque in self.player_pk.attaque_pool:
+            if attaque is not None:
+                if attaque.bool_special_precision:
+                    if attaque.special_precision[0] == 'd':
+                        if player_pk_action[1] == attaque:
+                            attaque.precision -= int(attaque.special_precision[1].split('-')[1])
+                        else:
+                            attaque.precision = int(attaque.special_precision[1].split('-')[0])
+
+        # Pokemon du dresseur
+        for attaque in self.dresseur.pk.attaque_pool:
+            if attaque is not None:
+                if attaque.bool_special_precision:
+                    if attaque.special_precision[0] == 'd':
+                        if dresseur_pk_action[1] == attaque:
+                            attaque.precision -= int(attaque.special_precision[1].split('-')[1])
+                        else:
+                            attaque.precision = int(attaque.special_precision[1].split('-')[0])
 
     def left_clic_interactions(self, possouris):  # Quand l'utilisateur utilise le clic gauche
         if not self.executing_turn:

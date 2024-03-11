@@ -1,0 +1,96 @@
+# Tier de pool:         1                                                                   2
+#
+Evoli                   Charge,Vive-Attaque,Queue_de_Fer,Effort,Balayage                    -
+#
+Bulbizarre              Charge,Vive-Attaque,Feuillage,Abri                                  -
+Herbizarre              Mega-Sangsue,Poudre_Dodo,Vive-Attaque,Abri
+Florizarre              Giga-Sangsue,Poudre_Dodo,Eco-Sphere,Laser_Glace
+#
+Salameche               Charge,Vive-Attaque,Flameche,Abri
+Reptincel               Crocs_Feu,Vive-Attaque,Nitrocharge,Poursuite
+Dracaufeu               Rafale_Feu,Flamme_Bleue,Aeroblast,Draco-Souffle
+#
+Carapuce                Charge,Vive-Attaque,Pistolet_a_0,Abri
+Carabaffe               Aqua-Jet,Saumure,Tete_de_Fer,Balayage
+Tortank                 Hydro-Queue,Aqua-Jet,Draco-Choc,Tete_de_Fer
+#
+Arcko                   Charge,Vive-Attaque,Vole-vie,Abri
+Massko                  Mega-Sangsue,Vive-Attaque,Vendetta,Vent_Glace
+Jungko                  Giga-Sangsue,Lame_Solaire,Vendetta,Vent_Glace
+#
+Poussifeu               Charge,Vive-Attaque,Flameche,Abri
+Galifeu                 Nitrocharge,Feu_Follet,Vive-Attaque,Balayage
+Brasegali               Feu_Sacre,Lance-Flammes,Close_Combat
+#
+Gobou                   Charge,Vive-Attaque,Ecume,Abri
+Flobio                  Vibraqua,Aqua-Jet,Charge,Abri
+Laggron                 Hydro_Queue,Vibraqua,Anneau_Hydro,Abri
+#
+Chenipan                Charge,Feuillage
+Chrysacier              Abri
+Papilusion              Lame_d'Air,Tranch'Herbe,Vive-Attaque,Piqure
+#
+Aspicot                 Charge,Feuillage
+Coconfort               Abri
+Dardargnan              Megacorne,Piqure,Tranch'Air,Vampi-poing
+#
+Roucool                 Charge,Vive-Attaque,Picpic
+Roucoups                Vive-Attaque,Picpic,Flameche
+Roucarnage              Lame_d'Air,Vitesse_Extreme,Nitrocharge,Eclats_Glace
+#
+Piafabec                Charge,Vive-Attaque,Picpic
+Rapasdepic              Rapace,Coupe,Vive-Attaque
+#
+Abo                     Charge,Dard-venin
+Arbok                   Toxik,Poison_Croix,Poursuite,Dard_Mortel
+#
+Pichu                   Charge,Vive-Attaque,Eclair
+Pikachu                 Vive-Attaque,Tonnerre,Cage_Eclair,Queue_de_Fer
+Raichu                  Tonnerre,Fatal-Foudre,Coupe_Psycho,Queue_de_Fer,
+#
+Sabelette               Charge,Magnitude,Coud'Krane
+Sablaireau              Seisme,Tete_de_Fer,Vive-Attaque,Vif_Roc
+#
+Nidoran-f               Vive-Attaque,Acide
+Nidorina                Mega-Sangsue,Direct_Toxik,Charge
+Nidoqueen               Giga-Sangsue,Bombe_Beurk,Force_Mystique
+#
+Nidoran-m               Charge,Acide
+Nidorino                Tranch'Herbe,Mega-Sangsue,Toxik
+Nidoking                Danse_Fleurs,Giga-Sangsue,Poison_Croix,Choc_Mental
+#
+Tyranocif               Eboulement,Pouvoir_Antique,Lame_de_Roc,Vif_Roc,Seisme,Machouille    Lame_de_Roc,Seisme,Machouille,Tricherie,Abime,Laser_Meteore
+Giratina                Ball'Ombre,Rayon_Spectral,Choc_Psy,Colere,Draco-Choc                Rayon_Spectral,Frappe_Psy,Draco-Meteore,Sanction_Supreme
+#
+Melofee                 Charge,Voix_Enjoleuse,Abri
+Melodelfe               Vive-Attaque,Pouvoir_Lunaire,Rafale_Psy,Abri                        Pouvoir_Lunaire,Psyko,Soin_Floral,Tranche
+#
+Goupix                  Vive-Attaque,Flameche
+Feunard                 Feu_Sacre,Feu_Follet,Griffe,Soin_Floral
+#
+Mystherbe               Vive-Attaque,Vole-vie,Feuillage
+Ortide                  Vive-Attaque,Poudre_Dodo,Mega-Sangsue,Toxik
+Rafflesia               Lame_Solaire,Poudre_Dodo,Giga-Sangsue,Direct_Toxik
+#
+Nostenfer               Bombe_Beurk,Poison_Croix,Tranch'Air,Atterrissage,Vitesse_Extreme     Bombe_Beurk,Poison_Croix,Rapace,Atterrissage,Vitesse_Extreme
+#
+Paras                   Vive-Attaque,Double_Dard,Poudre_Dodo
+Parasect                Tranche,Plaie_Croix,Giga-Sangsue,Poudre_Dodo
+#
+Taupiqueur              Tunnel,Vive-Attaque,Eclate-Roc
+Triopikeur              Telluriforce,Vive-Attaque,Eclate-Roc,Balayage
+#
+Tylton                  Picpic,Vive-Attaque,Double_Baffe
+Altaria                 Tranch'Air,Atterrissage,Draco-Choc,Choc_Mental                      Aeroblast,Atterrissage,Colere,Psyko
+#
+Nirondelle              Picpic,Vive-Attaque
+Heledelle               Cru-Ailes,Atterrissage,Vive-Attaque,Lame_d'Air
+#
+Airmure                 Lame_d'Air,Atterrissage,Tete_de_Fer,Vive-Attaque
+#
+Goelise                 Picpic,Vive-Attaque,Ecume
+Bekipan                 Cru-Ailes,Aqua-Jet,Bulles_d'0,Atterrissage
+#
+Cornebre                Ombre_Nocturne,Picpic
+Corboss                 Machouille,Ball'Ombre,Lame_d'Air,Acide
+#
