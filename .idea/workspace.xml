@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add all pokemons attaque_pool&#10;attaque special effect working for: taken_dmg">
-      <change afterPath="$PROJECT_DIR$/special_pokemon_attaque_pool.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_02_2024_14_56__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_02_2024_14_56__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/all_attaques.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_attaques.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attaques.py" beforeDir="false" afterPath="$PROJECT_DIR$/attaques.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon_attaque_pool.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon_attaque_pool.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/special_pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
     </list>
     <list id="6085e2ad-84dc-4101-8108-2a69c65d4003" name="Changes by matva" comment="Changes by matva" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -30,7 +27,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Test" />
+        <entry key="$PROJECT_DIR$" value="Yanko" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -84,14 +81,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Yanko&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/yanko/PycharmProjects/PokemonManagementGame&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "git-widget-placeholder": "mathias__5",
+    "last_opened_file_path": "C:/Users/yanko/PycharmProjects/PokemonManagementGame",
+    "run.code.analysis.last.selected.profile": "pProject Default"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\yanko\PycharmProjects\PokemonManagementGame" />
@@ -183,15 +180,16 @@
       <method v="2" />
     </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python">
-      <module name="PokemonManagementGame" />
+      <module name="PokemonMG" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\matva\AppData\Local\Programs\Python\Python312\python.exe" />
+      <option name="SDK_NAME" value="Python 3.12" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />

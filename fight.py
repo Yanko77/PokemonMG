@@ -784,7 +784,13 @@ class Fight:
 
     def end_fight(self):
         if self.fight_result == 'Victory':
-            self.get_rewards()
+            rewards = self.get_rewards()
+            for reward in rewards:
+                # fonction ajouts d'un item au sac qu'il faudra modifier quand on aura rework
+                i = 0
+                while self.game.player.sac_page1[i] != None:
+                    i +=1
+                self.game.player.sac_page1[i] = reward
         if self.fight_type == 'Boss':  # A inclure dans rewards
             self.player_pk.full_heal()
 

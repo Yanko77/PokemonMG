@@ -36,7 +36,7 @@ class Player:
                           None,
                           None,
                           None,
-                          None]
+                          None,]
         self.sac_page2 = [None,
                           None,
                           None,
