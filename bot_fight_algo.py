@@ -8,40 +8,43 @@ SPEED_HEAL = 333  # valeur entre 0 et 1000
 
 # declaration des fonctions
 def calcul_degats(pk, ennemy_pk, attaque, crit=False):
-    cm = 1
-    # Calcul avec stab ( attaque de type maternel )
-    if attaque.type in [pk.type, pk.type2]:
-        cm *= 1.5
-
-    # Calcul avec affinités des types
-    cm *= game_infos.get_mutiliplicateur(attaque.type, ennemy_pk.type)
-
-    if not ennemy_pk.type2 == 'NoType':
-        cm *= game_infos.get_mutiliplicateur(attaque.type, ennemy_pk.type2)
-
-    if crit:
-        cm *= (2 * pk.level + 5) / (pk.level + 5)
-
-    if attaque.puissance == "level":
-        puissance = pk.level
-    elif attaque.puissance == "ennemy_pv":
-        puissance = 1000000
-    elif attaque.puissance == "pv*0.5":
-        puissance = ennemy_pk.health // 2
-    elif attaque.special_puissance == 'v':
-        if self.speed <= ennemy_pk.speed:
-            puissance = int(attaque.puissance.split("-")[0])
+    if attaque.puissance != 0 and ennemy_pk.is_vulnerable:
+        cm = 1
+        # Calcul avec stab ( attaque de type maternel )
+        if attaque.type in [pk.type, pk.type2]:
+            cm *= 1.5
+    
+        # Calcul avec affinités des types
+        cm *= game_infos.get_mutiliplicateur(attaque.type, ennemy_pk.type)
+    
+        if not ennemy_pk.type2 == 'NoType':
+            cm *= game_infos.get_mutiliplicateur(attaque.type, ennemy_pk.type2)
+    
+        if crit:
+            cm *= (2 * pk.level + 5) / (pk.level + 5)
+    
+        if attaque.puissance == "level":
+            puissance = pk.level
+        elif attaque.puissance == "ennemy_pv":
+            puissance = 1000000
+        elif attaque.puissance == "pv*0.5":
+            puissance = ennemy_pk.health // 2
+        elif attaque.special_puissance == 'v':
+            if self.speed <= ennemy_pk.speed:
+                puissance = int(attaque.puissance.split("-")[0])
+            else:
+                puissance = int(attaque.puissance.split("-")[1])
         else:
-            puissance = int(attaque.puissance.split("-")[1])
+            puissance = attaque.puissance
+    
+        if attaque.special_puissance == 'c':
+            degats = attaque.puissance
+        elif attaque.puissance == "effort":
+            degats = ennemy_pk.pv - pk.health
+        else:
+            degats = round((((((pk.level * 0.4 + 2) * pk.attack * puissance) / pk.defense) / 50) + 2) * cm)
     else:
-        puissance = attaque.puissance
-
-    if attaque.special_puissance == 'c':
-        degats = attaque.puissance
-    elif attaque.puissance == "effort":
-        degats = ennemy_pk.pv - pk.health
-    else:
-        degats = round((((((pk.level * 0.4 + 2) * pk.attack * puissance) / pk.defense) / 50) + 2) * cm)
+        degats = 0
 
     return degats
 
