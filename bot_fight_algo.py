@@ -22,7 +22,27 @@ def calcul_degats(pk, ennemy_pk, attaque, crit=False):
     if crit:
         cm *= (2 * pk.level + 5) / (pk.level + 5)
 
-    degats = round((((((pk.level * 0.4 + 2) * pk.attack * attaque.puissance) / pk.defense) / 50) + 2) * cm)
+    if attaque.puissance == "level":
+        puissance = pk.level
+    elif attaque.puissance == "ennemy_pv":
+        puissance = 1000000
+    elif attaque.puissance == "pv*0.5":
+        puissance = ennemy_pk.health // 2
+    elif attaque.special_puissance == 'v':
+        if self.speed <= ennemy_pk.speed:
+            puissance = int(attaque.puissance.split("-")[0])
+        else:
+            puissance = int(attaque.puissance.split("-")[1])
+    else:
+        puissance = attaque.puissance
+
+    if attaque.special_puissance == 'c':
+        degats = attaque.puissance
+    elif attaque.puissance == "effort":
+        degats = ennemy_pk.pv - pk.health
+    else:
+        degats = round((((((pk.level * 0.4 + 2) * pk.attack * puissance) / pk.defense) / 50) + 2) * cm)
+
     return degats
 
 
