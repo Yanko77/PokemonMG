@@ -315,8 +315,7 @@ class Pokemon:
 
     def give_item(self, item):
         self.objet_tenu = item
-
-        self.heal(self.objet_tenu.heal_value)
+        
         self.bonus_attaque_type = self.objet_tenu.type
         self.multiplicateur_bonus_attaque = self.objet_tenu.multiplicateur_attaque_dmg
 
