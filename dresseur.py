@@ -105,7 +105,7 @@ class Name(Dresseur):
 
 class Sauvage(Dresseur):
 
-    def __init__(self, game, pk=None):
+    def __init__(self, game, pk):
         super().__init__('Sauvage', game, dresseur_type='Sauvage', pk=pk)
         self.init_pk()
 

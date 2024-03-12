@@ -56,6 +56,7 @@ class Pokemon:
         self.min_p_lv = int(self.line[9])
 
         self.is_alive = True
+        self.is_vulnerable = True
 
         if self.is_shiny:
             print(self.name, 'est shiny !!')
@@ -69,10 +70,9 @@ class Pokemon:
         self.item_pourcent_hp_activate = None
         self.passive_heal = 0
 
-        self.attaque_pool = [attaques.Attaque("Ailes_d'Acier"),
-                             attaques.Attaque("Balayage"),
-                             attaques.Attaque("Pistolet_a_O"),
-                             attaques.Attaque("Eclair_Croix")]
+        self.attaque_pool_line = self.find_attaque_pool_line()
+        print(self.attaque_pool_line)
+        self.attaque_pool = self.init_attaque_pool()
 
         self.random_seed = self.generate_random_seed_number()
 
@@ -81,6 +81,34 @@ class Pokemon:
             for line in file.readlines():
                 if line.split()[0] == self.name:
                     return line.split()
+
+    def find_attaque_pool_line(self) -> list:
+        """
+        Retourne le nom des attaques du pool d'attaque du pokémon (issu de pokemon_attaque_pool.txt)
+        """
+        with open('pokemon_attaque_pool.txt') as file:
+            for line in file.readlines():
+                if line.split()[0] == self.name:
+                    return line.split()[1].split(',')
+
+    def init_attaque_pool(self):
+        attaque_pool = [None, None, None, None]
+        if len(self.attaque_pool_line) <= 4:
+            i = 0
+            for attaque_name in self.attaque_pool_line:
+                print(attaque_name)
+                attaque_pool[i] = (attaques.Attaque(attaque_name))
+                i += 1
+
+        else:
+            attaque_name_list = random.sample(self.attaque_pool_line, 4)
+            i = 0
+            for attaque_name in attaque_name_list:
+                print(attaque_name)
+                attaque_pool[i] = (attaques.Attaque(attaque_name))
+                i += 1
+
+        return attaque_pool
 
     def level_up(self, nb_lv=1):
         self.level += nb_lv
@@ -137,40 +165,86 @@ class Pokemon:
             self.health = 0
 
     def attaque(self, pokemon, attaque):
-        cm = 1
-        # Calcul avec stab ( attaque de type maternel )
-        if attaque.type in [self.type, self.type2]:
-            cm *= 1.5
+        """
+        Attaque le pokémon renseigné en parametre avec l'attaque prise en entrée.
+        Renvoie True si l'attaque a abouti, False sinon
+        """
 
-        # Calcul avec affinités des types
-        cm *= game_infos.get_mutiliplicateur(attaque.type, pokemon.type)
+        precision_value = random.randint(0, 100)
+        if precision_value < attaque.precision:
 
-        if not pokemon.type2 == 'NoType':
-            cm *= game_infos.get_mutiliplicateur(attaque.type, pokemon.type2)
+            if attaque.puissance != 0 and pokemon.is_vulnerable:
 
-        # Calcul avec taux de crit
-        t = round(int(self.line[6]) / 2) * attaque.taux_crit
-        ncrit = random.randint(0, 256)
-        if ncrit < t:
-            crit = True
+                cm = 1
+                # Calcul avec stab ( attaque de type maternel )
+                if attaque.type in [self.type, self.type2]:
+                    cm *= 1.5
+
+                # Calcul avec affinités des types
+                cm *= game_infos.get_mutiliplicateur(attaque.type, pokemon.type)
+
+                if not pokemon.type2 == 'NoType':
+                    cm *= game_infos.get_mutiliplicateur(attaque.type, pokemon.type2)
+
+                # Calcul avec taux de crit
+                t = round(int(self.line[6]) / 2) * attaque.taux_crit
+                ncrit = random.randint(0, 256)
+                if ncrit < t:
+                    crit = True
+                else:
+                    crit = False
+
+                if crit:
+                    cm *= (2 * self.level + 5) / (self.level + 5)
+
+                if not self.objet_tenu is None:
+                    cm *= self.objet_tenu.multiplicateur_attaque_dmg
+                random_cm = random.randint(85, 100)
+                cm = cm * random_cm / 100
+
+                if attaque.puissance == "level":
+                    puissance = self.level
+                elif attaque.puissance == "ennemy_pv":
+                    puissance = 1000000
+                elif attaque.puissance == "pv*0.5":
+                    puissance = pokemon.health // 2
+                elif attaque.special_puissance == 'v':
+                    if self.speed <= pokemon.speed:
+                        puissance = int(attaque.puissance.split("-")[0])
+                    else:
+                        puissance = int(attaque.puissance.split("-")[1])
+                else:
+                    puissance = attaque.puissance
+
+                if attaque.special_puissance == 'c':
+                    degats = attaque.puissance
+                elif attaque.puissance == "effort":
+                    degats = pokemon.pv - self.health
+                else:
+                    degats = round((((((self.level * 0.4 + 2) * self.attack * puissance) / self.defense) / 50) + 2) * cm)
+
+                pokemon.damage(degats)
+
+            for effet in attaque.special_effect:
+                if not effet[0] == 'None':
+                    if effet[0] == 'taken_dmg':
+                        value = int(effet[1])
+                        self.is_vulnerable = False
+                        self.health -= value
+                    elif effet[0] == 'heal_on_maxpv':
+                        coef = float(effet[1])
+                        self.health += round(self.pv*coef)
+                        if self.health > self.pv:
+                            self.health = self.pv
+
+            if attaque.special_effect[0][0] == "status":
+                pokemon.status[attaque.special_effect[0][1]] = True
+                print(attaque.special_effect[0][1], 'appliqué sur', pokemon.name)
+
+            return True
         else:
-            crit = False
-
-        if crit:
-            cm *= (2 * self.level + 5) / (self.level + 5)
-
-        if not self.objet_tenu is None:
-            cm *= self.objet_tenu.multiplicateur_attaque_dmg
-        random_cm = random.randint(85, 100)
-        cm = cm * random_cm / 100
-        degats = round((((((self.level * 0.4 + 2) * self.attack * attaque.puissance) / self.defense) / 50) + 2) * cm)
-        pokemon.damage(degats)
-
-        if attaque.special_effect[0][0] == "status":
-            pokemon.status[attaque.special_effect[0][1]] = True
-            print(attaque.special_effect[0][1], 'appliqué sur', pokemon.name)
-
-        # print(degats)
+            print(f'{attaque.name_} ratée')
+            return False
 
     def reset_status(self):
         self.status = {
@@ -181,6 +255,9 @@ class Pokemon:
             'Poison': False,
             'Paralysie': False
             }
+
+    def reset_turn_effects(self):
+        self.is_vulnerable = True
 
     def reset_stats(self):
         self.attack = self.base_attack
@@ -236,7 +313,6 @@ class Pokemon:
     def give_item(self, item):
         self.objet_tenu = item
 
-        self.heal(self.objet_tenu.heal_value)
         self.bonus_attaque_type = self.objet_tenu.type
         self.multiplicateur_bonus_attaque = self.objet_tenu.multiplicateur_attaque_dmg
 

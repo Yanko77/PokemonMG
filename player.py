@@ -25,30 +25,31 @@ class Player:
                      None,
                      None,
                      None]
-        self.sac_page1 = [objet.Objet('Super_Bonbon', 100),
-                          objet.Objet('Potion_Max', 100),
-                          objet.Objet('Baie_Oran', 100),
-                          None,
-                          None,
-                          None,
-                          None,
-                          None,
-                          None,
-                          None,
-                          None,
-                          None]
-        self.sac_page2 = [None,
-                          None,
-                          None,
-                          None,
-                          None,
-                          None,
-                          None,
-                          None,
-                          None,
-                          None,
-                          None,
-                          None]
+
+        self.sac = [objet.Objet('Poudre_Verdatre', 1),
+                    objet.Objet('Bandeau_Muscle', 1),
+                    objet.Objet('Aimant', 1),
+                    objet.Objet('Cuillere_Tordue', 1),
+                    objet.Objet('Croc_Dragon', 1),
+                    objet.Objet('Baie_Oran', 1),
+                    objet.Objet('Baie_Sitrus', 1),
+                    objet.Objet('Potion', 1),
+                    objet.Objet('Super_Bonbon', 1),
+                    objet.Objet('Graine_Miracle', 1),
+                    objet.Objet('Charbon', 1),
+                    objet.Objet('Rune_Sort', 1),
+                    objet.Objet('Lunettes_Noires', 1),
+                    objet.Objet('Bec_Pointu', 1),
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None]
 
         self.money = 1000
 
@@ -79,6 +80,42 @@ class Player:
     def evol_pk(self, i=0):
         if self.team[i] is not None:
             self.team[i] = self.team[i].evolution()
+
+    def swap_sac_items(self, i1, i2):
+        """
+        Fonction qui echange la place de 2 items dans le sac
+        """
+        if not i1 == i2:
+            self.sac[i1 - 1], self.sac[i2 - 1] = self.sac[i2 - 1], self.sac[i1 - 1]
+
+    def find_sac_item(self, item):
+        """
+        Methode qui renvoie l'index de l'item recherché dans le sac.
+        Renvoie None s'il n'est pas présent
+        """
+
+        for i in range(len(self.sac)):
+            sac_item = self.sac[i]
+
+            if sac_item is not None:
+                if sac_item.name == item.name:
+                    return i
+
+    def add_sac_item(self, item):
+        """
+        Fonction qui ajoute au sac un objet et qui le stack si possible
+        """
+
+        item_place = self.find_sac_item(item)
+
+        if item_place is None:  # Si l'item n'est pas déjà présent dans le sac
+            i = 0
+            while self.sac[i] is not None:
+                i += 1
+            self.sac[i] = item
+
+        else:
+            self.sac[item_place].quantite += item.quantite
 
     def use_action(self, amount=1):
         self.actions -= amount
@@ -150,6 +187,7 @@ class Player:
 
     def get_level(self):
         return self.level
+
 
 
 if __name__ == "__main__":

@@ -12,26 +12,41 @@ class Attaque:
         self.type = self.line[1]
         self.pp = int(self.line[2])
 
-        self.special_puissance = ':' in self.line[3]  # Bool
-        if self.special_puissance:
-            self.puissance = self.line[3]
+        self.bool_special_puissance = ':' in self.line[3]  # Bool
+        self.special_puissance = ''
+        if self.bool_special_puissance:
+            self.special_puissance = self.line[3].split(':')
+            if self.special_puissance[1] == "s.lv":
+                self.puissance = "level"
+            elif self.special_puissance[1] == "opp.pv":
+                self.puissance = "ennemy_pv"
+            elif self.special_puissance[0] == "v":
+                self.special_puissance = "v"
+                self.puissance = self.special_puissance[1]
+            elif self.special_puissance[0] == "r":
+                values = self.special_puissance[1].split("-")
+                self.puissance = random.randint(int(values[0]), int(values[1]))
+            elif self.special_puissance[0] == 'c':
+                self.puissance = int(self.special_puissance[1])
+            elif self.special_puissance[1] == 'effort':
+                self.puissance = "effort"
         else:
             self.puissance = int(self.line[3])
 
-        self.special_precision = ':' in self.line[4]  # Bool
-        if self.special_precision:
-            self.precision = self.line[4]
+        self.bool_special_precision = ':' in self.line[4]  # Bool
+        self.special_precision = None
+        if self.bool_special_precision:
+            self.special_precision = self.line[4].split(":")
+            if self.special_precision[0] == 'd':
+                self.precision = int(self.special_precision[1].split("-")[0])  # Pour les precisions diminutives
         else:
             self.precision = int(self.line[4])
 
-        self.taux_crit = int(self.line[5])
+        self.taux_crit = float(self.line[5])
         self.priorite = int(self.line[6])
 
         self.special_effect = self.line[7].split(',')
-        tem = []
-        for effet in self.special_effect:
-            tem.append(tuple(effet.split(":")))
-        self.special_effect = tuple(tem)
+        self.special_effect = [effet.split(':') for effet in self.special_effect]
 
     def get_stats(self):
         return self.type, self.pp, self.puissance, self.precision, self.taux_crit, self.priorite, self.special_effect
@@ -63,5 +78,5 @@ class Attaque:
 
 
 if __name__ == '__main__':
-    croc = Attaque('Detection')
+    croc = Attaque('Vive-Attaque')
     print(croc.get_stats())

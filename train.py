@@ -324,6 +324,7 @@ class TrainPanel:
         self.ennemy_pk_preview_diff_text_pos = (700 + self.window_pos[0], 367 + self.window_pos[1])
 
     def start_fight(self):
+        print(self.ennemy_pks)
         self.game.start_fight(self.training_pk, dresseur.Sauvage, self.ennemy_pks[self.difficult], self.difficult)
     
     def set_difficult(self, diff='easy'):
