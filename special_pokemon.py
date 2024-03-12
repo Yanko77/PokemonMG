@@ -214,7 +214,12 @@ class Pokemon:
                     if effet[0] == 'taken_dmg':
                         value = int(effet[1])
                         self.is_vulnerable = False
-                        self.pv -= value
+                        self.health -= value
+                    elif effet[0] == 'heal_on_maxpv':
+                        coef = float(effet[1])
+                        self.health += round(self.pv*coef)
+                        if self.health > self.pv:
+                            self.health = self.pv
 
             if attaque.special_effect[0][0] == "status":
                 pokemon.status[attaque.special_effect[0][1]] = True
