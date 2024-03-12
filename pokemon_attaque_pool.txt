@@ -32,7 +32,7 @@ Papilusion              Lame_d'Air,Tranch'Herbe,Vive-Attaque,Piqure
 #
 Aspicot                 Charge,Feuillage
 Coconfort               Abri
-Dardargnan              Megacorne,Piqure,Tranch'Air,Vampi-poing
+Dardargnan              Megacorne,Piqure,Tranch'Air,Vampi-Poing
 #
 Roucool                 Charge,Vive-Attaque,Picpic
 Roucoups                Vive-Attaque,Picpic,Flameche
