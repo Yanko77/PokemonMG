@@ -46,7 +46,7 @@ Arbok                   Toxik,Poison_Croix,Poursuite,Dard_Mortel
 #
 Pichu                   Charge,Vive-Attaque,Eclair
 Pikachu                 Vive-Attaque,Tonnerre,Cage_Eclair,Queue_de_Fer
-Raichu                  Tonnerre,Fatal-Foudre,Coupe_Psycho,Queue_de_Fer,
+Raichu                  Tonnerre,Fatal-Foudre,Coupe_Psycho,Queue_de_Fer
 #
 Sabelette               Charge,Magnitude,Coud'Krane
 Sablaireau              Seisme,Tete_de_Fer,Vive-Attaque,Vif_Roc

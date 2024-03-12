@@ -12,9 +12,24 @@ class Attaque:
         self.type = self.line[1]
         self.pp = int(self.line[2])
 
-        self.special_puissance = ':' in self.line[3]  # Bool
-        if self.special_puissance:
-            self.puissance = self.line[3]
+        self.bool_special_puissance = ':' in self.line[3]  # Bool
+        self.special_puissance = ''
+        if self.bool_special_puissance:
+            self.special_puissance = self.line[3].split(':')
+            if self.special_puissance[1] == "s.lv":
+                self.puissance = "level"
+            elif self.special_puissance[1] == "opp.pv":
+                self.puissance = "ennemy_pv"
+            elif self.special_puissance[0] == "v":
+                self.special_puissance = "v"
+                self.puissance = self.special_puissance[1]
+            elif self.special_puissance[0] == "r":
+                values = self.special_puissance[1].split("-")
+                self.puissance = random.randint(int(values[0]), int(values[1]))
+            elif self.special_puissance[0] == 'c':
+                self.puissance = int(self.special_puissance[1])
+            elif self.special_puissance[1] == 'effort':
+                self.puissance = "effort"
         else:
             self.puissance = int(self.line[3])
 

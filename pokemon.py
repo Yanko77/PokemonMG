@@ -201,7 +201,27 @@ class Pokemon:
                     cm *= self.objet_tenu.multiplicateur_attaque_dmg
                 random_cm = random.randint(85, 100)
                 cm = cm * random_cm / 100
-                degats = round((((((self.level * 0.4 + 2) * self.attack * attaque.puissance) / self.defense) / 50) + 2) * cm)
+
+                if attaque.puissance == "level":
+                    puissance = self.level
+                elif attaque.puissance == "ennemy_pv":
+                    puissance = 1000000
+                elif attaque.puissance == "pv*0.5":
+                    puissance = pokemon.health // 2
+                elif attaque.special_puissance == 'v':
+                    if self.speed <= pokemon.speed:
+                        puissance = int(attaque.puissance.split("-")[0])
+                    else:
+                        puissance = int(attaque.puissance.split("-")[1])
+                else:
+                    puissance = attaque.puissance
+
+                if attaque.special_puissance == 'c':
+                    degats = attaque.puissance
+                elif attaque.puissance == "effort":
+                    degats = pokemon.pv - self.health
+                else:
+                    degats = round((((((self.level * 0.4 + 2) * self.attack * puissance) / self.defense) / 50) + 2) * cm)
 
                 pokemon.damage(degats)
 

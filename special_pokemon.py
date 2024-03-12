@@ -92,10 +92,10 @@ class Pokemon:
         """
         Retourne le nom des attaques du pool d'attaque du pokémon (issu de pokemon_attaque_pool.txt)
         """
-        with open('pokemon_attaque_pool.txt') as file:
+        with open('special_pokemon_attaque_pool.txt') as file:
             for line in file.readlines():
-                if line.split()[0] == self.name:
-                    return line.split()[1].split(',')
+                if line.split("|")[0] == self.name:
+                    return line.split()[1].split("|")[1].split(',')
 
     def init_attaque_pool(self):
         attaque_pool = [None, None, None, None]

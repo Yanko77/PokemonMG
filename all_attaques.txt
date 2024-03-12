@@ -15,7 +15,7 @@ Balayage                        combat          20      50          100         
 Double_Pied                     combat          30      30          100         1           0           None
 Pied_Voltige                    combat          10      130         90          1           0           None
 Poing_Karate                    combat          25      50          100         2           0           None
-Riposte                         combat          20      s:2         100         1           -5          None
+Riposte                         combat          20      60          100         1           -5          None
 Coup_Croix                      combat          5       100         80          2           0           None
 Detection                       combat          5       0           d:100-25    1           4           taken_dmg:0
 Dynamo-Poing                    combat          5       100         50          1           0           None
@@ -105,7 +105,7 @@ Feu_Glace                       glace           5       140         90          
 Double_Dard                     insect          20      25          100         1           0           status:Poison:20,bis:2
 Vampirisme                      insect          10      80          100         1           0           heal_on_atk:0.5*dmg
 Megacorne                       insect          10      120         85          1           0           None
-Taillade                        insect          20      b:40*2      95          1           0           None
+Taillade                        insect          20      40          95          1           0           None
 Demi-Tour                       insect          20      70          100         1           0           None
 Piqure                          insect          20      60          100         1           0           status:Poison:1
 Plaie_Croix                     insect          15      80          100         1           0           None
