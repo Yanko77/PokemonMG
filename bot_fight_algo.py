@@ -30,7 +30,7 @@ def calcul_degats(pk, ennemy_pk, attaque, crit=False):
         elif attaque.puissance == "pv*0.5":
             puissance = ennemy_pk.health // 2
         elif attaque.special_puissance == 'v':
-            if self.speed <= ennemy_pk.speed:
+            if pk.speed <= ennemy_pk.speed:
                 puissance = int(attaque.puissance.split("-")[0])
             else:
                 puissance = int(attaque.puissance.split("-")[1])
