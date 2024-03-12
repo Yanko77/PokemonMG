@@ -171,9 +171,9 @@ class Pokemon:
         """
 
         precision_value = random.randint(0, 100)
-        if precision_value < attaque.precision and pokemon.is_vulnerable:
+        if precision_value < attaque.precision:
 
-            if attaque.puissance != 0:
+            if attaque.puissance != 0 and pokemon.is_vulnerable:
 
                 cm = 1
                 # Calcul avec stab ( attaque de type maternel )
