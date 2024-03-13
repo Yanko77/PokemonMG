@@ -1,5 +1,6 @@
 import random
 
+import fight
 import objet
 from player import Player
 from notif import Notif
@@ -38,7 +39,6 @@ class Game:
                          ]
 
         self.classic_panel = GamePanel(self)
-        self.current_fight = None
         self.round = Round(self)
         self.notifs = Notif()
 
@@ -46,6 +46,9 @@ class Game:
 
         self.general_seed = self.round.get_random_seed()
         self.items_list = self.get_all_items_list()
+
+        self.fight_dresseur = fight.init_dresseur(self)
+        self.current_fight = None
 
     def update(self, screen, possouris):
 
@@ -88,8 +91,12 @@ class Game:
         self.save_file'''
 
     def start_fight(self, player_pk, dresseur_class=None, dresseur_pk=None, difficult="easy", fight_type='Classic'):
-        self.init_fight(player_pk, dresseur_class, dresseur_pk, difficult, fight_type)
-        self.is_fighting = True
+        if fight_type == 'Classic':
+            self.init_fight(player_pk, dresseur_class, dresseur_pk, difficult, fight_type)
+            self.is_fighting = True
+        elif fight_type == 'Boss':
+            self.init_fight(player_pk, self.fight_dresseur, self.fight_dresseur.pk, difficult, fight_type)
+            self.is_fighting = True
 
     def cancel_fight(self):
         self.current_fight = None
@@ -110,6 +117,7 @@ class Game:
         self.player.reset_actions()
         self.player.level_up()
         self.classic_panel.next_turn()
+        self.fight_dresseur = fight.init_dresseur(self)
         # add everything that have to be edited for each turn
 
     def get_init_pokemon_id(self):

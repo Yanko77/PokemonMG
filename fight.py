@@ -13,9 +13,20 @@ import attaques
 DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
 
 
+def init_dresseur(game, dresseur_class=None, dresseur_pk=None):
+    r = random.Random()
+    r.seed(game.round.random_seed)
+
+    if dresseur_class is None:
+        # dresseur_class = r.choice(DRESSEUR_LIST)
+        return r.choice([Alizee(game, pk=dresseur_pk), Blue(game, pk=dresseur_pk)])
+
+    return dresseur_class
+
+
 class Fight:
 
-    def __init__(self, game, player_pk, dresseur_class=None, dresseur_pk=None, difficult='easy', fight_type='Classic'):
+    def __init__(self, game, player_pk, dresseur=None, dresseur_pk=None, difficult='easy', fight_type='Classic'):
         """
         La classe Fight est définie par:
         - Le pokemon envoyé par le joueur (player_pk)
@@ -23,7 +34,7 @@ class Fight:
         """
         self.game = game
         self.player_pk = player_pk
-        self.dresseur = self.init_dresseur(dresseur_class, dresseur_pk)
+        self.dresseur = init_dresseur(self.game, dresseur, dresseur_pk)
         self.fight_type = fight_type
 
         # Chargement des images
@@ -734,15 +745,6 @@ class Fight:
 
             y -= 45
 
-    def init_dresseur(self, dresseur_class, dresseur_pk=None):
-        r = random.Random()
-        r.seed(self.game.round.random_seed)
-
-        if dresseur_class is None:
-            # dresseur_class = r.choice(DRESSEUR_LIST)
-            return Alizee(self.game, pk=dresseur_pk)
-
-        return dresseur_class(self.game, pk=dresseur_pk)
 
     def img_load(self, file_name):
         return pygame.image.load(self.path + file_name + '.png')
@@ -953,6 +955,9 @@ class Fight:
                 pass
             else:
                 return self.fin_du_combat_button_rect.collidepoint(possouris)
+
+
+
 
 
 if __name__ == '__main__':

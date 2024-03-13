@@ -1,5 +1,8 @@
+import random
+
 import pygame
 
+import fight
 import image
 import player_name
 import game_infos
@@ -187,6 +190,9 @@ class GamePanel:
             surface.blit(self.fight_equipe_button, self.fight_equipe_button_rect, (75, 0, 75, 92))
         else:
             surface.blit(self.fight_equipe_button, self.fight_equipe_button_rect, (0, 0, 75, 92))
+
+        # Affichage de l'icone du dresseur
+        surface.blit(self.game.fight_dresseur.icon, (18, 148))
 
     def update_player_infos(self, surface, possouris):
         # PLAYER NAME

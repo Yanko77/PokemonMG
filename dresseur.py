@@ -12,6 +12,8 @@ class Dresseur:
         self.game = game
         self.name = name
 
+        self.icon = pygame.image.load(f'assets/game/dresseur_icons/{self.name}.png')
+
         self.type = dresseur_type
         self.power = power
         self.fuyable = (self.type != 'Classic')

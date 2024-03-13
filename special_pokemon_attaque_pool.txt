@@ -1,3 +1,4 @@
 # Tier de pool:         1                                                                   2
 #
+Blue's Evoli|Charge,Vive-Attaque,Queue_de_Fer,Effort,Balayage
 Alizee's Altaria|Tranch'Air,Atterrissage,Draco-Choc,Choc_Mental
