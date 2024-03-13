@@ -137,48 +137,32 @@ class SacIngamePanel:
     def update_emp(self, surface, possouris, window_pos, i):
         if self.page == 1:
             current_page = self.game.player.sac[:12]
+            sac_i = i - 1
         else:
             current_page = self.game.player.sac[12:]
+            sac_i = 11 + i
 
-        if current_page[i-1] is not None:
+        if self.game.player.sac[sac_i] is not None:
             if not self.emp_move_mode and not self.emp_moving[i-1]:
                 if self.game.mouse_pressed[1] and self.all_emp_rect[i].collidepoint(possouris):
                     self.emp_move_mode = True
                     self.emp_moving[i-1] = True
                     self.rel_possouris = [0, 0]
                     self.saved_posouris = possouris
-                    self.selected_item = current_page[i-1]
+                    self.selected_item = self.game.player.sac[sac_i]
                 elif self.game.mouse_pressed[3] and self.all_emp_rect[i].collidepoint(possouris):
-                    self.selected_item = current_page[i - 1]
+                    self.selected_item = self.game.player.sac[sac_i]
 
             if self.emp_move_mode and self.emp_moving[i-1]:
                 if not self.game.mouse_pressed[1]:
-                    if self.all_emp_rect[1].collidepoint(possouris):
-                        self.game.player.swap_sac_items(i, 1)
-                    elif self.all_emp_rect[2].collidepoint(possouris):
-                        self.game.player.swap_sac_items(i, 2)
-                    elif self.all_emp_rect[3].collidepoint(possouris):
-                        self.game.player.swap_sac_items(i, 3)
-                    elif self.all_emp_rect[4].collidepoint(possouris):
-                        self.game.player.swap_sac_items(i, 4)
-                    elif self.all_emp_rect[5].collidepoint(possouris):
-                        self.game.player.swap_sac_items(i, 5)
-                    elif self.all_emp_rect[6].collidepoint(possouris):
-                        self.game.player.swap_sac_items(i, 6)
-                    elif self.all_emp_rect[7].collidepoint(possouris):
-                        self.game.player.swap_sac_items(i, 7)
-                    elif self.all_emp_rect[8].collidepoint(possouris):
-                        self.game.player.swap_sac_items(i, 8)
-                    elif self.all_emp_rect[9].collidepoint(possouris):
-                        self.game.player.swap_sac_items(i, 9)
-                    elif self.all_emp_rect[10].collidepoint(possouris):
-                        self.game.player.swap_sac_items(i, 10)
-                    elif self.all_emp_rect[11].collidepoint(possouris):
-                        self.game.player.swap_sac_items(i, 11)
-                    elif self.all_emp_rect[12].collidepoint(possouris):
-                        self.game.player.swap_sac_items(i, 12)
-                    elif self.page1_rect.collidepoint(possouris):
-                        pass
+                    if self.page == 1:
+                        for n in range(1, 13):
+                            if self.all_emp_rect[n].collidepoint(possouris):
+                                self.game.player.swap_sac_items(i, n)
+                    else:
+                        for n in range(13, 25):
+                            if self.all_emp_rect[n-12].collidepoint(possouris):
+                                self.game.player.swap_sac_items(i+12, n)
 
                     # Si l'endroit où on relâche le clic est sur l'emplacement d'un pokemon de la team
                     if self.game.classic_panel.current_hover_pokemon is not None:
@@ -194,13 +178,13 @@ class SacIngamePanel:
                                     self.selected_item.quantite -= 1
 
                         if self.selected_item.quantite <= 0:
-                            current_page[i - 1] = None
+                            self.game.player.sac[sac_i] = None
 
                     # Si l'endoit où on relâche le clic est sur l'emplacement pour Enable un item
                     elif self.game.classic_panel.logo_enable_item_rect.collidepoint(possouris):
                         self.selected_item.enable_item(self.game.player)
                         if self.selected_item.quantite <= 0:
-                            current_page[i-1] = None
+                            self.game.player.sac[sac_i] = None
 
                     self.emp_move_mode = False
                     self.emp_moving[i-1] = False

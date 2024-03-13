@@ -612,10 +612,7 @@ class Fight:
         item.quantite -= 1
         if i is not None:
             if item.quantite <= 0:
-                if i < 12:
-                    self.game.player.sac_page1[i] = None
-                else:
-                    self.game.player.sac_page2[i - 12] = None
+                self.game.player.sac[i] = None
 
         self.add_logs(('ITEM', pk, item))
 
@@ -892,6 +889,7 @@ class Fight:
                 # Si aucune action n'est en cours
                 if self.current_action is None:
                     if self.fuite_button_rect.collidepoint(possouris):
+                        self.dresseur.pk.full_heal()
                         self.game.cancel_fight()
                     elif self.combat_button_rect.collidepoint(possouris):
                         self.current_action = 'COMBAT'

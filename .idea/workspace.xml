@@ -4,19 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add all pokemons attaque_pool&#10;attaque special effect working for: taken_dmg">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="rework player sac system&#10;rework healing attaques in choosing attack algo">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot_fight_algo.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_fight_algo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sac.py" beforeDir="false" afterPath="$PROJECT_DIR$/sac.py" afterDir="false" />
     </list>
-    <list id="6085e2ad-84dc-4101-8108-2a69c65d4003" name="Changes by matva" comment="Changes by matva">
-      <change beforePath="$PROJECT_DIR$/bot_fight_algo.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_fight_algo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
-    </list>
+    <list id="6085e2ad-84dc-4101-8108-2a69c65d4003" name="Changes by matva" comment="Changes by matva" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,22 +54,6 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Dummy.txt" root0="SKIP_HIGHLIGHTING" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/bot_fight_algo.py">
-      <ranges>
-        <range start1="32" end1="33" start2="32" end2="33" changelist="6085e2ad-84dc-4101-8108-2a69c65d4003" />
-        <range start1="45" end1="45" start2="45" end2="47" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="76" end1="77" start2="78" end2="79" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/player.py">
-      <ranges>
-        <range start1="27" end1="51" start2="27" end2="52" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="81" end1="81" start2="82" end2="118" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="152" end1="152" start2="189" end2="190" changelist="6085e2ad-84dc-4101-8108-2a69c65d4003" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -262,20 +239,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00033" summary="continue code reformating&#10;&#10;reformating panels.py">
-      <created>1695837604484</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1695837604484</updated>
-    </task>
-    <task id="LOCAL-00034" summary="continue code reformating&#10;&#10;reformating panels.py">
-      <created>1695839505436</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1695839505436</updated>
     </task>
     <task id="LOCAL-00035" summary="begin train panel">
       <created>1696088287611</created>
@@ -606,7 +569,21 @@
       <option name="project" value="LOCAL" />
       <updated>1710189498775</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="rework player sac system&#10;rework healing attaques in choosing attack algo">
+      <created>1710281686624</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1710281686624</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Changes by matva">
+      <created>1710281689355</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1710281689355</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -622,7 +599,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="begin fight.py:&#10;- added images&#10;- added first methods" />
     <MESSAGE value="continue fight.py&#10;&#10;begin user interactions w/ fight buttons" />
     <MESSAGE value="continue fight.py&#10;begin user interactions w/ fight buttons&#10;befin left click interaction in fight.py&#10;add pokemon info bar during fights" />
     <MESSAGE value="continue fight.py" />
@@ -645,19 +621,9 @@
     <MESSAGE value="add pokemon from team delete system&#10;rework pokemon from team icon moving mode fade" />
     <MESSAGE value="add game notifications system" />
     <MESSAGE value="add evol action system" />
-    <MESSAGE value="Changes by matva" />
     <MESSAGE value="add all pokemons attaque_pool&#10;attaque special effect working for: taken_dmg" />
-    <option name="LAST_COMMIT_MESSAGE" value="add all pokemons attaque_pool&#10;attaque special effect working for: taken_dmg" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/pokemon.py</url>
-          <line>191</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="rework player sac system&#10;rework healing attaques in choosing attack algo" />
+    <MESSAGE value="Changes by matva" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes by matva" />
   </component>
 </project>
