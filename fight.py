@@ -306,15 +306,11 @@ class Fight:
 
                 user_usable_items = []
 
-                for item in self.game.player.sac_page1:
+                for item in self.game.player.sac:
                     if item is not None:
                         if item.fonctionnement.split(":")[0] == 'Use':
                             user_usable_items.append(item)
 
-                for item in self.game.player.sac_page2:
-                    if item is not None:
-                        if item.fonctionnement.split(":")[0] == 'Use':
-                            user_usable_items.append(item)
                 for i in range(24 - len(user_usable_items)):
                     user_usable_items.append(None)
 
@@ -330,7 +326,7 @@ class Fight:
                         i += 1
                 else:
                     i = 16
-                    for objet in self.game.player.sac_page2[16:]:
+                    for objet in user_usable_items[16:]:
                         self.sac_item_update(surface, possouris, objet, i)
                         i += 1
 
@@ -616,10 +612,7 @@ class Fight:
         item.quantite -= 1
         if i is not None:
             if item.quantite <= 0:
-                if i < 12:
-                    self.game.player.sac_page1[i] = None
-                else:
-                    self.game.player.sac_page2[i - 12] = None
+                self.game.player.sac[i] = None
 
         self.add_logs(('ITEM', pk, item))
 
@@ -784,7 +777,11 @@ class Fight:
 
     def end_fight(self):
         if self.fight_result == 'Victory':
-            self.get_rewards()
+            rewards = self.get_rewards()
+
+            for reward in rewards:
+                self.game.player.add_sac_item(reward)
+
         if self.fight_type == 'Boss':  # A inclure dans rewards
             self.player_pk.full_heal()
 
@@ -877,12 +874,22 @@ class Fight:
                         else:
                             attaque.precision = int(attaque.special_precision[1].split('-')[0])
 
+    def update_pk_item(self):
+        """
+        Methode qui actualise les effets des objets tenus par les pokemons
+        """
+
+        # Pokémon du joueur
+        if self.player_pk.objet_tenu is not None:
+            self.player_pk.objet_tenu.update_turn_effects()
+
     def left_clic_interactions(self, possouris):  # Quand l'utilisateur utilise le clic gauche
         if not self.executing_turn:
             if self.fight_result is None:
                 # Si aucune action n'est en cours
                 if self.current_action is None:
                     if self.fuite_button_rect.collidepoint(possouris):
+                        self.dresseur.pk.full_heal()
                         self.game.cancel_fight()
                     elif self.combat_button_rect.collidepoint(possouris):
                         self.current_action = 'COMBAT'

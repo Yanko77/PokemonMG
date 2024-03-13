@@ -30,7 +30,7 @@ def calcul_degats(pk, ennemy_pk, attaque, crit=False):
         elif attaque.puissance == "pv*0.5":
             puissance = ennemy_pk.health // 2
         elif attaque.special_puissance == 'v':
-            if self.speed <= ennemy_pk.speed:
+            if pk.speed <= ennemy_pk.speed:
                 puissance = int(attaque.puissance.split("-")[0])
             else:
                 puissance = int(attaque.puissance.split("-")[1])
@@ -43,6 +43,8 @@ def calcul_degats(pk, ennemy_pk, attaque, crit=False):
             degats = ennemy_pk.pv - pk.health
         else:
             degats = round((((((pk.level * 0.4 + 2) * pk.attack * puissance) / pk.defense) / 50) + 2) * cm)
+
+
     else:
         degats = 0
 
@@ -74,7 +76,7 @@ def get_npc_action(pk, ennemy_pk, att:list):
 
                 scoretemp *= taux
                 if attaque.special_effect[0][0] == 'heal_on_maxpv' or attaque.special_effect[0] == 'long_time_heal_par_tour_of_maxpv':
-                    scoretemp = (pk.pv/pk.health) * SPEED_HEAL
+                    scoretemp += (pk.pv/pk.health - 1) * round((pk.level*0.4 * pk.attack) / pk.defense) * 150
                 if attaque.special_effect[0][0] == 'heal_on_atk':
                     taux_heal_on_atk, _ = attaque.special_effect[0][1].split("*")
                     #scoretemp = scoretemp * (1 + (SPEED_HEAL/400) * float(taux_heal_on_atk))

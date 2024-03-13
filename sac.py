@@ -69,18 +69,10 @@ class SacIngamePanel:
             surface.blit(self.page2_hover, window_pos)
 
         self.update_rect_pos(window_pos)
-        self.update_emp(surface, possouris, window_pos, 1)
-        self.update_emp(surface, possouris, window_pos, 2)
-        self.update_emp(surface, possouris, window_pos, 3)
-        self.update_emp(surface, possouris, window_pos, 4)
-        self.update_emp(surface, possouris, window_pos, 5)
-        self.update_emp(surface, possouris, window_pos, 6)
-        self.update_emp(surface, possouris, window_pos, 7)
-        self.update_emp(surface, possouris, window_pos, 8)
-        self.update_emp(surface, possouris, window_pos, 9)
-        self.update_emp(surface, possouris, window_pos, 10)
-        self.update_emp(surface, possouris, window_pos, 11)
-        self.update_emp(surface, possouris, window_pos, 12)
+
+        for i in range(1, 13):
+            self.update_emp(surface, possouris, window_pos, i)
+
         self.update_rect_pos(window_pos)
 
         if self.selected_item is not None:
@@ -142,59 +134,35 @@ class SacIngamePanel:
         self.page1_rect = pygame.Rect(331+window_pos[0], 40+window_pos[1], 52, 52)
         self.page2_rect = pygame.Rect(387+window_pos[0], 40+window_pos[1], 52, 52)
 
-    def change_item_place(self, i1, i2):
-        if not i1 == i2:
-            if self.page == 1:
-                self.game.player.sac_page1[i1-1], self.game.player.sac_page1[i2-1] = self.game.player.sac_page1[i2-1], self.game.player.sac_page1[i1-1]
-            elif self.page == 2:
-                self.game.player.sac_page2[i1-1], self.game.player.sac_page2[i2-1] = self.game.player.sac_page2[i2-1], self.game.player.sac_page2[i1-1]
-
     def update_emp(self, surface, possouris, window_pos, i):
-        current_page = self.game.player.sac_page1
         if self.page == 1:
-            current_page = self.game.player.sac_page1
-        elif self.page == 2:
-            current_page = self.game.player.sac_page2
+            current_page = self.game.player.sac[:12]
+            sac_i = i - 1
+        else:
+            current_page = self.game.player.sac[12:]
+            sac_i = 11 + i
 
-        if current_page[i-1] is not None:
+        if self.game.player.sac[sac_i] is not None:
             if not self.emp_move_mode and not self.emp_moving[i-1]:
                 if self.game.mouse_pressed[1] and self.all_emp_rect[i].collidepoint(possouris):
                     self.emp_move_mode = True
                     self.emp_moving[i-1] = True
                     self.rel_possouris = [0, 0]
                     self.saved_posouris = possouris
-                    self.selected_item = current_page[i-1]
+                    self.selected_item = self.game.player.sac[sac_i]
                 elif self.game.mouse_pressed[3] and self.all_emp_rect[i].collidepoint(possouris):
-                    self.selected_item = current_page[i - 1]
+                    self.selected_item = self.game.player.sac[sac_i]
 
             if self.emp_move_mode and self.emp_moving[i-1]:
                 if not self.game.mouse_pressed[1]:
-                    if self.all_emp_rect[1].collidepoint(possouris):
-                        self.change_item_place(i, 1)
-                    elif self.all_emp_rect[2].collidepoint(possouris):
-                        self.change_item_place(i, 2)
-                    elif self.all_emp_rect[3].collidepoint(possouris):
-                        self.change_item_place(i, 3)
-                    elif self.all_emp_rect[4].collidepoint(possouris):
-                        self.change_item_place(i, 4)
-                    elif self.all_emp_rect[5].collidepoint(possouris):
-                        self.change_item_place(i, 5)
-                    elif self.all_emp_rect[6].collidepoint(possouris):
-                        self.change_item_place(i, 6)
-                    elif self.all_emp_rect[7].collidepoint(possouris):
-                        self.change_item_place(i, 7)
-                    elif self.all_emp_rect[8].collidepoint(possouris):
-                        self.change_item_place(i, 8)
-                    elif self.all_emp_rect[9].collidepoint(possouris):
-                        self.change_item_place(i, 9)
-                    elif self.all_emp_rect[10].collidepoint(possouris):
-                        self.change_item_place(i, 10)
-                    elif self.all_emp_rect[11].collidepoint(possouris):
-                        self.change_item_place(i, 11)
-                    elif self.all_emp_rect[12].collidepoint(possouris):
-                        self.change_item_place(i, 12)
-                    elif self.page1_rect.collidepoint(possouris):
-                        pass
+                    if self.page == 1:
+                        for n in range(1, 13):
+                            if self.all_emp_rect[n].collidepoint(possouris):
+                                self.game.player.swap_sac_items(i, n)
+                    else:
+                        for n in range(13, 25):
+                            if self.all_emp_rect[n-12].collidepoint(possouris):
+                                self.game.player.swap_sac_items(i+12, n)
 
                     # Si l'endroit où on relâche le clic est sur l'emplacement d'un pokemon de la team
                     if self.game.classic_panel.current_hover_pokemon is not None:
@@ -210,13 +178,13 @@ class SacIngamePanel:
                                     self.selected_item.quantite -= 1
 
                         if self.selected_item.quantite <= 0:
-                            current_page[i - 1] = None
+                            self.game.player.sac[sac_i] = None
 
                     # Si l'endoit où on relâche le clic est sur l'emplacement pour Enable un item
                     elif self.game.classic_panel.logo_enable_item_rect.collidepoint(possouris):
                         self.selected_item.enable_item(self.game.player)
                         if self.selected_item.quantite <= 0:
-                            current_page[i-1] = None
+                            self.game.player.sac[sac_i] = None
 
                     self.emp_move_mode = False
                     self.emp_moving[i-1] = False
@@ -228,26 +196,22 @@ class SacIngamePanel:
         if self.all_emp_rect[i].collidepoint(possouris):
             surface.blit(self.emp_hover, (self.all_emp_rect[i].x, self.all_emp_rect[i].y))
 
-        if self.page == 1:
-            if self.game.player.sac_page1[i-1] is not None:
-                surface.blit(pygame.transform.scale(self.game.player.sac_page1[i-1].icon_image, (100, 100)), self.all_emp_rect[i])
-                if not self.game.player.sac_page1[i-1].quantite == 1 and self.game.player.sac_page1[i-1].quantite < 10:
-                    surface.blit(self.quantite_font.render(str(self.game.player.sac_page1[i-1].quantite), False, (255, 255, 255)), (self.all_emp_rect[i].x + 81, self.all_emp_rect[i].y + 65))
-                elif 10 <= self.game.player.sac_page1[i - 1].quantite < 100:
-                    surface.blit(self.quantite_font.render(str(self.game.player.sac_page1[i-1].quantite), False, (255, 255, 255)), (self.all_emp_rect[i].x + 68, self.all_emp_rect[i].y + 65))
-                elif self.game.player.sac_page1[i-1].quantite > 99:
-                    self.game.player.sac_page1[i-1].quantite = 99
+        if self.page == 2:
+            item = self.game.player.sac[i + 11]
+        else:
+            item = self.game.player.sac[i - 1]
 
-        elif self.page == 2:
-            if self.game.player.sac_page2[i-1] is not None:
-                surface.blit(pygame.transform.scale(self.game.player.sac_page2[i - 1].icon_image, (100, 100)),
-                             self.all_emp_rect[i])
-                if not self.game.player.sac_page2[i-1].quantite == 1 and self.game.player.sac_page2[i-1].quantite < 10:
-                    surface.blit(self.quantite_font.render(str(self.game.player.sac_page2[i-1].quantite), False, (255, 255, 255)), (self.all_emp_rect[i].x + 81, self.all_emp_rect[i].y + 65))
-                elif 10 <= self.game.player.sac_page2[i - 1].quantite < 100:
-                    surface.blit(self.quantite_font.render(str(self.game.player.sac_page2[i-1].quantite), False, (255, 255, 255)), (self.all_emp_rect[i].x + 68, self.all_emp_rect[i].y + 65))
-                elif self.game.player.sac_page2[i-1].quantite > 99:
-                    self.game.player.sac_page2[i-1].quantite = 99
+        if item is not None:
+            surface.blit(pygame.transform.scale(item.icon_image, (100, 100)), self.all_emp_rect[i])
+
+            # Quantité < 10
+            if item.quantite < 10:
+                surface.blit(self.quantite_font.render(str(item.quantite), False, (255, 255, 255)),
+                             (self.all_emp_rect[i].x + 81, self.all_emp_rect[i].y + 65))
+            # Quantité >= 10
+            else:
+                surface.blit(self.quantite_font.render(str(item.quantite), False, (255, 255, 255)),
+                             (self.all_emp_rect[i].x + 68, self.all_emp_rect[i].y + 65))
 
     def reset(self):
         pass
@@ -264,10 +228,9 @@ class SacIngamePanel:
                 self.all_emp_rect[5].collidepoint(possouris) or self.all_emp_rect[6].collidepoint(possouris) or
                 self.all_emp_rect[7].collidepoint(possouris) or self.all_emp_rect[8].collidepoint(possouris) or
                 self.all_emp_rect[9].collidepoint(possouris) or self.all_emp_rect[10].collidepoint(possouris) or
-                self.all_emp_rect[11].collidepoint(possouris) or self.all_emp_rect[12].collidepoint(possouris)  # or
-                # pygame.Rect(331+window_pos[0], 40+window_pos[1], 52, 52).collidepoint(possouris) or
-                # pygame.Rect(387+window_pos[0], 40+window_pos[1], 52, 52).collidepoint(possouris))
+                self.all_emp_rect[11].collidepoint(possouris) or self.all_emp_rect[12].collidepoint(possouris)
                 )
+
     def change_page(self, num):
         self.page = num
 
