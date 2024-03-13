@@ -11,6 +11,7 @@ import attaques
 
 # declaration des constante
 DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
+# DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
 
 
 class Fight:
@@ -422,7 +423,9 @@ class Fight:
                             self.item_moving_i = None
                             if self.use_item_rect.collidepoint(possouris):
                                 if 'Use' in item.fonctionnement:
-                                    self.current_turn_action = ('ITEM', item, i)
+                                    sac_i = self.game.player.find_sac_item(item)
+
+                                    self.current_turn_action = ('ITEM', item, sac_i)
                                     self.executing_turn = True
 
     def sac_curseur_update(self, possouris):

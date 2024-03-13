@@ -427,9 +427,10 @@ class GamePanel:
                         self.ingame_window.evol_panel.update_evolving_pk(possouris)
                     elif self.boolFight_popup:
                         if self.fight_popup_drop_pk_rect.collidepoint(possouris):
-                            self.fighting_pk = self.game.player.team[i]
-                            self.start_fight()
-                            self.boolFight_popup = False
+                            if self.game.player.team[i].is_alive:
+                                self.fighting_pk = self.game.player.team[i]
+                                self.start_fight()
+                                self.boolFight_popup = False
 
                     self.pk_move_mode = False
                     self.moving_pk[i] = False
