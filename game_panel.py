@@ -328,6 +328,10 @@ class GamePanel:
             surface.blit(name, (pk_rect.x + 70, pk_rect.y + 13))
             surface.blit(level, (pk_rect.x + 60, pk_rect.y + 42))
             surface.blit(type1_render, (pk_rect.x + level.get_width() + 65, pk_rect.y + 42))
+            if not pk.is_alive:
+                ko = self.pokemon_hp_font.render('KO', False, (180, 0, 0)).convert_alpha()
+                ko.set_alpha(alpha)
+                surface.blit(ko, (pk_rect.x + 215 + pv.get_width(), pk_rect.y + 40))
 
             if not type2 == 'NoType':
                 surface.blit(type2_render, (pk_rect.x + level.get_width() + type1_render.get_width() + 68, pk_rect.y + 42))
@@ -424,7 +428,9 @@ class GamePanel:
                     elif self.pk_rects[5].collidepoint(possouris):
                         self.change_pk_place(i, 5)
                     elif self.ingame_window.current_panel_name == 'Evolutions' and self.ingame_window.evol_panel.evolving_pk_rect.collidepoint(possouris):
-                        self.ingame_window.evol_panel.update_evolving_pk(possouris)
+                        self.ingame_window.evol_panel.update_evolving_pk()
+                    elif self.ingame_window.current_panel_name == 'Train' and self.ingame_window.train_panel.training_pk_rect.collidepoint(possouris):
+                        self.ingame_window.train_panel.update_training_pk()
                     elif self.boolFight_popup:
                         if self.fight_popup_drop_pk_rect.collidepoint(possouris):
                             if self.game.player.team[i].is_alive:

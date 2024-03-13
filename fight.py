@@ -458,6 +458,14 @@ class Fight:
 
         """
 
+        if self.player_pk.objet_tenu is not None and self.player_pk.objet_tenu.name == "Vive_Griffe":
+            if random.randint(0, 1):
+                return 'player_pk'
+
+        elif self.dresseur.pk.objet_tenu is not None and self.dresseur.pk.objet_tenu.name == "Vive_Griffe":
+            if random.randint(0, 1):
+                return 'dresseur_pk'
+
         player_pk_action_type = player_pk_action[0]
         dresseur_pk_action_type = dresseur_pk_action[0]
 
@@ -610,6 +618,7 @@ class Fight:
             self.update_pk_attaques(player_pk_action, dresseur_pk_action)
             self.player_pk.reset_turn_effects()
             self.dresseur.pk.reset_turn_effects()
+            self.update_pk_item()
             self.executing_turn = False
             self.compteur = 1
             self.turn_exec_info = ""
@@ -789,6 +798,8 @@ class Fight:
         if self.fight_type == 'Boss':  # A inclure dans rewards
             self.player_pk.full_heal()
 
+        self.player_pk.heal(self.player_pk.passive_heal)  # Heal le pokémon du joueur selon son heal passif
+
         self.game.end_fight()
 
     def apply_status_effects(self, pk):
@@ -883,9 +894,15 @@ class Fight:
         Methode qui actualise les effets des objets tenus par les pokemons
         """
 
+        print('update items')
+
         # Pokémon du joueur
         if self.player_pk.objet_tenu is not None:
-            self.player_pk.objet_tenu.update_turn_effects()
+            self.player_pk.update_item_turn_effects()
+
+        # Pokemon du dresseur
+        if self.dresseur.pk.objet_tenu is not None:
+            self.dresseur.pk.update_item_turn_effects()
 
     def left_clic_interactions(self, possouris):  # Quand l'utilisateur utilise le clic gauche
         if not self.executing_turn:

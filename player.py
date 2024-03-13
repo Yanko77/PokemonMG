@@ -26,7 +26,7 @@ class Player:
                      None,
                      None]
 
-        self.sac = [objet.Objet('Poudre_Verdatre', 1),
+        self.sac = [objet.Objet('Rappel', 1),
                     objet.Objet('Bandeau_Muscle', 1),
                     objet.Objet('Aimant', 1),
                     objet.Objet('Cuillere_Tordue', 1),

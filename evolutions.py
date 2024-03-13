@@ -91,9 +91,10 @@ class EvolPanel:
 
             if not self.pk_move_mode:
                 if self.game.mouse_pressed[1] and pk_rect.collidepoint(possouris):
-                    self.pk_move_mode = True
-                    self.moving_pk_rel_possouris = (possouris[0] - self.evolving_pk_rect.x,
-                                                    possouris[1] - self.evolving_pk_rect.y)
+                    if not self.game.classic_panel.pk_move_mode:
+                        self.pk_move_mode = True
+                        self.moving_pk_rel_possouris = (possouris[0] - self.evolving_pk_rect.x,
+                                                        possouris[1] - self.evolving_pk_rect.y)
             else:
                 if not self.game.mouse_pressed[1]:
                     self.pk_move_mode = False
@@ -144,13 +145,13 @@ class EvolPanel:
             if self.evol_button_logo_compteur != 19:
                 self.evol_button_logo_compteur = 19
 
-    def update_evolving_pk(self, possouris):
+    def update_evolving_pk(self):
         """
         Methode permettant de changer le pokémon à évoluer du joueur
         """
-
-        self.evolving_pk = self.game.player.team[self.game.classic_panel.moving_pk.index(True)]
-        self.game.player.team[self.game.classic_panel.moving_pk.index(True)] = None
+        if self.evolving_pk is None:
+            self.evolving_pk = self.game.player.team[self.game.classic_panel.moving_pk.index(True)]
+            self.game.player.team[self.game.classic_panel.moving_pk.index(True)] = None
 
     def update_rects(self, window_pos):
         self.window_pos = window_pos.copy()

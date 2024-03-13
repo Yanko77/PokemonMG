@@ -71,7 +71,6 @@ class Pokemon:
         self.passive_heal = 0
 
         self.attaque_pool_line = self.find_attaque_pool_line()
-        print(self.attaque_pool_line)
         self.attaque_pool = self.init_attaque_pool()
 
         self.random_seed = self.generate_random_seed_number()
@@ -197,8 +196,10 @@ class Pokemon:
                 if crit:
                     cm *= (2 * self.level + 5) / (self.level + 5)
 
-                if not self.objet_tenu is None:
-                    cm *= self.objet_tenu.multiplicateur_attaque_dmg
+                if self.objet_tenu is not None:
+                    if self.objet_tenu.type is None or self.objet_tenu.type == attaque.type:
+                        cm *= self.objet_tenu.multiplicateur_attaque_dmg
+                        print(f"Augmentation des dégats de l'attaque de {self.objet_tenu.multiplicateur_attaque_dmg*100}%")
                 random_cm = random.randint(85, 100)
                 cm = cm * random_cm / 100
 
@@ -259,6 +260,23 @@ class Pokemon:
     def reset_turn_effects(self):
         self.is_vulnerable = True
 
+    def update_item_turn_effects(self):
+        """
+        Methode qui actualise les effets des objets à la fin d'un tour de combat
+        """
+
+        assert self.objet_tenu is not None, "Erreur: tentative d'update sur un objet inexistant"
+
+        if self.is_alive:
+            if self.item_pourcent_hp_activate is not None:
+                print(self.pv*self.item_pourcent_hp_activate/100)
+                if self.health <= self.pv*self.item_pourcent_hp_activate/100:
+                    self.health += self.objet_tenu.heal_value
+                    if self.health > self.pv:
+                        self.health = self.pv
+
+                    self.objet_tenu = None
+
     def reset_stats(self):
         self.attack = self.base_attack
         self.defense = self.base_defense
@@ -266,7 +284,12 @@ class Pokemon:
 
     def use_item(self, item):
 
-        self.heal(item.heal_value)
+        if item.bool_revive_effect:
+            self.is_alive = True
+
+        if self.is_alive:
+            self.heal(item.heal_value)
+
         self.bonus_attaque_type = item.type
         self.multiplicateur_bonus_attaque = item.multiplicateur_attaque_dmg
         if item.stat == 'pv':
