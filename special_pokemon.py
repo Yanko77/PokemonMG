@@ -156,6 +156,9 @@ class Pokemon:
     def get_icon(self):
         return self.icon_image
 
+    def full_heal(self):
+        self.health = self.pv
+
     def heal(self, value):
         self.health += value
         if self.health > self.pv:

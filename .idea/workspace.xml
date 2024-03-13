@@ -4,12 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="rework player sac system&#10;rework healing attaques in choosing attack algo">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add all dresseur icons&#10;add fight dresseur icon display">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dresseur.py" beforeDir="false" afterPath="$PROJECT_DIR$/dresseur.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_panel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon_attaque_pool.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon_attaque_pool.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/special_pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/special_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemons.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <list id="6085e2ad-84dc-4101-8108-2a69c65d4003" name="Changes by matva" comment="Changes by matva" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -82,14 +86,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "git-widget-placeholder": "Yanko",
-    "last_opened_file_path": "C:/Users/yanko/PycharmProjects/PokemonManagementGame",
-    "run.code.analysis.last.selected.profile": "pProject Default"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Yanko&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/yanko/PycharmProjects/PokemonManagementGame&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\yanko\PycharmProjects\PokemonManagementGame" />
@@ -241,13 +245,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00035" summary="begin train panel">
-      <created>1696088287611</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1696088287611</updated>
     </task>
     <task id="LOCAL-00036" summary="Changes by Mathias Farvacque">
       <created>1696088290677</created>
@@ -585,7 +582,14 @@
       <option name="project" value="LOCAL" />
       <updated>1710281689355</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="add all dresseur icons&#10;add fight dresseur icon display">
+      <created>1710294335552</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1710294335552</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -601,7 +605,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="continue fight.py&#10;&#10;begin user interactions w/ fight buttons" />
     <MESSAGE value="continue fight.py&#10;begin user interactions w/ fight buttons&#10;befin left click interaction in fight.py&#10;add pokemon info bar during fights" />
     <MESSAGE value="continue fight.py" />
     <MESSAGE value="continue fight.py&#10;add sac_action, add curseur" />
@@ -626,6 +629,7 @@
     <MESSAGE value="add all pokemons attaque_pool&#10;attaque special effect working for: taken_dmg" />
     <MESSAGE value="rework player sac system&#10;rework healing attaques in choosing attack algo" />
     <MESSAGE value="Changes by matva" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes by matva" />
+    <MESSAGE value="add all dresseur icons&#10;add fight dresseur icon display" />
+    <option name="LAST_COMMIT_MESSAGE" value="add all dresseur icons&#10;add fight dresseur icon display" />
   </component>
 </project>

@@ -192,7 +192,7 @@ class GamePanel:
             surface.blit(self.fight_equipe_button, self.fight_equipe_button_rect, (0, 0, 75, 92))
 
         # Affichage de l'icone du dresseur
-        surface.blit(self.game.fight_dresseur.icon, (18, 148))
+        surface.blit(self.game.next_fighting_dresseur.icon, (18, 148))
 
     def update_player_infos(self, surface, possouris):
         # PLAYER NAME

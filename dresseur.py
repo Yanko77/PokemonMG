@@ -12,7 +12,8 @@ class Dresseur:
         self.game = game
         self.name = name
 
-        self.icon = pygame.image.load(f'assets/game/dresseur_icons/{self.name}.png')
+        if not self.name == 'Sauvage':
+            self.icon = pygame.image.load(f'assets/game/dresseur_icons/{self.name}.png')
 
         self.type = dresseur_type
         self.power = power
@@ -151,27 +152,32 @@ class Blue(Dresseur):
 
 class Pierre(Dresseur):
 
-    def __init__(self, game):
+    def __init__(self, game, pk=None):
         super().__init__('Pierre', game, power=3, pk_lists=['Onix', 'Racaillou', 'Kabutops', 'Tyranocif', 'Osselait'], pk=pk)
+        self.init_pk()
 
 
 class Ondine(Dresseur):
 
     def __init__(self, game, pk=None):
         super().__init__('Ondine', game, power=3, pk_lists=['Stari', 'Staross', 'Psykokwak', 'Léviator', 'Flingouste'], pk=pk)
+        self.init_pk()
 
 
 class Olea(Dresseur):
 
     def __init__(self, game, pk=None):
         super().__init__('Oléa', game, power=2,
-                         pk_lists=['Trousselin', 'Grodoudou', 'Granbull', 'Lampignon', 'Mystibule'], pk=pk)
+                         pk_lists=['Trousselin', 'Grodoudou', 'Granbull', 'Lampignon', 'Mystibule'],
+                         pk=pk)
+        self.init_pk()
 
 
 class Iris(Dresseur):
 
     def __init__(self, game, pk=None):
         super().__init__('Iris', game, power=2, pk_lists=['Emolga', 'Griknot', 'Dracolosse', 'Vipélierre'], pk=pk)
+        self.init_pk()
 
 
 if __name__ == '__main__':

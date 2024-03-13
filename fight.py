@@ -13,20 +13,9 @@ import attaques
 DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
 
 
-def init_dresseur(game, dresseur_class=None, dresseur_pk=None):
-    r = random.Random()
-    r.seed(game.round.random_seed)
-
-    if dresseur_class is None:
-        # dresseur_class = r.choice(DRESSEUR_LIST)
-        return r.choice([Alizee(game, pk=dresseur_pk), Blue(game, pk=dresseur_pk)])
-
-    return dresseur_class
-
-
 class Fight:
 
-    def __init__(self, game, player_pk, dresseur=None, dresseur_pk=None, difficult='easy', fight_type='Classic'):
+    def __init__(self, game, player_pk, dresseur=None, difficult='easy', fight_type='Classic'):
         """
         La classe Fight est définie par:
         - Le pokemon envoyé par le joueur (player_pk)
@@ -34,7 +23,7 @@ class Fight:
         """
         self.game = game
         self.player_pk = player_pk
-        self.dresseur = init_dresseur(self.game, dresseur, dresseur_pk)
+        self.dresseur = self.init_dresseur(dresseur)
         self.fight_type = fight_type
 
         # Chargement des images
@@ -211,6 +200,16 @@ class Fight:
         else:
             if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_ARROW:
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+    def init_dresseur(self, dresseur=None):
+        r = random.Random()
+        r.seed(self.game.round.random_seed)
+
+        if dresseur is None:
+            # dresseur = r.choice(DRESSEUR_LIST)
+            return r.choice([Alizee, Blue])(self.game)
+
+        return dresseur
 
     def update_end_panel(self, surface, possouris):
         if self.compteur_end < 200:

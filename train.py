@@ -325,7 +325,7 @@ class TrainPanel:
 
     def start_fight(self):
         print(self.ennemy_pks)
-        self.game.start_fight(self.training_pk, dresseur.Sauvage, self.ennemy_pks[self.difficult], self.difficult)
+        self.game.start_fight(self.training_pk, dresseur.Sauvage(self.game, self.ennemy_pks[self.difficult]), self.difficult)
     
     def set_difficult(self, diff='easy'):
         self.difficult = diff

@@ -24,7 +24,7 @@ Brasegali               Feu_Sacre,Lance-Flammes,Close_Combat
 #
 Gobou                   Charge,Vive-Attaque,Ecume,Abri
 Flobio                  Vibraqua,Aqua-Jet,Charge,Abri
-Laggron                 Hydro_Queue,Vibraqua,Anneau_Hydro,Abri
+Laggron                 Hydro-Queue,Vibraqua,Anneau_Hydro,Abri
 #
 Chenipan                Charge,Feuillage
 Chrysacier              Abri
