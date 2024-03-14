@@ -163,10 +163,12 @@ class Pokemon:
             self.is_alive = False
             self.health = 0
 
-    def attaque(self, pokemon, attaque):
+    def attaque(self, pokemon, attaque) -> list:
         """
         Attaque le pokémon renseigné en parametre avec l'attaque prise en entrée.
-        Renvoie True si l'attaque a abouti, False sinon
+        Renvoie un tuple contenant:
+            - True si l'attaque a abouti, False sinon
+            - 'None' si l'attaque n'a pas appliqué d'effet à personne, (<nom_effet>, <self ou pokemon>) sinon
         """
 
         precision_value = random.randint(0, 100)
@@ -237,15 +239,23 @@ class Pokemon:
                         self.health += round(self.pv*coef)
                         if self.health > self.pv:
                             self.health = self.pv
+                    elif effet[0] == 'heal_on_atk':
+                        coef = float(effet[1][:-4])
+                        self.heal(round(degats*coef))
 
-            if attaque.special_effect[0][0] == "status":
-                pokemon.status[attaque.special_effect[0][1]] = True
-                print(attaque.special_effect[0][1], 'appliqué sur', pokemon.name)
+            if pokemon.is_vulnerable:
+                if attaque.special_effect[0][0] == "status":
+                    pokemon.status[attaque.special_effect[0][1]] = True
+                    print(attaque.special_effect[0][1], 'appliqué sur', pokemon.name)
+                    return [True, (attaque.special_effect[0][1], pokemon)]
+                else:
+                    return [True, None]
+            else:
+                return [True, None]
 
-            return True
         else:
             print(f'{attaque.name_} ratée')
-            return False
+            return [False, None]
 
     def reset_status(self):
         self.status = {

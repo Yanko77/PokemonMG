@@ -94,3 +94,12 @@ Bekipan                 Cru-Ailes,Aqua-Jet,Bulles_d'0,Atterrissage
 Cornebre                Ombre_Nocturne,Picpic
 Corboss                 Machouille,Ball'Ombre,Lame_d'Air,Acide
 #
+Magicarpe               Trempette
+Leviator                Hydro-Queue,Hydroblast,Draco-Queue,Vent_Violent
+#
+Caninos                 Vive-Attaque,Charge,Flameche,Feu_Follet
+Arcanin                 Surchauffe,Deflagration,Larcin,Abri
+#
+Abra                    Teleport
+Kadabra                 Choc_Mental,Choc_Psy,Poursuite,Abri
+Alakazam                Frappe_Psy,Lame_Psychique,Psyko,Tranche-Nuit

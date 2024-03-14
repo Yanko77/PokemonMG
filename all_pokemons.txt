@@ -95,3 +95,12 @@ Bekipan             40      eau     70      77      77      75      0       0   
 Cornebre            30      dark    60      75      58      75      15      Corboss         1           vol
 Corboss             50      dark    80      95      65      78      0       0               3           vol
 #
+Magicarpe           35      eau     60      55      55      50      10      Leviator        1           NoType
+Leviator            75      eau     82      95      78      90      0       0               3           vol
+#
+Caninos             30      feu     65      75      57      70      15      Arcanin         0           NoType
+Arcanin             70      feu     78      90      75      90      0       0               3           NoType
+#
+Abra                30      psy     55      60      60      75      10      Kadabra         0           NoType
+Kadabra             40      psy     68      83      70      78      18      Alakazam        2           NoType
+Alakazam            70      psy     80      100     70      83      0       0               3           NoType

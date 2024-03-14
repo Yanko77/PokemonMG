@@ -125,7 +125,7 @@ Danse_Fleurs                    plante          10      90          100         
 Mega-Sangsue                    plante          15      40          100         1           0           heal_on_atk:0.5*dmg
 Poudre_Dodo                     plante          15      0           80          1           0           status:Sommeil:100
 Tranch'Herbe                    plante          25      55          95          2           0           None
-Vole-vie                        plante          25      30          100         1           0           None
+Vole-vie                        plante          25      30          100         1           0           heal_on_atk:0.5*dmg
 Giga-Sangsue                    plante          10      75          100         1           0           heal_on_atk:0.5*dmg
 Lame-Feuille                    plante          15      90          100         2           0           None
 Eco-Sphere                      plante          10      90          100         1           0           None
@@ -137,7 +137,8 @@ Bombe_Beurk                     poison          10      90          100         
 Crochet_Venin                   poison          15      50          100         1           0           status:Poison:20
 Direct_Toxik                    poison          20      80          100         1           0           status:Poison:50
 Poison_Croix                    poison          20      70          100         2           0           None
-Choc_Mental                     psy             25      50          100         1           0           None
+Teleport                        psy             50      0           100         1           0           None
+Choc_Mental                     psy             25      50          100         1           0           status:Confusion:50
 Psyko                           psy             10      90          100         1           0           None
 Rafale_Psy                      psy             20      65          100         1           0           None
 Coupe_Psycho                    psy             20      70          100         2           0           None

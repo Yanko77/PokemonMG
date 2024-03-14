@@ -559,11 +559,13 @@ class Fight:
 
             # # # Application des effets de status
             if self.compteur == 250:
-                self.apply_status_effects(self.player_pk)
-                self.turn_exec_info = "Application des effets de status..."
+                if self.dresseur.pk.is_alive:
+                    self.apply_status_effects(self.player_pk)
+                    self.turn_exec_info = "Application des effets de status..."
             if self.compteur == 230:
-                self.apply_status_effects(self.dresseur.pk)
-                self.turn_exec_info = "Application des effets de status..."
+                if self.player_pk.is_alive:
+                    self.apply_status_effects(self.dresseur.pk)
+                    self.turn_exec_info = "Application des effets de status..."
 
         # Si le premier pokémon à attaquer est le pokémon du dresseur
         else:
@@ -663,10 +665,15 @@ class Fight:
 
         if pk_can_atk:
             # Attaque le pokemon ennemi et affecte le resultat de l'attaque dans reussite_attaque (bool)
-            reussite_attaque = pk.attaque(ennemy_pk, attaque)
+            info_attaque = pk.attaque(ennemy_pk, attaque)
 
-            if reussite_attaque:
+            print('AAAAA', info_attaque)
+
+            if info_attaque[0]:  # Si l'attaque a abouti
                 self.add_logs(('ATTAQUE', pk, attaque))
+
+            if info_attaque[1] is not None:  # Si un effet a été appliqué
+                self.add_logs(('Status effect', info_attaque[1][1], info_attaque[1][0]))
 
     def add_logs(self, info):
         if len(self.fight_logs) >= 6:
@@ -756,7 +763,6 @@ class Fight:
 
             y -= 45
 
-
     def img_load(self, file_name):
         return pygame.image.load(self.path + file_name + '.png')
 
@@ -775,6 +781,7 @@ class Fight:
         for objet in self.game.get_items_list()['Spawnable']:
             for r_value in r_values_list:
                 if r_value in range(acc, acc + (100 - objet.rarity)):
+                    objet.quantite = random.randint(objet.quantite_at_spawn[0], objet.quantite_at_spawn[1])
                     rewards.append(objet)
             acc += (100 - objet.rarity)
 
@@ -795,10 +802,12 @@ class Fight:
             for reward in rewards:
                 self.game.player.add_sac_item(reward)
 
-        if self.fight_type == 'Boss':  # A inclure dans rewards
-            self.player_pk.full_heal()
+        '''if self.fight_type == 'Boss':  # A inclure dans rewards
+            self.player_pk.full_heal()'''
 
         self.player_pk.heal(self.player_pk.passive_heal)  # Heal le pokémon du joueur selon son heal passif
+
+        self.dresseur.pk.full_heal()  # Remettre full vie le pokémon du dresseur
 
         self.game.end_fight()
 
@@ -911,6 +920,7 @@ class Fight:
                 if self.current_action is None:
                     if self.fuite_button_rect.collidepoint(possouris):
                         self.dresseur.pk.full_heal()
+                        self.dresseur.pk.reset_status()
                         self.game.cancel_fight()
                     elif self.combat_button_rect.collidepoint(possouris):
                         self.current_action = 'COMBAT'

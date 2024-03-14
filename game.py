@@ -72,7 +72,8 @@ class Game:
 
     def get_fighting_dresseur(self):
         r = random.Random()
-        return r.choice(fight.DRESSEUR_LIST)(self)
+        # return r.choice(fight.DRESSEUR_LIST)(self)
+        return r.choice((fight.Alizee(self), fight.Blue(self)))
 
     def init_new_game(self):
         self.is_starter_selected = False

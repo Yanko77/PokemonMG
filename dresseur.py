@@ -118,12 +118,13 @@ class Alizee(Dresseur):
     def __init__(self, game, pk=None):
         super().__init__('Alizée', game, power=3,
                          pk_lists=[
-                             ["Alizee's Altaria"],  # Level 1
-                             ["Alizee's Altaria", 'Heledelle'],  # Level 2
-                             ["Alizee's Altaria", 'Airmure'],  # Level 3
-                             ["Alizee's Altaria", 'Bekipan'],  # Level 4
-                             ["Alizee's Altaria", 'Corboss'],  # Level 5
-                             ["Alizee's Altaria"]  # Level 6+
+                             ["Nirondelle"],  # Level 1
+                             ['Heledelle'],  # Level 2
+                             ['Heledelle', 'Bekipan'],  # Level 3
+                             ['Bekipan', 'Airmure'],  # Level 4
+                             ["Airmure", 'Corboss'],  # Level 5
+                             ['Corboss', "Alizee's Altaria"],  # Level 6
+                             ["Alizee's Altaria"]   # Level 7+
                          ],
                          pk=pk)
         self.init_pk()
@@ -140,11 +141,13 @@ class Blue(Dresseur):
     def __init__(self, game, pk=None):
         super().__init__('Blue', game, power=4,
                          pk_lists=[["Blue's Evoli"],  # Level 1
-                                   ["Blue's Evoli", "Roucarnage", "Melodelfe"],  # Level 2
-                                   ["Blue's Evoli", "Roucarnage", "Leviator"],  # Level 3
-                                   ["Blue's Evoli", "Roucarnage", "Arcanin"],  # Level 4
-                                   ["Blue's Evoli", "Roucarnage", "Alakazam"],  # Level 5
-                                   ["Blue's Evoli", "Dracaufeu"]  # Level 6+
+                                   ["Blue's Evoli", "Roucoups", "Melofee"],  # Level 2
+                                   ["Blue's Evoli", "Leviator"],  # Level 3
+                                   ["Roucarnage", "Melodelfe"],  # Level 4
+                                   ["Roucarnage", "Arcanin"],  # Level 5
+                                   ["Dracaufeu", "Alakazam", "Arcanin"],  # Level 6
+                                   ["Dracaufeu", "Alakazam", "Arcanin"],  # Level 7
+                                   ["Dracaufeu", "Arcanin"]  # Level 8+
                                    ],
                          pk=pk)
         self.init_pk()
