@@ -1,4 +1,8 @@
 # name            rarity    type    pv      att    def     speed  evol_lv   evol_name       player_lv   type2
 # Moyennes:         50        -    68/80   75/90  70/83    70/85
-Blue's Evoli,0,normal,85,90,75,93,0,0,0,NoType
-Alizee's Altaria,0,dragon,90,85,105,90,0,0,0,vol
+Blue's Evoli,0,normal,85,90,75,93,0,0,0,NoType,
+Alizee's Altaria,0,dragon,90,85,105,90,0,0,0,vol,
+Red's Pikachu,0,elec,85,95,75,100,0,0,0,NoType,
+Pierre's Onix,0,roche,110,85,95,90,0,0,0,sol,
+Ondine's Staross,0,eau,90,100,90,85,0,0,0,psy,
+Olea's Trousselin,0,acier,75,95,90,90,0,0,0,fee,

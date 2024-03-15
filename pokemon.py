@@ -71,7 +71,6 @@ class Pokemon:
         self.passive_heal = 0
 
         self.attaque_pool_line = self.find_attaque_pool_line()
-        print(self.attaque_pool_line)
         self.attaque_pool = self.init_attaque_pool()
 
         self.random_seed = self.generate_random_seed_number()
@@ -164,15 +163,19 @@ class Pokemon:
             self.is_alive = False
             self.health = 0
 
-    def attaque(self, pokemon, attaque):
+    def attaque(self, pokemon, attaque) -> list:
         """
         Attaque le pokémon renseigné en parametre avec l'attaque prise en entrée.
-        Renvoie True si l'attaque a abouti, False sinon
+        Renvoie un tuple contenant :
+            - True si l'attaque a abouti, False sinon
+            - 'None' si l'attaque n'a pas appliqué d'effet à personne, (<nom_effet>, <self ou pokemon>) sinon
         """
 
         precision_value = random.randint(0, 100)
+        print(f'{attaque.name}: {attaque.precision} | {precision_value}')
         if precision_value < attaque.precision:
 
+            degats = 0
             if attaque.puissance != 0 and pokemon.is_vulnerable:
 
                 cm = 1
@@ -197,22 +200,29 @@ class Pokemon:
                 if crit:
                     cm *= (2 * self.level + 5) / (self.level + 5)
 
-                if not self.objet_tenu is None:
-                    cm *= self.objet_tenu.multiplicateur_attaque_dmg
+                if self.objet_tenu is not None:
+                    if self.objet_tenu.type is None or self.objet_tenu.type == attaque.type:
+                        cm *= self.objet_tenu.multiplicateur_attaque_dmg
+                        print(f"Augmentation des dégats de l'attaque de {self.objet_tenu.multiplicateur_attaque_dmg*100}%")
                 random_cm = random.randint(85, 100)
                 cm = cm * random_cm / 100
 
                 if attaque.puissance == "level":
                     puissance = self.level
-                elif attaque.puissance == "ennemy_pv":
-                    puissance = 1000000
+
                 elif attaque.puissance == "pv*0.5":
                     puissance = pokemon.health // 2
-                elif attaque.special_puissance == 'v':
-                    if self.speed <= pokemon.speed:
-                        puissance = int(attaque.puissance.split("-")[0])
+                elif attaque.bool_special_puissance:
+                    if attaque.special_puissance[0] == 'v':
+                        if self.speed <= pokemon.speed:
+                            puissance = int(attaque.puissance.split("-")[0])
+                        else:
+                            puissance = int(attaque.puissance.split("-")[1])
+                    elif attaque.special_puissance[0] == 'r':
+                        values = attaque.special_puissance[1].split("-")
+                        puissance = random.randint(int(values[0]), int(values[1]))
                     else:
-                        puissance = int(attaque.puissance.split("-")[1])
+                        puissance = attaque.puissance
                 else:
                     puissance = attaque.puissance
 
@@ -220,6 +230,8 @@ class Pokemon:
                     degats = attaque.puissance
                 elif attaque.puissance == "effort":
                     degats = pokemon.pv - self.health
+                elif attaque.puissance == "ennemy_pv":
+                    degats = pokemon.pv*2
                 else:
                     degats = round((((((self.level * 0.4 + 2) * self.attack * puissance) / self.defense) / 50) + 2) * cm)
 
@@ -236,15 +248,23 @@ class Pokemon:
                         self.health += round(self.pv*coef)
                         if self.health > self.pv:
                             self.health = self.pv
+                    elif effet[0] == 'heal_on_atk':
+                        coef = float(effet[1][:-4])
+                        self.heal(round(degats*coef))
 
-            if attaque.special_effect[0][0] == "status":
-                pokemon.status[attaque.special_effect[0][1]] = True
-                print(attaque.special_effect[0][1], 'appliqué sur', pokemon.name)
+            if pokemon.is_vulnerable:
+                if attaque.special_effect[0][0] == "status":
+                    pokemon.status[attaque.special_effect[0][1]] = True
+                    print(attaque.special_effect[0][1], 'appliqué sur', pokemon.name)
+                    return [True, (attaque.special_effect[0][1], pokemon)]
+                else:
+                    return [True, None]
+            else:
+                return [True, None]
 
-            return True
         else:
             print(f'{attaque.name_} ratée')
-            return False
+            return [False, None]
 
     def reset_status(self):
         self.status = {
@@ -256,8 +276,35 @@ class Pokemon:
             'Paralysie': False
             }
 
+    def reset_attaque_fight(self):
+        for attaque in self.attaque_pool:
+            if attaque is not None:
+                print(1)
+                if attaque.bool_special_precision:
+                    print(2)
+                    if attaque.special_precision[0] == 'd':
+                        print(3)
+                        attaque.precision = int(attaque.special_precision[1].split("-")[0])
+
     def reset_turn_effects(self):
         self.is_vulnerable = True
+
+    def update_item_turn_effects(self):
+        """
+        Methode qui actualise les effets des objets à la fin d'un tour de combat
+        """
+
+        assert self.objet_tenu is not None, "Erreur: tentative d'update sur un objet inexistant"
+
+        if self.is_alive:
+            if self.item_pourcent_hp_activate is not None:
+                print(self.pv*self.item_pourcent_hp_activate/100)
+                if self.health <= self.pv*self.item_pourcent_hp_activate/100:
+                    self.health += self.objet_tenu.heal_value
+                    if self.health > self.pv:
+                        self.health = self.pv
+
+                    self.objet_tenu = None
 
     def reset_stats(self):
         self.attack = self.base_attack
@@ -266,7 +313,12 @@ class Pokemon:
 
     def use_item(self, item):
 
-        self.heal(item.heal_value)
+        if item.bool_revive_effect:
+            self.is_alive = True
+
+        if self.is_alive:
+            self.heal(item.heal_value)
+
         self.bonus_attaque_type = item.type
         self.multiplicateur_bonus_attaque = item.multiplicateur_attaque_dmg
         if item.stat == 'pv':

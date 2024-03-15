@@ -1,3 +1,8 @@
 # Tier de pool:         1                                                                   2
 #
+Blue's Evoli|Charge,Vive-Attaque,Queue_de_Fer,Effort,Balayage
 Alizee's Altaria|Tranch'Air,Atterrissage,Draco-Choc,Choc_Mental
+Red's Pikachu|Fatal-Foudre,Tonnerre,Queue_de_Fer,Calinerie
+Pierre's Onix|Abime,Seisme,Lame_de_Roc,Machouille
+Ondine's Staross|Hydroblast,Anneau_Hydro,Psyko,Choc_Mental
+Olea's Trousselin|Luminocanon,Gyroballe,Laser_Glace,Explo-Brume

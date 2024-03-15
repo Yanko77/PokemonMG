@@ -1,5 +1,6 @@
 import random
 
+import fight
 import objet
 from player import Player
 from notif import Notif
@@ -38,7 +39,6 @@ class Game:
                          ]
 
         self.classic_panel = GamePanel(self)
-        self.current_fight = None
         self.round = Round(self)
         self.notifs = Notif()
 
@@ -46,6 +46,10 @@ class Game:
 
         self.general_seed = self.round.get_random_seed()
         self.items_list = self.get_all_items_list()
+
+        self.next_fighting_dresseur = self.get_fighting_dresseur()
+
+        self.current_fight = None
 
     def update(self, screen, possouris):
 
@@ -65,6 +69,11 @@ class Game:
 
     def notif(self, text, color):
         self.notifs.new_notif(text, color)
+
+    def get_fighting_dresseur(self):
+        r = random.Random()
+        # return r.choice(fight.DRESSEUR_LIST)(self)
+        return fight.Red(self)
 
     def init_new_game(self):
         self.is_starter_selected = False
@@ -87,9 +96,13 @@ class Game:
     '''def load_game(self):
         self.save_file'''
 
-    def start_fight(self, player_pk, dresseur_class=None, dresseur_pk=None, difficult="easy", fight_type='Classic'):
-        self.init_fight(player_pk, dresseur_class, dresseur_pk, difficult, fight_type)
-        self.is_fighting = True
+    def start_fight(self, player_pk, dresseur=None, difficult="easy", fight_type='Classic'):
+        if fight_type == 'Classic':
+            self.init_fight(player_pk, dresseur, difficult, fight_type)
+            self.is_fighting = True
+        elif fight_type == 'Boss':
+            self.init_fight(player_pk, self.next_fighting_dresseur, difficult, fight_type)
+            self.is_fighting = True
 
     def cancel_fight(self):
         self.current_fight = None
@@ -101,8 +114,8 @@ class Game:
         self.current_fight = None
         self.is_fighting = False
 
-    def init_fight(self, player_pk, dresseur_class=None, dresseur_pk=None, difficult='easy', fight_type='Classic'):
-        self.current_fight = Fight(self, player_pk, dresseur_class, dresseur_pk, difficult, fight_type)
+    def init_fight(self, player_pk, dresseur=None, difficult='easy', fight_type='Classic'):
+        self.current_fight = Fight(self, player_pk, dresseur, difficult, fight_type)
 
     def next_turn(self):
         self.round.next()
@@ -110,6 +123,7 @@ class Game:
         self.player.reset_actions()
         self.player.level_up()
         self.classic_panel.next_turn()
+        self.next_fighting_dresseur = self.get_fighting_dresseur()
         # add everything that have to be edited for each turn
 
     def get_init_pokemon_id(self):

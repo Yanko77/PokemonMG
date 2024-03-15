@@ -40,3 +40,4 @@ Charme_Chroma       1:95:1-1    Objets_rares    Enable          0           0   
 Caillou             1:80:1-1    Objets          Give:special    0           1:1             Tenu par un pokemon, diminue sa vitesse de 1%. A tenir: Cliquer-Glisser dans Equipe
 CD                  1:80:1-1    Objets_rares    Sell            0           1:10            Obtenu pour 100 euros sur Aliexpress : " LE CD LE PLUS RARE DU MONDE ". A Vendre: Items.
 Piquants            1:99:1-1    Objets_rares    Sell            0           1:-5000         Tant qu'il est dans le sac, vous perdez 1000 pokedollars par tour. A Vendre: Items.
+Rappel              1:35:1-2    Medecine        Use:revive      1:4000      1:1000          Reanime un pokemon K.O. Utilisable: Cliquer-Glisser dans Equipe

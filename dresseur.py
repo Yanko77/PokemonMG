@@ -12,6 +12,9 @@ class Dresseur:
         self.game = game
         self.name = name
 
+        if not self.name == 'Sauvage':
+            self.icon = pygame.image.load(f'assets/game/dresseur_icons/{self.name}.png')
+
         self.type = dresseur_type
         self.power = power
         self.fuyable = (self.type != 'Classic')
@@ -59,8 +62,8 @@ class Dresseur:
             # print(f'{item_name} added')
 
     def get_pk_level(self):
-        min_lv = round((self.game.player.level**1.9)*0.30 + 5)
-        max_lv = round((self.game.player.level**1.9)*0.35 + 6)
+        min_lv = round((self.game.player.level ** 1.9) * 0.30 + 5)
+        max_lv = round((self.game.player.level ** 1.9) * 0.35 + 6)
 
         r = random.Random()
         r.seed(self.game.round.random_seed)
@@ -115,21 +118,35 @@ class Alizee(Dresseur):
     def __init__(self, game, pk=None):
         super().__init__('Alizée', game, power=3,
                          pk_lists=[
-                             ["Alizee's Altaria"],  # Level 1
-                             ["Alizee's Altaria", 'Heledelle'],  # Level 2
-                             ["Alizee's Altaria", 'Airmure'],  # Level 3
-                             ["Alizee's Altaria", 'Bekipan'],  # Level 4
-                             ["Alizee's Altaria", 'Corboss'],  # Level 5
-                             ["Alizee's Altaria"]  # Level 6+
+                             ["Nirondelle"],  # Level 1
+                             ['Heledelle'],  # Level 2
+                             ['Heledelle', 'Bekipan'],  # Level 3
+                             ['Bekipan', 'Airmure'],  # Level 4
+                             ["Airmure", 'Corboss'],  # Level 5
+                             ['Corboss', "Alizee's Altaria"],  # Level 6
+                             ["Alizee's Altaria"]  # Level 7+
                          ],
                          pk=pk)
         self.init_pk()
+
 
 class Red(Dresseur):
 
     def __init__(self, game, pk=None):
         super().__init__('Red', game, power=4,
-                         pk_lists=['Pikachu', 'Mentali', 'Ronflex', 'Tortank', 'Florizarre', 'Lokhlass', 'Mackogneur'], pk=pk)
+                         # pk_lists=["Red's Pikachu", 'Mentali', 'Ronflex', 'Tortank', 'Florizarre', 'Lokhlass',
+                         # 'Mackogneur'],
+                         pk_lists=[["Pichu"],  # Level 1
+                                   ["Red's Pikachu"],  # Level 2
+                                   ["Red's Pikachu", "Mentali"],  # Level 3
+                                   ["Red's Pikachu", "Lokhlass"],  # Level 4
+                                   ["Red's Pikachu", "Lokhlass"],  # Level 5
+                                   ["Tortank", "Florizarre", "Mackogneur"],  # Level 6
+                                   ["Ronflex", "Tortank", "Florizarre", "Mackogneur"],  # Level 7
+                                   ["Ronflex", "Mackogneur"]  # Level 8+
+                                   ],
+                         pk=pk)
+        self.init_pk()
 
 
 class Blue(Dresseur):
@@ -137,11 +154,13 @@ class Blue(Dresseur):
     def __init__(self, game, pk=None):
         super().__init__('Blue', game, power=4,
                          pk_lists=[["Blue's Evoli"],  # Level 1
-                                   ["Blue's Evoli", "Roucarnage", "Melodelfe"],  # Level 2
-                                   ["Blue's Evoli", "Roucarnage", "Leviator"],  # Level 3
-                                   ["Blue's Evoli", "Roucarnage", "Arcanin"],  # Level 4
-                                   ["Blue's Evoli", "Roucarnage", "Alakazam"],  # Level 5
-                                   ["Blue's Evoli", "Dracaufeu"]  # Level 6+
+                                   ["Blue's Evoli", "Roucoups", "Melofee"],  # Level 2
+                                   ["Blue's Evoli", "Leviator"],  # Level 3
+                                   ["Roucarnage", "Melodelfe"],  # Level 4
+                                   ["Roucarnage", "Arcanin"],  # Level 5
+                                   ["Dracaufeu", "Alakazam", "Arcanin"],  # Level 6
+                                   ["Dracaufeu", "Alakazam", "Arcanin"],  # Level 7
+                                   ["Dracaufeu", "Arcanin"]  # Level 8+
                                    ],
                          pk=pk)
         self.init_pk()
@@ -149,27 +168,65 @@ class Blue(Dresseur):
 
 class Pierre(Dresseur):
 
-    def __init__(self, game):
-        super().__init__('Pierre', game, power=3, pk_lists=['Onix', 'Racaillou', 'Kabutops', 'Tyranocif', 'Osselait'], pk=pk)
+    def __init__(self, game, pk=None):
+        super().__init__('Pierre', game, power=3,
+                         # pk_lists=['Onix', 'Racaillou', 'Kabutops', 'Tyranocif', 'Osselait']
+                         pk_lists=[["Racaillou"],  # Level 1
+                                   ["Racaillou", "Osselait"],  # Level 2
+                                   ["Pierre's Onix", "Osselait"],  # Level 3
+                                   ["Pierre's Onix", "Kabutops"],  # Level 4
+                                   ["Pierre's Onix", "Kabutops"],  # Level 5
+                                   ["Pierre's Onix", "Kabutops"],  # Level 6
+                                   ["Pierre's Onix", "Tyranocif"],  # Level 7
+                                   ["Tyranocif"]  # Level 8+
+                                   ],
+
+                         pk=pk)
+        self.init_pk()
 
 
 class Ondine(Dresseur):
 
     def __init__(self, game, pk=None):
-        super().__init__('Ondine', game, power=3, pk_lists=['Stari', 'Staross', 'Psykokwak', 'Léviator', 'Flingouste'], pk=pk)
+        super().__init__('Ondine', game, power=3,
+                         # pk_lists=['Stari', 'Staross', 'Psykokwak', 'Leviator', 'Flingouste', 'Gamblast'],
+                         pk_lists=[["Stari"],  # Level 1
+                                   ["Stari", "Flingouste"],  # Level 2
+                                   ["Flingouste", "Psykokwak"],  # Level 3
+                                   ["Psykokwak", "Ondine's Staross"],  # Level 4
+                                   ["Ondine's Staross", "Leviator"],  # Level 5
+                                   ["Ondine's Staross", "Gamblast", "Leviator"],  # Level 6
+                                   ["Ondine's Staross", "Gamblast", "Leviator"],  # Level 7
+                                   ["Gamblast"]  # Level 8+
+                                   ],
+
+                         pk=pk)
+        self.init_pk()
 
 
 class Olea(Dresseur):
 
     def __init__(self, game, pk=None):
         super().__init__('Oléa', game, power=2,
-                         pk_lists=['Trousselin', 'Grodoudou', 'Granbull', 'Lampignon', 'Mystibule'], pk=pk)
+                         # pk_lists=['Trousselin', 'Grodoudou', 'Lampignon', 'Mystibule', 'Spododo'],
+                         pk_lists=[["Rondoudou"],  # Level 1
+                                   ["Olea's Trousselin", "Rondoudou", "Spododo"],  # Level 2
+                                   ["Olea's Trousselin", "Grodoudou"],  # Level 3
+                                   ["Olea's Trousselin", "Lampignon"],  # Level 4
+                                   ["Lampignon"],  # Level 5
+                                   ["Lampignon", "Mysdibule"],  # Level 6
+                                   ["Mysdibule"],  # Level 7+
+                                   ],
+
+                         pk=pk)
+        self.init_pk()
 
 
 class Iris(Dresseur):
 
     def __init__(self, game, pk=None):
         super().__init__('Iris', game, power=2, pk_lists=['Emolga', 'Griknot', 'Dracolosse', 'Vipélierre'], pk=pk)
+        self.init_pk()
 
 
 if __name__ == '__main__':

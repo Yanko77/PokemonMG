@@ -44,6 +44,7 @@ class Objet:
             'vit': 1
         }
         self.bonus_lv = 0
+        self.bool_revive_effect = False
 
         self.set_special_effects()
 
@@ -109,6 +110,9 @@ class Objet:
                             'Paralysie': True}
                     else:
                         self.removed_status[self.line[3].split(':')[2]] = True
+                elif self.effect == 'revive':
+                    self.bool_revive_effect = True
+                    self.heal_value = 1000
                 else:  # self.effect == l
                     self.bonus_lv = int(self.line[3].split(':')[2])
 
@@ -158,6 +162,7 @@ class Objet:
             l2 = l2[:-(len(l2.split()[-1])+1)]
 
         return l1, l2, l3
+
     def set_quantite_at_spawn(self):
         self.quantite = random.randint(self.quantite_at_spawn[0],self.quantite_at_spawn[1])
 

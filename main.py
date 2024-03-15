@@ -42,7 +42,7 @@ while running:
             elif event.key == pygame.K_z:
                 game.player.sac_page1[0] = objet.Objet(input())
             elif event.key == pygame.K_o:
-                game.start_fight(pokemon.Pokemon('Carapuce', 50, game), dresseur.Sauvage, pokemon.Pokemon('Airmure', 40, game))
+                game.start_fight(pokemon.Pokemon('Poussifeu', 5, game), dresseur.Sauvage(game, pokemon.Pokemon('Rafflesia', 4, game)))
             elif event.key == pygame.K_p:
                 print(posSouris)
 

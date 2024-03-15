@@ -95,3 +95,40 @@ Bekipan             40      eau     70      77      77      75      0       0   
 Cornebre            30      dark    60      75      58      75      15      Corboss         1           vol
 Corboss             50      dark    80      95      65      78      0       0               3           vol
 #
+Magicarpe           35      eau     60      55      55      50      10      Leviator        1           NoType
+Leviator            75      eau     82      95      78      90      0       0               3           vol
+#
+Caninos             30      feu     65      75      57      70      15      Arcanin         0           NoType
+Arcanin             70      feu     78      90      75      90      0       0               3           NoType
+#
+Abra                30      psy     55      60      60      75      10      Kadabra         0           NoType
+Kadabra             40      psy     68      83      70      78      18      Alakazam        2           NoType
+Alakazam            70      psy     80      100     70      83      0       0               3           NoType
+#
+Onix                45      roche   72      75      75      75      18      Steelix         1           sol
+Steelix             60      acier   90      80      92      90      0       0               3           sol
+#
+Osselait            30      sol     65      60      70      65      12      Ossatueur       0           NoType
+Ossatueur           50      sol     85      75      85      75      0       0               2           NoType
+#
+Kabuto              50      roche   60      60      60      60      10      Kabutops        0           eau
+Kabutops            80      roche   80      100     95      95      0       0               2           eau
+#
+Stari               30      eau     65      71      63      64      12      Staross         0           NoType
+Staross             50      eau     77      90      68      85      0       0               2           psy
+#
+Flingouste          50      eau     61      72      67      70      15      Gamblast        0           NoType
+Gamblast            60      eau     75      98      80      100     0       0               2           NoType
+#
+Psykokwak           35      eau     68      65      67      60      12      Akwakwak        0           NoType
+Akwakwak            50      eau     75      79      73      87      0       0               2           NoType
+#
+Rondoudou           25      normal  70      62      62      62      12      Grodoudou       0           fee
+Grodoudou           40      normal  90      75      70      70      0       0               2           fee
+#
+Spododo             40      plante  65      75      65      65      12      Lampignon       0           fee
+Lampignon           60      plante  80      90      80      80      0       0               2           fee
+#
+Mysdibule           60      acier   80      100     85      100     0       0               3           fee
+#
+Trousselin          35      acier   68      85      83      85      0       0               1           fee

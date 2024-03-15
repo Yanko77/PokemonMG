@@ -11,11 +11,12 @@ import attaques
 
 # declaration des constante
 DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
+# DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
 
 
 class Fight:
 
-    def __init__(self, game, player_pk, dresseur_class=None, dresseur_pk=None, difficult='easy', fight_type='Classic'):
+    def __init__(self, game, player_pk, dresseur=None, difficult='easy', fight_type='Classic'):
         """
         La classe Fight est définie par:
         - Le pokemon envoyé par le joueur (player_pk)
@@ -23,7 +24,7 @@ class Fight:
         """
         self.game = game
         self.player_pk = player_pk
-        self.dresseur = self.init_dresseur(dresseur_class, dresseur_pk)
+        self.dresseur = self.init_dresseur(dresseur)
         self.fight_type = fight_type
 
         # Chargement des images
@@ -200,6 +201,16 @@ class Fight:
         else:
             if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_ARROW:
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+    def init_dresseur(self, dresseur=None):
+        r = random.Random()
+        r.seed(self.game.round.random_seed)
+
+        if dresseur is None:
+            # dresseur = r.choice(DRESSEUR_LIST)
+            return r.choice([Alizee, Blue])(self.game)
+
+        return dresseur
 
     def update_end_panel(self, surface, possouris):
         if self.compteur_end < 200:
@@ -412,7 +423,9 @@ class Fight:
                             self.item_moving_i = None
                             if self.use_item_rect.collidepoint(possouris):
                                 if 'Use' in item.fonctionnement:
-                                    self.current_turn_action = ('ITEM', item, i)
+                                    sac_i = self.game.player.find_sac_item(item)
+
+                                    self.current_turn_action = ('ITEM', item, sac_i)
                                     self.executing_turn = True
 
     def sac_curseur_update(self, possouris):
@@ -444,6 +457,14 @@ class Fight:
         || out : str --> "player_pk" ou "dresseur_pk"
 
         """
+
+        if self.player_pk.objet_tenu is not None and self.player_pk.objet_tenu.name == "Vive_Griffe":
+            if random.randint(0, 1):
+                return 'player_pk'
+
+        elif self.dresseur.pk.objet_tenu is not None and self.dresseur.pk.objet_tenu.name == "Vive_Griffe":
+            if random.randint(0, 1):
+                return 'dresseur_pk'
 
         player_pk_action_type = player_pk_action[0]
         dresseur_pk_action_type = dresseur_pk_action[0]
@@ -538,11 +559,13 @@ class Fight:
 
             # # # Application des effets de status
             if self.compteur == 250:
-                self.apply_status_effects(self.player_pk)
-                self.turn_exec_info = "Application des effets de status..."
+                if self.dresseur.pk.is_alive:
+                    self.apply_status_effects(self.player_pk)
+                    self.turn_exec_info = "Application des effets de status..."
             if self.compteur == 230:
-                self.apply_status_effects(self.dresseur.pk)
-                self.turn_exec_info = "Application des effets de status..."
+                if self.player_pk.is_alive:
+                    self.apply_status_effects(self.dresseur.pk)
+                    self.turn_exec_info = "Application des effets de status..."
 
         # Si le premier pokémon à attaquer est le pokémon du dresseur
         else:
@@ -597,6 +620,7 @@ class Fight:
             self.update_pk_attaques(player_pk_action, dresseur_pk_action)
             self.player_pk.reset_turn_effects()
             self.dresseur.pk.reset_turn_effects()
+            self.update_pk_item()
             self.executing_turn = False
             self.compteur = 1
             self.turn_exec_info = ""
@@ -612,10 +636,7 @@ class Fight:
         item.quantite -= 1
         if i is not None:
             if item.quantite <= 0:
-                if i < 12:
-                    self.game.player.sac_page1[i] = None
-                else:
-                    self.game.player.sac_page2[i - 12] = None
+                self.game.player.sac[i] = None
 
         self.add_logs(('ITEM', pk, item))
 
@@ -644,10 +665,15 @@ class Fight:
 
         if pk_can_atk:
             # Attaque le pokemon ennemi et affecte le resultat de l'attaque dans reussite_attaque (bool)
-            reussite_attaque = pk.attaque(ennemy_pk, attaque)
+            info_attaque = pk.attaque(ennemy_pk, attaque)
 
-            if reussite_attaque:
+            print('AAAAA', info_attaque)
+
+            if info_attaque[0]:  # Si l'attaque a abouti
                 self.add_logs(('ATTAQUE', pk, attaque))
+
+            if info_attaque[1] is not None:  # Si un effet a été appliqué
+                self.add_logs(('Status effect', info_attaque[1][1], info_attaque[1][0]))
 
     def add_logs(self, info):
         if len(self.fight_logs) >= 6:
@@ -737,16 +763,6 @@ class Fight:
 
             y -= 45
 
-    def init_dresseur(self, dresseur_class, dresseur_pk=None):
-        r = random.Random()
-        r.seed(self.game.round.random_seed)
-
-        if dresseur_class is None:
-            # dresseur_class = r.choice(DRESSEUR_LIST)
-            return Alizee(self.game, pk=dresseur_pk)
-
-        return dresseur_class(self.game, pk=dresseur_pk)
-
     def img_load(self, file_name):
         return pygame.image.load(self.path + file_name + '.png')
 
@@ -765,6 +781,7 @@ class Fight:
         for objet in self.game.get_items_list()['Spawnable']:
             for r_value in r_values_list:
                 if r_value in range(acc, acc + (100 - objet.rarity)):
+                    objet.quantite = random.randint(objet.quantite_at_spawn[0], objet.quantite_at_spawn[1])
                     rewards.append(objet)
             acc += (100 - objet.rarity)
 
@@ -785,8 +802,12 @@ class Fight:
             for reward in rewards:
                 self.game.player.add_sac_item(reward)
 
-        if self.fight_type == 'Boss':  # A inclure dans rewards
-            self.player_pk.full_heal()
+        '''if self.fight_type == 'Boss':  # A inclure dans rewards
+            self.player_pk.full_heal()'''
+
+        self.player_pk.heal(self.player_pk.passive_heal)  # Heal le pokémon du joueur selon son heal passif
+
+        self.dresseur.pk.full_heal()  # Remettre full vie le pokémon du dresseur
 
         self.game.end_fight()
 
@@ -882,9 +903,15 @@ class Fight:
         Methode qui actualise les effets des objets tenus par les pokemons
         """
 
+        print('update items')
+
         # Pokémon du joueur
         if self.player_pk.objet_tenu is not None:
-            self.player_pk.objet_tenu.update_turn_effects()
+            self.player_pk.update_item_turn_effects()
+
+        # Pokemon du dresseur
+        if self.dresseur.pk.objet_tenu is not None:
+            self.dresseur.pk.update_item_turn_effects()
 
     def left_clic_interactions(self, possouris):  # Quand l'utilisateur utilise le clic gauche
         if not self.executing_turn:
@@ -892,6 +919,11 @@ class Fight:
                 # Si aucune action n'est en cours
                 if self.current_action is None:
                     if self.fuite_button_rect.collidepoint(possouris):
+                        self.dresseur.pk.full_heal()
+                        self.dresseur.pk.reset_status()
+                        # reset les altérations de stats des attaques
+                        self.player_pk.reset_attaque_fight()
+                        self.dresseur.pk.reset_attaque_fight()
                         self.game.cancel_fight()
                     elif self.combat_button_rect.collidepoint(possouris):
                         self.current_action = 'COMBAT'
@@ -955,6 +987,9 @@ class Fight:
                 pass
             else:
                 return self.fin_du_combat_button_rect.collidepoint(possouris)
+
+
+
 
 
 if __name__ == '__main__':
