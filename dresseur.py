@@ -166,7 +166,19 @@ class Blue(Dresseur):
 class Pierre(Dresseur):
 
     def __init__(self, game, pk=None):
-        super().__init__('Pierre', game, power=3, pk_lists=['Onix', 'Racaillou', 'Kabutops', 'Tyranocif', 'Osselait'], pk=pk)
+        super().__init__('Pierre', game, power=3,
+                         # pk_lists=['Onix', 'Racaillou', 'Kabutops', 'Tyranocif', 'Osselait']
+                         pk_lists=[["Racaillou"],  # Level 1
+                                   ["Racaillou", "Osselait"],  # Level 2
+                                   ["Pierre's Onix", "Osselait", "Kabutops"],  # Level 3
+                                   ["Pierre's Onix", "Kabutops"],  # Level 4
+                                   ["Pierre's Onix"],  # Level 5
+                                   ["Pierre's Onix"],  # Level 6
+                                   ["Pierre's Onix", "Tyranocif"],  # Level 7
+                                   ["Tyranocif"]  # Level 8+
+                                   ],
+                         
+                         pk=pk)
         self.init_pk()
 
 
