@@ -205,7 +205,16 @@ class Olea(Dresseur):
 
     def __init__(self, game, pk=None):
         super().__init__('Oléa', game, power=2,
-                         pk_lists=['Trousselin', 'Grodoudou', 'Granbull', 'Lampignon', 'Mystibule'],
+                          # pk_lists=['Trousselin', 'Grodoudou', 'Lampignon', 'Mystibule', 'Spododo'],
+                          pk_lists=[["Rondoudou"],  # Level 1
+                                   ["Olea's Trousselin", "Rondoudou", "Spododo"],  # Level 2
+                                   ["Olea's Trousselin", "Grodoudou"],  # Level 3
+                                   [Olea's Trousselin"", "Lampignon"],  # Level 4
+                                   ["Lampignon"],  # Level 5
+                                   ["Lampignon", "Mystibule"],  # Level 6
+                                   ["Mystibule"],  # Level 7+
+                                   ],
+                         
                          pk=pk)
         self.init_pk()
 
