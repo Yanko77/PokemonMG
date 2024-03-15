@@ -163,16 +163,13 @@ class Fight:
         self.compteur = 0
         self.compteur_action_file = []
 
-        # Sauvegardes des hp des pokémons utilisés pour l'animation de dégats
-        self.saved_player_pk_pv = self.player_pk.health
-        self.saved_dresseur_pk_pv = self.dresseur.pk.health
-        self.p_pk_pv_barre = 263 #self.saved_player_pk_pv / self.player_pk.pv * 263
-        self.d_pk_pv_barre = 225 #self.saved_dresseur_pk_pv / self.dresseur.pk.pv * 225
-
-
         self.boolEnding = False
         self.is_animating_end_panel = False
         self.compteur_end = 0
+
+        # Sauvegardes des hp des pokémons utilisés pour l'animation de dégats
+        self.saved_player_pk_pv = self.player_pk.health
+        self.saved_dresseur_pk_pv = self.dresseur.pk.health
 
     def update(self, surface, possouris):
 
