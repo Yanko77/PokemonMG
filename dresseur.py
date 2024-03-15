@@ -133,7 +133,17 @@ class Red(Dresseur):
 
     def __init__(self, game, pk=None):
         super().__init__('Red', game, power=4,
-                         pk_lists=['Pikachu', 'Mentali', 'Ronflex', 'Tortank', 'Florizarre', 'Lokhlass', 'Mackogneur'], pk=pk)
+                         # pk_lists=["Red's Pikachu", 'Mentali', 'Ronflex', 'Tortank', 'Florizarre', 'Lokhlass', 'Mackogneur'],
+                         pk_lists=[["Pichu"],  # Level 1
+                                   ["Red's Pikachu"],  # Level 2
+                                   ["Red's Pikachu", "Mentali"],  # Level 3
+                                   ["Red's Pikachu", "Lokhlass"],  # Level 4
+                                   ["Red's Pikachu", "Lokhlass"],  # Level 5
+                                   ["Tortank", "Florizarre", "Mackogneur"],  # Level 6
+                                   ["Ronflex", "Tortank", "Florizarre", "Mackogneur"],  # Level 7
+                                   ["Ronflex", "Mackogneur"]  # Level 8+
+                                   ],
+                         pk=pk)
 
 
 class Blue(Dresseur):
