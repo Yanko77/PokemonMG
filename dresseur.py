@@ -62,8 +62,8 @@ class Dresseur:
             # print(f'{item_name} added')
 
     def get_pk_level(self):
-        min_lv = round((self.game.player.level**1.9)*0.30 + 5)
-        max_lv = round((self.game.player.level**1.9)*0.35 + 6)
+        min_lv = round((self.game.player.level ** 1.9) * 0.30 + 5)
+        max_lv = round((self.game.player.level ** 1.9) * 0.35 + 6)
 
         r = random.Random()
         r.seed(self.game.round.random_seed)
@@ -124,10 +124,11 @@ class Alizee(Dresseur):
                              ['Bekipan', 'Airmure'],  # Level 4
                              ["Airmure", 'Corboss'],  # Level 5
                              ['Corboss', "Alizee's Altaria"],  # Level 6
-                             ["Alizee's Altaria"]   # Level 7+
+                             ["Alizee's Altaria"]  # Level 7+
                          ],
                          pk=pk)
         self.init_pk()
+
 
 class Red(Dresseur):
 
@@ -177,7 +178,7 @@ class Pierre(Dresseur):
                                    ["Pierre's Onix", "Tyranocif"],  # Level 7
                                    ["Tyranocif"]  # Level 8+
                                    ],
-                         
+
                          pk=pk)
         self.init_pk()
 
@@ -196,7 +197,7 @@ class Ondine(Dresseur):
                                    ["Ondine's Staross", "Gamblast", "Leviator"],  # Level 7
                                    ["Gamblast"]  # Level 8+
                                    ],
-                         
+
                          pk=pk)
         self.init_pk()
 
@@ -205,16 +206,16 @@ class Olea(Dresseur):
 
     def __init__(self, game, pk=None):
         super().__init__('Oléa', game, power=2,
-                          # pk_lists=['Trousselin', 'Grodoudou', 'Lampignon', 'Mystibule', 'Spododo'],
-                          pk_lists=[["Rondoudou"],  # Level 1
+                         # pk_lists=['Trousselin', 'Grodoudou', 'Lampignon', 'Mystibule', 'Spododo'],
+                         pk_lists=[["Rondoudou"],  # Level 1
                                    ["Olea's Trousselin", "Rondoudou", "Spododo"],  # Level 2
                                    ["Olea's Trousselin", "Grodoudou"],  # Level 3
-                                   [Olea's Trousselin"", "Lampignon"],  # Level 4
+                                   ["Olea's Trousselin", "Lampignon"],  # Level 4
                                    ["Lampignon"],  # Level 5
                                    ["Lampignon", "Mystibule"],  # Level 6
                                    ["Mystibule"],  # Level 7+
                                    ],
-                         
+
                          pk=pk)
         self.init_pk()
 
