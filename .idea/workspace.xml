@@ -4,26 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="Add Red, Ondine, Pierre, Olea's pokemons&#10;Add all new pokemons icons&#10;Add all new pokemons stats&#10;Add all new pokemons attaque pool">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_02_2024_20_38__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_02_2024_20_38__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_02_2024_20_49__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_02_2024_20_49__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_03_2024_14_29__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_03_2024_14_29__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_03_2024_20_11__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_03_2024_20_11__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_03_2024_18_40__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_03_2024_18_40__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_02_2024_14_56__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_02_2024_14_56__Default_Changelist_.xml" afterDir="false" />
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="rework ennemy pks spawning in train panel">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/all_attaques.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_attaques.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/all_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dresseur.py" beforeDir="false" afterPath="$PROJECT_DIR$/dresseur.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_infos.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_infos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_panel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon_attaque_pool.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon_attaque_pool.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
     </list>
     <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -256,13 +245,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00042" summary="continue train.py">
-      <created>1700862397321</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1700862397321</updated>
     </task>
     <task id="LOCAL-00043" summary="continue train.py">
       <created>1702300218808</created>
@@ -600,7 +582,14 @@
       <option name="project" value="LOCAL" />
       <updated>1710523859961</updated>
     </task>
-    <option name="localTasksCounter" value="91" />
+    <task id="LOCAL-00091" summary="rework ennemy pks spawning in train panel">
+      <created>1710540340988</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1710540340989</updated>
+    </task>
+    <option name="localTasksCounter" value="92" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -616,7 +605,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="sac_items during fight can move" />
     <MESSAGE value="items can be used during fights" />
     <MESSAGE value="added end turn fight button" />
     <MESSAGE value="add end fight panel files&#10;debug player name editing" />
@@ -641,6 +629,7 @@
     <MESSAGE value="debug fight system&#10;rework get_rewards with item spawn quantite&#10;add some objet special effects&#10;add some attaque special effects&#10;add fight log info for new status effect&#10;add Blue's pokemons&#10;rework Alizee's pokemon list&#10;rework Vole-vie attaque&#10;add Teleport attaque" />
     <MESSAGE value="add reset_attaque_fight()" />
     <MESSAGE value="rewrite typing error" />
-    <option name="LAST_COMMIT_MESSAGE" value="rewrite typing error" />
+    <MESSAGE value="rework ennemy pks spawning in train panel" />
+    <option name="LAST_COMMIT_MESSAGE" value="rework ennemy pks spawning in train panel" />
   </component>
 </project>

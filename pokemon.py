@@ -199,6 +199,7 @@ class Pokemon:
 
                 if crit:
                     cm *= (2 * self.level + 5) / (self.level + 5)
+                    print(f'CRITIQUE DE {self.name}')
 
                 if self.objet_tenu is not None:
                     if self.objet_tenu.type is None or self.objet_tenu.type == attaque.type:

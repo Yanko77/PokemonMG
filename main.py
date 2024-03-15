@@ -26,7 +26,7 @@ while running:
 
     game.update(screen, posSouris)
 
-    if game.game_over:
+    if game.bool_game_over:
         game = Game()
 
     pygame.display.flip()  # Update de la fenetre

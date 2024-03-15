@@ -4,6 +4,7 @@ import random
 
 import dresseur
 import game_infos
+import objet
 import pokemon
 from dresseur import Alizee, Olea, Ondine, Pierre, Blue, Red, Iris, Sauvage
 from bot_fight_algo import get_npc_action
@@ -820,10 +821,13 @@ class Fight:
         # level up du pokemon
         if self.difficult == 'easy':
             self.player_pk.level_up()
+            self.game.player.add_money(250)
         elif self.difficult == 'normal':
             self.player_pk.level_up(2)
+            self.game.player.add_money(500)
         elif self.difficult == 'hard':
             self.player_pk.level_up(3)
+            self.game.player.add_money(850)
 
         return rewards
 
@@ -834,8 +838,11 @@ class Fight:
             for reward in rewards:
                 self.game.player.add_sac_item(reward)
 
-        '''if self.fight_type == 'Boss':  # A inclure dans rewards
-            self.player_pk.full_heal()'''
+            # TEMPORAIRE
+            self.game.player.add_sac_item(objet.Objet('Potion'))
+
+        elif self.fight_type == 'Boss':   # Si c'est une défaite contre un boss
+            self.game.game_over()
 
         self.player_pk.heal(self.player_pk.passive_heal)  # Heal le pokémon du joueur selon son heal passif
 

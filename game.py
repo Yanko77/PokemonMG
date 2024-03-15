@@ -50,11 +50,11 @@ class Game:
         self.next_fighting_dresseur = self.get_fighting_dresseur()
 
         self.current_fight = None
-        self.game_over = False
+        self.bool_game_over = False
 
     def update(self, screen, possouris):
         if self.is_playing:
-            if self.game_over:
+            if self.bool_game_over:
                 self.is_playing = False
                 self.is_accueil = True
 
@@ -70,6 +70,9 @@ class Game:
 
         # Affichage des notifications
         self.notifs.update(screen)
+
+    def game_over(self):
+        self.bool_game_over = True
 
     def notif(self, text, color):
         self.notifs.new_notif(text, color)
@@ -105,7 +108,7 @@ class Game:
             self.init_fight(player_pk, dresseur, difficult, fight_type)
             self.is_fighting = True
         elif fight_type == 'Boss':
-            self.init_fight(player_pk, self.next_fighting_dresseur, difficult, fight_type)
+            self.init_fight(player_pk, self.next_fighting_dresseur, 'hard', fight_type)
             self.is_fighting = True
 
     def cancel_fight(self):

@@ -130,6 +130,9 @@ class Player:
     def level_up(self, nb_lv=1):
         self.level += nb_lv
 
+    def add_money(self, amount):
+        self.money += amount
+
     def rise_max_actions_value(self):
         self.max_actions += 1
         self.actions += 1
