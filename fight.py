@@ -360,6 +360,8 @@ class Fight:
         surface.blit(pygame.transform.scale(self.player_pk.icon_image, (700, 350)), (180, 270), (0, 0, 350, 350))
         # Barre d'info
         surface.blit(self.pk_info_bar, self.player_pk_info_bar_rect, (0, 0, 434, 144))
+        # Affichage de l'animation des dégats subis
+        self.animate_player_pk_damage(surface)
         # Barre de vie verte
         pygame.draw.rect(surface, (42, 214, 0),
                          pygame.Rect(31, 646, self.player_pk.health / self.player_pk.pv * 263, 24))
