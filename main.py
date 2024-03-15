@@ -39,7 +39,7 @@ while running:
             game.pressed[event.key] = True
 
             if event.key == pygame.K_a:
-                game.game_over = True
+                game.bool_game_over= True
 
             if game.player.name_editing_mode:
                 if event.key == pygame.K_RETURN:
