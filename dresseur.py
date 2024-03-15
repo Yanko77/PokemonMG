@@ -171,8 +171,8 @@ class Pierre(Dresseur):
     def __init__(self, game, pk=None):
         super().__init__('Pierre', game, power=3,
                          # pk_lists=['Onix', 'Racaillou', 'Kabutops', 'Tyranocif', 'Osselait']
-                         pk_lists=[["Racaillou"],  # Level 1
-                                   ["Racaillou", "Osselait"],  # Level 2
+                         pk_lists=[["Osselait"],  # Level 1
+                                   ["Osselait"],  # Level 2
                                    ["Pierre's Onix", "Osselait"],  # Level 3
                                    ["Pierre's Onix", "Kabutops"],  # Level 4
                                    ["Pierre's Onix", "Kabutops"],  # Level 5
