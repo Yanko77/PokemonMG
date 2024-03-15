@@ -19,13 +19,15 @@ game = Game()
 
 running = True
 posSouris = (0, 0)
-old_posSouris = (0, 0)
 
 # Boucle du jeu
 while running:
     posSouris = list(pygame.mouse.get_pos())
 
     game.update(screen, posSouris)
+
+    if game.game_over:
+        game = Game()
 
     pygame.display.flip()  # Update de la fenetre
 
@@ -35,6 +37,9 @@ while running:
 
         if event.type == pygame.KEYDOWN:
             game.pressed[event.key] = True
+
+            if event.key == pygame.K_a:
+                game.game_over = True
 
             if game.player.name_editing_mode:
                 if event.key == pygame.K_RETURN:

@@ -10,7 +10,7 @@ from bot_fight_algo import get_npc_action
 import attaques
 
 # declaration des constante
-DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
+DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red]
 # DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
 
 
@@ -389,21 +389,26 @@ class Fight:
                      (905 + self.dresseur_pk_name.get_width(), 51))
 
     def animate_player_pk_damage(self, surface):
-        if self.player_pk.health <= self.saved_player_pk_pv:
-            self.saved_player_pk_pv -= self.player_pk.pv/75
+        if self.player_pk.health < self.saved_player_pk_pv:
 
             # Barre de vie rouge
             pygame.draw.rect(surface, (255, 0, 0),
                             pygame.Rect(31, 646, self.saved_player_pk_pv / self.player_pk.pv * 263, 24))
+
+            self.saved_player_pk_pv -= self.player_pk.pv / 75
+
         else:
             self.saved_player_pk_pv = self.player_pk.health
 
     def animate_dresseur_pk_damage(self, surface):
-        if self.dresseur.pk.health <= self.saved_dresseur_pk_pv:
-            self.saved_dresseur_pk_pv -= self.dresseur.pk.pv/75
+        if self.dresseur.pk.health < self.saved_dresseur_pk_pv:
+
             # Barre de vie rouge
             pygame.draw.rect(surface, (255, 0, 0),
                              pygame.Rect(899, 94, self.saved_dresseur_pk_pv / self.dresseur.pk.pv * 225, 21))
+
+            self.saved_dresseur_pk_pv -= self.dresseur.pk.pv / 75
+
         else:
             self.saved_dresseur_pk_pv = self.dresseur.pk.health
 

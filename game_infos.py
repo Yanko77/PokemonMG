@@ -399,30 +399,53 @@ def get_mutiliplicateur(type_atk_pk, type_def_pk2):
     return types_affinities[type_atk_pk][type_def_pk2]
 
 
-def get_all_diff_pokemons(pokemon_type, difficulty='easy'):
+def get_all_diff_pokemons(game, attacking_pokemon, difficulty='easy'):
     multiplicateur_diff = {
-        'easy': (2, 1),
-        'normal': (2, 1, 0.5),
-        'hard': (1, 0.5, 0)
+        'easy': (16, 8, 4, 2,),
+        'normal': (1,),
+        'hard': (0.5, 0.25, 0.125, 0.0625, 0)
     }
 
-    types_list = get_diff_types(pokemon_type, multiplicateur_diff[difficulty])  # Marche pour les tuples
+    pokemon_type = attacking_pokemon.get_type()
+    pokemon_type2 = attacking_pokemon.get_type2()
+
+    multiplicateur = multiplicateur_diff[difficulty]
+
+    if pokemon_type == 'normal' and pokemon_type2 == 'NoType' and difficulty == 'easy':
+        multiplicateur = (1,)
+
+    types_list = get_diff_types(pokemon_type, pokemon_type2, multiplicateur)  # Marche pour les tuples
+    type_list2 = get_diff_types(pokemon_type, pokemon_type2, multiplicateur + (1,))
+    type_list2.append('NoType')
+
     pokemons_list = []
     with open('all_pokemons.txt', 'r') as file:
         for line in file.readlines():
-            if not line.split()[0] == '#':
-                if line.split()[2] in types_list:
-                    pokemons_list.append(line.split()[0])
+            if not line.split()[0] == '#' and not line.split()[0] == 'name':
+                if int(line.split()[9]) <= game.player.get_level():
+                    # Type 1 "dominant" Type 2 "neutre"
+                    if line.split()[2] in types_list:
+                        if line.split()[10] in type_list2:
+                            pokemons_list.append(line.split()[0])
+
+                    # Type 2 "dominant" Type 1 "neutre"
+                    elif line.split()[10] in types_list:
+                        if line.split()[2] in type_list2:
+                            pokemons_list.append(line.split()[0])
 
     return pokemons_list
 
 
-def get_diff_types(pokemon_type, multiplicateur):
+def get_diff_types(pokemon_type, pokemon_type2, multiplicateur):
     types_list = []
 
     for pk_type in types_affinities[pokemon_type]:
-        if types_affinities[pokemon_type][pk_type] in multiplicateur:
-            types_list.append(pk_type)
+        if pokemon_type2 != 'NoType':
+            if types_affinities[pokemon_type][pk_type]*types_affinities[pokemon_type2][pk_type] in multiplicateur:
+                types_list.append(pk_type)
+        else:
+            if types_affinities[pokemon_type][pk_type] in multiplicateur:
+                types_list.append(pk_type)
 
     return types_list
 
@@ -433,3 +456,15 @@ def get_type_name_to_print(type):
 
 def get_type_color(type):
     return type_colors[type]
+
+
+if __name__ == '__main__':
+    # Facile
+    '''print(get_diff_types('normal', 'vol', (16, 8, 4, 2)))
+    print(get_diff_types('normal', 'vol', (16, 8, 4, 2, 1)))'''
+    # Normal
+    '''print(get_diff_types('normal', 'vol', (1,)))
+    print(get_diff_types('normal', 'vol', (1,)))'''
+    # Difficile
+    print(get_diff_types('normal', 'vol', (0.5, 0.25, 0.125, 0.0625,)))
+    print(get_diff_types('normal', 'vol', (0.5, 0.25, 0.125, 0.0625, 1)))

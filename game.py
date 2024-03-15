@@ -50,10 +50,14 @@ class Game:
         self.next_fighting_dresseur = self.get_fighting_dresseur()
 
         self.current_fight = None
+        self.game_over = False
 
     def update(self, screen, possouris):
-
         if self.is_playing:
+            if self.game_over:
+                self.is_playing = False
+                self.is_accueil = True
+
             if self.is_fighting:
                 self.current_fight.update(screen, possouris)
             else:
@@ -72,8 +76,8 @@ class Game:
 
     def get_fighting_dresseur(self):
         r = random.Random()
-        # return r.choice(fight.DRESSEUR_LIST)(self)
-        return fight.Red(self)
+        return r.choice(fight.DRESSEUR_LIST)(self)
+        # return fight.Red(self)
 
     def init_new_game(self):
         self.is_starter_selected = False

@@ -138,7 +138,7 @@ class Red(Dresseur):
                          # 'Mackogneur'],
                          pk_lists=[["Pichu"],  # Level 1
                                    ["Red's Pikachu"],  # Level 2
-                                   ["Red's Pikachu", "Mentali"],  # Level 3
+                                   ["Red's Pikachu"],  # Level 3
                                    ["Red's Pikachu", "Lokhlass"],  # Level 4
                                    ["Red's Pikachu", "Lokhlass"],  # Level 5
                                    ["Tortank", "Florizarre", "Mackogneur"],  # Level 6

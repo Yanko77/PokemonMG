@@ -4,64 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="rewrite typing error">
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Flingouste.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Flingouste_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Gamblast.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Gamblast_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Grodoudou.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Grodoudou_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Kabuto.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Kabuto_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Kabutops.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Kabutops_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Lampignon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Lampignon_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Mysdibule.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Mysdibule_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Olea's Trousselin.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Olea's Trousselin_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Ondine's Staross.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Ondine's Staross_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Onix.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Onix_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Ossatueur.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Ossatueur_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Osselait.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Osselait_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Pierre's Onix.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Pierre's Onix_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Red's Pikachu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Red's Pikachu_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Rondoudou.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Rondoudou_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Spododo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Spododo_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Stari.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Stari_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Staross.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Staross_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Steelix.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Steelix_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Trousselin.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Trousselin_.png" afterDir="false" />
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="Add Red, Ondine, Pierre, Olea's pokemons&#10;Add all new pokemons icons&#10;Add all new pokemons stats&#10;Add all new pokemons attaque pool">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_02_2024_20_38__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_02_2024_20_38__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_02_2024_20_49__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_02_2024_20_49__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_03_2024_14_29__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_03_2024_14_29__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_03_2024_20_11__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_03_2024_20_11__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_03_2024_18_40__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_03_2024_18_40__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_02_2024_14_56__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_02_2024_14_56__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/all_attaques.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_attaques.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/all_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dresseur.py" beforeDir="false" afterPath="$PROJECT_DIR$/dresseur.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_infos.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_infos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pokemon_attaque_pool.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon_attaque_pool.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/special_pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/special_pokemon_attaque_pool.txt" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemon_attaque_pool.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/special_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemons.txt" afterDir="false" />
-
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
-    <list id="6085e2ad-84dc-4101-8108-2a69c65d4003" name="Changes by matva" comment="Changes by matva" />
-    <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="">
-      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
-    </list>
+    <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,16 +72,6 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Dummy.txt" root0="SKIP_HIGHLIGHTING" />
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/fight.py">
-      <ranges>
-        <range start1="164" end1="164" start2="164" end2="171" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="355" end1="355" start2="362" end2="364" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="373" end1="373" start2="382" end2="384" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="381" end1="381" start2="392" end2="411" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-      </ranges>
-    </file>
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -143,14 +97,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "git-widget-placeholder": "mathias__6",
-    "last_opened_file_path": "C:/Users/yanko/PycharmProjects/PokemonManagementGame",
-    "run.code.analysis.last.selected.profile": "pProject Default"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/yanko/PycharmProjects/PokemonManagementGame&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\yanko\PycharmProjects\PokemonManagementGame" />
@@ -199,27 +153,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="dresseur" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PokemonManagementGame" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dresseur.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="fight" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PokemonManagementGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -241,15 +174,36 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python">
-      <module name="PokemonMG" />
+    <configuration name="game_infos" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PokemonManagementGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\matva\AppData\Local\Programs\Python\Python312\python.exe" />
-      <option name="SDK_NAME" value="Python 3.12" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/game_infos.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python">
+      <module name="PokemonManagementGame" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\yanko\AppData\Local\RLBotGUIX\Python37\python.exe" />
+      <option name="SDK_NAME" value="Python 3.7" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -286,11 +240,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.game_infos" />
         <item itemvalue="Python.attaques" />
         <item itemvalue="Python.special_pokemon" />
         <item itemvalue="Python.fight" />
         <item itemvalue="Python.bot_fight_algo" />
-        <item itemvalue="Python.dresseur" />
       </list>
     </recent_temporary>
   </component>
