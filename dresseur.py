@@ -185,7 +185,19 @@ class Pierre(Dresseur):
 class Ondine(Dresseur):
 
     def __init__(self, game, pk=None):
-        super().__init__('Ondine', game, power=3, pk_lists=['Stari', 'Staross', 'Psykokwak', 'Léviator', 'Flingouste'], pk=pk)
+        super().__init__('Ondine', game, power=3,
+                         # pk_lists=['Stari', 'Staross', 'Psykokwak', 'Leviator', 'Flingouste', 'Gamblast'],
+                         pk_lists=[["Stari"],  # Level 1
+                                   ["Stari", "Flingouste"],  # Level 2
+                                   ["Flingouste", "Psykokwak"],  # Level 3
+                                   ["Psykokwak", "Ondine's Staross"],  # Level 4
+                                   ["Ondine's Staross", "Leviator"],  # Level 5
+                                   ["Ondine's Staross", "Gamblast", "Leviator"],  # Level 6
+                                   ["Ondine's Staross", "Gamblast", "Leviator"],  # Level 7
+                                   ["Gamblast"]  # Level 8+
+                                   ],
+                         
+                         pk=pk)
         self.init_pk()
 
 
