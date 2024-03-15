@@ -134,7 +134,8 @@ class Red(Dresseur):
 
     def __init__(self, game, pk=None):
         super().__init__('Red', game, power=4,
-                         # pk_lists=["Red's Pikachu", 'Mentali', 'Ronflex', 'Tortank', 'Florizarre', 'Lokhlass', 'Mackogneur'],
+                         # pk_lists=["Red's Pikachu", 'Mentali', 'Ronflex', 'Tortank', 'Florizarre', 'Lokhlass',
+                         # 'Mackogneur'],
                          pk_lists=[["Pichu"],  # Level 1
                                    ["Red's Pikachu"],  # Level 2
                                    ["Red's Pikachu", "Mentali"],  # Level 3
@@ -145,6 +146,7 @@ class Red(Dresseur):
                                    ["Ronflex", "Mackogneur"]  # Level 8+
                                    ],
                          pk=pk)
+        self.init_pk()
 
 
 class Blue(Dresseur):
@@ -171,10 +173,10 @@ class Pierre(Dresseur):
                          # pk_lists=['Onix', 'Racaillou', 'Kabutops', 'Tyranocif', 'Osselait']
                          pk_lists=[["Racaillou"],  # Level 1
                                    ["Racaillou", "Osselait"],  # Level 2
-                                   ["Pierre's Onix", "Osselait", "Kabutops"],  # Level 3
+                                   ["Pierre's Onix", "Osselait"],  # Level 3
                                    ["Pierre's Onix", "Kabutops"],  # Level 4
-                                   ["Pierre's Onix"],  # Level 5
-                                   ["Pierre's Onix"],  # Level 6
+                                   ["Pierre's Onix", "Kabutops"],  # Level 5
+                                   ["Pierre's Onix", "Kabutops"],  # Level 6
                                    ["Pierre's Onix", "Tyranocif"],  # Level 7
                                    ["Tyranocif"]  # Level 8+
                                    ],
@@ -212,8 +214,8 @@ class Olea(Dresseur):
                                    ["Olea's Trousselin", "Grodoudou"],  # Level 3
                                    ["Olea's Trousselin", "Lampignon"],  # Level 4
                                    ["Lampignon"],  # Level 5
-                                   ["Lampignon", "Mystibule"],  # Level 6
-                                   ["Mystibule"],  # Level 7+
+                                   ["Lampignon", "Mysdibule"],  # Level 6
+                                   ["Mysdibule"],  # Level 7+
                                    ],
 
                          pk=pk)
