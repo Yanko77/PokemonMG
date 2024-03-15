@@ -36,7 +36,7 @@ class Attaque:
         self.bool_special_precision = ':' in self.line[4]  # Bool
         self.special_precision = None
         if self.bool_special_precision:
-            self.special_precision = self.line[4].split(":")
+            self.special_precision = self.line[4].split(":")  # du type : ['d', '100-25']
             if self.special_precision[0] == 'd':
                 self.precision = int(self.special_precision[1].split("-")[0])  # Pour les precisions diminutives
         else:

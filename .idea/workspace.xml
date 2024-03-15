@@ -4,26 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="rework train_panel way to choose training pk&#10;add rappel item&#10;add pokemon ko info display &#10;debug pk_move interactions">
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Alakazam.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Alakazam_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Leviator.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Leviator_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Magicarpe.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Magicarpe_.png" afterDir="false" />
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="debug fight system&#10;rework get_rewards with item spawn quantite&#10;add some objet special effects&#10;add some attaque special effects&#10;add fight log info for new status effect&#10;add Blue's pokemons&#10;rework Alizee's pokemon list&#10;rework Vole-vie attaque&#10;add Teleport attaque">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/all_attaques.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_attaques.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/all_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/pokemons_icons/Azakalam.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/pokemons_icons/Azakalam_.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dresseur.py" beforeDir="false" afterPath="$PROJECT_DIR$/dresseur.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon_attaque_pool.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon_attaque_pool.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/special_pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <list id="6085e2ad-84dc-4101-8108-2a69c65d4003" name="Changes by matva" comment="Changes by matva" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -255,13 +240,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00039" summary="attaques.py">
-      <created>1697385707076</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1697385707076</updated>
     </task>
     <task id="LOCAL-00040" summary="attaques.py">
       <created>1697983711509</created>
@@ -599,7 +577,14 @@
       <option name="project" value="LOCAL" />
       <updated>1710373169961</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <task id="LOCAL-00088" summary="debug fight system&#10;rework get_rewards with item spawn quantite&#10;add some objet special effects&#10;add some attaque special effects&#10;add fight log info for new status effect&#10;add Blue's pokemons&#10;rework Alizee's pokemon list&#10;rework Vole-vie attaque&#10;add Teleport attaque">
+      <created>1710379574472</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1710379574472</updated>
+    </task>
+    <option name="localTasksCounter" value="89" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -615,7 +600,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="continue fight.py&#10;add sac_action, add curseur" />
     <MESSAGE value="continue fight.py&#10;add item icons in sac action during fights" />
     <MESSAGE value="game is playable !!!" />
     <MESSAGE value="sac_items during fight can move" />
@@ -640,6 +624,7 @@
     <MESSAGE value="add all dresseur icons&#10;add fight dresseur icon display" />
     <MESSAGE value="debugging" />
     <MESSAGE value="rework train_panel way to choose training pk&#10;add rappel item&#10;add pokemon ko info display &#10;debug pk_move interactions" />
-    <option name="LAST_COMMIT_MESSAGE" value="rework train_panel way to choose training pk&#10;add rappel item&#10;add pokemon ko info display &#10;debug pk_move interactions" />
+    <MESSAGE value="debug fight system&#10;rework get_rewards with item spawn quantite&#10;add some objet special effects&#10;add some attaque special effects&#10;add fight log info for new status effect&#10;add Blue's pokemons&#10;rework Alizee's pokemon list&#10;rework Vole-vie attaque&#10;add Teleport attaque" />
+    <option name="LAST_COMMIT_MESSAGE" value="debug fight system&#10;rework get_rewards with item spawn quantite&#10;add some objet special effects&#10;add some attaque special effects&#10;add fight log info for new status effect&#10;add Blue's pokemons&#10;rework Alizee's pokemon list&#10;rework Vole-vie attaque&#10;add Teleport attaque" />
   </component>
 </project>

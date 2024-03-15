@@ -530,11 +530,6 @@ class TrainPanel:
         self.boolAdd_training_pk_popup = False
         
     def left_clic_interactions(self, possouris):
-        if self.settings_button_rect.collidepoint(possouris):
-            if self.boolSettings_popup:
-                self.close_settings_popup()
-            else:
-                self.open_settings_popup()
 
         if self.boolSettings_popup:
             if self.easy_button_rect.collidepoint(possouris):
@@ -547,11 +542,17 @@ class TrainPanel:
                 self.set_difficult('hard')
                 self.close_settings_popup()
 
+        if self.settings_button_rect.collidepoint(possouris):
+            if self.boolSettings_popup:
+                self.close_settings_popup()
+            else:
+                self.open_settings_popup()
+
         if self.training_pk is not None:
             if self.ennemy_pk_infos_stats_button_rect.collidepoint(possouris):
                 self.boolEnnemy_pk_stats = not self.boolEnnemy_pk_stats
             elif self.fight_button_rect.collidepoint(possouris):
-                if self.training_pk.is_alive and self.ennemy_pk.is_alive:
+                if self.training_pk.is_alive and self.ennemy_pk.is_alive and self.game.player.actions > 0:
                     self.start_fight()
                     pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 

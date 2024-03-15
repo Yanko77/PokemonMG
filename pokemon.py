@@ -166,14 +166,16 @@ class Pokemon:
     def attaque(self, pokemon, attaque) -> list:
         """
         Attaque le pokémon renseigné en parametre avec l'attaque prise en entrée.
-        Renvoie un tuple contenant:
+        Renvoie un tuple contenant :
             - True si l'attaque a abouti, False sinon
             - 'None' si l'attaque n'a pas appliqué d'effet à personne, (<nom_effet>, <self ou pokemon>) sinon
         """
 
         precision_value = random.randint(0, 100)
+        print(f'{attaque.name}: {attaque.precision} | {precision_value}')
         if precision_value < attaque.precision:
 
+            degats = 0
             if attaque.puissance != 0 and pokemon.is_vulnerable:
 
                 cm = 1
@@ -266,6 +268,16 @@ class Pokemon:
             'Poison': False,
             'Paralysie': False
             }
+
+    def reset_attaque_fight(self):
+        for attaque in self.attaque_pool:
+            if attaque is not None:
+                print(1)
+                if attaque.bool_special_precision:
+                    print(2)
+                    if attaque.special_precision[0] == 'd':
+                        print(3)
+                        attaque.precision = int(attaque.special_precision[1].split("-")[0])
 
     def reset_turn_effects(self):
         self.is_vulnerable = True

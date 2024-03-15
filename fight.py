@@ -921,6 +921,9 @@ class Fight:
                     if self.fuite_button_rect.collidepoint(possouris):
                         self.dresseur.pk.full_heal()
                         self.dresseur.pk.reset_status()
+                        # reset les altérations de stats des attaques
+                        self.player_pk.reset_attaque_fight()
+                        self.dresseur.pk.reset_attaque_fight()
                         self.game.cancel_fight()
                     elif self.combat_button_rect.collidepoint(possouris):
                         self.current_action = 'COMBAT'
