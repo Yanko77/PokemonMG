@@ -209,15 +209,20 @@ class Pokemon:
 
                 if attaque.puissance == "level":
                     puissance = self.level
-                elif attaque.puissance == "ennemy_pv":
-                    puissance = 1000000
+
                 elif attaque.puissance == "pv*0.5":
                     puissance = pokemon.health // 2
-                elif attaque.special_puissance == 'v':
-                    if self.speed <= pokemon.speed:
-                        puissance = int(attaque.puissance.split("-")[0])
+                elif attaque.bool_special_puissance:
+                    if attaque.special_puissance[0] == 'v':
+                        if self.speed <= pokemon.speed:
+                            puissance = int(attaque.puissance.split("-")[0])
+                        else:
+                            puissance = int(attaque.puissance.split("-")[1])
+                    elif attaque.special_puissance[0] == 'r':
+                        values = attaque.special_puissance[1].split("-")
+                        puissance = random.randint(int(values[0]), int(values[1]))
                     else:
-                        puissance = int(attaque.puissance.split("-")[1])
+                        puissance = attaque.puissance
                 else:
                     puissance = attaque.puissance
 
@@ -225,6 +230,8 @@ class Pokemon:
                     degats = attaque.puissance
                 elif attaque.puissance == "effort":
                     degats = pokemon.pv - self.health
+                elif attaque.puissance == "ennemy_pv":
+                    degats = pokemon.pv*2
                 else:
                     degats = round((((((self.level * 0.4 + 2) * self.attack * puissance) / self.defense) / 50) + 2) * cm)
 

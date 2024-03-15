@@ -4,11 +4,57 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="debug fight system&#10;rework get_rewards with item spawn quantite&#10;add some objet special effects&#10;add some attaque special effects&#10;add fight log info for new status effect&#10;add Blue's pokemons&#10;rework Alizee's pokemon list&#10;rework Vole-vie attaque&#10;add Teleport attaque">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="rewrite typing error">
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Flingouste.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Flingouste_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Gamblast.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Gamblast_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Grodoudou.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Grodoudou_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Kabuto.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Kabuto_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Kabutops.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Kabutops_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Lampignon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Lampignon_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Mysdibule.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Mysdibule_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Olea's Trousselin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Olea's Trousselin_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Ondine's Staross.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Ondine's Staross_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Onix.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Onix_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Ossatueur.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Ossatueur_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Osselait.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Osselait_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Pierre's Onix.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Pierre's Onix_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Red's Pikachu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Red's Pikachu_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Rondoudou.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Rondoudou_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Spododo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Spododo_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Stari.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Stari_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Staross.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Staross_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Steelix.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Steelix_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Trousselin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Trousselin_.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/all_attaques.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_attaques.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/all_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dresseur.py" beforeDir="false" afterPath="$PROJECT_DIR$/dresseur.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon_attaque_pool.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon_attaque_pool.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/special_pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/special_pokemon_attaque_pool.txt" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemon_attaque_pool.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/special_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemons.txt" afterDir="false" />
     </list>
     <list id="6085e2ad-84dc-4101-8108-2a69c65d4003" name="Changes by matva" comment="Changes by matva" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -240,20 +286,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00040" summary="attaques.py">
-      <created>1697983711509</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1697983711509</updated>
-    </task>
-    <task id="LOCAL-00041" summary="continue train.py">
-      <created>1698337862672</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1698337862672</updated>
     </task>
     <task id="LOCAL-00042" summary="continue train.py">
       <created>1700862397321</created>
@@ -584,7 +616,21 @@
       <option name="project" value="LOCAL" />
       <updated>1710379574472</updated>
     </task>
-    <option name="localTasksCounter" value="89" />
+    <task id="LOCAL-00089" summary="add reset_attaque_fight()">
+      <created>1710523674253</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1710523674253</updated>
+    </task>
+    <task id="LOCAL-00090" summary="rewrite typing error">
+      <created>1710523859961</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1710523859961</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -600,8 +646,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="continue fight.py&#10;add item icons in sac action during fights" />
-    <MESSAGE value="game is playable !!!" />
     <MESSAGE value="sac_items during fight can move" />
     <MESSAGE value="items can be used during fights" />
     <MESSAGE value="added end turn fight button" />
@@ -625,6 +669,8 @@
     <MESSAGE value="debugging" />
     <MESSAGE value="rework train_panel way to choose training pk&#10;add rappel item&#10;add pokemon ko info display &#10;debug pk_move interactions" />
     <MESSAGE value="debug fight system&#10;rework get_rewards with item spawn quantite&#10;add some objet special effects&#10;add some attaque special effects&#10;add fight log info for new status effect&#10;add Blue's pokemons&#10;rework Alizee's pokemon list&#10;rework Vole-vie attaque&#10;add Teleport attaque" />
-    <option name="LAST_COMMIT_MESSAGE" value="debug fight system&#10;rework get_rewards with item spawn quantite&#10;add some objet special effects&#10;add some attaque special effects&#10;add fight log info for new status effect&#10;add Blue's pokemons&#10;rework Alizee's pokemon list&#10;rework Vole-vie attaque&#10;add Teleport attaque" />
+    <MESSAGE value="add reset_attaque_fight()" />
+    <MESSAGE value="rewrite typing error" />
+    <option name="LAST_COMMIT_MESSAGE" value="rewrite typing error" />
   </component>
 </project>
