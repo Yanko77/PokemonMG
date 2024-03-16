@@ -7,7 +7,10 @@ import player_name
 import pokemon
 import dresseur
 
-FPS = 60
+pygame.init()
+pygame.font.init()
+
+FPS = 144
 screen = pygame.display.set_mode((1280, 720))
 icon = pygame.image.load("assets/icon.png")
 pygame.display.set_caption("PMG || Pokemon Management Game")
@@ -19,15 +22,13 @@ game = Game()
 
 running = True
 posSouris = (0, 0)
+old_posSouris = (0, 0)
 
 # Boucle du jeu
 while running:
     posSouris = list(pygame.mouse.get_pos())
 
     game.update(screen, posSouris)
-
-    if game.bool_game_over:
-        game = Game()
 
     pygame.display.flip()  # Update de la fenetre
 
@@ -38,8 +39,7 @@ while running:
         if event.type == pygame.KEYDOWN:
             game.pressed[event.key] = True
 
-            if event.key == pygame.K_a:
-                game.bool_game_over= True
+            # Touche de test admin
 
             if game.player.name_editing_mode:
                 if event.key == pygame.K_RETURN:
@@ -63,28 +63,9 @@ while running:
             game.mouse_pressed[event.button] = False
             if event.button == 1:
                 if game.is_accueil:
-                    if game.accueil.basic_panel:
-                        if game.accueil.buttons.quit_rect.collidepoint(posSouris):
-                            running = False
+                    game.accueil.left_clic_interactions(posSouris)
 
-                        if game.accueil.buttons.start_game_rect.collidepoint(posSouris):
-                            game.accueil.start_game = True
-                            game.accueil.basic_panel = False
-                            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
-
-                    if game.accueil.start_game:
-                        if game.accueil.start_game_panel.x_button_rect.collidepoint(posSouris):
-                            game.accueil.start_game = False
-                            game.accueil.basic_panel = True
-
-                        if game.accueil.start_game_panel.new_game_button_rect.collidepoint(posSouris):
-                            game.accueil.start_game = False
-                            game.is_accueil = False
-                            game.create_new_game()
-                            game.reset_save_file()
-                            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
-
-                if game.is_playing:
+                elif game.is_playing:
                     if game.is_fighting:
                         game.current_fight.left_clic_interactions(posSouris)  # Interactions clic gauche dans fight.py
                     else:
