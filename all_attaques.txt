@@ -111,7 +111,7 @@ Piqure                          insect          20      60          100         
 Plaie_Croix                     insect          15      80          100         1           0           None
 Dard_Mortel                     insect          25      50          100         1           0           None
 Charge                          normal          35      40          100         1           0           None
-Coud'Krane                      normal          10      130         100         1           0           self.pv:-0.3*dmg
+Coud'Krane                      normal          10      130         100         1           0           self.pv:0.3*dmg
 Coupe                           normal          30      50          95          1           0           None
 Croc_Fatal                      normal          10      :s.pv*0.5   90          2           0           None
 Griffe                          normal          35      40          100         1           0           None

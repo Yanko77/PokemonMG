@@ -4,13 +4,14 @@ import random
 
 import dresseur
 import game_infos
+import objet
 import pokemon
 from dresseur import Alizee, Olea, Ondine, Pierre, Blue, Red, Iris, Sauvage
 from bot_fight_algo import get_npc_action
 import attaques
 
 # declaration des constante
-DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
+DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red]
 # DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
 
 
@@ -166,6 +167,10 @@ class Fight:
         self.boolEnding = False
         self.is_animating_end_panel = False
         self.compteur_end = 0
+
+        # Sauvegardes des hp des pokémons utilisés pour l'animation de dégats
+        self.saved_player_pk_pv = self.player_pk.health
+        self.saved_dresseur_pk_pv = self.dresseur.pk.health
 
     def update(self, surface, possouris):
 
@@ -353,6 +358,8 @@ class Fight:
         surface.blit(pygame.transform.scale(self.player_pk.icon_image, (700, 350)), (180, 270), (0, 0, 350, 350))
         # Barre d'info
         surface.blit(self.pk_info_bar, self.player_pk_info_bar_rect, (0, 0, 434, 144))
+        # Affichage de l'animation des dégats subis
+        self.animate_player_pk_damage(surface)
         # Barre de vie verte
         pygame.draw.rect(surface, (42, 214, 0),
                          pygame.Rect(31, 646, self.player_pk.health / self.player_pk.pv * 263, 24))
@@ -371,6 +378,8 @@ class Fight:
         surface.blit(pygame.transform.scale(self.dresseur.pk.icon_image, (600, 300)), (770, 80), (0, 0, 300, 300))
         # Barre d'info
         surface.blit(self.pk_info_bar, self.dresseur_pk_info_bar_rect, (434, 0, 369, 123))
+        # Affichage de l'animation des dégats subis
+        self.animate_dresseur_pk_damage(surface)
         # Barre de vie verte
         pygame.draw.rect(surface, (42, 214, 0),
                          pygame.Rect(899, 94, self.dresseur.pk.health / self.dresseur.pk.pv * 225, 21))
@@ -379,6 +388,30 @@ class Fight:
         # Level
         surface.blit(self.dresseur_pk_name_font.render(f"  Lv.{self.dresseur.pk.level}", False, (0, 0, 0)),
                      (905 + self.dresseur_pk_name.get_width(), 51))
+
+    def animate_player_pk_damage(self, surface):
+        if self.player_pk.health < self.saved_player_pk_pv:
+
+            # Barre de vie rouge
+            pygame.draw.rect(surface, (255, 0, 0),
+                            pygame.Rect(31, 646, self.saved_player_pk_pv / self.player_pk.pv * 263, 24))
+
+            self.saved_player_pk_pv -= self.player_pk.pv / 75
+
+        else:
+            self.saved_player_pk_pv = self.player_pk.health
+
+    def animate_dresseur_pk_damage(self, surface):
+        if self.dresseur.pk.health < self.saved_dresseur_pk_pv:
+
+            # Barre de vie rouge
+            pygame.draw.rect(surface, (255, 0, 0),
+                             pygame.Rect(899, 94, self.saved_dresseur_pk_pv / self.dresseur.pk.pv * 225, 21))
+
+            self.saved_dresseur_pk_pv -= self.dresseur.pk.pv / 75
+
+        else:
+            self.saved_dresseur_pk_pv = self.dresseur.pk.health
 
     def sac_item_update(self, surface, possouris, item, i):
         if self.item_moving_mode and self.item_moving_i == i:
@@ -788,10 +821,13 @@ class Fight:
         # level up du pokemon
         if self.difficult == 'easy':
             self.player_pk.level_up()
+            self.game.player.add_money(250)
         elif self.difficult == 'normal':
             self.player_pk.level_up(2)
+            self.game.player.add_money(500)
         elif self.difficult == 'hard':
             self.player_pk.level_up(3)
+            self.game.player.add_money(850)
 
         return rewards
 
@@ -802,8 +838,11 @@ class Fight:
             for reward in rewards:
                 self.game.player.add_sac_item(reward)
 
-        '''if self.fight_type == 'Boss':  # A inclure dans rewards
-            self.player_pk.full_heal()'''
+            # TEMPORAIRE
+            self.game.player.add_sac_item(objet.Objet('Potion'))
+
+        elif self.fight_type == 'Boss':   # Si c'est une défaite contre un boss
+            self.game.game_over()
 
         self.player_pk.heal(self.player_pk.passive_heal)  # Heal le pokémon du joueur selon son heal passif
 

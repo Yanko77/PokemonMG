@@ -138,7 +138,7 @@ class Red(Dresseur):
                          # 'Mackogneur'],
                          pk_lists=[["Pichu"],  # Level 1
                                    ["Red's Pikachu"],  # Level 2
-                                   ["Red's Pikachu", "Mentali"],  # Level 3
+                                   ["Red's Pikachu"],  # Level 3
                                    ["Red's Pikachu", "Lokhlass"],  # Level 4
                                    ["Red's Pikachu", "Lokhlass"],  # Level 5
                                    ["Tortank", "Florizarre", "Mackogneur"],  # Level 6
@@ -171,8 +171,8 @@ class Pierre(Dresseur):
     def __init__(self, game, pk=None):
         super().__init__('Pierre', game, power=3,
                          # pk_lists=['Onix', 'Racaillou', 'Kabutops', 'Tyranocif', 'Osselait']
-                         pk_lists=[["Racaillou"],  # Level 1
-                                   ["Racaillou", "Osselait"],  # Level 2
+                         pk_lists=[["Osselait"],  # Level 1
+                                   ["Osselait"],  # Level 2
                                    ["Pierre's Onix", "Osselait"],  # Level 3
                                    ["Pierre's Onix", "Kabutops"],  # Level 4
                                    ["Pierre's Onix", "Kabutops"],  # Level 5

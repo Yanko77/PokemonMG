@@ -427,9 +427,9 @@ class GamePanel:
                         self.change_pk_place(i, 4)
                     elif self.pk_rects[5].collidepoint(possouris):
                         self.change_pk_place(i, 5)
-                    elif self.ingame_window.current_panel_name == 'Evolutions' and self.ingame_window.evol_panel.evolving_pk_rect.collidepoint(possouris):
+                    elif self.ingame_window.current_panel_name == 'Evolutions' and self.ingame_window.is_open and self.ingame_window.evol_panel.evolving_pk_rect.collidepoint(possouris):
                         self.ingame_window.evol_panel.update_evolving_pk()
-                    elif self.ingame_window.current_panel_name == 'Train' and self.ingame_window.train_panel.training_pk_rect.collidepoint(possouris):
+                    elif self.ingame_window.current_panel_name == 'Train' and self.ingame_window.is_open and self.ingame_window.train_panel.training_pk_rect.collidepoint(possouris):
                         self.ingame_window.train_panel.update_training_pk()
                     elif self.boolFight_popup:
                         if self.fight_popup_drop_pk_rect.collidepoint(possouris):

@@ -7,7 +7,7 @@ import player_name
 import pokemon
 import dresseur
 
-FPS = 144
+FPS = 60
 screen = pygame.display.set_mode((1280, 720))
 icon = pygame.image.load("assets/icon.png")
 pygame.display.set_caption("PMG || Pokemon Management Game")
@@ -19,13 +19,15 @@ game = Game()
 
 running = True
 posSouris = (0, 0)
-old_posSouris = (0, 0)
 
 # Boucle du jeu
 while running:
     posSouris = list(pygame.mouse.get_pos())
 
     game.update(screen, posSouris)
+
+    if game.bool_game_over:
+        game = Game()
 
     pygame.display.flip()  # Update de la fenetre
 
@@ -36,15 +38,8 @@ while running:
         if event.type == pygame.KEYDOWN:
             game.pressed[event.key] = True
 
-            # Touche de test admin
             if event.key == pygame.K_a:
-                game.current_fight.player_pk.level_up(200)
-            elif event.key == pygame.K_z:
-                game.player.sac_page1[0] = objet.Objet(input())
-            elif event.key == pygame.K_o:
-                game.start_fight(pokemon.Pokemon('Poussifeu', 5, game), dresseur.Sauvage(game, pokemon.Pokemon('Rafflesia', 4, game)))
-            elif event.key == pygame.K_p:
-                print(posSouris)
+                game.bool_game_over= True
 
             if game.player.name_editing_mode:
                 if event.key == pygame.K_RETURN:
