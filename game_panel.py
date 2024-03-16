@@ -46,7 +46,7 @@ class GamePanel:
         #    # Player infos
         self.mode_changement_pseudo_image = pygame.image.load('assets/game/panels/classic_panel/mode_changement_pseudo.png')
         self.player_name_hover = pygame.image.load("assets/game/panels/classic_panel/player_name_hover.png")
-        self.curseur_changement_pseudo = image.CursorChangePseudoMode()
+        self.curseur_changement_pseudo = pygame.image.load("assets/game/panels/classic_panel/curseur_changement_pseudo.png")
         self.player_name_image = self.font.render(self.game.player.name, False, (15, 0, 124))
         self.player_name_indication = self.font_size2.render("(cliquer pour modifier)", False, (15, 0, 124))
         self.player_lv_image = self.font_size3.render(str(self.game.player.level), False, (124, 124, 124))

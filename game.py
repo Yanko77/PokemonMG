@@ -26,7 +26,7 @@ class Game:
 
         self.player = Player(self)
 
-        self.accueil = accueil.Accueil()
+        self.accueil = accueil.Accueil(self)
 
         self.next_pk_id = 1
 
@@ -60,7 +60,7 @@ class Game:
                 self.classic_panel.update(screen, possouris)
         else:
             if self.is_accueil:
-                self.accueil.update(screen)
+                self.accueil.update(screen, possouris)
             else:
                 self.is_playing = True
 
@@ -92,6 +92,11 @@ class Game:
         self.init_new_game()
         self.reset_save_file()
         print(self.starters)
+
+    def start_new_game(self):
+        self.is_accueil = False
+        self.create_new_game()
+
 
     '''def load_game(self):
         self.save_file'''
