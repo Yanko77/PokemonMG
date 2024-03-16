@@ -459,7 +459,7 @@ class TrainPanel:
         r = random.Random()
         r.seed(self.training_pk.random_seed + self.game.general_seed)
         
-        spawnable_pks = game_infos.get_all_diff_pokemons(self.training_pk.get_type(), diff)
+        spawnable_pks = game_infos.get_all_diff_pokemons(self.game, self.training_pk, diff)
         ennemy_pk_name = r.choice(spawnable_pks)
         
         return ennemy_pk_name

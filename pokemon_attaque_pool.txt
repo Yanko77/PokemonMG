@@ -104,13 +104,13 @@ Abra                    Teleport
 Kadabra                 Choc_Mental,Choc_Psy,Poursuite,Abri
 Alakazam                Frappe_Psy,Lame_Psychique,Psyko,Tranche-Nuit
 #
-Onix                    Pietisol,Morsure,Vif-Roc,Eboulement
+Onix                    Pietisol,Morsure,Vif_Roc,Eboulement
 Steelix                 Seisme,Abime,Rayon_Gemme,Queue_de_Fer
 #
 Osselait                Charge_Os,Vive-Attaque,Double_Pied
-Ossatueur               Seisme,Abime,Balayage,Vif-Roc
+Ossatueur               Seisme,Abime,Balayage,Vif_Roc
 #
-Kabuto                  Vif-Roc,Abri
+Kabuto                  Vif_Roc,Abri
 Kabutops                Lame_de_Roc,Telluriforce,Vibraqua,Detection
 #
 Stari                   Pistolet_a_0,Aqua-Jet,Choc_Mental
@@ -125,7 +125,7 @@ Akwakwak                Hydrocanon,Aqua-Jet,Psyko,Vive-Attaque
 Rondoudou               Charge,Voix_Enjoleuse
 Grodoudou               Coud'Krane,Soin_Floral,Abri
 #
-Spododo                 Vole_vie,Poudre_Dodo,Toxik
+Spododo                 Vole-vie,Poudre_Dodo,Toxik
 Lampignon               Giga-Sangsue,Poudre_Dodo,Toxik,Pouvoir_Lunaire
 #
 Mysdibule               Gyroballe,Metalaser,Queue_de_Fer,Soin_Floral

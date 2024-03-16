@@ -116,6 +116,16 @@ class Pokemon:
 
         return attaque_pool
 
+    def reset_attaque_fight(self):
+        for attaque in self.attaque_pool:
+            if attaque is not None:
+                print(1)
+                if attaque.bool_special_precision:
+                    print(2)
+                    if attaque.special_precision[0] == 'd':
+                        print(3)
+                        attaque.precision = int(attaque.special_precision[1].split("-")[0])
+
     def level_up(self, nb_lv=1):
         self.level += nb_lv
         diff = self.pv - self.health

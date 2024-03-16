@@ -26,20 +26,20 @@ class Player:
                      None,
                      None]
 
-        self.sac = [objet.Objet('Rappel', 1),
-                    objet.Objet('Bandeau_Muscle', 1),
-                    objet.Objet('Aimant', 1),
-                    objet.Objet('Cuillere_Tordue', 1),
-                    objet.Objet('Croc_Dragon', 1),
-                    objet.Objet('Baie_Oran', 1),
-                    objet.Objet('Baie_Sitrus', 1),
-                    objet.Objet('Potion', 1),
-                    objet.Objet('Super_Bonbon', 1),
-                    objet.Objet('Graine_Miracle', 1),
-                    objet.Objet('Charbon', 1),
-                    objet.Objet('Rune_Sort', 1),
-                    objet.Objet('Lunettes_Noires', 1),
-                    objet.Objet('Bec_Pointu', 1),
+        self.sac = [None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
                     None,
                     None,
                     None,
@@ -129,6 +129,9 @@ class Player:
 
     def level_up(self, nb_lv=1):
         self.level += nb_lv
+
+    def add_money(self, amount):
+        self.money += amount
 
     def rise_max_actions_value(self):
         self.max_actions += 1

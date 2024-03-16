@@ -124,7 +124,7 @@ class Pokemon:
             return self
         else:
             if self.level >= self.evolution_level:
-                return Pokemon(self.evolution_name, self.level, self.game, self.is_shiny)
+                return Pokemon(self.evolution_name, self.level, self.game, self.is_shiny, objet_tenu=self.objet_tenu)
             else:
                 return self
 
@@ -166,7 +166,7 @@ class Pokemon:
     def attaque(self, pokemon, attaque) -> list:
         """
         Attaque le pokémon renseigné en parametre avec l'attaque prise en entrée.
-        Renvoie un tuple contenant :
+        Renvoie une liste contenant :
             - True si l'attaque a abouti, False sinon
             - 'None' si l'attaque n'a pas appliqué d'effet à personne, (<nom_effet>, <self ou pokemon>) sinon
         """
@@ -199,6 +199,7 @@ class Pokemon:
 
                 if crit:
                     cm *= (2 * self.level + 5) / (self.level + 5)
+                    print(f'CRITIQUE DE {self.name}')
 
                 if self.objet_tenu is not None:
                     if self.objet_tenu.type is None or self.objet_tenu.type == attaque.type:
@@ -251,12 +252,18 @@ class Pokemon:
                     elif effet[0] == 'heal_on_atk':
                         coef = float(effet[1][:-4])
                         self.heal(round(degats*coef))
+                    elif effet[0] == 'self.pv':
+                        self.damage(round(degats*float(effet[1][:-4])))
 
             if pokemon.is_vulnerable:
                 if attaque.special_effect[0][0] == "status":
-                    pokemon.status[attaque.special_effect[0][1]] = True
-                    print(attaque.special_effect[0][1], 'appliqué sur', pokemon.name)
-                    return [True, (attaque.special_effect[0][1], pokemon)]
+                    r = random.randint(0, 99)
+                    if r < int(attaque.special_effect[0][2]):
+                        pokemon.status[attaque.special_effect[0][1]] = True
+                        print(attaque.special_effect[0][1], 'appliqué sur', pokemon.name)
+                        return [True, (attaque.special_effect[0][1], pokemon)]
+                    else:
+                        return [True, None]
                 else:
                     return [True, None]
             else:
