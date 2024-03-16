@@ -69,7 +69,6 @@ class IngameWindow:
                                            33)
 
         # Chargement des panels
-        self.buttons = image.IngameWindowButtons()
         self.sac_panel = sac.SacIngamePanel(self.game)
         self.starters_panel = starters.StartersPanel(self.game)
         self.spawn_panel = spawn.SpawnPanel(self.game)

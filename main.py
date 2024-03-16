@@ -78,12 +78,12 @@ while running:
 
                             else:
                                 if not game.classic_panel.pk_move_mode:
-                                    if game.classic_panel.ingame_window.buttons.x_button_rect.collidepoint(posSouris):
+                                    if game.classic_panel.ingame_window.x_button_rect.collidepoint(posSouris):
                                         if not game.classic_panel.ingame_window.current_panel_name == 'Starters':
                                             game.classic_panel.ingame_window.close()
                                         elif game.is_starter_selected:
                                             game.classic_panel.ingame_window.close()
-                                    elif game.classic_panel.ingame_window.buttons.min_button_rect.collidepoint(posSouris):
+                                    elif game.classic_panel.ingame_window.min_button_rect.collidepoint(posSouris):
                                         game.classic_panel.ingame_window.minimize()
                                     elif game.classic_panel.ingame_window.is_minimized:
                                         game.classic_panel.ingame_window.maximize()

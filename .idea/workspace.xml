@@ -4,249 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="Home screen graphic rework fix#43">
-      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/background.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/credits.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/credits_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/jouer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/jouer_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/load_game.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/load_game_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/new_game.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/new_game_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/parametres.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/parametres_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/quitter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/quitter_.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/accueil/intro/logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_03_2024_14_29__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_03_2024_14_29__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_03_2024_20_11__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_03_2024_20_11__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_03_2024_18_40__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_03_2024_18_40__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_03_2024_20_41__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_03_2024_20_41__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Credits/credits.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Credits/credits_hover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Quit/quit.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Quit/quit_hover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Settings/settings.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Settings/settings_hover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Start_game/start_game.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Start_game/start_game_hover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/21.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/23.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/24.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/21.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/23.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/24.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/100.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/101.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/102.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/103.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/104.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/105.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/106.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/107.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/108.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/109.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/110.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/111.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/112.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/113.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/114.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/115.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/116.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/117.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/118.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/119.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/120.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/121.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/122.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/123.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/124.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/125.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/126.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/127.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/128.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/129.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/130.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/131.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/132.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/133.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/134.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/135.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/136.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/137.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/138.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/139.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/140.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/141.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/142.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/143.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/144.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/145.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/146.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/147.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/21.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/23.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/24.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/25.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/26.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/27.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/28.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/29.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/30.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/31.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/33.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/34.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/35.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/36.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/37.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/38.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/39.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/40.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/41.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/42.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/43.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/44.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/45.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/46.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/47.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/49.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/50.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/51.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/52.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/53.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/54.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/55.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/56.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/57.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/58.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/59.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/60.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/61.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/62.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/63.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/64.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/65.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/66.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/67.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/68.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/69.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/70.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/71.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/72.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/73.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/74.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/75.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/76.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/77.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/78.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/79.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/80.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/81.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/82.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/83.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/84.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/85.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/86.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/87.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/88.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/89.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/90.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/91.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/92.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/93.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/94.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/95.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/96.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/97.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/98.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/99.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/panels/start_game/load_game_button.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/panels/start_game/load_game_button_hover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/panels/start_game/new_game_button.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/panels/start_game/new_game_button_hover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/panels/start_game/panel.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/panels/start_game/x_button.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/panels/start_game/x_button_hover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/pokemons/0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/pokemons/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/pokemons/2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/pokemons/3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/pokemons/4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/pokemons/5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/pokemons/6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/pokemons/7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/accueil/pokemons/8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add Home screen graphic rework files fix#43">
+      <change beforePath="$PROJECT_DIR$/animation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/image.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
-    <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
+    <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -477,13 +241,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00043" summary="continue train.py">
-      <created>1702300218808</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1702300218808</updated>
     </task>
     <task id="LOCAL-00044" summary="continue train.py">
       <created>1702473444933</created>
@@ -821,7 +578,14 @@
       <option name="project" value="LOCAL" />
       <updated>1710540340989</updated>
     </task>
-    <option name="localTasksCounter" value="92" />
+    <task id="LOCAL-00092" summary="add Home screen graphic rework files fix#43">
+      <created>1710629570120</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1710629570120</updated>
+    </task>
+    <option name="localTasksCounter" value="93" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -837,7 +601,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="items can be used during fights" />
     <MESSAGE value="added end turn fight button" />
     <MESSAGE value="add end fight panel files&#10;debug player name editing" />
     <MESSAGE value="try status effect in fight.py" />
@@ -862,6 +625,7 @@
     <MESSAGE value="add reset_attaque_fight()" />
     <MESSAGE value="rewrite typing error" />
     <MESSAGE value="rework ennemy pks spawning in train panel" />
-    <option name="LAST_COMMIT_MESSAGE" value="rework ennemy pks spawning in train panel" />
+    <MESSAGE value="add Home screen graphic rework files fix#43" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Home screen graphic rework files fix#43" />
   </component>
 </project>

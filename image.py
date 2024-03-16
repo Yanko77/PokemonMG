@@ -1,6 +1,6 @@
 import pygame
-import animation
 import random
+
 
 class ClassicGamePanelButtons:
 
@@ -117,41 +117,6 @@ class ClassicGamePanelButtons:
                 return True
         else:
             return False
-
-
-class IngameWindowButtons:
-
-    def __init__(self):
-        # Bouton CLOSE
-        self.x_button = load_image('assets/game/ingame_windows/basic/x_button.png')
-        self.x_button_rect = get_custom_rect(self.x_button, 854, 4)
-
-        self.x_button_hover = load_image('assets/game/ingame_windows/basic/x_button_hover.png')
-
-        # Bouton MINIMIZE
-        self.min_button = load_image('assets/game/ingame_windows/basic/min_button.png')
-        self.min_button_rect = get_custom_rect(self.min_button, 816, 4)
-
-        self.min_button_hover = load_image('assets/game/ingame_windows/basic/min_button_hover.png')
-
-    def update(self, surface, possouris):
-
-        if self.x_button_rect.collidepoint(possouris):
-            surface.blit(self.x_button_hover, self.x_button_rect)
-
-        else:
-            surface.blit(self.x_button, self.x_button_rect)
-
-        if self.min_button_rect.collidepoint(possouris):
-            surface.blit(self.min_button_hover, self.min_button_rect)
-
-        else:
-            surface.blit(self.min_button, self.min_button_rect)
-
-    def is_hovering_buttons(self, possouris):
-        if not self.x_button_rect.collidepoint(possouris) and not self.min_button_rect.collidepoint(possouris):
-            return False
-        return True
 
 
 def load_image(path, boolTransfromScale=False, size=None):
