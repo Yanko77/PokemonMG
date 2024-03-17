@@ -43,7 +43,7 @@ class TrainPanel:
 
         # Chargement des images
         self.background = self.img_load('background')  # Background
-        self.background_pos = (-13, -21)
+        self.background_pos = (-12, -21)
 
         self.training_pk_emp = self.img_load('emp_training_pk')  # Emplacement du pokemon à entrainer
         self.training_pk_emp_pos = (78, 96)
@@ -369,7 +369,7 @@ class TrainPanel:
     def update_all_rects(self, window_pos):
         self.window_pos = window_pos.copy()
 
-        self.background_pos = (-13 + self.window_pos[0], -21 + self.window_pos[1])
+        self.background_pos = (-12 + self.window_pos[0], -21 + self.window_pos[1])
         self.training_pk_emp_pos = (78 + self.window_pos[0], 96 + self.window_pos[1])
         self.locked_pos = (70 + self.window_pos[0], 80 + self.window_pos[1])
         self.diff_ind_pos = (80 + self.window_pos[0], 177 + self.window_pos[1])
@@ -482,7 +482,7 @@ class TrainPanel:
 
         # Calcul du niveau minimum
         min_lv = round(self.game.player.get_level() / 2
-                       + self.LV_DIFFICULT_COEFS[diff][0] * self.game.player.get_moyenne_team())
+                       + self.LV_DIFFICULT_COEFS[diff][0] * self.training_pk.get_level())
 
         # Calcul du niveau maximum
         max_lv = round(self.game.player.get_level() / 2

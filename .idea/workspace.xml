@@ -5,17 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="clean game restart system">
-      <change afterPath="$PROJECT_DIR$/save/player.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/save/team.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/PokemonManagementGame.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PokemonManagementGame.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Starters/background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Starters/button_aide.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Starters/button_aide_hover.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Starters/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Starters/pokeball1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Starters/pokeball2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Starters/pokeball3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Starters/pokeball_hover.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Train/background.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/ingame_windows/Train/background.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/save_file_template.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ingame_windows.py" beforeDir="false" afterPath="$PROJECT_DIR$/ingame_windows.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <list id="42c5e2b7-9d13-4366-8c66-8a63e8f9c30d" name="Changes by matva" comment="" />
-    <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
+    <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -107,7 +114,7 @@
       <recent name="C:\Users\yanko\PycharmProjects\PokemonManagementGame" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.main">
     <configuration name="attaques" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PokemonManagementGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -609,7 +616,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Add a few pokemons" />
     <MESSAGE value="Changes by matva on new pokemons" />
     <MESSAGE value="add end turn fight&#10;add special pokemons ( pokemons with edited stats )" />
     <MESSAGE value="add new dresseur : Alizee&#10;add Alizee pokemons and evolution family" />
@@ -634,6 +640,7 @@
     <MESSAGE value="rework starter choice system" />
     <MESSAGE value="rework starter choice system fix#64" />
     <MESSAGE value="clean game restart system" />
-    <option name="LAST_COMMIT_MESSAGE" value="clean game restart system" />
+    <MESSAGE value="begin addind save files" />
+    <option name="LAST_COMMIT_MESSAGE" value="begin addind save files" />
   </component>
 </project>

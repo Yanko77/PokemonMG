@@ -543,6 +543,7 @@ class Fight:
         """
 
         if self.compteur == 0:
+            self.current_action = None
             self.compteur = 310
             self.dresseur_pk_action = ('ATTAQUE', get_npc_action(self.dresseur.pk, self.player_pk, self.dresseur.pk.attaque_pool))
             self.current_turn_order = self.get_action_order(player_pk_action, self.dresseur_pk_action)

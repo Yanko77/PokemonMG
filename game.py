@@ -86,7 +86,6 @@ class Game:
 
     def create_new_game(self):
         self.init_new_game()
-        self.reset_save_file()
 
     def start_new_game(self):
         self.is_accueil = False

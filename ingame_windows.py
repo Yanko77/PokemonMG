@@ -175,6 +175,10 @@ class IngameWindow:
         self.min_button_rect.x, self.min_button_rect.y = self.basic_window_pos[0] + 816, self.basic_window_pos[1] + 4
 
     def update_panel(self, panel_name):
+        self.close()
+        self.open()
+        self.maximize()
+
         self.current_panel_name, self.current_panel = panel_name, self.all_panels[panel_name]
         self.title = self.title_font.render(self.current_panel_name, False, (0, 0, 0))
         self.icon = self.icon = pygame.image.load(f'assets/game/ingame_windows/{self.current_panel_name}/icon.png')
@@ -185,6 +189,12 @@ class IngameWindow:
     def close(self):
         self.is_open = False
         self.is_minimized = False
+
+        if self.current_panel_name == 'Train':
+            if self.current_panel.training_pk is not None:
+                if self.game.player.get_nb_team_members() < 6:
+                    self.game.player.add_team_pk(self.current_panel.training_pk)
+                    self.current_panel.training_pk = None
 
     def minimize(self):
         self.is_minimized = True
