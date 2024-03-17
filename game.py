@@ -96,15 +96,13 @@ class Game:
     def create_new_game(self):
         self.init_new_game()
         self.reset_save_file()
-        print(self.starters)
 
     def start_new_game(self):
         self.is_accueil = False
         self.create_new_game()
 
     def game_over(self):
-        del self
-
+        self.__init__()
 
     '''def load_game(self):
         self.save_file'''
@@ -205,9 +203,6 @@ class Game:
 
     def update_random_seed(self):
         self.general_seed = self.round.get_random_seed()
-
-    def __del__(self):
-        print('GAME OVER')
 
 
 if __name__ == '__main__':

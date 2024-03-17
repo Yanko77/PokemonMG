@@ -4,31 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add home screen back button">
-      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/aide_button.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/aide_popup.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/background.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/drop_pk_emp.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/maitre_dresseur.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/pk_emps.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/pokeball.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/skip_intro_button.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/text1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/text2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/text_box.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_03_2024_14_29_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_03_2024_14_29__Default_Changelist_.xml" beforeDir="false" />
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="rework starter choice system fix#64">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accueil.py" beforeDir="false" afterPath="$PROJECT_DIR$/accueil.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/pokemons_icons/Bulbizarre.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Bulbizarre.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/pokemons_icons/Bulbizarre_.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Bulbizarre_.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_panel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ingame_windows.py" beforeDir="false" afterPath="$PROJECT_DIR$/ingame_windows.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/starters.py" beforeDir="false" afterPath="$PROJECT_DIR$/starters.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
     </list>
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="" />
@@ -47,7 +27,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="mathias_5" />
+        <entry key="$PROJECT_DIR$" value="Yanko" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -262,13 +242,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00046" summary="continue train.py&#10;beginning fight.py, dresseur.py">
-      <created>1705694167777</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1705694167777</updated>
     </task>
     <task id="LOCAL-00047" summary="continue dresseur.py:&#10;- add init_inventory()">
       <created>1706895000843</created>
@@ -606,7 +579,14 @@
       <option name="project" value="LOCAL" />
       <updated>1710678623889</updated>
     </task>
-    <option name="localTasksCounter" value="95" />
+    <task id="LOCAL-00095" summary="rework starter choice system">
+      <created>1710693230877</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1710693230877</updated>
+    </task>
+    <option name="localTasksCounter" value="96" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -622,8 +602,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="try status effect in fight.py" />
-    <MESSAGE value="status effect in fight.py" />
     <MESSAGE value="rework fight items usable (fix #63)&#10;status effect logs infos in fight.py" />
     <MESSAGE value="Add a few pokemons" />
     <MESSAGE value="Changes by matva on new pokemons" />
@@ -647,6 +625,8 @@
     <MESSAGE value="add Home screen graphic rework files fix#43" />
     <MESSAGE value="delete useless code parts" />
     <MESSAGE value="add home screen back button" />
-    <option name="LAST_COMMIT_MESSAGE" value="add home screen back button" />
+    <MESSAGE value="rework starter choice system" />
+    <MESSAGE value="rework starter choice system fix#64" />
+    <option name="LAST_COMMIT_MESSAGE" value="rework starter choice system fix#64" />
   </component>
 </project>
