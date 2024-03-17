@@ -45,8 +45,6 @@ class Game:
         self.round = Round(self)
         self.notifs = Notif()
 
-        self.save_file = open('save.txt', 'r+')
-
         self.general_seed = self.round.get_random_seed()
         self.items_list = self.get_all_items_list()
 
@@ -86,13 +84,6 @@ class Game:
     def init_new_game(self):
         self.is_starter_selected = False
 
-    def reset_save_file(self):
-        template = open('save_file_template.txt', 'r')
-        template_lines = template.read()
-
-        self.save_file.truncate()
-        self.save_file.write(template_lines)
-
     def create_new_game(self):
         self.init_new_game()
         self.reset_save_file()
@@ -103,9 +94,6 @@ class Game:
 
     def game_over(self):
         self.__init__()
-
-    '''def load_game(self):
-        self.save_file'''
 
     def start_fight(self, player_pk, dresseur=None, difficult="easy", fight_type='Classic'):
         if fight_type == 'Classic':
@@ -203,6 +191,9 @@ class Game:
 
     def update_random_seed(self):
         self.general_seed = self.round.get_random_seed()
+
+    def save(self):
+        pass
 
 
 if __name__ == '__main__':
