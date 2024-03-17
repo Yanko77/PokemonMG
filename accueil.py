@@ -166,6 +166,8 @@ class Accueil:
             self.parametres = False
             self.credits = False
 
+        self.home_screen_compteur = 0
+
     def left_clic_interactions(self, possouris):
         if self.home_screen_compteur > 55:
             i = 0
@@ -176,9 +178,7 @@ class Accueil:
 
             if self.jouer or self.credits or self.parametres:
                 if self.back_button_rect.collidepoint(possouris):
-                    self.jouer = False
-                    self.parametres = False
-                    self.credits = False
+                    self.clic('back')
 
     def is_hovering_buttons(self, possouris):
         if self.home_screen_compteur > 55:

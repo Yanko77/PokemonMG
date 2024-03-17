@@ -2,6 +2,7 @@ import random
 
 import fight
 import objet
+import starters
 from player import Player
 from notif import Notif
 
@@ -38,6 +39,8 @@ class Game:
                          random.choice(self.all_starters['eau'])
                          ]
 
+        self.starter_panel = starters.StarterPanel(self)
+
         self.classic_panel = GamePanel(self)
         self.round = Round(self)
         self.notifs = Notif()
@@ -51,13 +54,18 @@ class Game:
 
         self.current_fight = None
 
+        self.bool_game_over = False
+
     def update(self, screen, possouris):
 
         if self.is_playing:
-            if self.is_fighting:
-                self.current_fight.update(screen, possouris)
+            if self.is_starter_selected:
+                if self.is_fighting:
+                    self.current_fight.update(screen, possouris)
+                else:
+                    self.classic_panel.update(screen, possouris)
             else:
-                self.classic_panel.update(screen, possouris)
+                self.starter_panel.update(screen, possouris)
         else:
             if self.is_accueil:
                 self.accueil.update(screen, possouris)
@@ -77,9 +85,6 @@ class Game:
 
     def init_new_game(self):
         self.is_starter_selected = False
-        self.classic_panel.ingame_window.update_panel('Starters')
-        self.classic_panel.ingame_window.minimize()
-        self.classic_panel.ingame_window.open()
 
     def reset_save_file(self):
         template = open('save_file_template.txt', 'r')
@@ -96,6 +101,9 @@ class Game:
     def start_new_game(self):
         self.is_accueil = False
         self.create_new_game()
+
+    def game_over(self):
+        del self
 
 
     '''def load_game(self):
@@ -197,6 +205,9 @@ class Game:
 
     def update_random_seed(self):
         self.general_seed = self.round.get_random_seed()
+
+    def __del__(self):
+        print('GAME OVER')
 
 
 if __name__ == '__main__':

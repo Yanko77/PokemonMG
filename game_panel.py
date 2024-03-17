@@ -10,6 +10,7 @@ import game_infos
 import ingame_windows
 from notif import Notif
 
+
 class GamePanel:
     """
     Classe qui représente le panel principal du jeu
@@ -280,7 +281,7 @@ class GamePanel:
             pk_rect = self.pk_rects[i].copy()
 
         if pk is not None:
-            if not self.ingame_window.starters_panel.pk_move_mode and not self.ingame_window.sac_panel.emp_move_mode and \
+            if not self.ingame_window.sac_panel.emp_move_mode and \
                     not self.ingame_window.spawn_panel.spawning_pk_move_mode and not self.ingame_window.moving:
                 self.update_pk_move(possouris, i)
 

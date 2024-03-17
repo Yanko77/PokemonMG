@@ -95,7 +95,6 @@ class Pokemon:
         if len(self.attaque_pool_line) <= 4:
             i = 0
             for attaque_name in self.attaque_pool_line:
-                print(attaque_name)
                 attaque_pool[i] = (attaques.Attaque(attaque_name))
                 i += 1
 
@@ -103,7 +102,6 @@ class Pokemon:
             attaque_name_list = random.sample(self.attaque_pool_line, 4)
             i = 0
             for attaque_name in attaque_name_list:
-                print(attaque_name)
                 attaque_pool[i] = (attaques.Attaque(attaque_name))
                 i += 1
 

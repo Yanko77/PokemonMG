@@ -40,6 +40,8 @@ while running:
             game.pressed[event.key] = True
 
             # Touche de test admin
+            if event.key == pygame.K_a:
+                game.game_over()
 
             if game.player.name_editing_mode:
                 if event.key == pygame.K_RETURN:
@@ -65,6 +67,9 @@ while running:
                 if game.is_accueil:
                     game.accueil.left_clic_interactions(posSouris)
 
+                elif not game.is_starter_selected:
+                    game.starter_panel.left_clic_interactions(posSouris)
+
                 elif game.is_playing:
                     if game.is_fighting:
                         game.current_fight.left_clic_interactions(posSouris)  # Interactions clic gauche dans fight.py
@@ -79,10 +84,7 @@ while running:
                             else:
                                 if not game.classic_panel.pk_move_mode:
                                     if game.classic_panel.ingame_window.x_button_rect.collidepoint(posSouris):
-                                        if not game.classic_panel.ingame_window.current_panel_name == 'Starters':
-                                            game.classic_panel.ingame_window.close()
-                                        elif game.is_starter_selected:
-                                            game.classic_panel.ingame_window.close()
+                                        game.classic_panel.ingame_window.close()
                                     elif game.classic_panel.ingame_window.min_button_rect.collidepoint(posSouris):
                                         game.classic_panel.ingame_window.minimize()
                                     elif game.classic_panel.ingame_window.is_minimized:

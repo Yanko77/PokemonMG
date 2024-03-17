@@ -70,7 +70,6 @@ class IngameWindow:
 
         # Chargement des panels
         self.sac_panel = sac.SacIngamePanel(self.game)
-        self.starters_panel = starters.StartersPanel(self.game)
         self.spawn_panel = spawn.SpawnPanel(self.game)
         self.train_panel = train.TrainPanel(self.game)
         self.items_panel = items.ItemsPanel(self.game)
@@ -78,7 +77,6 @@ class IngameWindow:
 
         self.all_panels = {
             "Sac d'objets": self.sac_panel,
-            "Starters": self.starters_panel,
             "Spawn": self.spawn_panel,
             "Train": self.train_panel,
             "Items": self.items_panel,
@@ -232,9 +230,7 @@ class IngameWindow:
                     self.minimize()
 
                 else:
-                    if self.current_panel_name == "Starters":
-                        self.starters_panel.left_clic_interactions(possouris)
-                    elif self.current_panel_name == "Spawn":
+                    if self.current_panel_name == "Spawn":
                         self.spawn_panel.left_clic_interactions(possouris)
                     elif self.current_panel_name == "Train":
                         self.train_panel.left_clic_interactions(possouris)

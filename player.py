@@ -117,6 +117,18 @@ class Player:
         else:
             self.sac[item_place].quantite += item.quantite
 
+    def add_team_pk(self, pk, i=0):
+        if self.get_nb_team_members() < 6:
+            if self.team[i] is None:
+                self.team[i] = pk
+            else:
+                i = 0
+                place_found = False
+                while not place_found:
+                    if self.team[i] is None:
+                        self.team[i] = pk
+                        place_found = True
+
     def use_action(self, amount=1):
         self.actions -= amount
 

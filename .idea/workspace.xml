@@ -4,10 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add Home screen graphic rework files fix#43">
-      <change beforePath="$PROJECT_DIR$/animation.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/image.py" afterDir="false" />
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add home screen back button">
+      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/aide_button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/aide_popup.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/drop_pk_emp.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/maitre_dresseur.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/pk_emps.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/pokeball.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/skip_intro_button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/text1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/text2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/panels/starter_panel/text_box.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_03_2024_14_29_[Default_Changelist]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_03_2024_14_29__Default_Changelist_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accueil.py" beforeDir="false" afterPath="$PROJECT_DIR$/accueil.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/pokemons_icons/Bulbizarre.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Bulbizarre.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/pokemons_icons/Bulbizarre_.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Bulbizarre_.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_panel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ingame_windows.py" beforeDir="false" afterPath="$PROJECT_DIR$/ingame_windows.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/starters.py" beforeDir="false" afterPath="$PROJECT_DIR$/starters.py" afterDir="false" />
     </list>
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="" />
@@ -117,27 +138,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="bot_fight_algo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PokemonManagementGame" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bot_fight_algo.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="fight" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PokemonManagementGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -223,13 +223,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="starters" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PokemonManagementGame" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/starters.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.starters" />
         <item itemvalue="Python.game_infos" />
         <item itemvalue="Python.attaques" />
         <item itemvalue="Python.special_pokemon" />
         <item itemvalue="Python.fight" />
-        <item itemvalue="Python.bot_fight_algo" />
       </list>
     </recent_temporary>
   </component>
@@ -241,20 +262,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00044" summary="continue train.py">
-      <created>1702473444933</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1702473444933</updated>
-    </task>
-    <task id="LOCAL-00045" summary="continue train.py&#10;beginning fight.py, dresseur.py">
-      <created>1705179759828</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1705179759828</updated>
     </task>
     <task id="LOCAL-00046" summary="continue train.py&#10;beginning fight.py, dresseur.py">
       <created>1705694167777</created>
@@ -585,7 +592,21 @@
       <option name="project" value="LOCAL" />
       <updated>1710629570120</updated>
     </task>
-    <option name="localTasksCounter" value="93" />
+    <task id="LOCAL-00093" summary="delete useless code parts">
+      <created>1710629885984</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1710629885984</updated>
+    </task>
+    <task id="LOCAL-00094" summary="add home screen back button">
+      <created>1710678623889</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1710678623889</updated>
+    </task>
+    <option name="localTasksCounter" value="95" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -601,8 +622,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="added end turn fight button" />
-    <MESSAGE value="add end fight panel files&#10;debug player name editing" />
     <MESSAGE value="try status effect in fight.py" />
     <MESSAGE value="status effect in fight.py" />
     <MESSAGE value="rework fight items usable (fix #63)&#10;status effect logs infos in fight.py" />
@@ -626,6 +645,8 @@
     <MESSAGE value="rewrite typing error" />
     <MESSAGE value="rework ennemy pks spawning in train panel" />
     <MESSAGE value="add Home screen graphic rework files fix#43" />
-    <option name="LAST_COMMIT_MESSAGE" value="add Home screen graphic rework files fix#43" />
+    <MESSAGE value="delete useless code parts" />
+    <MESSAGE value="add home screen back button" />
+    <option name="LAST_COMMIT_MESSAGE" value="add home screen back button" />
   </component>
 </project>
