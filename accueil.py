@@ -40,6 +40,9 @@ class Accueil:
         self.load_game_button = self.img_load('home_screen/buttons/load_game')
         self.load_game_button_h = self.img_load('home_screen/buttons/load_game_')
 
+        self.back_button = self.img_load('home_screen/buttons/back')
+        self.back_button_rect = pygame.Rect(810, 229, 59, 59)
+
         self.buttons_rect = [
             pygame.Rect(472, 293, 340, 56),
             pygame.Rect(472, 379, 340, 56),
@@ -79,9 +82,12 @@ class Accueil:
 
             surface.blit(self.logo, (0, y))
 
-        self.intro_compteur += 1
+        self.intro_compteur += 2
 
     def update_home_screen(self, surface, possouris):
+        """
+        Methode d'actualisation de l'écran d'accueil
+        """
         surface.fill((0, 0, 0))
 
         if self.home_screen_fade:
@@ -129,10 +135,19 @@ class Accueil:
 
             i += 1
 
+        if self.jouer or self.parametres or self.credits:
+            if self.back_button_rect.collidepoint(possouris):
+                surface.blit(self.back_button, self.back_button_rect, (59, 0, 59, 59))
+            else:
+                surface.blit(self.back_button, self.back_button_rect, (0, 0, 59, 59))
+
         if self.home_screen_compteur < 55:
             self.home_screen_compteur += 1.5
 
     def clic(self, button_name: str):
+        """
+        Méthode d'éxécution de l'action de clic du joueur
+        """
         if button_name == 'jouer':
             self.jouer = True
         elif button_name == 'parametres':
@@ -159,6 +174,12 @@ class Accueil:
                     self.clic(button[2])
                 i += 1
 
+            if self.jouer or self.credits or self.parametres:
+                if self.back_button_rect.collidepoint(possouris):
+                    self.jouer = False
+                    self.parametres = False
+                    self.credits = False
+
     def is_hovering_buttons(self, possouris):
         if self.home_screen_compteur > 55:
             i = 0
@@ -167,6 +188,10 @@ class Accueil:
                     if rect.collidepoint(possouris):
                         return True
                 i += 1
+
+            if self.jouer or self.parametres or self.credits:
+                if self.back_button_rect.collidepoint(possouris):
+                    return True
 
             return False
         return False
