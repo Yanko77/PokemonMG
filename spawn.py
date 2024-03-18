@@ -121,7 +121,7 @@ class SpawnPanel:
                 surface.blit(self.catch_confirm_hover, self.catch_confirm_rect)
             else:
                 if not self.spawning_pk_move_mode:
-                    if self.game.player.actions > 0 and self.spawning_pk is not None:
+                    if self.spawning_pk is not None:
                         if self.is_spawning_pk_lock:
                             surface.blit(self.catch_button_hover, self.catch_button_rect)
                             surface.blit(self.catch_popup, (507 + window_pos[0], 219 + window_pos[1]))
