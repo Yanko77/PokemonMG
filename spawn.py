@@ -264,6 +264,11 @@ class SpawnPanel:
                         self.catch_pk()
                         self.boolcatch_confirm = False
 
+    def right_clic_interactions(self, posssouris):
+        if self.spawning_pk_rect.collidepoint(posssouris):
+            self.game.classic_panel.pokemon_info_mode = True
+            self.game.classic_panel.pokemon_info = self.spawning_pk
+
     def is_hovering_buttons(self, possouris):
         if self.button_aide_rect.collidepoint(possouris):
             return True
@@ -318,5 +323,8 @@ class SpawnPanel:
     def reset(self):
         self.spawning_pk = None
         self.is_spawning_pk_lock = True
+
+    def close(self):
+        pass
 
 

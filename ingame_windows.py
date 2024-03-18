@@ -190,11 +190,8 @@ class IngameWindow:
         self.is_open = False
         self.is_minimized = False
 
-        if self.current_panel_name == 'Train':
-            if self.current_panel.training_pk is not None:
-                if self.game.player.get_nb_team_members() < 6:
-                    self.game.player.add_team_pk(self.current_panel.training_pk)
-                    self.current_panel.training_pk = None
+        if self.current_panel is not None:
+            self.current_panel.close()
 
     def minimize(self):
         self.is_minimized = True
@@ -240,18 +237,10 @@ class IngameWindow:
                     self.minimize()
 
                 else:
-                    if self.current_panel_name == "Spawn":
-                        self.spawn_panel.left_clic_interactions(possouris)
-                    elif self.current_panel_name == "Train":
-                        self.train_panel.left_clic_interactions(possouris)
-                    elif self.current_panel_name == "Grind":
-                        pass
-                    elif self.current_panel_name == "Items":
-                        self.items_panel.left_clic_interactions(possouris)
-                    elif self.current_panel_name == "Evolutions":
-                        self.evol_panel.left_clic_interactions(possouris)
-                    elif self.current_panel_name == "Sac d'objets":
-                        self.sac_panel.left_clic_interactions(possouris)
+                    self.current_panel.left_clic_interactions(possouris)
+
+    def right_clic_interactions(self, possouris):
+        self.current_panel.right_clic_interactions(possouris)
 
     def img_load(self, file_name):
         return pygame.image.load(f'assets/game/ingame_windows/basic/{file_name}.png')

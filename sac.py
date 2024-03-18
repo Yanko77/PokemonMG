@@ -222,6 +222,9 @@ class SacIngamePanel:
         elif self.page2_rect.collidepoint(possouris):
             self.change_page(2)
 
+    def right_clic_interactions(self, posssouris):
+        pass
+
     def is_hovering_buttons(self, possouris):
         return (self.all_emp_rect[1].collidepoint(possouris) or self.all_emp_rect[2].collidepoint(possouris) or
                 self.all_emp_rect[3].collidepoint(possouris) or self.all_emp_rect[4].collidepoint(possouris) or

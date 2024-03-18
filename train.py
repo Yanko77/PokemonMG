@@ -528,6 +528,12 @@ class TrainPanel:
 
         self.boolSettings_popup = False
         self.boolAdd_training_pk_popup = False
+
+    def close(self):
+        if self.training_pk is not None:
+            if self.game.player.get_nb_team_members() < 6:
+                self.game.player.add_team_pk(self.training_pk)
+                self.training_pk = None
         
     def left_clic_interactions(self, possouris):
 
@@ -555,6 +561,11 @@ class TrainPanel:
                 if self.training_pk.is_alive and self.ennemy_pk.is_alive and self.game.player.actions > 0:
                     self.start_fight()
                     pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+    def right_clic_interactions(self, posssouris):
+        if self.training_pk_rect.collidepoint(posssouris):
+            self.game.classic_panel.pokemon_info_mode = True
+            self.game.classic_panel.pokemon_info = self.training_pk
 
     def is_hovering_settings_popup_buttons(self, possouris):
         if self.boolSettings_popup:
