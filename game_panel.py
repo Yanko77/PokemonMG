@@ -47,7 +47,6 @@ class GamePanel:
         #    # Player infos
         self.mode_changement_pseudo_image = pygame.image.load('assets/game/panels/classic_panel/mode_changement_pseudo.png')
         self.player_name_hover = pygame.image.load("assets/game/panels/classic_panel/player_name_hover.png")
-        self.curseur_changement_pseudo = pygame.image.load("assets/game/panels/classic_panel/curseur_changement_pseudo.png")
         self.player_name_image = self.font.render(self.game.player.name, False, (15, 0, 124))
         self.player_name_indication = self.font_size2.render("(cliquer pour modifier)", False, (15, 0, 124))
         self.player_lv_image = self.font_size3.render(str(self.game.player.level), False, (124, 124, 124))
@@ -98,6 +97,8 @@ class GamePanel:
         self.logo_enable_item_rect = pygame.Rect(1085, 46, 150, 150)
 
         # SET VARIABLES --------------------------------------------
+        #   # Player name
+        self.player_name_editing_mode = False
         #   # Pokemon infos
         self.pokemon_info_mode = False
         self.pokemon_info_i = 0
@@ -173,6 +174,8 @@ class GamePanel:
         if self.pk_move_mode:
             self.update_team_pokemons(surface, possouris)
 
+        self.update_player_name_editing_mode(surface)
+
     def update_fight_popup(self, surface, possouris):
         surface.blit(self.fight_popup, (0, 0))
 
@@ -208,27 +211,18 @@ class GamePanel:
         # PLAYER ACTIONS_LEFT
         surface.blit(self.actions_font.render(str(self.game.player.actions), False, (0, 0, 0)), (385, 12))
 
+    def update_player_name(self, surface, possouris):
+        surface.blit(self.font.render(self.game.player.name, False, (15, 0, 124)), (662, 10))
+
+        if self.game.player.name == "Nom":
+            surface.blit(self.player_name_indication, (760, 30))
+
     def update_player_lv(self, surface):
         self.player_lv_image = self.font_size3.render(str(self.game.player.level), False, (124, 124, 124))
         if self.game.player.level >= 10:
             surface.blit(self.player_lv_image, (955, 73))
         else:
             surface.blit(self.player_lv_image, (965, 73))
-
-    def update_player_name(self, surface, possouris):
-        surface.blit(self.font.render(self.game.player.name, False, (15, 0, 124)), (662, 10))
-        if self.game.player.name_editing_mode:
-            self.curseur_changement_pseudo.update(surface, player_name.get_pixels(self.game.player.name))
-        if not self.game.player.name_edited:
-            surface.blit(self.player_name_indication, (760, 30))
-
-        if self.player_name_rect.collidepoint(possouris):
-            if not self.ingame_window.is_hovering(possouris):
-                if self.pokemon_info_mode:
-                    if not self.pokemon_info_popup_rect.collidepoint(possouris):
-                        surface.blit(self.player_name_hover, (0, 0))
-                else:
-                    surface.blit(self.player_name_hover, (0, 0))
 
     def update_hover_pokemon(self):
         is_a_pk_hover = False
@@ -240,7 +234,7 @@ class GamePanel:
             self.current_hover_pokemon = None
 
     def update_player_name_editing_mode(self, surface):
-        if self.game.player.name_editing_mode:
+        if self.player_name_editing_mode:
             surface.blit(self.mode_changement_pseudo_image, (0, 0))
 
     def update_team_pokemons(self, surface, possouris):
@@ -405,11 +399,12 @@ class GamePanel:
     def update_pk_move(self, possouris, i):
 
         if not self.pk_move_mode:
-            if self.game.mouse_pressed[1] and self.pk_rects[i].collidepoint(possouris) and not self.ingame_window.is_hovering(possouris):
-                self.pk_move_mode = True
-                self.moving_pk[i] = True
-                self.moving_pk_rel_possouris = (possouris[0] - self.pk_rects[i].x,
-                                                possouris[1] - self.pk_rects[i].y)
+            if not self.player_name_editing_mode and not self.ingame_window.is_hovering(possouris):
+                if self.game.mouse_pressed[1] and self.pk_rects[i].collidepoint(possouris):
+                    self.pk_move_mode = True
+                    self.moving_pk[i] = True
+                    self.moving_pk_rel_possouris = (possouris[0] - self.pk_rects[i].x,
+                                                    possouris[1] - self.pk_rects[i].y)
         else:
             if self.moving_pk[i]:
                 if not self.game.mouse_pressed[1]:
@@ -512,14 +507,10 @@ class GamePanel:
     # INTERACTIONS -----------------------------
 
     def left_clic_interactions(self, possouris):
-        if not self.pk_move_mode:
+        if not self.pk_move_mode and not self.player_name_editing_mode:
             if self.player_name_rect.collidepoint(possouris):
-                if self.pokemon_info_mode:
-                    if not self.pokemon_info_popup_rect.collidepoint(possouris):
-                        self.game.player.enable_name_editing_mode()
-                        self.pokemon_info_mode = False
-                else:
-                    self.game.player.enable_name_editing_mode()
+                self.player_name_editing_mode = True
+                self.pokemon_info_mode = False
 
                 if self.ingame_window.is_open:
                     self.ingame_window.close()

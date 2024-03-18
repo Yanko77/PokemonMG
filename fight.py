@@ -842,14 +842,18 @@ class Fight:
             # TEMPORAIRE
             self.game.player.add_sac_item(objet.Objet('Potion'))
 
+            self.player_pk.heal(self.player_pk.passive_heal)  # Heal le pokémon du joueur selon son heal passif
+
+            self.dresseur.pk.full_heal()  # Remettre full vie le pokémon du dresseur
+
+            self.game.end_fight()
+
         elif self.fight_type == 'Boss':   # Si c'est une défaite contre un boss
             self.game.game_over()
 
-        self.player_pk.heal(self.player_pk.passive_heal)  # Heal le pokémon du joueur selon son heal passif
+        else:  # Si c'est une défaite contre un pokémon sauvage
+            self.game.end_fight()
 
-        self.dresseur.pk.full_heal()  # Remettre full vie le pokémon du dresseur
-
-        self.game.end_fight()
 
     def apply_status_effects(self, pk):
         print('Application des effets du pokemon :', pk.name)
@@ -961,6 +965,7 @@ class Fight:
                     if self.fuite_button_rect.collidepoint(possouris):
                         self.dresseur.pk.full_heal()
                         self.dresseur.pk.reset_status()
+                        self.player_pk.reset_status()
                         # reset les altérations de stats des attaques
                         self.player_pk.reset_attaque_fight()
                         self.dresseur.pk.reset_attaque_fight()

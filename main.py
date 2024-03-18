@@ -45,22 +45,7 @@ def main():
 
                 # Touche de test admin
                 if event.key == pygame.K_a:
-                    game.game_over()
-
-                if game.player.name_editing_mode:
-                    if event.key == pygame.K_RETURN:
-                        if game.player.name == '':
-                            game.player.reset_name()
-                        game.player.name_editing_mode = False
-
-                    else:
-                        if event.key == pygame.K_BACKSPACE:
-                            game.player.edit_name('suppr')
-                        elif event.key in player_name.pygame_alphabet:
-                            if game.pressed[pygame.K_LSHIFT]:
-                                game.player.edit_name('add', player_name.pygame_alphabet[event.key].upper())
-                            else:
-                                game.player.edit_name('add', player_name.pygame_alphabet[event.key].lower())
+                    game.player.add_team_pk(pokemon.Pokemon("Evoli", 15, game))
 
             if event.type == pygame.KEYUP:
                 game.pressed[event.key] = False
@@ -78,28 +63,11 @@ def main():
                         if game.is_fighting:
                             game.current_fight.left_clic_interactions(posSouris)  # Interactions clic gauche dans fight.py
                         else:
-                            if game.player.name_editing_mode:
-                                if not game.classic_panel.ingame_window.is_hovering(posSouris):
-                                    if not game.classic_panel.player_name_rect.collidepoint(posSouris):
-                                        if game.player.name == '':
-                                            game.player.reset_name()
-                                        game.player.name_editing_mode = False
-
-                                else:
-                                    if not game.classic_panel.pk_move_mode:
-                                        if game.classic_panel.ingame_window.x_button_rect.collidepoint(posSouris):
-                                            game.classic_panel.ingame_window.close()
-                                        elif game.classic_panel.ingame_window.min_button_rect.collidepoint(posSouris):
-                                            game.classic_panel.ingame_window.minimize()
-                                        elif game.classic_panel.ingame_window.is_minimized:
-                                            game.classic_panel.ingame_window.maximize()
-
-                            else:
-                                if game.classic_panel.ingame_window.is_hovering(posSouris):
+                            if game.classic_panel.ingame_window.is_hovering(posSouris):
+                                if not game.classic_panel.pk_move_mode:
                                     game.classic_panel.ingame_window.left_clic_interactions(posSouris)
-
-                                else:
-                                    game.classic_panel.left_clic_interactions(posSouris)
+                            else:
+                                game.classic_panel.left_clic_interactions(posSouris)
 
                 if event.button == 3:
                     if game.is_playing:

@@ -486,7 +486,7 @@ class TrainPanel:
 
         # Calcul du niveau maximum
         max_lv = round(self.game.player.get_level() / 2
-                       + self.LV_DIFFICULT_COEFS[diff][1] * self.game.player.get_moyenne_team())
+                       + self.LV_DIFFICULT_COEFS[diff][1] * self.training_pk.get_level())
 
         ennemy_pk_lv = r.randint(min_lv, max_lv)
         return ennemy_pk_lv

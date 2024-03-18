@@ -4,20 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="clean game restart system">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="delete useless files&#10;new train panel background">
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Mentali.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Mentali_.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Starters/background.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Starters/button_aide.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Starters/button_aide_hover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Starters/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Starters/pokeball1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Starters/pokeball2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Starters/pokeball3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Starters/pokeball_hover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Train/background.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/ingame_windows/Train/background.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/all_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/curseur_changement_pseudo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/mode_changement_pseudo.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/panels/classic_panel/mode_changement_pseudo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dresseur.py" beforeDir="false" afterPath="$PROJECT_DIR$/dresseur.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ingame_windows.py" beforeDir="false" afterPath="$PROJECT_DIR$/ingame_windows.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_panel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon_attaque_pool.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon_attaque_pool.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <list id="42c5e2b7-9d13-4366-8c66-8a63e8f9c30d" name="Changes by matva" comment="" />
@@ -253,13 +253,6 @@
       <updated>1686659868714</updated>
       <workItem from="1710697695635" duration="70000" />
       <workItem from="1710698071806" duration="25000" />
-    </task>
-    <task id="LOCAL-00048" summary="continue dresseur.py:&#10;- added a few new dresseurs&#10;&#10;continue bot_algo...">
-      <created>1707081958035</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1707081958035</updated>
     </task>
     <task id="LOCAL-00049" summary="Changes by matva">
       <created>1707081960981</created>
@@ -597,7 +590,14 @@
       <option name="project" value="LOCAL" />
       <updated>1710696128648</updated>
     </task>
-    <option name="localTasksCounter" value="97" />
+    <task id="LOCAL-00097" summary="delete useless files&#10;new train panel background">
+      <created>1710705126148</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1710705126148</updated>
+    </task>
+    <option name="localTasksCounter" value="98" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -616,7 +616,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Changes by matva on new pokemons" />
     <MESSAGE value="add end turn fight&#10;add special pokemons ( pokemons with edited stats )" />
     <MESSAGE value="add new dresseur : Alizee&#10;add Alizee pokemons and evolution family" />
     <MESSAGE value="end turn fight 100% working&#10;add next turn system&#10;replace game random seed system&#10;replace game round system" />
@@ -641,6 +640,7 @@
     <MESSAGE value="rework starter choice system fix#64" />
     <MESSAGE value="clean game restart system" />
     <MESSAGE value="begin addind save files" />
-    <option name="LAST_COMMIT_MESSAGE" value="begin addind save files" />
+    <MESSAGE value="delete useless files&#10;new train panel background" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete useless files&#10;new train panel background" />
   </component>
 </project>

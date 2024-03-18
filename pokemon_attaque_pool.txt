@@ -1,6 +1,7 @@
 # Tier de pool:         1                                                                   2
 #
 Evoli                   Charge,Vive-Attaque,Queue_de_Fer,Effort,Balayage                    -
+Mentali                 Psyko,Choc_Mental,Tranche,Vent_Glace
 #
 Bulbizarre              Charge,Vive-Attaque,Feuillage,Abri                                  -
 Herbizarre              Mega-Sangsue,Poudre_Dodo,Vive-Attaque,Abri
@@ -10,7 +11,7 @@ Salameche               Charge,Vive-Attaque,Flameche,Abri
 Reptincel               Crocs_Feu,Vive-Attaque,Nitrocharge,Poursuite
 Dracaufeu               Rafale_Feu,Flamme_Bleue,Aeroblast,Draco-Souffle
 #
-Carapuce                Charge,Vive-Attaque,Pistolet_a_0,Abri
+Carapuce                Charge,Aqua-Jet,Vibraqua,Abri
 Carabaffe               Aqua-Jet,Saumure,Tete_de_Fer,Balayage
 Tortank                 Hydro-Queue,Aqua-Jet,Draco-Choc,Tete_de_Fer
 #
@@ -22,7 +23,7 @@ Poussifeu               Charge,Vive-Attaque,Flameche,Abri
 Galifeu                 Nitrocharge,Feu_Follet,Vive-Attaque,Balayage
 Brasegali               Feu_Sacre,Lance-Flammes,Close_Combat
 #
-Gobou                   Charge,Vive-Attaque,Ecume,Abri
+Gobou                   Charge,Aqua-Jet,Vibraqua,Abri
 Flobio                  Vibraqua,Aqua-Jet,Charge,Abri
 Laggron                 Hydro-Queue,Vibraqua,Anneau_Hydro,Abri
 #
