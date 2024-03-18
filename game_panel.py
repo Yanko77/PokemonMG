@@ -622,8 +622,7 @@ class GamePanel:
     def is_hovering_pokemon_info_popup_buttons(self, possouris):
         if pygame.Rect(1210, 9, 59, 59).collidepoint(possouris):
             return True
-        elif pygame.Rect(1166, 141, 74, 74).collidepoint(possouris) and self.game.player.team[
-            self.pokemon_info_i] is not None and self.game.player.team[self.pokemon_info_i].objet_tenu is not None:
+        elif pygame.Rect(1166, 141, 74, 74).collidepoint(possouris) and self.pokemon_info is not None and self.pokemon_info.objet_tenu is not None:
             return True
 
         return False

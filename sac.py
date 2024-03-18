@@ -216,6 +216,9 @@ class SacIngamePanel:
     def reset(self):
         pass
 
+    def close(self):
+        pass
+
     def left_clic_interactions(self, possouris):
         if self.page1_rect.collidepoint(possouris):
             self.change_page(1)
