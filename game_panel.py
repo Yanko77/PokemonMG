@@ -399,7 +399,7 @@ class GamePanel:
     def update_pk_move(self, possouris, i):
 
         if not self.pk_move_mode:
-            if not self.player_name_editing_mode and not self.ingame_window.is_hovering(possouris):
+            if not self.player_name_editing_mode and not self.ingame_window.is_hovering(possouris) and not self.ingame_window.train_panel.pk_move_mode:
                 if self.game.mouse_pressed[1] and self.pk_rects[i].collidepoint(possouris):
                     self.pk_move_mode = True
                     self.moving_pk[i] = True

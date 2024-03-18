@@ -422,6 +422,7 @@ def get_all_diff_pokemons(game, attacking_pokemon, level: int, difficulty='easy'
 
     for pokemon_infos in game.pokemons_list.values():
         if pokemon_infos[9] <= game.player.get_level() and pokemon_infos[11] < level < pokemon_infos[12]:
+        # if pokemon_infos[9] <= game.player.get_level():
             if pokemon_infos[2] in types_list:
                 if pokemon_infos[10] in type_list2:
                     pokemons_list.append(pokemon_infos[0])
@@ -430,12 +431,13 @@ def get_all_diff_pokemons(game, attacking_pokemon, level: int, difficulty='easy'
                     pokemons_list.append(pokemon_infos[0])
 
     if pokemons_list == []:
-        assert difficulty != 'easy', "Pas de pokémon facile pour le training pk choisi"
 
         if difficulty == 'hard':
             diff = 'normal'
         elif difficulty == 'normal':
             diff = 'easy'
+        elif difficulty == 'easy':
+            diff = 'normal'
 
         pokemons_list = get_all_diff_pokemons(game, attacking_pokemon, level, diff)
 
@@ -466,11 +468,11 @@ def get_type_color(type):
 
 if __name__ == '__main__':
     # Facile
-    '''print(get_diff_types('normal', 'vol', (16, 8, 4, 2)))
-    print(get_diff_types('normal', 'vol', (16, 8, 4, 2, 1)))'''
+    print(get_diff_types('normal', 'fee', (16, 8, 4, 2)))
+    print(get_diff_types('normal', 'fee', (16, 8, 4, 2, 1)))
     # Normal
     '''print(get_diff_types('normal', 'vol', (1,)))
     print(get_diff_types('normal', 'vol', (1,)))'''
     # Difficile
-    print(get_diff_types('normal', 'vol', (0.5, 0.25, 0.125, 0.0625,)))
-    print(get_diff_types('normal', 'vol', (0.5, 0.25, 0.125, 0.0625, 1)))
+    '''print(get_diff_types('normal', 'vol', (0.5, 0.25, 0.125, 0.0625,)))
+    print(get_diff_types('normal', 'vol', (0.5, 0.25, 0.125, 0.0625, 1)))'''
