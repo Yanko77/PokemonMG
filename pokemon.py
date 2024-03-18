@@ -13,6 +13,7 @@ class Pokemon:
         self.name = name[0].upper() + name[1:].lower()
         self.is_shiny = self.def_shiny(is_shiny)
         self.id = self.game.get_init_pokemon_id()
+        self.random_seed = self.generate_random_seed_number()
 
         self.objet_tenu = objet_tenu
         self.status = {
@@ -53,8 +54,13 @@ class Pokemon:
 
         self.evolution_level = int(self.line[7])
         self.evolution_name = str(self.line[8])
+        if "/" in self.evolution_name:
+            evolutions_name_list = self.evolution_name.split("/")
+            r = random.Random()
+            r.seed(self.random_seed)
+            self.evolution_name = r.choice(evolutions_name_list)
+            print(self.evolution_name)
         self.min_p_lv = int(self.line[9])
-
         self.is_alive = True
         self.is_vulnerable = True
 
@@ -72,8 +78,6 @@ class Pokemon:
 
         self.attaque_pool_line = self.find_attaque_pool_line()
         self.attaque_pool = self.init_attaque_pool()
-
-        self.random_seed = self.generate_random_seed_number()
 
     def find_pokemon_line(self) -> list:
         with open('all_pokemons.txt') as file:
@@ -95,7 +99,6 @@ class Pokemon:
         if len(self.attaque_pool_line) <= 4:
             i = 0
             for attaque_name in self.attaque_pool_line:
-                print(attaque_name)
                 attaque_pool[i] = (attaques.Attaque(attaque_name))
                 i += 1
 
@@ -103,7 +106,6 @@ class Pokemon:
             attaque_name_list = random.sample(self.attaque_pool_line, 4)
             i = 0
             for attaque_name in attaque_name_list:
-                print(attaque_name)
                 attaque_pool[i] = (attaques.Attaque(attaque_name))
                 i += 1
 

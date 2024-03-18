@@ -11,8 +11,6 @@ class Player:
 
         self.level = 0
         self.name = "Nom"
-        self.name_edited = False
-        self.name_editing_mode = False
 
         self.actions = 3
         self.max_actions = 3
@@ -64,15 +62,8 @@ class Player:
         elif mode == 'delete':
             self.name = ''
 
-    def enable_name_editing_mode(self):
-        self.name_editing_mode = True
-        self.name = ''
-        self.name_edited = True
-
     def reset_name(self):
         self.name = "Nom"
-        self.name_edited = False
-        self.name_editing_mode = False
 
     def reset_actions(self):
         self.actions = self.max_actions
@@ -116,6 +107,20 @@ class Player:
 
         else:
             self.sac[item_place].quantite += item.quantite
+
+    def add_team_pk(self, pk, i=0):
+        if self.get_nb_team_members() < 6:
+            if self.team[i] is None:
+                self.team[i] = pk
+            else:
+                i = 0
+                place_found = False
+                while not place_found and i < 6:
+                    if self.team[i] is None:
+                        self.team[i] = pk
+                        place_found = True
+
+                    i += 1
 
     def use_action(self, amount=1):
         self.actions -= amount

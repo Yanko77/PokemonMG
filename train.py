@@ -43,7 +43,7 @@ class TrainPanel:
 
         # Chargement des images
         self.background = self.img_load('background')  # Background
-        self.background_pos = (-13, -21)
+        self.background_pos = (-12, -21)
 
         self.training_pk_emp = self.img_load('emp_training_pk')  # Emplacement du pokemon à entrainer
         self.training_pk_emp_pos = (78, 96)
@@ -369,7 +369,7 @@ class TrainPanel:
     def update_all_rects(self, window_pos):
         self.window_pos = window_pos.copy()
 
-        self.background_pos = (-13 + self.window_pos[0], -21 + self.window_pos[1])
+        self.background_pos = (-12 + self.window_pos[0], -21 + self.window_pos[1])
         self.training_pk_emp_pos = (78 + self.window_pos[0], 96 + self.window_pos[1])
         self.locked_pos = (70 + self.window_pos[0], 80 + self.window_pos[1])
         self.diff_ind_pos = (80 + self.window_pos[0], 177 + self.window_pos[1])
@@ -482,11 +482,11 @@ class TrainPanel:
 
         # Calcul du niveau minimum
         min_lv = round(self.game.player.get_level() / 2
-                       + self.LV_DIFFICULT_COEFS[diff][0] * self.game.player.get_moyenne_team())
+                       + self.LV_DIFFICULT_COEFS[diff][0] * self.training_pk.get_level())
 
         # Calcul du niveau maximum
         max_lv = round(self.game.player.get_level() / 2
-                       + self.LV_DIFFICULT_COEFS[diff][1] * self.game.player.get_moyenne_team())
+                       + self.LV_DIFFICULT_COEFS[diff][1] * self.training_pk.get_level())
 
         ennemy_pk_lv = r.randint(min_lv, max_lv)
         return ennemy_pk_lv
@@ -528,6 +528,12 @@ class TrainPanel:
 
         self.boolSettings_popup = False
         self.boolAdd_training_pk_popup = False
+
+    def close(self):
+        if self.training_pk is not None:
+            if self.game.player.get_nb_team_members() < 6:
+                self.game.player.add_team_pk(self.training_pk)
+                self.training_pk = None
         
     def left_clic_interactions(self, possouris):
 
@@ -555,6 +561,11 @@ class TrainPanel:
                 if self.training_pk.is_alive and self.ennemy_pk.is_alive and self.game.player.actions > 0:
                     self.start_fight()
                     pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+    def right_clic_interactions(self, posssouris):
+        if self.training_pk_rect.collidepoint(posssouris):
+            self.game.classic_panel.pokemon_info_mode = True
+            self.game.classic_panel.pokemon_info = self.training_pk
 
     def is_hovering_settings_popup_buttons(self, possouris):
         if self.boolSettings_popup:

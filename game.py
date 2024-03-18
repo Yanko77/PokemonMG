@@ -2,6 +2,7 @@ import random
 
 import fight
 import objet
+import starters
 from player import Player
 from notif import Notif
 
@@ -26,7 +27,7 @@ class Game:
 
         self.player = Player(self)
 
-        self.accueil = accueil.Accueil()
+        self.accueil = accueil.Accueil(self)
 
         self.next_pk_id = 1
 
@@ -38,11 +39,11 @@ class Game:
                          random.choice(self.all_starters['eau'])
                          ]
 
+        self.starter_panel = starters.StarterPanel(self)
+
         self.classic_panel = GamePanel(self)
         self.round = Round(self)
         self.notifs = Notif()
-
-        self.save_file = open('save.txt', 'r+')
 
         self.general_seed = self.round.get_random_seed()
         self.items_list = self.get_all_items_list()
@@ -50,65 +51,55 @@ class Game:
         self.next_fighting_dresseur = self.get_fighting_dresseur()
 
         self.current_fight = None
+
         self.bool_game_over = False
 
     def update(self, screen, possouris):
-        if self.is_playing:
-            if self.bool_game_over:
-                self.is_playing = False
-                self.is_accueil = True
 
-            if self.is_fighting:
-                self.current_fight.update(screen, possouris)
+        if self.is_playing:
+            if self.is_starter_selected:
+                if self.is_fighting:
+                    self.current_fight.update(screen, possouris)
+                else:
+                    self.classic_panel.update(screen, possouris)
             else:
-                self.classic_panel.update(screen, possouris)
+                self.starter_panel.update(screen, possouris)
         else:
             if self.is_accueil:
-                self.accueil.update(screen)
+                self.accueil.update(screen, possouris)
             else:
                 self.is_playing = True
 
         # Affichage des notifications
         self.notifs.update(screen)
 
-    def game_over(self):
-        self.bool_game_over = True
-
     def notif(self, text, color):
         self.notifs.new_notif(text, color)
 
     def get_fighting_dresseur(self):
         r = random.Random()
-        return r.choice(fight.DRESSEUR_LIST)(self)
-        # return fight.Red(self)
+        # return r.choice(fight.DRESSEUR_LIST)(self)
+        return fight.Red(self)
 
     def init_new_game(self):
         self.is_starter_selected = False
-        self.classic_panel.ingame_window.update_panel('Starters')
-        self.classic_panel.ingame_window.minimize()
-        self.classic_panel.ingame_window.open()
-
-    def reset_save_file(self):
-        template = open('save_file_template.txt', 'r')
-        template_lines = template.read()
-
-        self.save_file.truncate()
-        self.save_file.write(template_lines)
 
     def create_new_game(self):
         self.init_new_game()
-        self.reset_save_file()
-        print(self.starters)
 
-    '''def load_game(self):
-        self.save_file'''
+    def start_new_game(self):
+        self.is_accueil = False
+        self.create_new_game()
+
+    def game_over(self):
+        self.__init__()
 
     def start_fight(self, player_pk, dresseur=None, difficult="easy", fight_type='Classic'):
         if fight_type == 'Classic':
             self.init_fight(player_pk, dresseur, difficult, fight_type)
             self.is_fighting = True
         elif fight_type == 'Boss':
-            self.init_fight(player_pk, self.next_fighting_dresseur, 'hard', fight_type)
+            self.init_fight(player_pk, self.next_fighting_dresseur, difficult, fight_type)
             self.is_fighting = True
 
     def cancel_fight(self):
@@ -199,6 +190,9 @@ class Game:
 
     def update_random_seed(self):
         self.general_seed = self.round.get_random_seed()
+
+    def save(self):
+        pass
 
 
 if __name__ == '__main__':

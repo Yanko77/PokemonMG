@@ -69,9 +69,7 @@ class IngameWindow:
                                            33)
 
         # Chargement des panels
-        self.buttons = image.IngameWindowButtons()
         self.sac_panel = sac.SacIngamePanel(self.game)
-        self.starters_panel = starters.StartersPanel(self.game)
         self.spawn_panel = spawn.SpawnPanel(self.game)
         self.train_panel = train.TrainPanel(self.game)
         self.items_panel = items.ItemsPanel(self.game)
@@ -79,7 +77,6 @@ class IngameWindow:
 
         self.all_panels = {
             "Sac d'objets": self.sac_panel,
-            "Starters": self.starters_panel,
             "Spawn": self.spawn_panel,
             "Train": self.train_panel,
             "Items": self.items_panel,
@@ -178,6 +175,10 @@ class IngameWindow:
         self.min_button_rect.x, self.min_button_rect.y = self.basic_window_pos[0] + 816, self.basic_window_pos[1] + 4
 
     def update_panel(self, panel_name):
+        self.close()
+        self.open()
+        self.maximize()
+
         self.current_panel_name, self.current_panel = panel_name, self.all_panels[panel_name]
         self.title = self.title_font.render(self.current_panel_name, False, (0, 0, 0))
         self.icon = self.icon = pygame.image.load(f'assets/game/ingame_windows/{self.current_panel_name}/icon.png')
@@ -188,6 +189,9 @@ class IngameWindow:
     def close(self):
         self.is_open = False
         self.is_minimized = False
+
+        if self.current_panel is not None:
+            self.current_panel.close()
 
     def minimize(self):
         self.is_minimized = True
@@ -233,20 +237,10 @@ class IngameWindow:
                     self.minimize()
 
                 else:
-                    if self.current_panel_name == "Starters":
-                        self.starters_panel.left_clic_interactions(possouris)
-                    elif self.current_panel_name == "Spawn":
-                        self.spawn_panel.left_clic_interactions(possouris)
-                    elif self.current_panel_name == "Train":
-                        self.train_panel.left_clic_interactions(possouris)
-                    elif self.current_panel_name == "Grind":
-                        pass
-                    elif self.current_panel_name == "Items":
-                        self.items_panel.left_clic_interactions(possouris)
-                    elif self.current_panel_name == "Evolutions":
-                        self.evol_panel.left_clic_interactions(possouris)
-                    elif self.current_panel_name == "Sac d'objets":
-                        self.sac_panel.left_clic_interactions(possouris)
+                    self.current_panel.left_clic_interactions(possouris)
+
+    def right_clic_interactions(self, possouris):
+        self.current_panel.right_clic_interactions(possouris)
 
     def img_load(self, file_name):
         return pygame.image.load(f'assets/game/ingame_windows/basic/{file_name}.png')

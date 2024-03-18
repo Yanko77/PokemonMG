@@ -175,10 +175,19 @@ class EvolPanel:
     def reset(self):
         self.evolving_pk = None
 
+    def close(self):
+        if self.evolving_pk is not None:
+            if self.game.player.get_nb_team_members() < 6:
+                self.game.player.add_team_pk(self.evolving_pk)
+                self.evolving_pk = None
+
     def left_clic_interactions(self, possouris):
         if self.evolving_pk is not None:
             if self.evol_button_rect.collidepoint(possouris):
                 self.evolving_pk = self.evolving_pk.evolution()
+
+    def right_clic_interactions(self, posssouris):
+        pass
 
     def is_hovering_buttons(self, possouris):
         if self.pk_move_mode:

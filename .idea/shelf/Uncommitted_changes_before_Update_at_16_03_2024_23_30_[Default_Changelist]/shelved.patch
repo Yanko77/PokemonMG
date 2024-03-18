@@ -1,0 +1,1102 @@
+Index: main.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import pygame\r\n\r\nimport objet\r\nfrom game import Game\r\nimport player_name\r\n\r\nimport pokemon\r\nimport dresseur\r\n\r\nFPS = 144\r\nscreen = pygame.display.set_mode((1280, 720))\r\nicon = pygame.image.load(\"assets/icon.png\")\r\npygame.display.set_caption(\"PMG || Pokemon Management Game\")\r\npygame.display.set_icon(icon)\r\n\r\nclock = pygame.time.Clock()\r\n\r\ngame = Game()\r\n\r\nrunning = True\r\nposSouris = (0, 0)\r\nold_posSouris = (0, 0)\r\n\r\n# Boucle du jeu\r\nwhile running:\r\n    posSouris = list(pygame.mouse.get_pos())\r\n\r\n    game.update(screen, posSouris)\r\n\r\n    pygame.display.flip()  # Update de la fenetre\r\n\r\n    for event in pygame.event.get():  # Detection actions du joueur\r\n        if event.type == pygame.QUIT:\r\n            running = False\r\n\r\n        if event.type == pygame.KEYDOWN:\r\n            game.pressed[event.key] = True\r\n\r\n            # Touche de test admin\r\n            if event.key == pygame.K_a:\r\n                game.current_fight.player_pk.level_up(200)\r\n            elif event.key == pygame.K_z:\r\n                game.player.sac_page1[0] = objet.Objet(input())\r\n            elif event.key == pygame.K_o:\r\n                game.start_fight(pokemon.Pokemon('Poussifeu', 5, game), dresseur.Sauvage(game, pokemon.Pokemon('Rafflesia', 4, game)))\r\n            elif event.key == pygame.K_p:\r\n                print(posSouris)\r\n\r\n            if game.player.name_editing_mode:\r\n                if event.key == pygame.K_RETURN:\r\n                    if game.player.name == '':\r\n                        game.player.reset_name()\r\n                    game.player.name_editing_mode = False\r\n\r\n                else:\r\n                    if event.key == pygame.K_BACKSPACE:\r\n                        game.player.edit_name('suppr')\r\n                    elif event.key in player_name.pygame_alphabet:\r\n                        if game.pressed[pygame.K_LSHIFT]:\r\n                            game.player.edit_name('add', player_name.pygame_alphabet[event.key].upper())\r\n                        else:\r\n                            game.player.edit_name('add', player_name.pygame_alphabet[event.key].lower())\r\n\r\n        if event.type == pygame.KEYUP:\r\n            game.pressed[event.key] = False\r\n\r\n        if event.type == pygame.MOUSEBUTTONUP:\r\n            game.mouse_pressed[event.button] = False\r\n            if event.button == 1:\r\n                if game.is_accueil:\r\n                    if game.accueil.basic_panel:\r\n                        if game.accueil.buttons.quit_rect.collidepoint(posSouris):\r\n                            running = False\r\n\r\n                        if game.accueil.buttons.start_game_rect.collidepoint(posSouris):\r\n                            game.accueil.start_game = True\r\n                            game.accueil.basic_panel = False\r\n                            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)\r\n\r\n                    if game.accueil.start_game:\r\n                        if game.accueil.start_game_panel.x_button_rect.collidepoint(posSouris):\r\n                            game.accueil.start_game = False\r\n                            game.accueil.basic_panel = True\r\n\r\n                        if game.accueil.start_game_panel.new_game_button_rect.collidepoint(posSouris):\r\n                            game.accueil.start_game = False\r\n                            game.is_accueil = False\r\n                            game.create_new_game()\r\n                            game.reset_save_file()\r\n                            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)\r\n\r\n                if game.is_playing:\r\n                    if game.is_fighting:\r\n                        game.current_fight.left_clic_interactions(posSouris)  # Interactions clic gauche dans fight.py\r\n                    else:\r\n                        if game.player.name_editing_mode:\r\n                            if not game.classic_panel.ingame_window.is_hovering(posSouris):\r\n                                if not game.classic_panel.player_name_rect.collidepoint(posSouris):\r\n                                    if game.player.name == '':\r\n                                        game.player.reset_name()\r\n                                    game.player.name_editing_mode = False\r\n\r\n                            else:\r\n                                if not game.classic_panel.pk_move_mode:\r\n                                    if game.classic_panel.ingame_window.buttons.x_button_rect.collidepoint(posSouris):\r\n                                        if not game.classic_panel.ingame_window.current_panel_name == 'Starters':\r\n                                            game.classic_panel.ingame_window.close()\r\n                                        elif game.is_starter_selected:\r\n                                            game.classic_panel.ingame_window.close()\r\n                                    elif game.classic_panel.ingame_window.buttons.min_button_rect.collidepoint(posSouris):\r\n                                        game.classic_panel.ingame_window.minimize()\r\n                                    elif game.classic_panel.ingame_window.is_minimized:\r\n                                        game.classic_panel.ingame_window.maximize()\r\n\r\n                        else:\r\n                            if game.classic_panel.ingame_window.is_hovering(posSouris):\r\n                                game.classic_panel.ingame_window.left_clic_interactions(posSouris)\r\n\r\n                            else:\r\n                                game.classic_panel.left_clic_interactions(posSouris)\r\n\r\n            if event.button == 3:\r\n                if game.is_playing:\r\n                    if not game.classic_panel.ingame_window.is_hovering(posSouris):\r\n                        if game.classic_panel.PK_RECTS[0].collidepoint(posSouris):\r\n                            game.classic_panel.pokemon_info_mode = True\r\n                            game.classic_panel.pokemon_info_i = 0\r\n                        elif game.classic_panel.PK_RECTS[1].collidepoint(posSouris):\r\n                            game.classic_panel.pokemon_info_mode = True\r\n                            game.classic_panel.pokemon_info_i = 1\r\n                        elif game.classic_panel.PK_RECTS[2].collidepoint(posSouris):\r\n                            game.classic_panel.pokemon_info_mode = True\r\n                            game.classic_panel.pokemon_info_i = 2\r\n                        elif game.classic_panel.PK_RECTS[3].collidepoint(posSouris):\r\n                            game.classic_panel.pokemon_info_mode = True\r\n                            game.classic_panel.pokemon_info_i = 3\r\n                        elif game.classic_panel.PK_RECTS[4].collidepoint(posSouris):\r\n                            game.classic_panel.pokemon_info_mode = True\r\n                            game.classic_panel.pokemon_info_i = 4\r\n                        elif game.classic_panel.PK_RECTS[5].collidepoint(posSouris):\r\n                            game.classic_panel.pokemon_info_mode = True\r\n                            game.classic_panel.pokemon_info_i = 5\r\n\r\n        if event.type == pygame.MOUSEBUTTONDOWN:\r\n            game.mouse_pressed[event.button] = True\r\n\r\n    clock.tick(FPS)\r\n\r\npygame.quit()\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/main.py b/main.py
+--- a/main.py	(revision c1db4d9f999e3bd3e0c9f6ea660137bfdedbd5c1)
++++ b/main.py	(date 1710628095832)
+@@ -7,6 +7,9 @@
+ import pokemon
+ import dresseur
+ 
++pygame.init()
++pygame.font.init()
++
+ FPS = 144
+ screen = pygame.display.set_mode((1280, 720))
+ icon = pygame.image.load("assets/icon.png")
+@@ -37,14 +40,6 @@
+             game.pressed[event.key] = True
+ 
+             # Touche de test admin
+-            if event.key == pygame.K_a:
+-                game.current_fight.player_pk.level_up(200)
+-            elif event.key == pygame.K_z:
+-                game.player.sac_page1[0] = objet.Objet(input())
+-            elif event.key == pygame.K_o:
+-                game.start_fight(pokemon.Pokemon('Poussifeu', 5, game), dresseur.Sauvage(game, pokemon.Pokemon('Rafflesia', 4, game)))
+-            elif event.key == pygame.K_p:
+-                print(posSouris)
+ 
+             if game.player.name_editing_mode:
+                 if event.key == pygame.K_RETURN:
+@@ -68,28 +63,9 @@
+             game.mouse_pressed[event.button] = False
+             if event.button == 1:
+                 if game.is_accueil:
+-                    if game.accueil.basic_panel:
+-                        if game.accueil.buttons.quit_rect.collidepoint(posSouris):
+-                            running = False
+-
+-                        if game.accueil.buttons.start_game_rect.collidepoint(posSouris):
+-                            game.accueil.start_game = True
+-                            game.accueil.basic_panel = False
+-                            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
++                    game.accueil.left_clic_interactions(posSouris)
+ 
+-                    if game.accueil.start_game:
+-                        if game.accueil.start_game_panel.x_button_rect.collidepoint(posSouris):
+-                            game.accueil.start_game = False
+-                            game.accueil.basic_panel = True
+-
+-                        if game.accueil.start_game_panel.new_game_button_rect.collidepoint(posSouris):
+-                            game.accueil.start_game = False
+-                            game.is_accueil = False
+-                            game.create_new_game()
+-                            game.reset_save_file()
+-                            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+-
+-                if game.is_playing:
++                elif game.is_playing:
+                     if game.is_fighting:
+                         game.current_fight.left_clic_interactions(posSouris)  # Interactions clic gauche dans fight.py
+                     else:
+Index: game.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import random\r\n\r\nimport fight\r\nimport objet\r\nfrom player import Player\r\nfrom notif import Notif\r\n\r\nimport pygame\r\nimport accueil\r\nfrom game_panel import GamePanel\r\nfrom fight import Fight\r\nfrom game_round import Round\r\n\r\n\r\nclass Game:\r\n    def __init__(self):\r\n        self.is_playing = False\r\n        self.is_accueil = True\r\n        self.is_fighting = False\r\n\r\n        self.is_starter_selected = False\r\n\r\n        self.pressed = {pygame.K_LSHIFT: False}\r\n        self.mouse_pressed = {1: False,\r\n                              3: False}\r\n\r\n        self.player = Player(self)\r\n\r\n        self.accueil = accueil.Accueil()\r\n\r\n        self.next_pk_id = 1\r\n\r\n        self.all_starters = {'feu': ['Salameche', 'Poussifeu'],\r\n                             'eau': ['Carapuce', 'Gobou'],\r\n                             'plante': ['Bulbizarre', 'Arcko']}\r\n        self.starters = [random.choice(self.all_starters['plante']),\r\n                         random.choice(self.all_starters['feu']),\r\n                         random.choice(self.all_starters['eau'])\r\n                         ]\r\n\r\n        self.classic_panel = GamePanel(self)\r\n        self.round = Round(self)\r\n        self.notifs = Notif()\r\n\r\n        self.save_file = open('save.txt', 'r+')\r\n\r\n        self.general_seed = self.round.get_random_seed()\r\n        self.items_list = self.get_all_items_list()\r\n\r\n        self.next_fighting_dresseur = self.get_fighting_dresseur()\r\n\r\n        self.current_fight = None\r\n\r\n    def update(self, screen, possouris):\r\n\r\n        if self.is_playing:\r\n            if self.is_fighting:\r\n                self.current_fight.update(screen, possouris)\r\n            else:\r\n                self.classic_panel.update(screen, possouris)\r\n        else:\r\n            if self.is_accueil:\r\n                self.accueil.update(screen)\r\n            else:\r\n                self.is_playing = True\r\n\r\n        # Affichage des notifications\r\n        self.notifs.update(screen)\r\n\r\n    def notif(self, text, color):\r\n        self.notifs.new_notif(text, color)\r\n\r\n    def get_fighting_dresseur(self):\r\n        r = random.Random()\r\n        # return r.choice(fight.DRESSEUR_LIST)(self)\r\n        return fight.Red(self)\r\n\r\n    def init_new_game(self):\r\n        self.is_starter_selected = False\r\n        self.classic_panel.ingame_window.update_panel('Starters')\r\n        self.classic_panel.ingame_window.minimize()\r\n        self.classic_panel.ingame_window.open()\r\n\r\n    def reset_save_file(self):\r\n        template = open('save_file_template.txt', 'r')\r\n        template_lines = template.read()\r\n\r\n        self.save_file.truncate()\r\n        self.save_file.write(template_lines)\r\n\r\n    def create_new_game(self):\r\n        self.init_new_game()\r\n        self.reset_save_file()\r\n        print(self.starters)\r\n\r\n    '''def load_game(self):\r\n        self.save_file'''\r\n\r\n    def start_fight(self, player_pk, dresseur=None, difficult=\"easy\", fight_type='Classic'):\r\n        if fight_type == 'Classic':\r\n            self.init_fight(player_pk, dresseur, difficult, fight_type)\r\n            self.is_fighting = True\r\n        elif fight_type == 'Boss':\r\n            self.init_fight(player_pk, self.next_fighting_dresseur, difficult, fight_type)\r\n            self.is_fighting = True\r\n\r\n    def cancel_fight(self):\r\n        self.current_fight = None\r\n        self.is_fighting = False\r\n\r\n    def end_fight(self):\r\n        if self.current_fight.fight_type == 'Boss':\r\n            self.next_turn()\r\n        self.current_fight = None\r\n        self.is_fighting = False\r\n\r\n    def init_fight(self, player_pk, dresseur=None, difficult='easy', fight_type='Classic'):\r\n        self.current_fight = Fight(self, player_pk, dresseur, difficult, fight_type)\r\n\r\n    def next_turn(self):\r\n        self.round.next()\r\n        self.update_random_seed()\r\n        self.player.reset_actions()\r\n        self.player.level_up()\r\n        self.classic_panel.next_turn()\r\n        self.next_fighting_dresseur = self.get_fighting_dresseur()\r\n        # add everything that have to be edited for each turn\r\n\r\n    def get_init_pokemon_id(self):\r\n        id = self.next_pk_id\r\n        self.next_pk_id += 1\r\n        return id\r\n\r\n    def init_items_list(self):\r\n        with open('all_objets.txt', 'r') as file:\r\n            items_list = []\r\n            for line in file.readlines():\r\n                item_name = line.split()[0]\r\n                if not item_name == '#':\r\n                    items_list.append(objet.Objet(item_name))\r\n\r\n            return items_list\r\n\r\n    def get_all_items_list(self):\r\n        \"\"\"\r\n        Retourne le dict: {\r\n            'All': all_items\r\n            'Use': use_items,\r\n            'Give': give_items,\r\n            'Sell': sell_items,\r\n            'Enable': enable_items,\r\n            'Spawnble': spawnable_items\r\n             }\r\n\r\n        :return: items_list, dict\r\n        \"\"\"\r\n\r\n        items_list = {\r\n            'All': [],\r\n            'Use': [],\r\n            'Give': [],\r\n            'Sell': [],\r\n            'Enable': [],\r\n            'Spawnable': [],\r\n        }\r\n        for item in self.init_items_list():\r\n            items_list['All'].append(item)\r\n            if item.fonctionnement.split(\":\")[0] == 'Use':\r\n                items_list['Use'].append(item)\r\n            elif item.fonctionnement.split(\":\")[0] == 'Give':\r\n                items_list['Give'].append(item)\r\n            elif item.fonctionnement.split(\":\")[0] == 'Sell':\r\n                items_list['Sell'].append(item)\r\n            elif item.fonctionnement.split(\":\")[0] == 'Enable':\r\n                items_list['Enable'].append(item)\r\n            if item.boolSpawnable:\r\n                items_list['Spawnable'].append(item)\r\n\r\n        return items_list\r\n\r\n    def get_items_list(self):\r\n        return self.items_list\r\n\r\n    def get_total_items_rarity(self):\r\n        \"\"\"\r\n        Methode qui renvoie la somme de toutes les raretés des objets du jeu obtenable via spawn\r\n        \"\"\"\r\n        total_rarity = 0\r\n        for OBJECT in self.get_items_list()['Spawnable']:\r\n            total_rarity += abs(OBJECT.rarity - 100)\r\n        return total_rarity\r\n\r\n    def update_random_seed(self):\r\n        self.general_seed = self.round.get_random_seed()\r\n\r\n\r\nif __name__ == '__main__':\r\n    game = Game()\r\n    for list_name in game.items_list.keys():\r\n        for item in game.items_list[list_name]:\r\n            print(item.name, f'({list_name})')\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/game.py b/game.py
+--- a/game.py	(revision c1db4d9f999e3bd3e0c9f6ea660137bfdedbd5c1)
++++ b/game.py	(date 1710628175148)
+@@ -26,7 +26,7 @@
+ 
+         self.player = Player(self)
+ 
+-        self.accueil = accueil.Accueil()
++        self.accueil = accueil.Accueil(self)
+ 
+         self.next_pk_id = 1
+ 
+@@ -60,7 +60,7 @@
+                 self.classic_panel.update(screen, possouris)
+         else:
+             if self.is_accueil:
+-                self.accueil.update(screen)
++                self.accueil.update(screen, possouris)
+             else:
+                 self.is_playing = True
+ 
+@@ -93,6 +93,11 @@
+         self.reset_save_file()
+         print(self.starters)
+ 
++    def start_new_game(self):
++        self.is_accueil = False
++        self.create_new_game()
++
++
+     '''def load_game(self):
+         self.save_file'''
+ 
+Index: animation.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import pygame\r\n\r\n\r\nclass AnimateImage:\r\n\r\n    def __init__(self, nb_images, image_name):\r\n\r\n        self.image = pygame.image.load('assets/accueil/animation/' + image_name + '/1.png')\r\n        self.nb_images = nb_images\r\n        self.current_image = 0  # Commencer à l'image 0\r\n        self.images = animations.get(image_name)\r\n        self.animation = False\r\n\r\n        self.is_animation_over = False\r\n\r\n        self.pas_rel = 0  # Pas relatif à animate()\r\n\r\n    def start_animation(self):\r\n        self.animation = True\r\n\r\n    def animate(self, loop=False, final_image_num: int = 0, pas: int = 1):\r\n        if self.animation:\r\n            self.pas_rel += 1\r\n\r\n            if self.pas_rel == pas:\r\n                # Passer à l'image suivante\r\n                self.current_image += 1\r\n\r\n                if self.current_image >= len(self.images):  # Verifier si on a atteint la fin de l'animation\r\n                    self.current_image = final_image_num\r\n\r\n                    if not loop:  # Si l'animation n'est pas une boucle, on désactive\r\n                        self.animation = False  # Désactiver l'animation\r\n                        self.is_animation_over = True  # Indiquer la fin de l'animation\r\n\r\n                # Actualiser l'image\r\n                self.image = self.images[self.current_image]\r\n\r\n                # Reinitialiser le pas\r\n                self.pas_rel = 0\r\n\r\n\r\ndef load_animation_images(nb_images, image_name):\r\n    # Charger les 24 images du sprite\r\n    images = []\r\n    path = f\"assets/accueil/animation/{image_name}/\"  # Chemin de l'image\r\n\r\n    for num in range(1, nb_images+1):\r\n        image_path = path + str(num) + '.png'\r\n        images.append(pygame.image.load(image_path))\r\n\r\n    return images\r\n\r\n\r\nanimations = {\r\n        'Background': load_animation_images(24, 'Background'),\r\n        'game_bar': load_animation_images(24, 'game_bar'),\r\n        'intro': load_animation_images(147, 'intro')\r\n    }\r\n\r\nif __name__ == \"__main__\":\r\n    print(animations['Background'])\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/animation.py b/animation.py
+--- a/animation.py	(revision c1db4d9f999e3bd3e0c9f6ea660137bfdedbd5c1)
++++ b/animation.py	(date 1710628012894)
+@@ -1,63 +1,0 @@
+-import pygame
+-
+-
+-class AnimateImage:
+-
+-    def __init__(self, nb_images, image_name):
+-
+-        self.image = pygame.image.load('assets/accueil/animation/' + image_name + '/1.png')
+-        self.nb_images = nb_images
+-        self.current_image = 0  # Commencer à l'image 0
+-        self.images = animations.get(image_name)
+-        self.animation = False
+-
+-        self.is_animation_over = False
+-
+-        self.pas_rel = 0  # Pas relatif à animate()
+-
+-    def start_animation(self):
+-        self.animation = True
+-
+-    def animate(self, loop=False, final_image_num: int = 0, pas: int = 1):
+-        if self.animation:
+-            self.pas_rel += 1
+-
+-            if self.pas_rel == pas:
+-                # Passer à l'image suivante
+-                self.current_image += 1
+-
+-                if self.current_image >= len(self.images):  # Verifier si on a atteint la fin de l'animation
+-                    self.current_image = final_image_num
+-
+-                    if not loop:  # Si l'animation n'est pas une boucle, on désactive
+-                        self.animation = False  # Désactiver l'animation
+-                        self.is_animation_over = True  # Indiquer la fin de l'animation
+-
+-                # Actualiser l'image
+-                self.image = self.images[self.current_image]
+-
+-                # Reinitialiser le pas
+-                self.pas_rel = 0
+-
+-
+-def load_animation_images(nb_images, image_name):
+-    # Charger les 24 images du sprite
+-    images = []
+-    path = f"assets/accueil/animation/{image_name}/"  # Chemin de l'image
+-
+-    for num in range(1, nb_images+1):
+-        image_path = path + str(num) + '.png'
+-        images.append(pygame.image.load(image_path))
+-
+-    return images
+-
+-
+-animations = {
+-        'Background': load_animation_images(24, 'Background'),
+-        'game_bar': load_animation_images(24, 'game_bar'),
+-        'intro': load_animation_images(147, 'intro')
+-    }
+-
+-if __name__ == "__main__":
+-    print(animations['Background'])
+-
+Index: accueil.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import pygame\r\nimport image\r\n\r\n\r\nclass Accueil:\r\n\r\n    def __init__(self):\r\n        self.intro = True\r\n        self.basic_panel = True\r\n        self.start_game = False\r\n        self.credits = False\r\n        self.settings = False\r\n\r\n        self.debut_compteur = 0\r\n\r\n        self.intro_accueil = image.IntroAccueil()\r\n        self.background = image.Background()\r\n        self.game_bar = image.GameBar()\r\n        self.random_pokemon = image.RandomPokemon()\r\n\r\n        self.buttons = image.AccueilButtons()\r\n\r\n        self.start_game_panel = StartGamePanel()\r\n\r\n    def update(self, surface):\r\n        possouris = pygame.mouse.get_pos()\r\n\r\n        if self.debut_compteur > 50:\r\n            if self.intro:\r\n                surface.blit(self.intro_accueil.image, (0, 0))\r\n                self.intro_accueil.update_animation()\r\n                if self.intro_accueil.is_animation_over:\r\n                    self.intro = False\r\n            else:\r\n                surface.blit(self.background.image, (0, 0))\r\n                if self.background.is_animation_over:\r\n                    surface.blit(self.game_bar.image, (0, 0))\r\n\r\n                    if self.random_pokemon.is_animation_over:\r\n                        self.buttons.update(surface, possouris, self.basic_panel)\r\n                        surface.blit(self.random_pokemon.image, (0, 0))\r\n\r\n                        if self.start_game:\r\n                            self.start_game_panel.update(surface, possouris, self.basic_panel)\r\n\r\n                    if self.game_bar.is_animation_over and not self.random_pokemon.is_animation_over:\r\n                        surface.blit(self.random_pokemon.image, (0, 0))\r\n                        self.random_pokemon.update_animation()\r\n\r\n                    else:\r\n                        self.game_bar.update_animation()\r\n\r\n                else:\r\n                    self.background.update_animation()\r\n        else:\r\n            self.debut_compteur += 1\r\n\r\n\r\nclass StartGamePanel:\r\n\r\n    def __init__(self):\r\n        self.panel = image.load_image('assets/accueil/panels/start_game/panel.png')\r\n\r\n        self.new_game_button = image.load_image('assets/accueil/panels/start_game/new_game_button.png')\r\n        self.new_game_button_rect = image.get_custom_rect(self.new_game_button, 791, 508)\r\n        self.new_game_button_h = image.load_image('assets/accueil/panels/start_game/new_game_button_hover.png')\r\n\r\n        self.load_game_button = image.load_image('assets/accueil/panels/start_game/load_game_button.png')\r\n        self.load_game_button_rect = image.get_custom_rect(self.load_game_button, 130, 508)\r\n        self.load_game_button_h = image.load_image('assets/accueil/panels/start_game/load_game_button_hover.png')\r\n\r\n        self.x_button = image.load_image('assets/accueil/panels/start_game/x_button.png')\r\n        self.x_button_rect = image.get_custom_rect(self.x_button, 1144, 68)\r\n        self.x_button_h = image.load_image('assets/accueil/panels/start_game/x_button_hover.png')\r\n\r\n    def update(self, surface, possouris, basic_accueil):\r\n        surface.blit(self.panel, (0, 0))\r\n\r\n        # Bouton NEW GAME\r\n        self.update_button(self.new_game_button, self.new_game_button_rect, self.new_game_button_h, surface, possouris, basic_accueil)\r\n\r\n        # Bouton LOAD GAME\r\n        self.update_button(self.load_game_button, self.load_game_button_rect, self.load_game_button_h, surface, possouris, basic_accueil)\r\n\r\n        # Bouton NEW GAME\r\n        self.update_button(self.x_button, self.x_button_rect, self.x_button_h, surface, possouris, basic_accueil)\r\n\r\n        if not (self.x_button_rect.collidepoint(possouris) or self.new_game_button_rect.collidepoint(possouris)\r\n                or self.load_game_button_rect.collidepoint(possouris)):\r\n            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)\r\n\r\n    def update_button(self, button, button_rect, button_hover, surface, possouris, basic_accueil):\r\n        if button_rect.collidepoint(possouris) and not basic_accueil:\r\n            surface.blit(button_hover, button_rect)\r\n            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)\r\n        else:\r\n            surface.blit(button, button_rect)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/accueil.py b/accueil.py
+--- a/accueil.py	(revision c1db4d9f999e3bd3e0c9f6ea660137bfdedbd5c1)
++++ b/accueil.py	(date 1710628187787)
+@@ -1,97 +1,206 @@
+ import pygame
+-import image
+ 
+ 
+ class Accueil:
+ 
+-    def __init__(self):
++    def __init__(self, game):
++        self.game = game
++        self.PATH = 'assets/accueil/'
++
++        # INTRO
+         self.intro = True
+-        self.basic_panel = True
+-        self.start_game = False
++        self.intro_compteur = -150
++
++        self.logo = self.img_load('intro/logo').convert_alpha()
++
++        # HOME SCREEN
++        self.jouer = False
++        self.parametres = False
+         self.credits = False
+-        self.settings = False
++        self.home_screen_fade = True
++        self.home_screen_compteur = -255
++
++        self.background = self.img_load('home_screen/background')
+ 
+-        self.debut_compteur = 0
++        self.jouer_button = self.img_load('home_screen/buttons/jouer')
++        self.jouer_button_h = self.img_load('home_screen/buttons/jouer_')
+ 
+-        self.intro_accueil = image.IntroAccueil()
+-        self.background = image.Background()
+-        self.game_bar = image.GameBar()
+-        self.random_pokemon = image.RandomPokemon()
++        self.parametres_button = self.img_load('home_screen/buttons/parametres')
++        self.parametres_button_h = self.img_load('home_screen/buttons/parametres_')
+ 
+-        self.buttons = image.AccueilButtons()
++        self.credits_button = self.img_load('home_screen/buttons/credits')
++        self.credits_button_h = self.img_load('home_screen/buttons/credits_')
+ 
+-        self.start_game_panel = StartGamePanel()
++        self.quitter_button = self.img_load('home_screen/buttons/quitter')
++        self.quitter_button_h = self.img_load('home_screen/buttons/quitter_')
+ 
+-    def update(self, surface):
+-        possouris = pygame.mouse.get_pos()
++        self.new_game_button = self.img_load('home_screen/buttons/new_game')
++        self.new_game_button_h = self.img_load('home_screen/buttons/new_game_')
+ 
+-        if self.debut_compteur > 50:
+-            if self.intro:
+-                surface.blit(self.intro_accueil.image, (0, 0))
+-                self.intro_accueil.update_animation()
+-                if self.intro_accueil.is_animation_over:
+-                    self.intro = False
++        self.load_game_button = self.img_load('home_screen/buttons/load_game')
++        self.load_game_button_h = self.img_load('home_screen/buttons/load_game_')
++
++        self.buttons_rect = [
++            pygame.Rect(472, 293, 340, 56),
++            pygame.Rect(472, 379, 340, 56),
++            pygame.Rect(472, 465, 340, 56),
++            pygame.Rect(472, 551, 340, 56)
++        ]
++        self.buttons = []
++
++    def update(self, surface, possouris):
++        if self.intro:
++            self.update_intro(surface)
++        else:
++            self.update_home_screen(surface, possouris)
++
++        if self.is_hovering_buttons(possouris):
++            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
++        else:
++            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
++
++    def update_intro(self, surface):
++        """
++        Methode qui gère l'affichage de l'intro du lancement du jeu
++        """
++        if self.intro_compteur > 0:
++            surface.fill((0, 0, 0))
++
++            if self.intro_compteur < 254:
++                self.logo.set_alpha(self.intro_compteur)
++            elif 700 > self.intro_compteur > 300:
++                self.logo.set_alpha(555 - self.intro_compteur)
++            elif self.intro_compteur >= 699:
++                self.intro = False
++
++            y = 200 - self.intro_compteur
++            if y < 0:
++                y = 0
++
++            surface.blit(self.logo, (0, y))
++
++        self.intro_compteur += 1
++
++    def update_home_screen(self, surface, possouris):
++        surface.fill((0, 0, 0))
++
++        if self.home_screen_fade:
++            if 255 + self.home_screen_compteur < 255:
++                self.background.set_alpha(255 + self.home_screen_compteur)
+             else:
+-                surface.blit(self.background.image, (0, 0))
+-                if self.background.is_animation_over:
+-                    surface.blit(self.game_bar.image, (0, 0))
+-
+-                    if self.random_pokemon.is_animation_over:
+-                        self.buttons.update(surface, possouris, self.basic_panel)
+-                        surface.blit(self.random_pokemon.image, (0, 0))
++                self.home_screen_fade = False
+ 
+-                        if self.start_game:
+-                            self.start_game_panel.update(surface, possouris, self.basic_panel)
++        surface.blit(self.background, (0, 0))
+ 
+-                    if self.game_bar.is_animation_over and not self.random_pokemon.is_animation_over:
+-                        surface.blit(self.random_pokemon.image, (0, 0))
+-                        self.random_pokemon.update_animation()
+-
+-                    else:
+-                        self.game_bar.update_animation()
++        if self.jouer:
++            self.buttons = [
++                (self.new_game_button, self.new_game_button_h, 'new_game'),
++                (self.load_game_button, self.load_game_button_h, 'load_game'),
++            ]
++        elif self.parametres:
++            self.buttons = [
++            ]
++        elif self.credits:
++            self.buttons = [
++            ]
++        else:
++            self.buttons = [
++                (self.jouer_button, self.jouer_button_h, 'jouer'),
++                (self.parametres_button, self.parametres_button_h, 'parametres'),
++                (self.credits_button, self.credits_button_h, 'credits'),
++                (self.quitter_button, self.quitter_button_h, 'quitter'),
++            ]
++
++        # Affichage des boutons
++        i = 0
++        for button in self.buttons:
++            y = self.buttons_rect[i].y
+ 
+-                else:
+-                    self.background.update_animation()
+-        else:
+-            self.debut_compteur += 1
+-
+-
+-class StartGamePanel:
+-
+-    def __init__(self):
+-        self.panel = image.load_image('assets/accueil/panels/start_game/panel.png')
+-
+-        self.new_game_button = image.load_image('assets/accueil/panels/start_game/new_game_button.png')
+-        self.new_game_button_rect = image.get_custom_rect(self.new_game_button, 791, 508)
+-        self.new_game_button_h = image.load_image('assets/accueil/panels/start_game/new_game_button_hover.png')
+-
+-        self.load_game_button = image.load_image('assets/accueil/panels/start_game/load_game_button.png')
+-        self.load_game_button_rect = image.get_custom_rect(self.load_game_button, 130, 508)
+-        self.load_game_button_h = image.load_image('assets/accueil/panels/start_game/load_game_button_hover.png')
+-
+-        self.x_button = image.load_image('assets/accueil/panels/start_game/x_button.png')
+-        self.x_button_rect = image.get_custom_rect(self.x_button, 1144, 68)
+-        self.x_button_h = image.load_image('assets/accueil/panels/start_game/x_button_hover.png')
+-
+-    def update(self, surface, possouris, basic_accueil):
+-        surface.blit(self.panel, (0, 0))
++            if self.home_screen_compteur < 40:
++                y += 40 - self.home_screen_compteur
++
++            if self.home_screen_compteur < 55:
++                button[0].set_alpha(self.home_screen_compteur*5)
++
++            if self.buttons_rect[i].collidepoint(possouris) and self.home_screen_compteur > 55:
++                surface.blit(button[1], (self.buttons_rect[i].x, y))
++            else:
++                surface.blit(button[0], (self.buttons_rect[i].x, y))
+ 
+-        # Bouton NEW GAME
+-        self.update_button(self.new_game_button, self.new_game_button_rect, self.new_game_button_h, surface, possouris, basic_accueil)
++            i += 1
+ 
+-        # Bouton LOAD GAME
+-        self.update_button(self.load_game_button, self.load_game_button_rect, self.load_game_button_h, surface, possouris, basic_accueil)
++        if self.home_screen_compteur < 55:
++            self.home_screen_compteur += 1.5
+ 
+-        # Bouton NEW GAME
+-        self.update_button(self.x_button, self.x_button_rect, self.x_button_h, surface, possouris, basic_accueil)
+-
+-        if not (self.x_button_rect.collidepoint(possouris) or self.new_game_button_rect.collidepoint(possouris)
+-                or self.load_game_button_rect.collidepoint(possouris)):
++    def clic(self, button_name: str):
++        if button_name == 'jouer':
++            self.jouer = True
++        elif button_name == 'parametres':
++            self.parametres = True
++        elif button_name == 'credits':
++            self.credits = True
++        elif button_name == 'quitter':
++            pygame.event.post(pygame.event.Event(pygame.QUIT))
++        elif button_name == 'new_game':
++            self.game.start_new_game()
+             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+-
+-    def update_button(self, button, button_rect, button_hover, surface, possouris, basic_accueil):
+-        if button_rect.collidepoint(possouris) and not basic_accueil:
+-            surface.blit(button_hover, button_rect)
+-            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
++        elif button_name == 'load_game':
++            pass
+         else:
+-            surface.blit(button, button_rect)
++            self.jouer = False
++            self.parametres = False
++            self.credits = False
++
++    def left_clic_interactions(self, possouris):
++        if self.home_screen_compteur > 55:
++            i = 0
++            for button in self.buttons:
++                if self.buttons_rect[i].collidepoint(possouris):
++                    self.clic(button[2])
++                i += 1
++
++    def is_hovering_buttons(self, possouris):
++        if self.home_screen_compteur > 55:
++            i = 0
++            for rect in self.buttons_rect:
++                if i < len(self.buttons):
++                    if rect.collidepoint(possouris):
++                        return True
++                i += 1
++
++            return False
++        return False
++
++    def img_load(self, path):
++        return pygame.image.load(f'{self.PATH}{path}.png')
++
++
++if __name__ == '__main__':
++    FPS = 144
++    screen = pygame.display.set_mode((1280, 720))
++    icon = pygame.image.load("assets/icon.png")
++    pygame.display.set_caption("PMG || Pokemon Management Game")
++    pygame.display.set_icon(icon)
++
++    accueil = Accueil(None)
++    clock = pygame.time.Clock()
++
++    running = True
++
++    while running:
++        posSouris = list(pygame.mouse.get_pos())
++
++        accueil.update(screen, posSouris)
++
++        pygame.display.flip()
++
++        for event in pygame.event.get():
++            if event.type == pygame.QUIT:
++                running = False
++
++            elif event.type == pygame.MOUSEBUTTONUP:
++                accueil.left_clic_interactions(posSouris)
++
++        clock.tick(FPS)
++
++pygame.quit()
+\ No newline at end of file
+Index: game_panel.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import random\r\n\r\nimport pygame\r\n\r\nimport fight\r\nimport image\r\nimport player_name\r\nimport game_infos\r\n\r\nimport ingame_windows\r\nfrom notif import Notif\r\n\r\nclass GamePanel:\r\n    \"\"\"\r\n    Classe qui représente le panel principal du jeu\r\n    \"\"\"\r\n\r\n    def __init__(self, game):\r\n\r\n        self.game = game\r\n\r\n        # LOADING FONTS --------------------------------------------\r\n        #   # Basic fonts\r\n        self.font = pygame.font.Font('assets/fonts/impact.ttf', 50)\r\n        self.font_size2 = pygame.font.Font('assets/fonts/impact.ttf', 25)\r\n        self.font_size3 = pygame.font.Font('assets/fonts/(Unranked) Bdeogale.ttf', 70)\r\n        self.money_font = pygame.font.Font('assets/fonts/Impact.ttf', 45)\r\n        self.actions_font = pygame.font.Font('assets/fonts/Impact.ttf', 90)\r\n        #   # Pokemon fonts\r\n        self.pokemon_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 25)\r\n        self.pokemon_level_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 15)\r\n        self.pokemon_hp_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 18)\r\n        self.font_pokemon_info_values = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 19)\r\n        self.font_pokemon_info_lv = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 42)\r\n        self.font_pokemon_info_name = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 23)\r\n        self.font_pokemon_type = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 15)\r\n\r\n        # LOADING IMAGES --------------------------------------------\r\n\r\n        # Elements permanents\r\n        self.background = pygame.image.load('assets/game/panels/classic_panel/background.png')\r\n        self.no_action_background = pygame.image.load('assets/game/panels/classic_panel/no_action_background.png')\r\n        self.sac = image.load_image('assets/game/panels/classic_panel/sac.png', True, (200, 200))\r\n\r\n        # Elements spontanés\r\n        #    # Player infos\r\n        self.mode_changement_pseudo_image = pygame.image.load('assets/game/panels/classic_panel/mode_changement_pseudo.png')\r\n        self.player_name_hover = pygame.image.load(\"assets/game/panels/classic_panel/player_name_hover.png\")\r\n        self.curseur_changement_pseudo = image.CursorChangePseudoMode()\r\n        self.player_name_image = self.font.render(self.game.player.name, False, (15, 0, 124))\r\n        self.player_name_indication = self.font_size2.render(\"(cliquer pour modifier)\", False, (15, 0, 124))\r\n        self.player_lv_image = self.font_size3.render(str(self.game.player.level), False, (124, 124, 124))\r\n        #   # Pokemon infos\r\n        self.pokemon_info_popup = pygame.image.load('assets/game/panels/classic_panel/pokemon_infos.png')\r\n        self.pokemon_info_popup_unknown = pygame.image.load('assets/game/panels/classic_panel/pokemon_info_unknown.png')\r\n        self.pokemon_info_popup_x_button_hover = pygame.image.load('assets/game/panels/classic_panel/pokemon_infos_x_button_hover.png')\r\n        #   # Pokemon team\r\n        self.delete_pk_button = pygame.image.load('assets/game/panels/classic_panel/delete_pk_button.png')\r\n        self.delete_pk_button_rect = pygame.Rect(1065, 23, 194, 194)\r\n        self.interface_sombre_team = pygame.image.load('assets/game/panels/classic_panel/item_to_pokemon.png')\r\n        self.item_pk_hover_use = pygame.image.load('assets/game/panels/classic_panel/item_use_pk_hover.png')\r\n        self.item_pk_hover_give = pygame.image.load('assets/game/panels/classic_panel/item_give_pk_hover.png')\r\n        self.item_pk_hover_error = pygame.image.load('assets/game/panels/classic_panel/item_error_pk_hover.png')\r\n        self.item_pk_hover_give_error = pygame.image.load('assets/game/panels/classic_panel/item_error_give_pk_hover.png')\r\n        #   # Buttons\r\n        self.sac_button_hover = self.create_rect_alpha((218, 215), (113, 64, 30))  # pygame.Rect(667, 465, 218, 215)\r\n        self.go_fight_button = pygame.image.load('assets/game/panels/classic_panel/go_fight_button.png')\r\n        self.go_fight_button_v2 = pygame.image.load('assets/game/panels/classic_panel/go_fight_button_v2.png')\r\n        self.go_fight_button_hover = pygame.image.load('assets/game/panels/classic_panel/go_fight_button_hover.png')\r\n        self.go_fight_button_rect = pygame.Rect(-5, -46, 520, 180)\r\n        self.go_fight_button_compteur = 0\r\n        #   # Fight popup\r\n        self.fight_popup = pygame.image.load('assets/game/panels/classic_panel/fight_popup.png')\r\n        self.fight_sac_button = pygame.image.load('assets/game/panels/classic_panel/dresseur_sac_button.png')\r\n        self.fight_sac_button_rect = pygame.Rect(184, 211, 75, 92)\r\n        self.fight_equipe_button = pygame.image.load('assets/game/panels/classic_panel/dresseur_equipe_button.png')\r\n        self.fight_equipe_button_rect = pygame.Rect(265, 211, 75, 92)\r\n\r\n        self.fight_popup_x_button = pygame.image.load('assets/game/panels/classic_panel/x_fight_popup_button.png')\r\n        self.fight_popup_x_button_rect = pygame.Rect(557, 82, 70, 70)\r\n        # GENERATING RECTS --------------------------------------------\r\n\r\n        #   # Player rects\r\n        self.player_name_rect = pygame.Rect(656, 12, 399, 51)\r\n        #   # Pokemon rects\r\n        self.pokemon_info_popup_rect = pygame.Rect(898, 6, 374, 215)\r\n        self.POKEMON_INFO_OBJ_RECT = pygame.Rect(1168, 143, 70, 70)\r\n        self.pokemon_info_obj_rect = pygame.Rect(1168, 143, 70, 70)\r\n        self.PK_RECTS = (pygame.Rect(900, 275, 369, 69), pygame.Rect(900, 348, 369, 69), pygame.Rect(900, 421, 369, 69),\r\n                         pygame.Rect(900, 494, 369, 69), pygame.Rect(900, 567, 369, 69), pygame.Rect(900, 640, 369, 69))\r\n\r\n        self.pk_rects = [pygame.Rect(900, 275, 369, 69), pygame.Rect(900, 348, 369, 69), pygame.Rect(900, 421, 369, 69),\r\n                         pygame.Rect(900, 494, 369, 69), pygame.Rect(900, 567, 369, 69), pygame.Rect(900, 640, 369, 69)]\r\n        #   # Button rects\r\n        self.sac_button_rect = pygame.Rect(667, 465, 218, 215)\r\n        self.logo_pk_suppr_rect = pygame.Rect(1085, 46, 150, 150)\r\n        self.logo_enable_item_rect = pygame.Rect(1085, 46, 150, 150)\r\n\r\n        # SET VARIABLES --------------------------------------------\r\n        #   # Pokemon infos\r\n        self.pokemon_info_mode = False\r\n        self.pokemon_info_i = 0\r\n        self.pk_info_obj_move_mode = False\r\n        #   # Pokemon move mode\r\n        self.pk_move_mode = False\r\n        self.moving_pk = [False, False, False, False, False, False]\r\n        self.moving_pk_rel_possouris = [0, 0]\r\n        self.saved_possouris = (0, 0)\r\n        #   # Pokemon hover\r\n        self.current_hover_pokemon_register = {0: False,\r\n                                               1: False,\r\n                                               2: False,\r\n                                               3: False,\r\n                                               4: False,\r\n                                               5: False,\r\n                                               }\r\n        self.current_hover_pokemon = None\r\n        #   # End turn fight\r\n        self.boolFight_popup = None\r\n        self.fight_popup_drop_pk_rect = pygame.Rect(16, 405, 696, 252)\r\n        self.fighting_pk = None\r\n\r\n        # IMPORT/INSTANCES --------------------------------------------\r\n        self.alphabet_pixels = player_name.alphabet_pixels\r\n\r\n        self.ingame_window = ingame_windows.IngameWindow(self.game)\r\n\r\n        self.buttons = image.ClassicGamePanelButtons()\r\n\r\n    # UPDATES -----------------------------\r\n\r\n    def update(self, surface, possouris):\r\n        # BACKGROUND\r\n        if self.game.player.actions > 0:\r\n            surface.blit(self.background, (0, 0))\r\n            self.update_player_infos(surface, possouris)  # PLAYER INFOS\r\n        else:\r\n            surface.blit(self.no_action_background, (0, 0))\r\n            self.update_player_infos(surface, possouris)  # PLAYER INFOS\r\n            self.update_go_fight_button(surface, possouris)\r\n\r\n        # PLAYER TEAM\r\n        self.update_hover_pokemon()\r\n        if not self.pk_move_mode:\r\n            self.update_team_pokemons(surface, possouris)\r\n\r\n        # PANEL BUTTONS\r\n        self.buttons.update(surface, possouris, self.ingame_window)\r\n\r\n        if self.sac_button_rect.collidepoint(possouris) and not self.ingame_window.is_hovering(possouris):\r\n            surface.blit(self.sac_button_hover, (667, 465))\r\n        surface.blit(self.sac, (675, 475))\r\n\r\n        # Interactions\r\n        self.update_cursor(possouris)\r\n\r\n        self.update_player_name_editing_mode(surface)\r\n\r\n        # POKEMON INFO\r\n        self.update_pokemon_info(surface, possouris)\r\n\r\n        if self.ingame_window.sac_panel.emp_move_mode and not self.ingame_window.is_hovering(possouris):\r\n            surface.blit(self.interface_sombre_team, (0, 0))\r\n\r\n        # FIGHT POPUP\r\n        if self.boolFight_popup:\r\n            self.update_fight_popup(surface, possouris)\r\n\r\n        # INGAME WINDOW\r\n        self.ingame_window.update(surface, possouris)\r\n\r\n        if self.pk_move_mode:\r\n            self.update_team_pokemons(surface, possouris)\r\n\r\n    def update_fight_popup(self, surface, possouris):\r\n        surface.blit(self.fight_popup, (0, 0))\r\n\r\n        # BUTTONS\r\n        if self.fight_popup_x_button_rect.collidepoint(possouris):\r\n            surface.blit(self.fight_popup_x_button, self.fight_popup_x_button_rect, (70, 0, 70, 70))\r\n        else:\r\n            surface.blit(self.fight_popup_x_button, self.fight_popup_x_button_rect, (0, 0, 70, 70))\r\n\r\n        if self.fight_sac_button_rect.collidepoint(possouris):\r\n            surface.blit(self.fight_sac_button, self.fight_sac_button_rect, (75, 0, 75, 92))\r\n        else:\r\n            surface.blit(self.fight_sac_button, self.fight_sac_button_rect, (0, 0, 75, 92))\r\n\r\n        if self.fight_equipe_button_rect.collidepoint(possouris):\r\n            surface.blit(self.fight_equipe_button, self.fight_equipe_button_rect, (75, 0, 75, 92))\r\n        else:\r\n            surface.blit(self.fight_equipe_button, self.fight_equipe_button_rect, (0, 0, 75, 92))\r\n\r\n        # Affichage de l'icone du dresseur\r\n        surface.blit(self.game.next_fighting_dresseur.icon, (18, 148))\r\n\r\n    def update_player_infos(self, surface, possouris):\r\n        # PLAYER NAME\r\n        self.update_player_name(surface, possouris)\r\n\r\n        # PLAYER LEVEL\r\n        self.update_player_lv(surface)\r\n\r\n        # PLAYER MONEY\r\n        surface.blit(self.money_font.render(str(self.game.player.money), False, (255, 255, 255)), (767, 71))\r\n\r\n        # PLAYER ACTIONS_LEFT\r\n        surface.blit(self.actions_font.render(str(self.game.player.actions), False, (0, 0, 0)), (385, 12))\r\n\r\n    def update_player_lv(self, surface):\r\n        self.player_lv_image = self.font_size3.render(str(self.game.player.level), False, (124, 124, 124))\r\n        if self.game.player.level >= 10:\r\n            surface.blit(self.player_lv_image, (955, 73))\r\n        else:\r\n            surface.blit(self.player_lv_image, (965, 73))\r\n\r\n    def update_player_name(self, surface, possouris):\r\n        surface.blit(self.font.render(self.game.player.name, False, (15, 0, 124)), (662, 10))\r\n        if self.game.player.name_editing_mode:\r\n            self.curseur_changement_pseudo.update(surface, player_name.get_pixels(self.game.player.name))\r\n        if not self.game.player.name_edited:\r\n            surface.blit(self.player_name_indication, (760, 30))\r\n\r\n        if self.player_name_rect.collidepoint(possouris):\r\n            if not self.ingame_window.is_hovering(possouris):\r\n                if self.pokemon_info_mode:\r\n                    if not self.pokemon_info_popup_rect.collidepoint(possouris):\r\n                        surface.blit(self.player_name_hover, (0, 0))\r\n                else:\r\n                    surface.blit(self.player_name_hover, (0, 0))\r\n\r\n    def update_hover_pokemon(self):\r\n        is_a_pk_hover = False\r\n        for pk_i in range(6):\r\n            if self.current_hover_pokemon_register[pk_i]:\r\n                self.current_hover_pokemon = pk_i\r\n                is_a_pk_hover = True\r\n        if not is_a_pk_hover:\r\n            self.current_hover_pokemon = None\r\n\r\n    def update_player_name_editing_mode(self, surface):\r\n        if self.game.player.name_editing_mode:\r\n            surface.blit(self.mode_changement_pseudo_image, (0, 0))\r\n\r\n    def update_team_pokemons(self, surface, possouris):\r\n        # Bouton delete pokemon\r\n        if self.pk_move_mode:\r\n            if self.delete_pk_button_rect.collidepoint(possouris):\r\n                surface.blit(self.delete_pk_button,\r\n                             (self.delete_pk_button_rect.x + 3, self.delete_pk_button_rect.y + 4),\r\n                             (183, 0, 183, 183))\r\n            else:\r\n                surface.blit(self.delete_pk_button,\r\n                             (self.delete_pk_button_rect.x + 3, self.delete_pk_button_rect.y + 4),\r\n                             (0, 0, 183, 183))\r\n\r\n        # Pokemon 1\r\n        self.update_pokemon(surface, possouris, 0)\r\n        # Pokemon 2\r\n        self.update_pokemon(surface, possouris, 1)\r\n        # Pokemon 3\r\n        self.update_pokemon(surface, possouris, 2)\r\n        # Pokemon 4\r\n        self.update_pokemon(surface, possouris, 3)\r\n        # Pokemon 5\r\n        self.update_pokemon(surface, possouris, 4)\r\n        # Pokemon 6\r\n        self.update_pokemon(surface, possouris, 5)\r\n\r\n    def update_pokemon(self, surface, possouris, i):\r\n        pk = self.game.player.team[i]\r\n\r\n        if self.pk_move_mode and self.moving_pk[i]:\r\n            pk_rect = pygame.Rect(possouris[0] - self.moving_pk_rel_possouris[0],\r\n                                  possouris[1] - self.moving_pk_rel_possouris[1],\r\n                                  369,\r\n                                  69)\r\n\r\n        else:\r\n            pk_rect = self.pk_rects[i].copy()\r\n\r\n        if pk is not None:\r\n            if not self.ingame_window.starters_panel.pk_move_mode and not self.ingame_window.sac_panel.emp_move_mode and \\\r\n                    not self.ingame_window.spawn_panel.spawning_pk_move_mode and not self.ingame_window.moving:\r\n                self.update_pk_move(possouris, i)\r\n\r\n            if i in (0, 2, 4):\r\n                color = (255, 255, 255)\r\n            else:\r\n                color = (163, 171, 255)\r\n\r\n            if self.pk_rects[i].collidepoint(possouris):\r\n                surface.blit(self.create_rect_alpha((369, 69), color), (self.pk_rects[i].x, self.pk_rects[i].y))\r\n\r\n            d = ((1272 - pk_rect.x) ** 2 + (637 - pk_rect.y) ** 2) ** 0.5\r\n\r\n            alpha = 1582 + 255 - d*3\r\n            if alpha < 0:\r\n                alpha = 0\r\n\r\n            # Variables\r\n            icon = pk.icon_image.convert_alpha()\r\n            name = self.pokemon_name_font.render(pk.name, False, (0, 0, 0)).convert_alpha()\r\n            level = self.pokemon_level_font.render('Lv.' + str(pk.level), False, (0, 0, 0)).convert_alpha()\r\n\r\n            type_color = game_infos.get_type_color(pk.get_type())\r\n            type_name_to_print = game_infos.get_type_name_to_print(pk.get_type())\r\n            type1_render = self.font_pokemon_type.render(type_name_to_print, False, type_color).convert_alpha()\r\n\r\n            type2 = pk.get_type2()\r\n            if not type2 == 'NoType':\r\n                type2_color = game_infos.get_type_color(type2)\r\n                type2_name_to_print = game_infos.get_type_name_to_print(type2)\r\n                type2_render = self.font_pokemon_type.render(type2_name_to_print, False, type2_color).convert_alpha()\r\n\r\n            pv = self.pokemon_hp_font.render(str(pk.health) + \"/\" + str(pk.pv), False, (0, 0, 0)).convert_alpha()\r\n\r\n            # Alpha\r\n            icon.set_alpha(alpha)\r\n            name.set_alpha(alpha)\r\n            level.set_alpha(alpha)\r\n            type1_render.set_alpha(alpha)\r\n            if type2 != 'NoType':\r\n                type2_render.set_alpha(alpha)\r\n            pv.set_alpha(alpha)\r\n\r\n            surface.blit(icon, (pk_rect.x, pk_rect.y - 5), (0, 0, 64, 64))\r\n            surface.blit(name, (pk_rect.x + 70, pk_rect.y + 13))\r\n            surface.blit(level, (pk_rect.x + 60, pk_rect.y + 42))\r\n            surface.blit(type1_render, (pk_rect.x + level.get_width() + 65, pk_rect.y + 42))\r\n            if not pk.is_alive:\r\n                ko = self.pokemon_hp_font.render('KO', False, (180, 0, 0)).convert_alpha()\r\n                ko.set_alpha(alpha)\r\n                surface.blit(ko, (pk_rect.x + 215 + pv.get_width(), pk_rect.y + 40))\r\n\r\n            if not type2 == 'NoType':\r\n                surface.blit(type2_render, (pk_rect.x + level.get_width() + type1_render.get_width() + 68, pk_rect.y + 42))\r\n\r\n            back_bar = self.create_rect_alpha((150, 17), (35, 35, 35), alpha)\r\n            front_bar = self.create_rect_alpha((pk.health / pk.pv * 150, 17), (42, 214, 0), alpha)\r\n\r\n            surface.blit(back_bar, (pk_rect.x + 205, pk_rect.y + 26))\r\n            surface.blit(front_bar, (pk_rect.x + 205, pk_rect.y + 26))\r\n\r\n            surface.blit(pv, (pk_rect.x + 205, pk_rect.y + 40))\r\n\r\n            if pk.objet_tenu is not None:\r\n                item_tenu = self.font_pokemon_type.render('ITEM', False, (30, 30, 30)).convert_alpha()\r\n                item_tenu.set_alpha(alpha)\r\n                surface.blit(item_tenu,\r\n                             (pk_rect.x + 327, pk_rect.y + 6))\r\n\r\n            bg_rect = self.create_rect_alpha((86, 86), (255, 255, 255), 200 - alpha)\r\n\r\n            bg_rect2 = pygame.Surface((98, 98), pygame.SRCALPHA).convert_alpha()\r\n            bg_rect2.set_alpha(220 - alpha)\r\n            pygame.draw.rect(bg_rect2, (0, 0, 0), bg_rect2.get_rect(), width=4)\r\n\r\n            icon2 = pygame.transform.scale(pk.icon_image, (220, 110)).convert_alpha()\r\n            level2 = self.pokemon_level_font.render('Lv.' + str(pk.level), False, (0, 0, 0)).convert_alpha()\r\n            back_bar2 = self.create_rect_alpha((55, 6), (35, 35, 35), 255-alpha)\r\n            front_bar2 = self.create_rect_alpha((pk.health / pk.pv * 55, 6), (42, 214, 0), 255-alpha)\r\n\r\n            icon2.set_alpha(255-alpha)\r\n            level2.set_alpha(255-alpha)\r\n\r\n            if self.pk_move_mode:\r\n                surface.blit(bg_rect, (possouris[0] - 43, possouris[1] - 43))\r\n                surface.blit(bg_rect2, (possouris[0] - 49, possouris[1] - 49))\r\n                surface.blit(icon2, (possouris[0] - 55, possouris[1] - 65), (0, 0, 100, 100))\r\n                surface.blit(level2, (possouris[0] + 20, possouris[1] + 24))\r\n                surface.blit(back_bar2, (possouris[0] - 40, possouris[1] + 35))\r\n                surface.blit(front_bar2, (possouris[0] - 40, possouris[1] + 35))\r\n\r\n        if self.pk_rects[i].collidepoint(possouris):\r\n\r\n            if not self.ingame_window.is_hovering(possouris):\r\n                self.current_hover_pokemon_register[i] = True\r\n\r\n                if self.ingame_window.sac_panel.emp_move_mode:\r\n                    if self.game.player.team[i] is not None:\r\n                        if self.ingame_window.sac_panel.selected_item.target_pokemon == 'All' or \\\r\n                                self.game.player.team[\r\n                                    i].name == self.ingame_window.sac_panel.selected_item.target_pokemon:\r\n\r\n                            if 'Use' in self.ingame_window.sac_panel.selected_item.fonctionnement:\r\n                                surface.blit(self.item_pk_hover_use,\r\n                                             (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))\r\n                            elif 'Give' in self.ingame_window.sac_panel.selected_item.fonctionnement:\r\n                                if self.game.player.team[i].objet_tenu is None:\r\n                                    surface.blit(self.item_pk_hover_give,\r\n                                                 (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))\r\n                                else:\r\n                                    surface.blit(self.item_pk_hover_give_error,\r\n                                                 (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))\r\n                            else:\r\n                                surface.blit(self.item_pk_hover_error,\r\n                                             (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))\r\n                        else:\r\n                            surface.blit(self.item_pk_hover_error, (self.PK_RECTS[i].x - 3, self.PK_RECTS[i].y - 2))\r\n        else:\r\n            self.current_hover_pokemon_register[i] = False\r\n\r\n    def update_pk_move(self, possouris, i):\r\n\r\n        if not self.pk_move_mode:\r\n            if self.game.mouse_pressed[1] and self.pk_rects[i].collidepoint(possouris) and not self.ingame_window.is_hovering(possouris):\r\n                self.pk_move_mode = True\r\n                self.moving_pk[i] = True\r\n                self.moving_pk_rel_possouris = (possouris[0] - self.pk_rects[i].x,\r\n                                                possouris[1] - self.pk_rects[i].y)\r\n        else:\r\n            if self.moving_pk[i]:\r\n                if not self.game.mouse_pressed[1]:\r\n                    if self.delete_pk_button_rect.collidepoint(possouris):\r\n                        if self.game.player.get_nb_team_members() != 1:\r\n                            self.game.player.team[i] = None\r\n                    elif self.pk_rects[0].collidepoint(possouris):\r\n                        self.change_pk_place(i, 0)\r\n                    elif self.pk_rects[1].collidepoint(possouris):\r\n                        self.change_pk_place(i, 1)\r\n                    elif self.pk_rects[2].collidepoint(possouris):\r\n                        self.change_pk_place(i, 2)\r\n                    elif self.pk_rects[3].collidepoint(possouris):\r\n                        self.change_pk_place(i, 3)\r\n                    elif self.pk_rects[4].collidepoint(possouris):\r\n                        self.change_pk_place(i, 4)\r\n                    elif self.pk_rects[5].collidepoint(possouris):\r\n                        self.change_pk_place(i, 5)\r\n                    elif self.ingame_window.current_panel_name == 'Evolutions' and self.ingame_window.evol_panel.evolving_pk_rect.collidepoint(possouris):\r\n                        self.ingame_window.evol_panel.update_evolving_pk()\r\n                    elif self.ingame_window.current_panel_name == 'Train' and self.ingame_window.train_panel.training_pk_rect.collidepoint(possouris):\r\n                        self.ingame_window.train_panel.update_training_pk()\r\n                    elif self.boolFight_popup:\r\n                        if self.fight_popup_drop_pk_rect.collidepoint(possouris):\r\n                            if self.game.player.team[i].is_alive:\r\n                                self.fighting_pk = self.game.player.team[i]\r\n                                self.start_fight()\r\n                                self.boolFight_popup = False\r\n\r\n                    self.pk_move_mode = False\r\n                    self.moving_pk[i] = False\r\n\r\n    def update_pokemon_info(self, surface, possouris):\r\n        if self.pokemon_info_mode:\r\n            if pygame.Rect(1210, 9, 59, 59).collidepoint(possouris):\r\n                surface.blit(self.pokemon_info_popup_x_button_hover, (0, 0))\r\n            else:\r\n                surface.blit(self.pokemon_info_popup, (0, 0))\r\n\r\n            if self.game.player.team[self.pokemon_info_i] is not None:\r\n                surface.blit(pygame.transform.scale(self.game.player.team[self.pokemon_info_i].icon_image, (280, 140)),\r\n                             (900, 0), (0, 0, 140, 140))\r\n                surface.blit(self.font_pokemon_info_name.render(self.game.player.team[self.pokemon_info_i].name, False,\r\n                                                                (0, 0, 0)), (1038, 15))\r\n                surface.blit(\r\n                    self.font_pokemon_info_values.render(str(self.game.player.team[self.pokemon_info_i].pv), False,\r\n                                                         (2, 137, 0)), (1070, 43))\r\n                surface.blit(\r\n                    self.font_pokemon_info_values.render(str(self.game.player.team[self.pokemon_info_i].attack), False,\r\n                                                         (189, 0, 0)), (1070, 66))\r\n                surface.blit(\r\n                    self.font_pokemon_info_values.render(str(self.game.player.team[self.pokemon_info_i].defense), False,\r\n                                                         (191, 200, 0)), (1070, 89))\r\n                surface.blit(\r\n                    self.font_pokemon_info_values.render(str(self.game.player.team[self.pokemon_info_i].speed), False,\r\n                                                         (0, 139, 230)), (1070, 112))\r\n                surface.blit(\r\n                    self.font_pokemon_info_lv.render(str(self.game.player.team[self.pokemon_info_i].level), False,\r\n                                                     (0, 0, 0)), (965, 139))\r\n\r\n                if self.game.player.team[self.pokemon_info_i].objet_tenu is not None:\r\n\r\n                    if self.pokemon_info_obj_rect.collidepoint(possouris):\r\n                        surface.blit(self.create_rect_alpha((70, 70), (255, 255, 255)), self.pokemon_info_obj_rect)\r\n                    surface.blit(\r\n                        pygame.transform.scale(self.game.player.team[self.pokemon_info_i].objet_tenu.icon_image,\r\n                                               (70, 70)),\r\n                        (self.pokemon_info_obj_rect.x + 2, self.pokemon_info_obj_rect.y))\r\n            else:\r\n                surface.blit(self.pokemon_info_popup_unknown, (0, 0))\r\n\r\n    def update_cursor(self, possouris):\r\n        if self.get_interactions(possouris=possouris):\r\n            if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_HAND:\r\n                pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)\r\n        else:\r\n            if pygame.mouse.get_cursor() != pygame.SYSTEM_CURSOR_ARROW:\r\n                pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)\r\n\r\n    def update_go_fight_button(self, surface, possouris):\r\n\r\n        if not self.go_fight_button_rect.collidepoint(possouris) or self.ingame_window.is_hovering(possouris):\r\n            if self.go_fight_button_compteur < 50:\r\n                surface.blit(self.go_fight_button, self.go_fight_button_rect)\r\n            else:\r\n                surface.blit(self.go_fight_button_v2, self.go_fight_button_rect)\r\n        else:\r\n            surface.blit(self.go_fight_button_hover, self.go_fight_button_rect)\r\n\r\n        self.go_fight_button_compteur += 1\r\n        if self.go_fight_button_compteur > 100:\r\n            self.go_fight_button_compteur = 0\r\n\r\n    def start_fight(self):\r\n        self.game.start_fight(self.fighting_pk, fight_type='Boss')\r\n\r\n    def next_turn(self):\r\n        self.ingame_window.reset_all_panels()\r\n\r\n    # INTERACTIONS -----------------------------\r\n\r\n    def left_clic_interactions(self, possouris):\r\n        if not self.pk_move_mode:\r\n            if self.player_name_rect.collidepoint(possouris):\r\n                if self.pokemon_info_mode:\r\n                    if not self.pokemon_info_popup_rect.collidepoint(possouris):\r\n                        self.game.player.enable_name_editing_mode()\r\n                        self.pokemon_info_mode = False\r\n                else:\r\n                    self.game.player.enable_name_editing_mode()\r\n\r\n                if self.ingame_window.is_open:\r\n                    self.ingame_window.close()\r\n\r\n            if self.game.is_starter_selected:\r\n                if not self.boolFight_popup:\r\n                    if self.buttons.spawn_button_rect.collidepoint(possouris):\r\n                        if self.buttons.unlocked_buttons['Spawn']:\r\n                            self.ingame_window.update_panel('Spawn')\r\n                            self.ingame_window.open()\r\n                            self.ingame_window.maximize()\r\n                    elif self.buttons.train_button_rect.collidepoint(possouris):\r\n                        if self.buttons.unlocked_buttons['Train']:\r\n                            self.ingame_window.update_panel('Train')\r\n                            self.ingame_window.open()\r\n                            self.ingame_window.maximize()\r\n                    elif self.buttons.grind_button_rect.collidepoint(possouris):\r\n                        if self.buttons.unlocked_buttons['Grind']:\r\n                            self.ingame_window.update_panel('Grind')\r\n                            self.ingame_window.open()\r\n                            self.ingame_window.maximize()\r\n                    elif self.buttons.items_button_rect.collidepoint(possouris):\r\n                        if self.buttons.unlocked_buttons['Items']:\r\n                            self.ingame_window.update_panel('Items')\r\n                            self.ingame_window.open()\r\n                            self.ingame_window.maximize()\r\n                    elif self.buttons.evol_button_rect.collidepoint(possouris):\r\n                        if self.buttons.unlocked_buttons['Evol']:\r\n                            self.ingame_window.update_panel('Evolutions')\r\n                            self.ingame_window.open()\r\n                            self.ingame_window.maximize()\r\n\r\n            if self.sac_button_rect.collidepoint(possouris):\r\n                self.ingame_window.update_panel(\"Sac d'objets\")\r\n                self.ingame_window.open()\r\n                self.ingame_window.maximize()\r\n\r\n            if self.game.player.actions <= 0:\r\n                if not self.boolFight_popup:\r\n                    if self.go_fight_button_rect.collidepoint(possouris):\r\n                        self.boolFight_popup = True\r\n                else:\r\n                    if self.fight_popup_x_button_rect.collidepoint(possouris):\r\n                        self.boolFight_popup = False\r\n\r\n            if self.pokemon_info_mode:\r\n                if pygame.Rect(1210, 9, 59, 59).collidepoint(possouris):\r\n                    self.pokemon_info_mode = False\r\n\r\n    def get_interactions(self, possouris):\r\n        if self.ingame_window.is_hovering(possouris):\r\n            return self.ingame_window.is_hovering_buttons(possouris) or self.pk_move_mode\r\n        else:\r\n            if self.player_name_rect.collidepoint(possouris):\r\n                if self.pokemon_info_mode:\r\n                    if not self.pokemon_info_popup_rect.collidepoint(possouris):\r\n                        return True\r\n                    else:\r\n                        return False\r\n                else:\r\n                    return True\r\n\r\n            elif self.pk_move_mode:\r\n                return True\r\n            elif self.sac_button_rect.collidepoint(possouris):\r\n                return True\r\n            elif self.is_hovering_team_pokemon(possouris):\r\n                return True\r\n            elif self.boolFight_popup:\r\n                if self.fight_sac_button_rect.collidepoint(possouris) or self.fight_equipe_button_rect.collidepoint(possouris):\r\n                    return True\r\n                elif self.fight_popup_x_button_rect.collidepoint(possouris):\r\n                    return True\r\n            elif self.game.player.actions <= 0 and self.go_fight_button_rect.collidepoint(possouris):\r\n                return True\r\n            elif self.buttons.is_hovering_button(possouris):\r\n                return not self.boolFight_popup\r\n            elif self.is_hovering_pokemon_info_popup_buttons(possouris):\r\n                return True\r\n            else:\r\n                return False\r\n\r\n    def create_rect_alpha(self, dimensions, color, alpha=90):\r\n        rect = pygame.Surface(dimensions)\r\n        rect.set_alpha(alpha)\r\n        rect.fill(color)\r\n        return rect\r\n\r\n    def change_pk_place(self, i1, i2):\r\n        if not i1 == i2 and not (i2 is None):\r\n            self.game.player.team[i1], self.game.player.team[i2] = self.game.player.team[i2], self.game.player.team[i1]\r\n            if self.pokemon_info_mode:\r\n                if self.pokemon_info_i == i1:\r\n                    self.pokemon_info_i = i2\r\n\r\n    def is_hovering_team_pokemon(self, possouris):\r\n        if not self.pk_rects[0].collidepoint(possouris) and not self.pk_rects[1].collidepoint(possouris):\r\n            if not self.pk_rects[2].collidepoint(possouris) and not self.pk_rects[3].collidepoint(possouris):\r\n                if not self.pk_rects[4].collidepoint(possouris) and not self.pk_rects[5].collidepoint(possouris):\r\n                    return False\r\n        return True\r\n\r\n    def is_hovering_pokemon_info_popup_buttons(self, possouris):\r\n        if pygame.Rect(1210, 9, 59, 59).collidepoint(possouris):\r\n            return True\r\n        elif pygame.Rect(1166, 141, 74, 74).collidepoint(possouris) and self.game.player.team[\r\n            self.pokemon_info_i] is not None and self.game.player.team[self.pokemon_info_i].objet_tenu is not None:\r\n            return True\r\n\r\n        return False\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/game_panel.py b/game_panel.py
+--- a/game_panel.py	(revision c1db4d9f999e3bd3e0c9f6ea660137bfdedbd5c1)
++++ b/game_panel.py	(date 1710628164852)
+@@ -46,7 +46,7 @@
+         #    # Player infos
+         self.mode_changement_pseudo_image = pygame.image.load('assets/game/panels/classic_panel/mode_changement_pseudo.png')
+         self.player_name_hover = pygame.image.load("assets/game/panels/classic_panel/player_name_hover.png")
+-        self.curseur_changement_pseudo = image.CursorChangePseudoMode()
++        self.curseur_changement_pseudo = pygame.image.load("assets/game/panels/classic_panel/curseur_changement_pseudo.png")
+         self.player_name_image = self.font.render(self.game.player.name, False, (15, 0, 124))
+         self.player_name_indication = self.font_size2.render("(cliquer pour modifier)", False, (15, 0, 124))
+         self.player_lv_image = self.font_size3.render(str(self.game.player.level), False, (124, 124, 124))
+Index: image.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import pygame\r\nimport animation\r\nimport random\r\n\r\npygame.font.init()\r\n\r\n\r\nclass Image(animation.AnimateImage):\r\n\r\n    def __init__(self, nb_images, image_name):\r\n        super().__init__(nb_images, image_name)\r\n        self.final_image_num = nb_images - 1\r\n        self.loop = False\r\n        self.pas = 1\r\n\r\n    def update_animation(self):\r\n        self.animate(loop=self.loop, final_image_num=self.final_image_num, pas=self.pas)\r\n\r\n\r\nclass Background(Image):\r\n\r\n    def __init__(self):\r\n        super().__init__(24, \"Background\")\r\n        self.pas = 2\r\n        self.start_animation()\r\n\r\n\r\nclass GameBar(Image):\r\n\r\n    def __init__(self):\r\n        super().__init__(24, 'game_bar')\r\n        self.start_animation()\r\n\r\n\r\nclass RandomPokemon:\r\n\r\n    def __init__(self):\r\n        self.is_animation_over = False\r\n        self.after_animation_over_compteur = 0\r\n\r\n        self.num = random.randint(0, 8)\r\n        self.image = pygame.image.load(f'assets/accueil/pokemons/{self.num}.png')\r\n        self.image.set_alpha(0)\r\n\r\n        self.image_opacity = 0\r\n\r\n    def update_animation(self):\r\n        self.image.set_alpha(self.image_opacity)\r\n        if self.image_opacity < 255:\r\n            self.image_opacity += 10\r\n        else:\r\n            if not self.is_animation_over:\r\n                self.after_animation_over_compteur += 1\r\n            if self.after_animation_over_compteur > 20:\r\n                self.is_animation_over = True\r\n\r\n\r\nclass IntroAccueil(Image):\r\n\r\n    def __init__(self):\r\n        super().__init__(147, 'intro')\r\n        self.start_animation()\r\n        self.pas = 2\r\n\r\n\r\nclass CursorChangePseudoMode:\r\n\r\n    def __init__(self):\r\n        self.image = pygame.image.load('assets/game/panels/classic_panel/curseur_changement_pseudo.png')\r\n\r\n        self.compteur_animation = 0\r\n\r\n    def update(self, surface, player_name_pixels=0):\r\n        # print(player_name_pixels)\r\n        self.compteur_animation += 1\r\n\r\n        if self.compteur_animation < 25:\r\n            surface.blit(self.image, (1 + player_name_pixels, 1))\r\n\r\n        if self.compteur_animation > 57:\r\n            self.compteur_animation = 0\r\n\r\n\r\nclass AccueilButtons:\r\n\r\n    def __init__(self):\r\n        ## Bouton START\r\n        self.start_game = load_image('assets/accueil/Buttons/Start_game/start_game.png')\r\n        self.start_game_rect = get_custom_rect(self.start_game, 30, 155)\r\n\r\n        self.start_game_h = load_image('assets/accueil/Buttons/Start_game/start_game_hover.png')\r\n\r\n        ## Bouton SETTINGS\r\n        self.settings = load_image('assets/accueil/Buttons/Settings/settings.png', True, (422, 83))\r\n        self.settings_rect = get_custom_rect(self.settings, 30, 280)\r\n\r\n        self.settings_h = load_image('assets/accueil/Buttons/Settings/settings_hover.png', True, (422, 83))\r\n\r\n        ## Bouton CREDITS\r\n        self.credits = load_image('assets/accueil/Buttons/Credits/credits.png', True, (359, 83))\r\n        self.credits_rect = get_custom_rect(self.credits, 30, 390)\r\n\r\n        self.credits_h = load_image('assets/accueil/Buttons/Credits/credits_hover.png', True, (359, 83))\r\n\r\n        ## Bouton QUIT\r\n        self.quit = load_image('assets/accueil/Buttons/Quit/quit.png', True, (213, 91))\r\n        self.quit_rect = get_custom_rect(self.quit, 30, 500)\r\n\r\n        self.quit_h = load_image('assets/accueil/Buttons/Quit/quit_hover.png', True, (213, 91))\r\n\r\n    def update(self, surface, possouris, basic_accueil: bool):\r\n        if self.start_game_rect.collidepoint(possouris) and basic_accueil:\r\n            surface.blit(self.start_game_h, self.start_game_rect)\r\n            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)\r\n        else:\r\n            surface.blit(self.start_game, self.start_game_rect)\r\n\r\n        if self.settings_rect.collidepoint(possouris) and basic_accueil:\r\n            surface.blit(self.settings_h, self.settings_rect)\r\n            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)\r\n        else:\r\n            surface.blit(self.settings, self.settings_rect)\r\n\r\n        if self.credits_rect.collidepoint(possouris) and basic_accueil:\r\n            surface.blit(self.credits_h, self.credits_rect)\r\n            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)\r\n        else:\r\n            surface.blit(self.credits, self.credits_rect)\r\n\r\n        if self.quit_rect.collidepoint(possouris) and basic_accueil:\r\n            surface.blit(self.quit_h, self.quit_rect)\r\n            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)\r\n        else:\r\n            surface.blit(self.quit, self.quit_rect)\r\n\r\n        if basic_accueil:\r\n            if not (self.quit_rect.collidepoint(possouris) or self.start_game_rect.collidepoint(possouris) or\r\n                    self.credits_rect.collidepoint(possouris) or self.settings_rect.collidepoint(possouris)):\r\n                pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)\r\n\r\n\r\nclass ClassicGamePanelButtons:\r\n\r\n    def __init__(self):\r\n        self.unlocked_buttons = {'Spawn': True,\r\n                                 'Train': True,\r\n                                 'Grind': True,\r\n                                 'Items': True,\r\n                                 'Evol': True\r\n                                 }\r\n        # SPAWN BUTTON\r\n        self.spawn_button = load_image('assets/game/panels/classic_panel/spawn_button.png')\r\n        self.spawn_button_rect = get_custom_rect(self.spawn_button, 42, 138, 250, 250)\r\n\r\n        self.spawn_button_hover = load_image('assets/game/panels/classic_panel/spawn_button_hover.png')\r\n        self.spawn_button_pos = (22, 126)\r\n\r\n        # TRAIN BUTTON\r\n        self.train_button = load_image('assets/game/panels/classic_panel/train_button.png')\r\n        self.train_button_rect = get_custom_rect(self.train_button, 327, 138, 250, 250)\r\n\r\n        self.train_button_hover = load_image('assets/game/panels/classic_panel/train_button_hover.png')\r\n\r\n        self.train_button_pos = (307, 126)\r\n\r\n        # GRIND BUTTON\r\n        self.grind_button = load_image('assets/game/panels/classic_panel/grind_button.png')\r\n        self.grind_button_rect = get_custom_rect(self.grind_button, 612, 138, 250, 250)\r\n\r\n        self.grind_button_hover = load_image('assets/game/panels/classic_panel/grind_button_hover.png')\r\n\r\n        self.grind_button_pos = (592, 126)\r\n\r\n        # ITEMS BUTTON\r\n        self.items_button = load_image('assets/game/panels/classic_panel/items_button.png')\r\n        self.items_button_rect = get_custom_rect(self.items_button, 78, 422, 250, 250)\r\n\r\n        self.items_button_hover = load_image('assets/game/panels/classic_panel/items_button_hover.png')\r\n\r\n        self.items_button_pos = (58, 410)\r\n\r\n        # EVOL BUTTON\r\n        self.evol_button = load_image('assets/game/panels/classic_panel/evol_button.png')\r\n        self.evol_button_rect = get_custom_rect(self.evol_button, 362, 422, 250, 250)\r\n\r\n        self.evol_button_hover = load_image('assets/game/panels/classic_panel/evol_button_hover.png')\r\n\r\n        self.evol_button_pos = (342, 410)\r\n\r\n        # EDIT BUTTON\r\n        self.edit_actions_button = load_image('assets/game/panels/classic_panel/edit_actions_button.png')\r\n        self.edit_actions_button_rect = get_custom_rect(self.edit_actions_button, 515, 11)\r\n\r\n        self.edit_actions_button_hover = load_image('assets/game/panels/classic_panel/edit_actions_button_hover.png')\r\n\r\n    def update(self, surface, possouris, ingame_window):\r\n        if self.edit_actions_button_rect.collidepoint(possouris) and not ingame_window.is_hovering(possouris):\r\n            surface.blit(self.edit_actions_button_hover, self.edit_actions_button_rect)\r\n        else:\r\n            surface.blit(self.edit_actions_button, self.edit_actions_button_rect)\r\n\r\n        if self.unlocked_buttons['Spawn']:\r\n            if self.spawn_button_rect.collidepoint(possouris) and not ingame_window.is_hovering(possouris):\r\n                surface.blit(self.spawn_button, self.spawn_button_pos)\r\n                surface.blit(self.spawn_button_hover, self.spawn_button_pos)\r\n            else:\r\n                surface.blit(self.spawn_button, self.spawn_button_pos)\r\n\r\n        if self.unlocked_buttons['Train']:\r\n            if self.train_button_rect.collidepoint(possouris) and not ingame_window.is_hovering(possouris):\r\n                surface.blit(self.train_button, self.train_button_pos)\r\n                surface.blit(self.train_button_hover, self.train_button_pos)\r\n            else:\r\n                surface.blit(self.train_button, self.train_button_pos)\r\n\r\n        if self.unlocked_buttons['Grind']:\r\n            if self.grind_button_rect.collidepoint(possouris) and not ingame_window.is_hovering(possouris):\r\n                surface.blit(self.grind_button, self.grind_button_pos)\r\n                surface.blit(self.grind_button_hover, self.grind_button_pos)\r\n            else:\r\n                surface.blit(self.grind_button, self.grind_button_pos)\r\n\r\n        if self.unlocked_buttons['Items']:\r\n            if self.items_button_rect.collidepoint(possouris) and not ingame_window.is_hovering(possouris):\r\n                surface.blit(self.items_button, self.items_button_pos)\r\n                surface.blit(self.items_button_hover, self.items_button_pos)\r\n            else:\r\n                surface.blit(self.items_button, self.items_button_pos)\r\n\r\n        if self.unlocked_buttons['Evol']:\r\n            if self.evol_button_rect.collidepoint(possouris) and not ingame_window.is_hovering(possouris):\r\n                surface.blit(self.evol_button, self.evol_button_pos)\r\n                surface.blit(self.evol_button_hover, self.evol_button_pos)\r\n            else:\r\n                surface.blit(self.evol_button, self.evol_button_pos)\r\n\r\n    def is_hovering_button(self, possouris):\r\n        if self.edit_actions_button_rect.collidepoint(possouris):\r\n            return True\r\n        elif self.spawn_button_rect.collidepoint(possouris):\r\n            if self.unlocked_buttons['Spawn']:\r\n                return True\r\n        elif self.train_button_rect.collidepoint(possouris):\r\n            if self.unlocked_buttons['Train']:\r\n                return True\r\n        elif self.grind_button_rect.collidepoint(possouris):\r\n            if self.unlocked_buttons['Grind']:\r\n                return True\r\n        elif self.items_button_rect.collidepoint(possouris):\r\n            if self.unlocked_buttons['Items']:\r\n                return True\r\n        elif self.evol_button_rect.collidepoint(possouris):\r\n            if self.unlocked_buttons['Evol']:\r\n                return True\r\n        else:\r\n            return False\r\n\r\n\r\nclass IngameWindowButtons:\r\n\r\n    def __init__(self):\r\n        # Bouton CLOSE\r\n        self.x_button = load_image('assets/game/ingame_windows/basic/x_button.png')\r\n        self.x_button_rect = get_custom_rect(self.x_button, 854, 4)\r\n\r\n        self.x_button_hover = load_image('assets/game/ingame_windows/basic/x_button_hover.png')\r\n\r\n        # Bouton MINIMIZE\r\n        self.min_button = load_image('assets/game/ingame_windows/basic/min_button.png')\r\n        self.min_button_rect = get_custom_rect(self.min_button, 816, 4)\r\n\r\n        self.min_button_hover = load_image('assets/game/ingame_windows/basic/min_button_hover.png')\r\n\r\n    def update(self, surface, possouris):\r\n\r\n        if self.x_button_rect.collidepoint(possouris):\r\n            surface.blit(self.x_button_hover, self.x_button_rect)\r\n\r\n        else:\r\n            surface.blit(self.x_button, self.x_button_rect)\r\n\r\n        if self.min_button_rect.collidepoint(possouris):\r\n            surface.blit(self.min_button_hover, self.min_button_rect)\r\n\r\n        else:\r\n            surface.blit(self.min_button, self.min_button_rect)\r\n\r\n    def is_hovering_buttons(self, possouris):\r\n        if not self.x_button_rect.collidepoint(possouris) and not self.min_button_rect.collidepoint(possouris):\r\n            return False\r\n        return True\r\n\r\n\r\ndef load_image(path, boolTransfromScale=False, size=None):\r\n    image = pygame.image.load(path)\r\n\r\n    if boolTransfromScale:\r\n        image = pygame.transform.scale(image, size)\r\n\r\n    return image\r\n\r\n\r\ndef get_custom_rect(image, rectx=None, recty=None, rectw=None, recth=None):\r\n    image_rect = image.get_rect()\r\n    if rectx is not None:\r\n        image_rect.x = rectx\r\n    if recty is not None:\r\n        image_rect.y = recty\r\n    if rectw is not None:\r\n        image_rect.w = rectw\r\n    if recth is not None:\r\n        image_rect.h = recth\r\n\r\n    return image_rect\r\n\r\n\r\nif __name__ == '__main__':\r\n    pass
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/image.py b/image.py
+--- a/image.py	(revision c1db4d9f999e3bd3e0c9f6ea660137bfdedbd5c1)
++++ b/image.py	(date 1710628122756)
+@@ -2,142 +2,6 @@
+ import animation
+ import random
+ 
+-pygame.font.init()
+-
+-
+-class Image(animation.AnimateImage):
+-
+-    def __init__(self, nb_images, image_name):
+-        super().__init__(nb_images, image_name)
+-        self.final_image_num = nb_images - 1
+-        self.loop = False
+-        self.pas = 1
+-
+-    def update_animation(self):
+-        self.animate(loop=self.loop, final_image_num=self.final_image_num, pas=self.pas)
+-
+-
+-class Background(Image):
+-
+-    def __init__(self):
+-        super().__init__(24, "Background")
+-        self.pas = 2
+-        self.start_animation()
+-
+-
+-class GameBar(Image):
+-
+-    def __init__(self):
+-        super().__init__(24, 'game_bar')
+-        self.start_animation()
+-
+-
+-class RandomPokemon:
+-
+-    def __init__(self):
+-        self.is_animation_over = False
+-        self.after_animation_over_compteur = 0
+-
+-        self.num = random.randint(0, 8)
+-        self.image = pygame.image.load(f'assets/accueil/pokemons/{self.num}.png')
+-        self.image.set_alpha(0)
+-
+-        self.image_opacity = 0
+-
+-    def update_animation(self):
+-        self.image.set_alpha(self.image_opacity)
+-        if self.image_opacity < 255:
+-            self.image_opacity += 10
+-        else:
+-            if not self.is_animation_over:
+-                self.after_animation_over_compteur += 1
+-            if self.after_animation_over_compteur > 20:
+-                self.is_animation_over = True
+-
+-
+-class IntroAccueil(Image):
+-
+-    def __init__(self):
+-        super().__init__(147, 'intro')
+-        self.start_animation()
+-        self.pas = 2
+-
+-
+-class CursorChangePseudoMode:
+-
+-    def __init__(self):
+-        self.image = pygame.image.load('assets/game/panels/classic_panel/curseur_changement_pseudo.png')
+-
+-        self.compteur_animation = 0
+-
+-    def update(self, surface, player_name_pixels=0):
+-        # print(player_name_pixels)
+-        self.compteur_animation += 1
+-
+-        if self.compteur_animation < 25:
+-            surface.blit(self.image, (1 + player_name_pixels, 1))
+-
+-        if self.compteur_animation > 57:
+-            self.compteur_animation = 0
+-
+-
+-class AccueilButtons:
+-
+-    def __init__(self):
+-        ## Bouton START
+-        self.start_game = load_image('assets/accueil/Buttons/Start_game/start_game.png')
+-        self.start_game_rect = get_custom_rect(self.start_game, 30, 155)
+-
+-        self.start_game_h = load_image('assets/accueil/Buttons/Start_game/start_game_hover.png')
+-
+-        ## Bouton SETTINGS
+-        self.settings = load_image('assets/accueil/Buttons/Settings/settings.png', True, (422, 83))
+-        self.settings_rect = get_custom_rect(self.settings, 30, 280)
+-
+-        self.settings_h = load_image('assets/accueil/Buttons/Settings/settings_hover.png', True, (422, 83))
+-
+-        ## Bouton CREDITS
+-        self.credits = load_image('assets/accueil/Buttons/Credits/credits.png', True, (359, 83))
+-        self.credits_rect = get_custom_rect(self.credits, 30, 390)
+-
+-        self.credits_h = load_image('assets/accueil/Buttons/Credits/credits_hover.png', True, (359, 83))
+-
+-        ## Bouton QUIT
+-        self.quit = load_image('assets/accueil/Buttons/Quit/quit.png', True, (213, 91))
+-        self.quit_rect = get_custom_rect(self.quit, 30, 500)
+-
+-        self.quit_h = load_image('assets/accueil/Buttons/Quit/quit_hover.png', True, (213, 91))
+-
+-    def update(self, surface, possouris, basic_accueil: bool):
+-        if self.start_game_rect.collidepoint(possouris) and basic_accueil:
+-            surface.blit(self.start_game_h, self.start_game_rect)
+-            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+-        else:
+-            surface.blit(self.start_game, self.start_game_rect)
+-
+-        if self.settings_rect.collidepoint(possouris) and basic_accueil:
+-            surface.blit(self.settings_h, self.settings_rect)
+-            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+-        else:
+-            surface.blit(self.settings, self.settings_rect)
+-
+-        if self.credits_rect.collidepoint(possouris) and basic_accueil:
+-            surface.blit(self.credits_h, self.credits_rect)
+-            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+-        else:
+-            surface.blit(self.credits, self.credits_rect)
+-
+-        if self.quit_rect.collidepoint(possouris) and basic_accueil:
+-            surface.blit(self.quit_h, self.quit_rect)
+-            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+-        else:
+-            surface.blit(self.quit, self.quit_rect)
+-
+-        if basic_accueil:
+-            if not (self.quit_rect.collidepoint(possouris) or self.start_game_rect.collidepoint(possouris) or
+-                    self.credits_rect.collidepoint(possouris) or self.settings_rect.collidepoint(possouris)):
+-                pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+-
+ 
+ class ClassicGamePanelButtons:
+ 
+Index: save.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>save : False\r\npokemon-starter :\r\n\r\nteam-1 :\r\nteam-2 :\r\nteam-3 :\r\nteam-4 :\r\nteam-5 :\r\nteam-6 :save : False\r\npokemon-starter :\r\n\r\nteam-1 :\r\nteam-2 :\r\nteam-3 :\r\nteam-4 :\r\nteam-5 :\r\nteam-6 :
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/save.txt b/save.txt
+--- a/save.txt	(revision c1db4d9f999e3bd3e0c9f6ea660137bfdedbd5c1)
++++ b/save.txt	(date 1710628244726)
+@@ -6,12 +6,4 @@
+ team-3 :
+ team-4 :
+ team-5 :
+-team-6 :save : False
+-pokemon-starter :
+-
+-team-1 :
+-team-2 :
+-team-3 :
+-team-4 :
+-team-5 :
+ team-6 :
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"70a8f8e9-b9ee-4043-aaf7-17abfcf103b3\" name=\"Default Changelist\" comment=\"rewrite typing error\">\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Flingouste.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Flingouste_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Gamblast.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Gamblast_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Grodoudou.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Grodoudou_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Kabuto.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Kabuto_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Kabutops.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Kabutops_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Lampignon.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Lampignon_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Mysdibule.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Mysdibule_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Olea's Trousselin.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Olea's Trousselin_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Ondine's Staross.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Ondine's Staross_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Onix.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Onix_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Ossatueur.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Ossatueur_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Osselait.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Osselait_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Pierre's Onix.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Pierre's Onix_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Red's Pikachu.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Red's Pikachu_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Rondoudou.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Rondoudou_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Spododo.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Spododo_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Stari.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Stari_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Staross.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Staross_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Steelix.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Steelix_.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Trousselin.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/assets/game/pokemons_icons/Trousselin_.png\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/all_attaques.txt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/all_attaques.txt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/all_pokemons.txt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/all_pokemons.txt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/dresseur.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/dresseur.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/game.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/game.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/pokemon.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/pokemon.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/pokemon_attaque_pool.txt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/pokemon_attaque_pool.txt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/special_pokemon.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/special_pokemon.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/special_pokemon_attaque_pool.txt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/special_pokemon_attaque_pool.txt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/special_pokemons.txt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/special_pokemons.txt\" afterDir=\"false\" />\r\n    </list>\r\n    <list id=\"6085e2ad-84dc-4101-8108-2a69c65d4003\" name=\"Changes by matva\" comment=\"Changes by matva\" />\r\n    <list id=\"5bd8204f-3e47-4224-9dc9-08feb0e4d8cc\" name=\"Changes by Yanko\" comment=\"\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Python Script\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"Yanko\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GitSEFilterConfiguration\">\r\n    <file-type-list>\r\n      <filtered-out-file-type name=\"LOCAL_BRANCH\" />\r\n      <filtered-out-file-type name=\"REMOTE_BRANCH\" />\r\n      <filtered-out-file-type name=\"TAG\" />\r\n      <filtered-out-file-type name=\"COMMIT_BY_MESSAGE\" />\r\n    </file-type-list>\r\n  </component>\r\n  <component name=\"GithubPullRequestsUISettings\">\r\n    <option name=\"selectedUrlAndAccountId\">\r\n      <UrlAndAccount>\r\n        <option name=\"accountId\" value=\"5a0042c1-9d35-4560-bf1f-231e50b08777\" />\r\n        <option name=\"url\" value=\"https://github.com/Yanko77/PokemonMG.git\" />\r\n      </UrlAndAccount>\r\n    </option>\r\n  </component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"mock:///Dummy.txt\" root0=\"SKIP_HIGHLIGHTING\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <hideBySeverity>\r\n      <option value=\"11\" />\r\n      <option value=\"12\" />\r\n      <option value=\"13\" />\r\n      <option value=\"14\" />\r\n      <option value=\"15\" />\r\n      <option value=\"16\" />\r\n      <option value=\"100\" />\r\n      <option value=\"200\" />\r\n      <option value=\"300\" />\r\n    </hideBySeverity>\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2R9QZ1D1JLZELWGXamy94TMfapC\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;Yanko&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/yanko/PycharmProjects/PokemonManagementGame&quot;,\r\n    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\yanko\\PycharmProjects\\PokemonManagementGame\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Python.main\">\r\n    <configuration name=\"attaques\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"PokemonManagementGame\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/attaques.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"bot_fight_algo\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"PokemonManagementGame\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/bot_fight_algo.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"dresseur\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"PokemonManagementGame\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/dresseur.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"fight\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"PokemonManagementGame\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/fight.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"main\" type=\"PythonConfigurationType\" factoryName=\"Python\">\r\n      <module name=\"PokemonManagementGame\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"C:\\Users\\yanko\\AppData\\Local\\RLBotGUIX\\Python37\\python.exe\" />\r\n      <option name=\"SDK_NAME\" value=\"Python 3.7\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/main.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"special_pokemon\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"PokemonManagementGame\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/special_pokemon.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Python.attaques\" />\r\n        <item itemvalue=\"Python.special_pokemon\" />\r\n        <item itemvalue=\"Python.fight\" />\r\n        <item itemvalue=\"Python.bot_fight_algo\" />\r\n        <item itemvalue=\"Python.dresseur\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"70a8f8e9-b9ee-4043-aaf7-17abfcf103b3\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1686659868714</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1686659868714</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00042\" summary=\"continue train.py\">\r\n      <created>1700862397321</created>\r\n      <option name=\"number\" value=\"00042\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00042\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700862397321</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00043\" summary=\"continue train.py\">\r\n      <created>1702300218808</created>\r\n      <option name=\"number\" value=\"00043\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00043\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1702300218808</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00044\" summary=\"continue train.py\">\r\n      <created>1702473444933</created>\r\n      <option name=\"number\" value=\"00044\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00044\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1702473444933</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00045\" summary=\"continue train.py&#10;beginning fight.py, dresseur.py\">\r\n      <created>1705179759828</created>\r\n      <option name=\"number\" value=\"00045\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00045\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1705179759828</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00046\" summary=\"continue train.py&#10;beginning fight.py, dresseur.py\">\r\n      <created>1705694167777</created>\r\n      <option name=\"number\" value=\"00046\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00046\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1705694167777</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00047\" summary=\"continue dresseur.py:&#10;- add init_inventory()\">\r\n      <created>1706895000843</created>\r\n      <option name=\"number\" value=\"00047\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00047\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1706895000843</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00048\" summary=\"continue dresseur.py:&#10;- added a few new dresseurs&#10;&#10;continue bot_algo...\">\r\n      <created>1707081958035</created>\r\n      <option name=\"number\" value=\"00048\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00048\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1707081958035</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00049\" summary=\"Changes by matva\">\r\n      <created>1707081960981</created>\r\n      <option name=\"number\" value=\"00049\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00049\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1707081960981</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00050\" summary=\"begin fight.py:&#10;- added images&#10;- added first methods\">\r\n      <created>1707332168613</created>\r\n      <option name=\"number\" value=\"00050\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00050\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1707332168614</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00051\" summary=\"begin fight.py:&#10;- added images&#10;- added first methods\">\r\n      <created>1707347456804</created>\r\n      <option name=\"number\" value=\"00051\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00051\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1707347456804</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00052\" summary=\"continue fight.py&#10;&#10;begin user interactions w/ fight buttons\">\r\n      <created>1708257580303</created>\r\n      <option name=\"number\" value=\"00052\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00052\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1708257580303</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00053\" summary=\"continue fight.py&#10;begin user interactions w/ fight buttons&#10;befin left click interaction in fight.py&#10;add pokemon info bar during fights\">\r\n      <created>1708280449106</created>\r\n      <option name=\"number\" value=\"00053\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00053\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1708280449107</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00054\" summary=\"continue fight.py&#10;begin user interactions w/ fight buttons&#10;befin left click interaction in fight.py&#10;add pokemon info bar during fights\">\r\n      <created>1708280454339</created>\r\n      <option name=\"number\" value=\"00054\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00054\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1708280454339</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00055\" summary=\"continue fight.py\">\r\n      <created>1708299153609</created>\r\n      <option name=\"number\" value=\"00055\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00055\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1708299153609</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00056\" summary=\"continue fight.py\">\r\n      <created>1708299158225</created>\r\n      <option name=\"number\" value=\"00056\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00056\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1708299158225</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00057\" summary=\"continue fight.py&#10;add sac_action, add curseur\">\r\n      <created>1708342934374</created>\r\n      <option name=\"number\" value=\"00057\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00057\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1708342934374</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00058\" summary=\"continue fight.py&#10;add item icons in sac action during fights\">\r\n      <created>1708362033767</created>\r\n      <option name=\"number\" value=\"00058\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00058\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1708362033767</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00059\" summary=\"game is playable !!!\">\r\n      <created>1708373493832</created>\r\n      <option name=\"number\" value=\"00059\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00059\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1708373493832</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00060\" summary=\"Changes by matva\">\r\n      <created>1708373496601</created>\r\n      <option name=\"number\" value=\"00060\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00060\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1708373496601</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00061\" summary=\"sac_items during fight can move\">\r\n      <created>1708451789691</created>\r\n      <option name=\"number\" value=\"00061\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00061\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1708451789691</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00062\" summary=\"items can be used during fights\">\r\n      <created>1708469206839</created>\r\n      <option name=\"number\" value=\"00062\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00062\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1708469206839</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00063\" summary=\"added end turn fight button\">\r\n      <created>1708629388446</created>\r\n      <option name=\"number\" value=\"00063\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00063\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1708629388446</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00064\" summary=\"add end fight panel files&#10;debug player name editing\">\r\n      <created>1709129892436</created>\r\n      <option name=\"number\" value=\"00064\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00064\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1709129892436</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00065\" summary=\"try status effect in fight.py\">\r\n      <created>1709137232005</created>\r\n      <option name=\"number\" value=\"00065\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00065\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1709137232005</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00066\" summary=\"Changes by matva\">\r\n      <created>1709137235606</created>\r\n      <option name=\"number\" value=\"00066\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00066\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1709137235606</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00067\" summary=\"try status effect in fight.py\">\r\n      <created>1709305857280</created>\r\n      <option name=\"number\" value=\"00067\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00067\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1709305857281</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00068\" summary=\"status effect in fight.py\">\r\n      <created>1709305896498</created>\r\n      <option name=\"number\" value=\"00068\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00068\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1709305896498</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00069\" summary=\"rework fight items usable (fix #63)&#10;status effect logs infos in fight.py\">\r\n      <created>1709390824184</created>\r\n      <option name=\"number\" value=\"00069\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00069\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1709390824184</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00070\" summary=\"Add a few pokemons\">\r\n      <created>1709390833644</created>\r\n      <option name=\"number\" value=\"00070\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00070\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1709390833644</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00071\" summary=\"add end turn fight&#10;add special pokemons ( pokemons with edited stats )\">\r\n      <created>1709441192290</created>\r\n      <option name=\"number\" value=\"00071\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00071\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1709441192290</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00072\" summary=\"Changes by matva on new pokemons\">\r\n      <created>1709441215889</created>\r\n      <option name=\"number\" value=\"00072\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00072\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1709441215890</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00073\" summary=\"add end turn fight&#10;add special pokemons ( pokemons with edited stats )\">\r\n      <created>1709441297100</created>\r\n      <option name=\"number\" value=\"00073\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00073\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1709441297101</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00074\" summary=\"add new dresseur : Alizee&#10;add Alizee pokemons and evolution family\">\r\n      <created>1709529514106</created>\r\n      <option name=\"number\" value=\"00074\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00074\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1709529514106</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00075\" summary=\"end turn fight 100% working&#10;add next turn system&#10;replace game random seed system&#10;replace game round system\">\r\n      <created>1709534374078</created>\r\n      <option name=\"number\" value=\"00075\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00075\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1709534374078</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00076\" summary=\"add fight popup x button\">\r\n      <created>1709539113977</created>\r\n      <option name=\"number\" value=\"00076\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00076\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1709539113978</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00077\" summary=\"add pokemon from team delete system&#10;rework pokemon from team icon moving mode fade\">\r\n      <created>1709604788159</created>\r\n      <option name=\"number\" value=\"00077\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00077\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1709604788159</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00078\" summary=\"add game notifications system\">\r\n      <created>1709608111757</created>\r\n      <option name=\"number\" value=\"00078\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00078\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1709608111757</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00079\" summary=\"add evol action system\">\r\n      <created>1709922960790</created>\r\n      <option name=\"number\" value=\"00079\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00079\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1709922960791</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00080\" summary=\"Changes by matva\">\r\n      <created>1709922963997</created>\r\n      <option name=\"number\" value=\"00080\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00080\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1709922963997</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00081\" summary=\"add all pokemons attaque_pool&#10;attaque special effect working for: taken_dmg\">\r\n      <created>1710189498775</created>\r\n      <option name=\"number\" value=\"00081\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00081\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1710189498775</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00082\" summary=\"rework player sac system&#10;rework healing attaques in choosing attack algo\">\r\n      <created>1710281686624</created>\r\n      <option name=\"number\" value=\"00082\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00082\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1710281686624</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00083\" summary=\"Changes by matva\">\r\n      <created>1710281689355</created>\r\n      <option name=\"number\" value=\"00083\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00083\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1710281689355</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00084\" summary=\"add all dresseur icons&#10;add fight dresseur icon display\">\r\n      <created>1710294335552</created>\r\n      <option name=\"number\" value=\"00084\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00084\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1710294335552</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00085\" summary=\"debugging\">\r\n      <created>1710338812740</created>\r\n      <option name=\"number\" value=\"00085\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00085\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1710338812740</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00086\" summary=\"debugging\">\r\n      <created>1710340809977</created>\r\n      <option name=\"number\" value=\"00086\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00086\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1710340809977</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00087\" summary=\"rework train_panel way to choose training pk&#10;add rappel item&#10;add pokemon ko info display &#10;debug pk_move interactions\">\r\n      <created>1710373169961</created>\r\n      <option name=\"number\" value=\"00087\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00087\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1710373169961</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00088\" summary=\"debug fight system&#10;rework get_rewards with item spawn quantite&#10;add some objet special effects&#10;add some attaque special effects&#10;add fight log info for new status effect&#10;add Blue's pokemons&#10;rework Alizee's pokemon list&#10;rework Vole-vie attaque&#10;add Teleport attaque\">\r\n      <created>1710379574472</created>\r\n      <option name=\"number\" value=\"00088\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00088\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1710379574472</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00089\" summary=\"add reset_attaque_fight()\">\r\n      <created>1710523674253</created>\r\n      <option name=\"number\" value=\"00089\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00089\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1710523674253</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00090\" summary=\"rewrite typing error\">\r\n      <created>1710523859961</created>\r\n      <option name=\"number\" value=\"00090\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00090\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1710523859961</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"91\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n    <MESSAGE value=\"sac_items during fight can move\" />\r\n    <MESSAGE value=\"items can be used during fights\" />\r\n    <MESSAGE value=\"added end turn fight button\" />\r\n    <MESSAGE value=\"add end fight panel files&#10;debug player name editing\" />\r\n    <MESSAGE value=\"try status effect in fight.py\" />\r\n    <MESSAGE value=\"status effect in fight.py\" />\r\n    <MESSAGE value=\"rework fight items usable (fix #63)&#10;status effect logs infos in fight.py\" />\r\n    <MESSAGE value=\"Add a few pokemons\" />\r\n    <MESSAGE value=\"Changes by matva on new pokemons\" />\r\n    <MESSAGE value=\"add end turn fight&#10;add special pokemons ( pokemons with edited stats )\" />\r\n    <MESSAGE value=\"add new dresseur : Alizee&#10;add Alizee pokemons and evolution family\" />\r\n    <MESSAGE value=\"end turn fight 100% working&#10;add next turn system&#10;replace game random seed system&#10;replace game round system\" />\r\n    <MESSAGE value=\"add fight popup x button\" />\r\n    <MESSAGE value=\"add pokemon from team delete system&#10;rework pokemon from team icon moving mode fade\" />\r\n    <MESSAGE value=\"add game notifications system\" />\r\n    <MESSAGE value=\"add evol action system\" />\r\n    <MESSAGE value=\"add all pokemons attaque_pool&#10;attaque special effect working for: taken_dmg\" />\r\n    <MESSAGE value=\"rework player sac system&#10;rework healing attaques in choosing attack algo\" />\r\n    <MESSAGE value=\"Changes by matva\" />\r\n    <MESSAGE value=\"add all dresseur icons&#10;add fight dresseur icon display\" />\r\n    <MESSAGE value=\"debugging\" />\r\n    <MESSAGE value=\"rework train_panel way to choose training pk&#10;add rappel item&#10;add pokemon ko info display &#10;debug pk_move interactions\" />\r\n    <MESSAGE value=\"debug fight system&#10;rework get_rewards with item spawn quantite&#10;add some objet special effects&#10;add some attaque special effects&#10;add fight log info for new status effect&#10;add Blue's pokemons&#10;rework Alizee's pokemon list&#10;rework Vole-vie attaque&#10;add Teleport attaque\" />\r\n    <MESSAGE value=\"add reset_attaque_fight()\" />\r\n    <MESSAGE value=\"rewrite typing error\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"rewrite typing error\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision c1db4d9f999e3bd3e0c9f6ea660137bfdedbd5c1)
++++ b/.idea/workspace.xml	(date 1710628256249)
+@@ -4,60 +4,251 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="rewrite typing error">
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Flingouste.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Flingouste_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Gamblast.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Gamblast_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Grodoudou.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Grodoudou_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Kabuto.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Kabuto_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Kabutops.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Kabutops_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Lampignon.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Lampignon_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Mysdibule.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Mysdibule_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Olea's Trousselin.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Olea's Trousselin_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Ondine's Staross.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Ondine's Staross_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Onix.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Onix_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Ossatueur.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Ossatueur_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Osselait.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Osselait_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Pierre's Onix.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Pierre's Onix_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Red's Pikachu.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Red's Pikachu_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Rondoudou.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Rondoudou_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Spododo.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Spododo_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Stari.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Stari_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Staross.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Staross_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Steelix.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Steelix_.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Trousselin.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Trousselin_.png" afterDir="false" />
++    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="rework ennemy pks spawning in train panel">
++      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/background.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/credits.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/credits_.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/jouer.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/jouer_.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/load_game.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/load_game_.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/new_game.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/new_game_.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/parametres.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/parametres_.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/quitter.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/assets/accueil/home_screen/buttons/quitter_.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/assets/accueil/intro/logo.png" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/all_attaques.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_attaques.txt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/all_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.txt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/dresseur.py" beforeDir="false" afterPath="$PROJECT_DIR$/dresseur.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/accueil.py" beforeDir="false" afterPath="$PROJECT_DIR$/accueil.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/animation.py" beforeDir="false" afterPath="$PROJECT_DIR$/animation.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Credits/credits.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Credits/credits_hover.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Quit/quit.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Quit/quit_hover.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Settings/settings.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Settings/settings_hover.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Start_game/start_game.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/Buttons/Start_game/start_game_hover.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/1.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/10.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/11.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/12.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/13.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/14.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/15.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/16.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/17.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/18.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/19.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/2.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/20.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/21.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/22.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/23.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/24.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/3.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/4.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/5.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/6.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/7.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/8.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/Background/9.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/1.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/10.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/11.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/12.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/13.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/14.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/15.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/16.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/17.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/18.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/19.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/2.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/20.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/21.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/22.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/23.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/24.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/3.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/4.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/5.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/6.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/7.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/8.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/game_bar/9.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/1.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/10.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/100.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/101.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/102.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/103.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/104.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/105.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/106.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/107.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/108.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/109.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/11.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/110.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/111.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/112.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/113.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/114.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/115.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/116.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/117.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/118.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/119.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/12.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/120.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/121.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/122.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/123.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/124.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/125.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/126.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/127.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/128.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/129.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/13.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/130.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/131.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/132.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/133.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/134.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/135.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/136.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/137.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/138.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/139.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/14.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/140.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/141.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/142.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/143.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/144.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/145.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/146.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/147.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/15.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/16.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/17.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/18.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/19.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/2.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/20.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/21.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/22.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/23.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/24.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/25.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/26.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/27.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/28.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/29.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/3.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/30.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/31.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/32.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/33.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/34.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/35.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/36.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/37.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/38.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/39.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/4.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/40.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/41.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/42.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/43.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/44.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/45.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/46.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/47.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/48.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/49.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/5.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/50.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/51.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/52.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/53.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/54.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/55.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/56.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/57.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/58.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/59.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/6.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/60.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/61.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/62.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/63.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/64.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/65.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/66.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/67.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/68.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/69.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/7.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/70.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/71.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/72.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/73.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/74.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/75.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/76.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/77.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/78.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/79.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/8.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/80.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/81.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/82.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/83.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/84.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/85.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/86.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/87.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/88.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/89.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/9.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/90.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/91.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/92.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/93.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/94.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/95.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/96.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/97.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/98.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/animation/intro/99.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/panels/start_game/load_game_button.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/panels/start_game/load_game_button_hover.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/panels/start_game/new_game_button.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/panels/start_game/new_game_button_hover.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/panels/start_game/panel.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/panels/start_game/x_button.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/panels/start_game/x_button_hover.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/pokemons/0.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/pokemons/1.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/pokemons/2.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/pokemons/3.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/pokemons/4.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/pokemons/5.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/pokemons/6.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/pokemons/7.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/accueil/pokemons/8.png" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/pokemon_attaque_pool.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon_attaque_pool.txt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/special_pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemon.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/special_pokemon_attaque_pool.txt" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemon_attaque_pool.txt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/special_pokemons.txt" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemons.txt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/game_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_panel.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/image.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
+     </list>
+-    <list id="6085e2ad-84dc-4101-8108-2a69c65d4003" name="Changes by matva" comment="Changes by matva" />
+     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
++    <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -73,10 +264,11 @@
+   <component name="Git.Settings">
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$" value="Yanko" />
++        <entry key="$PROJECT_DIR$" value="main" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="UPDATE_TYPE" value="REBASE" />
+   </component>
+   <component name="GitHubPullRequestSearchHistory">{
+   &quot;lastFilter&quot;: {
+@@ -121,27 +313,28 @@
+   </component>
+   <component name="ProjectId" id="2R9QZ1D1JLZELWGXamy94TMfapC" />
+   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
++    <OptionsSetting value="false" id="Update" />
+     <ConfirmationsSetting value="2" id="Add" />
+   </component>
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;Yanko&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;C:/Users/yanko/PycharmProjects/PokemonManagementGame&quot;,
+-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "ASKED_ADD_EXTERNAL_FILES": "true",
++    "git-widget-placeholder": "Yanko",
++    "last_opened_file_path": "C:/Users/yanko/PycharmProjects/PokemonManagementGame",
++    "run.code.analysis.last.selected.profile": "pProject Default"
+   }
+-}</component>
++}]]></component>
+   <component name="RecentsManager">
+     <key name="MoveFile.RECENT_KEYS">
+       <recent name="C:\Users\yanko\PycharmProjects\PokemonManagementGame" />
+     </key>
+   </component>
+   <component name="RunManager" selected="Python.main">
+-    <configuration name="attaques" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
++    <configuration name="accueil" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+       <module name="PokemonManagementGame" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+       <option name="PARENT_ENVS" value="true" />
+@@ -153,7 +346,7 @@
+       <option name="IS_MODULE_SDK" value="true" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+       <option name="ADD_SOURCE_ROOTS" value="true" />
+-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/attaques.py" />
++      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/accueil.py" />
+       <option name="PARAMETERS" value="" />
+       <option name="SHOW_COMMAND_LINE" value="false" />
+       <option name="EMULATE_TERMINAL" value="false" />
+@@ -270,11 +463,11 @@
+     </configuration>
+     <recent_temporary>
+       <list>
+-        <item itemvalue="Python.attaques" />
++        <item itemvalue="Python.accueil" />
+         <item itemvalue="Python.special_pokemon" />
+         <item itemvalue="Python.fight" />
+-        <item itemvalue="Python.bot_fight_algo" />
+         <item itemvalue="Python.dresseur" />
++        <item itemvalue="Python.bot_fight_algo" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -287,13 +480,6 @@
+       <option name="presentableId" value="Default" />
+       <updated>1686659868714</updated>
+     </task>
+-    <task id="LOCAL-00042" summary="continue train.py">
+-      <created>1700862397321</created>
+-      <option name="number" value="00042" />
+-      <option name="presentableId" value="LOCAL-00042" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1700862397321</updated>
+-    </task>
+     <task id="LOCAL-00043" summary="continue train.py">
+       <created>1702300218808</created>
+       <option name="number" value="00043" />
+@@ -630,7 +816,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1710523859961</updated>
+     </task>
+-    <option name="localTasksCounter" value="91" />
++    <task id="LOCAL-00091" summary="rework ennemy pks spawning in train panel">
++      <created>1710540340988</created>
++      <option name="number" value="00091" />
++      <option name="presentableId" value="LOCAL-00091" />
++      <option name="project" value="LOCAL" />
++      <updated>1710540340989</updated>
++    </task>
++    <option name="localTasksCounter" value="92" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -646,7 +839,6 @@
+   </component>
+   <component name="VcsManagerConfiguration">
+     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+-    <MESSAGE value="sac_items during fight can move" />
+     <MESSAGE value="items can be used during fights" />
+     <MESSAGE value="added end turn fight button" />
+     <MESSAGE value="add end fight panel files&#10;debug player name editing" />
+@@ -671,6 +863,7 @@
+     <MESSAGE value="debug fight system&#10;rework get_rewards with item spawn quantite&#10;add some objet special effects&#10;add some attaque special effects&#10;add fight log info for new status effect&#10;add Blue's pokemons&#10;rework Alizee's pokemon list&#10;rework Vole-vie attaque&#10;add Teleport attaque" />
+     <MESSAGE value="add reset_attaque_fight()" />
+     <MESSAGE value="rewrite typing error" />
+-    <option name="LAST_COMMIT_MESSAGE" value="rewrite typing error" />
++    <MESSAGE value="rework ennemy pks spawning in train panel" />
++    <option name="LAST_COMMIT_MESSAGE" value="rework ennemy pks spawning in train panel" />
+   </component>
+ </project>
+\ No newline at end of file
