@@ -3,6 +3,7 @@ import random
 import objet
 import game_infos
 import attaques
+import csv
 
 
 class Pokemon:
@@ -25,42 +26,45 @@ class Pokemon:
             'Paralysie': False
             }
 
-        self.line = self.find_pokemon_line()
+        self.infos = self.get_infos()
 
         self.level = int(level)
-        self.rarity = int(self.line[1])
-        self.type = str(self.line[2])
-        self.type2 = str(self.line[10])
+        self.rarity = self.infos[1]
+        self.min_spawn_lv = self.infos[11]
+        self.max_spawn_lv = self.infos[12]
+
+        self.type = self.infos[2]
+        self.type2 = self.infos[10]
 
         self.bonus_pvmax = 0
         self.multiplicateur_pvmax = 1
-        self.pv = round((2 * int(self.line[3]) * self.level)/100 + self.level + 10) + self.bonus_pvmax  # PV MAX
+        self.pv = round((2 * self.infos[3] * self.level)/100 + self.level + 10) + self.bonus_pvmax  # PV MAX
         self.health = self.pv + self.bonus_pvmax  # PV ACTUELS
 
         self.bonus_attack = 0
         self.multiplicateur_attack = 1
-        self.base_attack = round((2 * int(self.line[4]) * self.level)/100 + 5) + self.bonus_attack
+        self.base_attack = round((2 * int(self.infos[4]) * self.level)/100 + 5) + self.bonus_attack
         self.attack = self.base_attack
 
         self.bonus_defense = 0
         self.multiplicateur_defense = 1
-        self.base_defense = round((2 * int(self.line[5]) * self.level)/100 + 5) + self.bonus_defense
+        self.base_defense = round((2 * int(self.infos[5]) * self.level)/100 + 5) + self.bonus_defense
         self.defense = self.base_defense
 
         self.bonus_speed = 0
         self.multiplicateur_speed = 1
-        self.base_speed = round((2 * int(self.line[6]) * self.level)/100 + 5) + self.bonus_speed
+        self.base_speed = round((2 * int(self.infos[6]) * self.level)/100 + 5) + self.bonus_speed
         self.speed = self.base_speed
 
-        self.evolution_level = int(self.line[7])
-        self.evolution_name = str(self.line[8])
+        self.evolution_level = int(self.infos[7])
+        self.evolution_name = str(self.infos[8])
         if "/" in self.evolution_name:
             evolutions_name_list = self.evolution_name.split("/")
             r = random.Random()
             r.seed(self.random_seed)
             self.evolution_name = r.choice(evolutions_name_list)
             print(self.evolution_name)
-        self.min_p_lv = int(self.line[9])
+        self.min_p_lv = int(self.infos[9])
         self.is_alive = True
         self.is_vulnerable = True
 
@@ -79,11 +83,12 @@ class Pokemon:
         self.attaque_pool_line = self.find_attaque_pool_line()
         self.attaque_pool = self.init_attaque_pool()
 
-    def find_pokemon_line(self) -> list:
-        with open('all_pokemons.txt') as file:
-            for line in file.readlines():
-                if line.split()[0] == self.name:
-                    return line.split()
+    def get_infos(self) -> tuple:
+        """
+        Retourne toutes les infos concernant le pokémon
+        """
+
+        return self.game.pokemons_list[self.name]
 
     def find_attaque_pool_line(self) -> list:
         """
@@ -114,11 +119,11 @@ class Pokemon:
     def level_up(self, nb_lv=1):
         self.level += nb_lv
         diff = self.pv - self.health
-        self.pv = round((round((2*int(self.line[3])*self.level)/100 + self.level + 10) + self.bonus_pvmax) * self.multiplicateur_pvmax)
+        self.pv = round((round((2*int(self.infos[3])*self.level)/100 + self.level + 10) + self.bonus_pvmax) * self.multiplicateur_pvmax)
         self.health = self.pv - diff
-        self.base_attack = round((round((2 * int(self.line[4]) * self.level)/100 + 5) + self.bonus_attack) * self.multiplicateur_attack)
-        self.base_defense = round((round((2 * int(self.line[5]) * self.level)/100 + 5) + self.bonus_defense) * self.multiplicateur_defense)
-        self.base_speed = round((round((2 * int(self.line[6]) * self.level)/100 + 5) + self.bonus_speed) * self.multiplicateur_speed)
+        self.base_attack = round((round((2 * int(self.infos[4]) * self.level)/100 + 5) + self.bonus_attack) * self.multiplicateur_attack)
+        self.base_defense = round((round((2 * int(self.infos[5]) * self.level)/100 + 5) + self.bonus_defense) * self.multiplicateur_defense)
+        self.base_speed = round((round((2 * int(self.infos[6]) * self.level)/100 + 5) + self.bonus_speed) * self.multiplicateur_speed)
 
     def evolution(self):
         if self.evolution_name == '0':
@@ -192,7 +197,7 @@ class Pokemon:
                     cm *= game_infos.get_mutiliplicateur(attaque.type, pokemon.type2)
 
                 # Calcul avec taux de crit
-                t = round(int(self.line[6]) / 2) * attaque.taux_crit
+                t = round(int(self.infos[6]) / 2) * attaque.taux_crit
                 ncrit = random.randint(0, 256)
                 if ncrit < t:
                     crit = True

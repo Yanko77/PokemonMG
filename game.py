@@ -3,6 +3,7 @@ import random
 import fight
 import objet
 import starters
+import csv
 from player import Player
 from notif import Notif
 
@@ -25,6 +26,10 @@ class Game:
         self.mouse_pressed = {1: False,
                               3: False}
 
+        self.items_list = self.get_all_items_list()
+        self.pokemons_list = self.init_pokemons_list()
+        self.special_pokemons_list = self.init_special_pokemons_list()
+
         self.player = Player(self)
 
         self.accueil = accueil.Accueil(self)
@@ -46,7 +51,6 @@ class Game:
         self.notifs = Notif()
 
         self.general_seed = self.round.get_random_seed()
-        self.items_list = self.get_all_items_list()
 
         self.next_fighting_dresseur = self.get_fighting_dresseur()
 
@@ -179,6 +183,56 @@ class Game:
     def get_items_list(self):
         return self.items_list
 
+    def init_pokemons_list(self):
+        with open('all_pokemons.csv', newline='') as file:
+            pokemons_list = {}
+            lines = csv.reader(file, delimiter=' ', quotechar='|')
+            for line in lines:
+                if line[0] not in (" ", "", "NAME", "Moyennes"):
+
+                    pokemons_list[line[0]] = (
+                        line[0],  # NAME
+                        int(line[1]),  # RARITY
+                        line[2],  # TYPE
+                        int(line[3]),  # PV
+                        int(line[4]),  # ATK
+                        int(line[5]),  # DEF
+                        int(line[6]),  # SPEED
+                        int(line[7]),  # EVOLUTION LEVEL
+                        line[8],  # EVOLUTION NAME
+                        int(line[9]),  # MIN PLAYER LEVEL TO SPAWN
+                        line[10],  # TYPE 2
+                        int(line[11]),  # MIN LEVEL ON SPAWN
+                        int(line[12]),  # MAX LEVEL ON SPAWN
+                    )
+            print(pokemons_list)
+            return pokemons_list
+
+    def init_special_pokemons_list(self):
+        with open('special_pokemons.csv', newline='') as file:
+            pokemons_list = {}
+            lines = csv.reader(file, delimiter=',', quotechar='|')
+            for line in lines:
+                if line[0] not in (" ", "", "NAME", "Moyennes"):
+
+                    pokemons_list[line[0]] = (
+                        line[0],  # NAME
+                        int(line[1]),  # RARITY
+                        line[2],  # TYPE
+                        int(line[3]),  # PV
+                        int(line[4]),  # ATK
+                        int(line[5]),  # DEF
+                        int(line[6]),  # SPEED
+                        int(line[7]),  # EVOLUTION LEVEL
+                        line[8],  # EVOLUTION NAME
+                        int(line[9]),  # MIN PLAYER LEVEL TO SPAWN
+                        line[10],  # TYPE 2
+                        int(line[11]),  # MIN LEVEL ON SPAWN
+                        int(line[12]),  # MAX LEVEL ON SPAWN
+                    )
+            print(pokemons_list)
+            return pokemons_list
+
     def get_total_items_rarity(self):
         """
         Methode qui renvoie la somme de toutes les raretés des objets du jeu obtenable via spawn
@@ -197,6 +251,4 @@ class Game:
 
 if __name__ == '__main__':
     game = Game()
-    for list_name in game.items_list.keys():
-        for item in game.items_list[list_name]:
-            print(item.name, f'({list_name})')
+    game.init_pokemons_list()

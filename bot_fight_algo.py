@@ -66,7 +66,7 @@ def get_npc_action(pk, ennemy_pk, att:list):
                 degat = calcul_degats(pk, ennemy_pk, attaque, False)
                 degat_crit = calcul_degats(pk, ennemy_pk, attaque, True)
                 delta_degat = degat_crit - degat
-                t = round(int(pk.line[6]) / 2) * attaque.taux_crit
+                t = round(int(pk.infos[6]) / 2) * attaque.taux_crit
                 scoretemp = degat + delta_degat * t
                 taux = attaque.precision/100
 
