@@ -45,7 +45,7 @@ def main():
 
                 # Touche de test admin
                 if event.key == pygame.K_a:
-                    game.player.add_team_pk(pokemon.Pokemon("Rondoudou", 5, game))
+                    pass
 
             if event.type == pygame.KEYUP:
                 game.pressed[event.key] = False

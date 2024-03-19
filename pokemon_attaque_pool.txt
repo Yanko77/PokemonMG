@@ -1,7 +1,14 @@
 # Tier de pool:         1                                                                   2
 #
 Evoli                   Charge,Vive-Attaque,Queue_de_Fer,Effort,Balayage                    -
-Mentali                 Psyko,Choc_Mental,Tranche,Vent_Glace
+Mentali                 Psyko,Choc_Mental,Coupe,Effort
+Aquali                  Cascade,Vibraqua,Anneau_Hydro,Effort
+Voltali                 Boule_Elek,Cage_Eclair,Vif_Eclair,Effort
+Pyroli                  Lance-Flammes,Feu_Follet,Coupe,Effort
+Noctali                 Tricherie,Larcin,Vive-Attaque,Effort
+Phyllali                Giga-Sangsue,Coupe,Effort
+Givrali                 Laser_Glace,Coupe,Effort
+Nymphali                Vampibaiser,Pouvoir_Lunaire,Coupe,Effort
 #
 Bulbizarre              Charge,Vive-Attaque,Feuillage,Abri                                  -
 Herbizarre              Mega-Sangsue,Poudre_Dodo,Vive-Attaque,Abri
@@ -76,7 +83,7 @@ Rafflesia               Lame_Solaire,Poudre_Dodo,Giga-Sangsue,Direct_Toxik
 Nostenfer               Bombe_Beurk,Poison_Croix,Tranch'Air,Atterrissage,Vitesse_Extreme     Bombe_Beurk,Poison_Croix,Rapace,Atterrissage,Vitesse_Extreme
 #
 Paras                   Vive-Attaque,Double_Dard,Poudre_Dodo
-Parasect                Tranche,Plaie_Croix,Giga-Sangsue,Poudre_Dodo
+Parasect                Tranche,Plaie_Croix,Giga-Sangsue,Poudre_Dodo,Vampirisme
 #
 Taupiqueur              Tunnel,Vive-Attaque,Eclate-Roc
 Triopikeur              Telluriforce,Vive-Attaque,Eclate-Roc,Balayage
@@ -132,3 +139,50 @@ Lampignon               Giga-Sangsue,Poudre_Dodo,Toxik,Pouvoir_Lunaire
 Mysdibule               Gyroballe,Metalaser,Queue_de_Fer,Soin_Floral
 #
 Trousselin              Pisto-Poing,Detection,Vent_Feerique,Vampibaiser
+#
+Absol                   Coup_Bas,Larcin,Tranche,Tricherie
+#
+Zorua                   Poursuite,Coupe,Vive-Attaque
+Zoroark                 Tricherie,Tranche-Nuit,Tranche,Toxik
+#
+Medhyena                Poursuite,Griffe,Vive-Attaque
+Grahyena                Morsure,Effort,Vive-Attaque,Eclats_Glace
+#
+Scalpion                Poursuite,Coupe,Vive-Attaque
+Scalproie               Coup_Bas,Tranche,Tranche-Nuit,Tete_de_Fer
+#
+Baggiguane              Poursuite,Riposte
+Baggaid                 Sabotage,Larcin,Vendetta,Eclate-Roc
+#
+Malosse                 Poursuite,Flameche,Vive-Attaque
+Demolosse               Morsure,Crocs_Feu,Feu_Follet,Effort
+#
+Farfuret                Eclats_Glace,Vive-Attaque,Poursuite
+Dimoret                 Poing_Glace,Coup_Bas,Larcin,Poing_Karate
+#
+Riolu                   Eclate-Roc,Griffe,Vive-Attaque
+Lucario                 Close_Combat,Vampi-Poing,Griffe_Acier
+#
+Magneti                 Lancecrou,Cage_Eclair
+Magneton                Lancecrou,Cage_Eclair,Onde_de_Choc
+Magnezone               Luminocanon,Tonnerre,Cage_Eclair
+#
+Terhal                  Pisto-Poing,Vive-Attaque
+Metang                  Tete_de_Fer,Choc_Mental,Eclate-Roc
+Metalosse               Choc_Meteore,Estocorne,Psyko,Coud'Krane
+#
+Galekid                 Pisto-Poing,Charge
+Galegon                 Pisto-Poing,Pouvoir_Antique,Vif_Roc,Effort
+Galeking                Estocorne,Coud'Krane,Rayon_Gemme,Magnitude
+#
+Monorpale               Ombre_Nocturne,Pisto-Poing,Coupe
+Dimocles                Chatiment,Pisto-Poing,Tranche
+Exagide                 Ball'Ombre,Choc_Meteore,Tranche,Vitesse_Extreme
+#
+Minidraco               Double_Baffe,Vive-Attaque
+Draco                   Draco-Queue,Vive-Attaque,Ecume
+Dracolosse              Colere,Cru-Ailes,Atterrissage,Draco-Souffle
+#
+Griknot                 Double_Baffe,Magnitude,Vif_Roc
+Carmache                Draco-Rage,Pietisol,Morsure
+Carchakrok              Draco-Force,Draco-Souffle,Seisme,Tranche-Nuit

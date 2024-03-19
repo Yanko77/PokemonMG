@@ -5,10 +5,93 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="huge debugging + begin txt to csv">
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Absol.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Absol_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Aquali.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Aquali_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Baggaid.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Baggaid_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Baggiguane.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Baggiguane_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Carchakrok.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Carchakrok_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Carmache.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Carmache_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Demolosse.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Demolosse_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Dimocles.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Dimocles_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Dimoret.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Dimoret_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Draco.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Draco_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Dracolosse.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Dracolosse_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Exagide.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Exagide_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Farfuret.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Farfuret_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Galegon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Galegon_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Galekid.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Galekid_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Galeking.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Galeking_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Givrali.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Givrali_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Grahyena.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Grahyena_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Griknot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Griknot_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Lucario.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Lucario_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Magneti.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Magneti_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Magneton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Magneton_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Magnezone.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Magnezone_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Malosse.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Malosse_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Medhyena.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Medhyena_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Metalosse.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Metalosse_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Metang.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Metang_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Minidraco.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Minidraco_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Monorpale.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Monorpale_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Noctali.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Noctali_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Nymphali.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Nymphali_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Phyllali.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Phyllali_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Pyroli.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Pyroli_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Riolu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Riolu_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Scalpion.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Scalpion_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Scalproie.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Scalproie_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Terhal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Terhal_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Voltali.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Voltali_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Zoroark.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Zoroark_.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Zorua.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Zorua_.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_infos.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_infos.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_panel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/all_attaques.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_attaques.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/all_pokemons.csv" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/attaques.py" beforeDir="false" afterPath="$PROJECT_DIR$/attaques.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon_attaque_pool.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon_attaque_pool.txt" afterDir="false" />
     </list>
     <list id="42c5e2b7-9d13-4366-8c66-8a63e8f9c30d" name="Changes by matva" comment="" />
     <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="" />
@@ -253,13 +336,6 @@
       <workItem from="1710697695635" duration="70000" />
       <workItem from="1710698071806" duration="25000" />
       <workItem from="1710776324298" duration="1716000" />
-    </task>
-    <task id="LOCAL-00053" summary="continue fight.py&#10;begin user interactions w/ fight buttons&#10;befin left click interaction in fight.py&#10;add pokemon info bar during fights">
-      <created>1708280449106</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1708280449107</updated>
     </task>
     <task id="LOCAL-00054" summary="continue fight.py&#10;begin user interactions w/ fight buttons&#10;befin left click interaction in fight.py&#10;add pokemon info bar during fights">
       <created>1708280454339</created>
@@ -597,7 +673,14 @@
       <option name="project" value="LOCAL" />
       <updated>1710804463295</updated>
     </task>
-    <option name="localTasksCounter" value="102" />
+    <task id="LOCAL-00102" summary="huge debugging + begin txt to csv">
+      <created>1710806024777</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1710806024777</updated>
+    </task>
+    <option name="localTasksCounter" value="103" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

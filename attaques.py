@@ -21,8 +21,8 @@ class Attaque:
             elif self.special_puissance[1] == "opp.pv":
                 self.puissance = "ennemy_pv"
             elif self.special_puissance[0] == "v":
-                self.special_puissance = "v"
                 self.puissance = self.special_puissance[1]
+                self.special_puissance = "v"
             elif self.special_puissance[0] == "r":
                 values = self.special_puissance[1].split("-")
                 self.puissance = random.randint(int(values[0]), int(values[1]))

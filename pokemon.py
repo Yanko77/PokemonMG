@@ -63,13 +63,13 @@ class Pokemon:
             r = random.Random()
             r.seed(self.random_seed)
             self.evolution_name = r.choice(evolutions_name_list)
-            print(self.evolution_name)
+            # print("Evolution future:", self.evolution_name)
         self.min_p_lv = int(self.infos[9])
         self.is_alive = True
         self.is_vulnerable = True
 
         if self.is_shiny:
-            print(self.name, 'est shiny !!')
+            # print(self.name, 'est shiny !!')
             self.icon_image = pygame.image.load(f'assets/game/pokemons_icons/{self.name}_.png')
         else:
             self.icon_image = pygame.image.load(f'assets/game/pokemons_icons/{self.name}.png')
@@ -250,7 +250,7 @@ class Pokemon:
                     if effet[0] == 'taken_dmg':
                         value = int(effet[1])
                         self.is_vulnerable = False
-                        self.health -= value
+                        self.damage(value)
                     elif effet[0] == 'heal_on_maxpv':
                         coef = float(effet[1])
                         self.health += round(self.pv*coef)
