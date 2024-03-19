@@ -186,3 +186,5 @@ Dracolosse              Colere,Cru-Ailes,Atterrissage,Draco-Souffle
 Griknot                 Double_Baffe,Magnitude,Vif_Roc
 Carmache                Draco-Rage,Pietisol,Morsure
 Carchakrok              Draco-Force,Draco-Souffle,Seisme,Tranche-Nuit
+#
+Lokhlass                Ocroupi,Anneau_Hydro,Laser_Glace,Saumure

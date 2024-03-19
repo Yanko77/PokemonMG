@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="Add all new pokemons attaque_pool &amp; icons" />
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="Add all new pokemons attaque_pool &amp; icons">
+      <change afterPath="$PROJECT_DIR$/.~lock.all_pokemons.csv#" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Lokhlass.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Lokhlass_.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/all_pokemons.csv" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon_attaque_pool.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon_attaque_pool.txt" afterDir="false" />
+    </list>
     <list id="42c5e2b7-9d13-4366-8c66-8a63e8f9c30d" name="Changes by matva" comment="" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="" />
@@ -248,20 +256,6 @@
       <workItem from="1710697695635" duration="70000" />
       <workItem from="1710698071806" duration="25000" />
       <workItem from="1710776324298" duration="1716000" />
-    </task>
-    <task id="LOCAL-00057" summary="continue fight.py&#10;add sac_action, add curseur">
-      <created>1708342934374</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1708342934374</updated>
-    </task>
-    <task id="LOCAL-00058" summary="continue fight.py&#10;add item icons in sac action during fights">
-      <created>1708362033767</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1708362033767</updated>
     </task>
     <task id="LOCAL-00059" summary="game is playable !!!">
       <created>1708373493832</created>
@@ -592,7 +586,21 @@
       <option name="project" value="LOCAL" />
       <updated>1710870663538</updated>
     </task>
-    <option name="localTasksCounter" value="106" />
+    <task id="LOCAL-00106" summary="Add all new pokemons attaque_pool &amp; icons">
+      <created>1710870790634</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1710870790634</updated>
+    </task>
+    <task id="LOCAL-00107" summary="Add all new pokemons attaque_pool &amp; icons">
+      <created>1710870853258</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1710870853258</updated>
+    </task>
+    <option name="localTasksCounter" value="108" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
