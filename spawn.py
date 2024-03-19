@@ -225,11 +225,19 @@ class SpawnPanel:
             self.is_spawning_pk_lock = True
 
     def update_spawning_pk_level(self):
-        if not round(self.game.player.level*1.5+2 + self.spawning_pk_level_bonus) == self.min_spawning_pk_level:
-            self.min_spawning_pk_level = round(self.game.player.level*1.5+2 + self.spawning_pk_level_bonus)
+        min_lv = round((self.game.player.level ** 1.9) * 0.30 + 5 + self.spawning_pk_level_bonus)
 
-        if not round(self.game.player.level*1.5+5 + self.spawning_pk_level_bonus) == self.max_spawning_pk_level:
-            self.max_spawning_pk_level = round(self.game.player.level*1.5+5 + self.spawning_pk_level_bonus)
+        if not min_lv == self.min_spawning_pk_level:
+            if min_lv > 100:
+                min_lv = 100
+            self.min_spawning_pk_level = min_lv
+
+        max_lv = round((self.game.player.level ** 1.9) * 0.35 + 6 + self.spawning_pk_level_bonus)
+
+        if not max_lv == self.max_spawning_pk_level:
+            if max_lv > 100:
+                max_lv = 100
+            self.max_spawning_pk_level = max_lv
 
     def spawn_pk(self):
         spawning_pk_lv = random.randint(self.min_spawning_pk_level, self.max_spawning_pk_level)

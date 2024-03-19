@@ -165,7 +165,6 @@ class Pokemon:
     def get_attaque_pool(self):
         return self.attaque_pool
 
-
     def heal(self, value):
         self.health += value
         if self.health > self.pv:
@@ -184,6 +183,8 @@ class Pokemon:
             - True si l'attaque a abouti, False sinon
             - 'None' si l'attaque n'a pas appliqué d'effet à personne, (<nom_effet>, <self ou pokemon>) sinon
         """
+        attaque_infos = []
+
 
         precision_value = random.randint(0, 100)
         print(f'{attaque.name}: {attaque.precision} | {precision_value}')
@@ -247,6 +248,8 @@ class Pokemon:
                     degats = pokemon.pv - self.health
                 elif attaque.puissance == "ennemy_pv":
                     degats = pokemon.pv*2
+                elif attaque.special_effect[0] == "use_opponent_attack_stat":
+                    degats = round((((((self.level * 0.4 + 2) * pokemon.attack * puissance) / self.defense) / 50) + 2) * cm)
                 else:
                     degats = round((((((self.level * 0.4 + 2) * self.attack * puissance) / self.defense) / 50) + 2) * cm)
 
@@ -268,6 +271,11 @@ class Pokemon:
                         self.heal(round(degats*coef))
                     elif effet[0] == 'self.pv':
                         self.damage(round(degats*float(effet[1][:-4])))
+                    elif effet[0] == 'self-status':
+                        r_value = random.randint(0, 99)
+                        if r_value < int(effet[2]):
+                            self.status[effet[1]] = True
+                            attaque_infos = [True, (effet[1], self)]
 
             if pokemon.is_vulnerable:
                 if attaque.special_effect[0][0] == "status":
@@ -275,17 +283,19 @@ class Pokemon:
                     if r < int(attaque.special_effect[0][2]):
                         pokemon.status[attaque.special_effect[0][1]] = True
                         print(attaque.special_effect[0][1], 'appliqué sur', pokemon.name)
-                        return [True, (attaque.special_effect[0][1], pokemon)]
+                        attaque_infos = [True, (attaque.special_effect[0][1], pokemon)]
                     else:
-                        return [True, None]
+                        attaque_infos = [True, None]
                 else:
-                    return [True, None]
+                    attaque_infos = [True, None]
             else:
-                return [True, None]
+                attaque_infos = [True, None]
 
         else:
             print(f'{attaque.name_} ratée')
-            return [False, None]
+            attaque_infos = [False, None]
+
+        return attaque_infos
 
     def reset_status(self):
         self.status = {
