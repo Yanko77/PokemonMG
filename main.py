@@ -39,13 +39,14 @@ def main():
         for event in pygame.event.get():  # Detection actions du joueur
             if event.type == pygame.QUIT:
                 running = False
+                game.save()
 
             if event.type == pygame.KEYDOWN:
                 game.pressed[event.key] = True
 
                 # Touche de test admin
                 if event.key == pygame.K_a:
-                    pass
+                    game.save()
 
             if event.type == pygame.KEYUP:
                 game.pressed[event.key] = False
