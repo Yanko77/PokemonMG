@@ -246,7 +246,44 @@ class Game:
         self.general_seed = self.round.get_random_seed()
 
     def save(self):
-        pass
+        # save team
+        with open('save/team.csv', newline='') as file:
+            rows = csv.reader(file, delimiter=',')
+            i = 0
+            listecsv = []
+            for line in rows:
+                if not i == 0:
+                    pk = self.player.team[i-1]
+                    if pk != None:
+                        line[0] = pk.name
+                        line[1] = str(pk.is_shiny)
+                        line[2] = str(pk.get_id())
+                        if pk.objet_tenu == None:
+                            line[3] = "None"
+                        else:
+                            line[3] = pk.objet_tenu.name
+                        line[4] = str(pk.get_level())
+                        pk_bonus = ""
+                        for y in pk.get_bonus_stats():
+                            pk_bonus += f'{y} '
+                        line[5] = pk_bonus
+                        line[6] = str(pk.is_alive)
+                        pk_att_pool = ""
+                        for att in pk.get_attaque_pool():
+                            pk_att_pool += f'{att.name}:{att.pp} '
+                        line[7] = pk_att_pool
+
+                listecsv.append(line)
+
+                i += 1
+            print(listecsv)
+            file.close()
+        with open('save/team.csv','w', newline='') as file:
+            rows = csv.writer(file)
+            rows.writerows(listecsv)
+            file.close()
+
+
 
 
 if __name__ == '__main__':

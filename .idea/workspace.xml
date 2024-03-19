@@ -4,14 +4,6 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="Add all new pokemons attaque_pool &amp; icons">
-      <change afterPath="$PROJECT_DIR$/.~lock.all_pokemons.csv#" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Lokhlass.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Lokhlass_.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/all_pokemons.csv" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon_attaque_pool.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon_attaque_pool.txt" afterDir="false" />
     </list>
     <list id="42c5e2b7-9d13-4366-8c66-8a63e8f9c30d" name="Changes by matva" comment="" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -90,22 +82,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Yanko&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/yanko/PycharmProjects/PokemonManagementGame&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "mathias__7",
+    "last_opened_file_path": "C:/Users/yanko/PycharmProjects/PokemonManagementGame",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\yanko\PycharmProjects\PokemonManagementGame" />
@@ -176,14 +168,14 @@
       <method v="2" />
     </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python">
-      <module name="PokemonManagementGame" />
+      <module name="PokemonMG" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\yanko\AppData\Local\RLBotGUIX\Python37\python.exe" />
-      <option name="SDK_NAME" value="Python 3.7" />
+      <option name="SDK_HOME" value="C:\Users\matva\AppData\Local\Programs\Python\Python312\python.exe" />
+      <option name="SDK_NAME" value="Python 3.12" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -239,6 +231,14 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.fight" />
+      <item itemvalue="Python.game" />
+      <item itemvalue="Python.game_infos" />
+      <item itemvalue="Python.special_pokemon" />
+      <item itemvalue="Python.starters" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.game_infos" />
