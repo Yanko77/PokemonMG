@@ -187,7 +187,7 @@ class Game:
     def init_pokemons_list(self):
         with open('all_pokemons.csv', newline='') as file:
             pokemons_list = {}
-            lines = csv.reader(file, delimiter=' ', quotechar='|')
+            lines = csv.reader(file, delimiter=',', quotechar='|')
             for line in lines:
                 if line[0] not in (" ", "", "NAME", "Moyennes"):
 

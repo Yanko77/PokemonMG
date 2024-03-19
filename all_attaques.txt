@@ -121,6 +121,7 @@ Vive-Attaque                    normal          30      30          100         
 Abri                            normal          10      0           d:100-25    1           4           taken_dmg:0
 Vitesse_Extreme                 normal          5       100         100         1           2           None
 Effort                          normal          5       :effort     100         0           0           None
+Repos                           normal          10      0           100         0           0           self-status:Sommeil:100,heal_on_maxpv:1
 Feuillage                       plante          40      40          100         1           0           None
 Danse_Fleurs                    plante          10      90          100         1           0           None
 Mega-Sangsue                    plante          15      40          100         1           0           heal_on_atk:0.4*dmg
@@ -174,7 +175,7 @@ Larcin                          dark            25      60          100         
 Machouille                      dark            15      80          100         1           0           None
 Poursuite                       dark            20      40          100         1           0           None
 Sabotage                        dark            20      65          100         1           0           None
-Coup_Bas                        dark            5       70          100         1           1           None
+Coup_Bas                        dark            10      70          100         1           1           None
 Tranche-Nuit                    dark            15      70          100         2           0           None
 Vibrobscur                      dark            15      80          100         1           0           None
 Explonuit                       dark            10      85          95          1           0           None
