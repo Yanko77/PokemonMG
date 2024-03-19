@@ -833,6 +833,9 @@ class Fight:
         return rewards
 
     def end_fight(self):
+        self.dresseur.pk.full_heal()  # Remettre full vie le pokémon du dresseur
+        self.dresseur.pk.reset_status()
+
         if self.fight_result == 'Victory':
             rewards = self.get_rewards()
 
@@ -844,9 +847,6 @@ class Fight:
 
             self.player_pk.heal(self.player_pk.passive_heal)  # Heal le pokémon du joueur selon son heal passif
             self.player_pk.reset_status()
-
-            self.dresseur.pk.full_heal()  # Remettre full vie le pokémon du dresseur
-            self.dresseur.pk.reset_status()
 
             self.game.end_fight()
 

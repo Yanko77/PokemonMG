@@ -4,20 +4,6 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="huge debugging + begin txt to csv">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_16_03_2024_21_57__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_16_03_2024_21_57__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_03_2024_20_11__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_03_2024_20_11__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_03_2024_18_40__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_03_2024_18_40__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_03_2024_20_41__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_03_2024_20_41__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_03_2024_00_02__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_03_2024_00_02__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_03_2024_23_30__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_03_2024_23_30__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/all_pokemons.csv" beforeDir="false" afterPath="$PROJECT_DIR$/all_pokemons.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save/team.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/team.csv" afterDir="false" />
     </list>
     <list id="42c5e2b7-9d13-4366-8c66-8a63e8f9c30d" name="Changes by matva" comment="" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -270,41 +256,6 @@
       <workItem from="1710697695635" duration="70000" />
       <workItem from="1710698071806" duration="25000" />
       <workItem from="1710776324298" duration="1716000" />
-    </task>
-    <task id="LOCAL-00054" summary="continue fight.py&#10;begin user interactions w/ fight buttons&#10;befin left click interaction in fight.py&#10;add pokemon info bar during fights">
-      <created>1708280454339</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1708280454339</updated>
-    </task>
-    <task id="LOCAL-00055" summary="continue fight.py">
-      <created>1708299153609</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1708299153609</updated>
-    </task>
-    <task id="LOCAL-00056" summary="continue fight.py">
-      <created>1708299158225</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1708299158225</updated>
-    </task>
-    <task id="LOCAL-00057" summary="continue fight.py&#10;add sac_action, add curseur">
-      <created>1708342934374</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1708342934374</updated>
-    </task>
-    <task id="LOCAL-00058" summary="continue fight.py&#10;add item icons in sac action during fights">
-      <created>1708362033767</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1708362033767</updated>
     </task>
     <task id="LOCAL-00059" summary="game is playable !!!">
       <created>1708373493832</created>
@@ -614,7 +565,42 @@
       <option name="project" value="LOCAL" />
       <updated>1710806024777</updated>
     </task>
-    <option name="localTasksCounter" value="103" />
+    <task id="LOCAL-00103" summary="Add all new pokemons attaque_pool &amp; icons">
+      <created>1710870145434</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1710870145434</updated>
+    </task>
+    <task id="LOCAL-00104" summary="Add all new pokemons attaque_pool &amp; icons">
+      <created>1710870559760</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1710870559760</updated>
+    </task>
+    <task id="LOCAL-00105" summary="Add all new pokemons attaque_pool &amp; icons">
+      <created>1710870663538</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1710870663538</updated>
+    </task>
+    <task id="LOCAL-00106" summary="Add all new pokemons attaque_pool &amp; icons">
+      <created>1710870790634</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1710870790634</updated>
+    </task>
+    <task id="LOCAL-00107" summary="Add all new pokemons attaque_pool &amp; icons">
+      <created>1710870853258</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1710870853258</updated>
+    </task>
+    <option name="localTasksCounter" value="108" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -636,7 +622,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="add fight popup x button" />
     <MESSAGE value="add pokemon from team delete system&#10;rework pokemon from team icon moving mode fade" />
     <MESSAGE value="add game notifications system" />
     <MESSAGE value="add evol action system" />
@@ -661,6 +646,7 @@
     <MESSAGE value="add cool things" />
     <MESSAGE value="add cool things and debug" />
     <MESSAGE value="huge debugging + begin txt to csv" />
-    <option name="LAST_COMMIT_MESSAGE" value="huge debugging + begin txt to csv" />
+    <MESSAGE value="Add all new pokemons attaque_pool &amp; icons" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add all new pokemons attaque_pool &amp; icons" />
   </component>
 </project>
