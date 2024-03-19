@@ -87,6 +87,7 @@ class Game:
 
     def init_new_game(self):
         self.is_starter_selected = False
+        self.reset_save_file()
 
     def create_new_game(self):
         self.init_new_game()
@@ -270,7 +271,8 @@ class Game:
                         line[6] = str(pk.is_alive)
                         pk_att_pool = ""
                         for att in pk.get_attaque_pool():
-                            pk_att_pool += f'{att.name}:{att.pp} '
+                            if att is not None:
+                                pk_att_pool += f'{att.name}:{att.pp} '
                         line[7] = pk_att_pool
 
                 listecsv.append(line)
@@ -283,6 +285,30 @@ class Game:
             rows.writerows(listecsv)
             file.close()
 
+    def reset_save_file(self):
+        with open('save/team.csv', newline='') as file:
+            rows = csv.reader(file, delimiter=',')
+            i = 0
+            listecsv = []
+            for line in rows:
+                if i != 0:
+                    line[0] = ""
+                    line[1] = ""
+                    line[2] = ""
+                    line[3] = ""
+                    line[4] = ""
+                    line[5] = ""
+                    line[6] = ""
+                    line[7] = ""
+
+                listecsv.append(line)
+                i += 1
+            print(listecsv)
+            file.close()
+        with open('save/team.csv','w', newline='') as file:
+            rows = csv.writer(file)
+            rows.writerows(listecsv)
+            file.close()
 
 
 
