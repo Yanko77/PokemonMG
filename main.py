@@ -47,6 +47,8 @@ def main():
                 # Touche de test admin
                 if event.key == pygame.K_a:
                     game.save()
+                elif event.key == pygame.K_z:
+                    game.load()
 
             if event.type == pygame.KEYUP:
                 game.pressed[event.key] = False

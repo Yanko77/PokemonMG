@@ -1,7 +1,10 @@
 import random
 
+import attaques
+import dresseur
 import fight
 import objet
+import pokemon
 import starters
 import csv
 from player import Player
@@ -264,7 +267,7 @@ class Game:
                         else:
                             line[3] = pk.objet_tenu.name
                         line[4] = str(pk.get_level())
-                        pk_bonus = ""
+                        pk_bonus = f"{pk.health} "
                         for y in pk.get_bonus_stats():
                             pk_bonus += f'{y} '
                         line[5] = pk_bonus
@@ -274,6 +277,8 @@ class Game:
                             if att is not None:
                                 pk_att_pool += f'{att.name}:{att.pp} '
                         line[7] = pk_att_pool
+                    else:
+                        line = ["", "", "", "", "", "", "", ""]
 
                 listecsv.append(line)
 
@@ -434,11 +439,144 @@ class Game:
                 i += 1
             print(listecsv)
             file.close()
-        with open('save/team.csv','w', newline='') as file:
+        with open('save/team.csv', 'w', newline='') as file:
             rows = csv.writer(file)
             rows.writerows(listecsv)
             file.close()
 
+    def load(self):
+        """
+        Methode qui charge la sauvegarde
+        """
+        # Team
+        with open('save/team.csv') as team_file:
+            pk_lines = csv.reader(team_file, delimiter=',')
+            i = 0
+            for pk_infos in pk_lines:
+                if i != 0:
+                    if pk_infos[0] == '':
+                        self.player.team[i-1] = None
+                    else:
+                        item = pk_infos[3]
+                        if item == 'None':
+                            item = None
+                        else:
+                            item = objet.Objet(item)
+
+                        self.player.team[i-1] = pokemon.Pokemon(pk_infos[0], pk_infos[4], self, pk_infos[1] == 'True', item)
+                        self.player.team[i-1].id = int(pk_infos[2])
+                        bonus_stats = pk_infos[5].split(" ")
+                        self.player.team[i-1].health = int(bonus_stats[0])
+                        self.player.team[i-1].bonus_pvmax = int(bonus_stats[1])
+                        self.player.team[i-1].bonus_attack = int(bonus_stats[2])
+                        self.player.team[i-1].bonus_defense = int(bonus_stats[3])
+                        self.player.team[i-1].bonus_speed = int(bonus_stats[4])
+                        self.player.team[i-1].multiplicateur_pvmax = int(bonus_stats[5])
+                        self.player.team[i-1].multiplicateur_attack = int(bonus_stats[6])
+                        self.player.team[i-1].multiplicateur_defense = int(bonus_stats[7])
+                        self.player.team[i-1].multiplicateur_speed = int(bonus_stats[8])
+                        self.player.team[i-1].is_alive = pk_infos[6] == 'True'
+                        attaque_pool = [None, None, None, None]
+                        n = 0
+                        print(pk_infos[7])
+                        for att in pk_infos[7].split(" ")[:-1]:
+                            print(pk_infos[7].split(" "))
+                            att_name, att_pp = att.split(':')[0], att.split(':')[1]
+                            attaque = attaques.Attaque(att_name)
+                            attaque.set_pp(int(att_pp))
+
+                            attaque_pool[n] = attaque
+                            n += 1
+                        self.player.team[i-1].attaque_pool = attaque_pool
+
+                i += 1
+            team_file.close()
+
+        # Player
+        with open('save/player.csv') as player_file:
+            player_infos = list(csv.reader(player_file, delimiter=','))[1]
+
+            self.player.name = player_infos[0]
+            self.player.level = int(player_infos[1])
+            self.player.actions = int(player_infos[2])
+            self.player.max_actions = int(player_infos[3])
+            self.player.always_shiny_on = player_infos[4] == 'True'
+            self.player.money = int(player_infos[5])
+
+            player_file.close()
+
+        # Game
+        with open('save/game.csv') as game_file:
+            game_infos = list(csv.reader(game_file, delimiter=','))[1]
+
+            self.next_pk_id = int(game_infos[0])
+            self.general_seed = int(game_infos[1])
+
+            dresseur_infos = game_infos[2].split(' ')
+            next_fighting_dresseur = dresseur.get_dresseur_by_name(dresseur_infos[0])
+            item = dresseur_infos[3]
+            if item == 'None':
+                item = None
+            else:
+                item = objet.Objet(item)
+
+            dresseur_pk = pokemon.Pokemon(dresseur_infos[1], int(dresseur_infos[2]), self, objet_tenu=item)
+            self.next_fighting_dresseur = next_fighting_dresseur(self, pk=dresseur_pk)
+
+            panels_pks = (
+                (self.classic_panel.ingame_window.train_panel.training_pk, 3),
+                (self.classic_panel.ingame_window.spawn_panel.spawning_pk, 4),
+                (self.classic_panel.ingame_window.evol_panel.evolving_pk, 5),
+            )
+
+            for pk, i in panels_pks:
+                pk_infos = game_infos[i].split(' ')
+                if pk_infos[0] != 'None':
+                    item = pk_infos[-1]
+                    if item == 'None':
+                        item = None
+                    else:
+                        item = objet.Objet(item)
+
+                    pk = pokemon.Pokemon(pk_infos[0], int(pk_infos[3]), self, is_shiny=pk_infos[1]=='True', objet_tenu=item)
+                    pk.id = int(pk_infos[2])
+                    training_pk_bonus_stats = pk_infos[4].split(' ')
+                    pk.health = int(training_pk_bonus_stats[0])
+                    pk.bonus_pvmax = int(training_pk_bonus_stats[1])
+                    pk.bonus_attack = int(training_pk_bonus_stats[2])
+                    pk.bonus_defense = int(training_pk_bonus_stats[3])
+                    pk.bonus_speed = int(training_pk_bonus_stats[4])
+                    pk.multiplicateur_pvmax = int(training_pk_bonus_stats[5])
+                    pk.multiplicateur_attack = int(training_pk_bonus_stats[6])
+                    pk.multiplicateur_defense = int(training_pk_bonus_stats[7])
+                    pk.multiplicateur_speed = int(training_pk_bonus_stats[8])
+                    pk.is_alive = pk_infos[5] == 'True'
+
+                    attaque_pool = [None, None, None, None]
+                    i = 0
+                    for att in pk_infos[6]:
+                        att_name, att_pp = att.split(':')
+                        attaque = attaques.Attaque(att_name)
+                        attaque.set_pp(int(att_pp))
+
+                        attaque_pool[i] = attaque
+                        i += 1
+                    pk.attaque_pool = attaque_pool
+
+            game_file.close()
+
+        # sac
+        with open('save/sac.csv') as sac_file:
+            sac_infos = csv.reader(sac_file, delimiter=',')
+            i = 0
+            for item in sac_infos:
+                if i != 0:
+                    if item[0] != 'None':
+                        self.player.sac[i-1] = objet.Objet(item[0], item[1])
+                    else:
+                        self.player.sac[i-1] = None
+                    i += 1
+            sac_file.close()
 
 
 if __name__ == '__main__':

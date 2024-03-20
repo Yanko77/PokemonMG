@@ -38,22 +38,22 @@ class Pokemon:
 
         self.bonus_pvmax = 0
         self.multiplicateur_pvmax = 1
-        self.pv = round((2 * self.infos[3] * self.level)/100 + self.level + 10) + self.bonus_pvmax  # PV MAX
+        self.pv = round(((2 * self.infos[3] * self.level)/100 + self.level + 10) + self.bonus_pvmax) * self.multiplicateur_pvmax  # PV MAX
         self.health = self.pv + self.bonus_pvmax  # PV ACTUELS
 
         self.bonus_attack = 0
         self.multiplicateur_attack = 1
-        self.base_attack = round((2 * int(self.infos[4]) * self.level)/100 + 5) + self.bonus_attack
+        self.base_attack = round(((2 * int(self.infos[4]) * self.level)/100 + 5) + self.bonus_attack) * self.multiplicateur_attack
         self.attack = self.base_attack
 
         self.bonus_defense = 0
         self.multiplicateur_defense = 1
-        self.base_defense = round((2 * int(self.infos[5]) * self.level)/100 + 5) + self.bonus_defense
+        self.base_defense = round(((2 * int(self.infos[5]) * self.level)/100 + 5) + self.bonus_defense) * self.multiplicateur_defense
         self.defense = self.base_defense
 
         self.bonus_speed = 0
         self.multiplicateur_speed = 1
-        self.base_speed = round((2 * int(self.infos[6]) * self.level)/100 + 5) + self.bonus_speed
+        self.base_speed = round(((2 * int(self.infos[6]) * self.level)/100 + 5) + self.bonus_speed) * self.multiplicateur_speed
         self.speed = self.base_speed
 
         self.evolution_level = int(self.infos[7])
@@ -124,6 +124,10 @@ class Pokemon:
         self.base_attack = round((round((2 * int(self.infos[4]) * self.level)/100 + 5) + self.bonus_attack) * self.multiplicateur_attack)
         self.base_defense = round((round((2 * int(self.infos[5]) * self.level)/100 + 5) + self.bonus_defense) * self.multiplicateur_defense)
         self.base_speed = round((round((2 * int(self.infos[6]) * self.level)/100 + 5) + self.bonus_speed) * self.multiplicateur_speed)
+
+        self.attack = self.base_attack
+        self.defense = self.base_defense
+        self.speed = self.base_speed
 
     def evolution(self):
         if self.evolution_name == '0':
