@@ -5,6 +5,8 @@ import game_infos
 import attaques
 import csv
 
+SPECIAL_PKS_LIST = ["Blue's Evoli", "Alizee's Altaria", "Red's Pikachu", "Pierre's Onix", "Ondine's Staross",
+                    "Olea's Trousselin"]
 
 class Pokemon:
 
