@@ -266,7 +266,7 @@ class Pokemon:
         attaque_infos = []
 
 
-        precision_value = random.randint(0, 100)
+        precision_value = random.randint(0, 99)
         print(f'{attaque.name}: {attaque.precision} | {precision_value}')
         if precision_value < attaque.precision:
 
@@ -299,7 +299,7 @@ class Pokemon:
                 if self.objet_tenu is not None:
                     if self.objet_tenu.type is None or self.objet_tenu.type == attaque.type:
                         cm *= self.objet_tenu.multiplicateur_attaque_dmg
-                        print(f"Augmentation des dégats de l'attaque de {self.objet_tenu.multiplicateur_attaque_dmg*100}%")
+                        # print(f"Augmentation des dégats de l'attaque de {self.objet_tenu.multiplicateur_attaque_dmg*100}%")
                 random_cm = random.randint(85, 100)
                 cm = cm * random_cm / 100
 
@@ -362,7 +362,7 @@ class Pokemon:
                     r = random.randint(0, 99)
                     if r < int(attaque.special_effect[0][2]):
                         pokemon.status[attaque.special_effect[0][1]] = True
-                        print(attaque.special_effect[0][1], 'appliqué sur', pokemon.name)
+                        # print(attaque.special_effect[0][1], 'appliqué sur', pokemon.name)
                         attaque_infos = [True, (attaque.special_effect[0][1], pokemon)]
                     else:
                         attaque_infos = [True, None]
@@ -390,11 +390,8 @@ class Pokemon:
     def reset_attaque_fight(self):
         for attaque in self.attaque_pool:
             if attaque is not None:
-                print(1)
                 if attaque.bool_special_precision:
-                    print(2)
                     if attaque.special_precision[0] == 'd':
-                        print(3)
                         attaque.precision = int(attaque.special_precision[1].split("-")[0])
 
     def reset_turn_effects(self):
@@ -409,7 +406,6 @@ class Pokemon:
 
         if self.is_alive:
             if self.item_pourcent_hp_activate is not None:
-                print(self.pv*self.item_pourcent_hp_activate/100)
                 if self.health <= self.pv*self.item_pourcent_hp_activate/100:
                     self.health += self.objet_tenu.heal_value
                     if self.health > self.pv:
