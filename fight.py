@@ -975,19 +975,19 @@ class Fight:
 
                 # Si l'action en cours est 'COMBAT'
                 elif self.current_action == 'COMBAT':
-                    if self.attaque_buttons_rects[0].collidepoint(possouris):
+                    if self.attaque_buttons_rects[0].collidepoint(possouris) and self.player_pk.attaque_pool[0] is not None:
                         self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[0])
                         self.executing_turn = True
 
-                    elif self.attaque_buttons_rects[1].collidepoint(possouris):
+                    elif self.attaque_buttons_rects[1].collidepoint(possouris) and self.player_pk.attaque_pool[1] is not None:
                         self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[1])
                         self.executing_turn = True
 
-                    elif self.attaque_buttons_rects[2].collidepoint(possouris):
+                    elif self.attaque_buttons_rects[2].collidepoint(possouris) and self.player_pk.attaque_pool[2] is not None:
                         self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[2])
                         self.executing_turn = True
 
-                    elif self.attaque_buttons_rects[3].collidepoint(possouris):
+                    elif self.attaque_buttons_rects[3].collidepoint(possouris) and self.player_pk.attaque_pool[3] is not None:
                         self.current_turn_action = ('ATTAQUE', self.player_pk.attaque_pool[3])
                         self.executing_turn = True
             else:
@@ -1006,10 +1006,10 @@ class Fight:
                         self.fuite_button_rect.collidepoint(possouris)
                         )
             elif self.current_action == 'COMBAT':
-                return (self.attaque_buttons_rects[0].collidepoint(possouris) or
-                        self.attaque_buttons_rects[1].collidepoint(possouris) or
-                        self.attaque_buttons_rects[2].collidepoint(possouris) or
-                        self.attaque_buttons_rects[3].collidepoint(possouris)
+                return ((self.attaque_buttons_rects[0].collidepoint(possouris) and self.player_pk.attaque_pool[0] is not None) or
+                        (self.attaque_buttons_rects[1].collidepoint(possouris) and self.player_pk.attaque_pool[1] is not None) or
+                        (self.attaque_buttons_rects[2].collidepoint(possouris) and self.player_pk.attaque_pool[2] is not None) or
+                        (self.attaque_buttons_rects[3].collidepoint(possouris) and self.player_pk.attaque_pool[3] is not None)
                         )
             elif self.current_action == 'SAC':
                 return (self.sac_action_curseur_rect.collidepoint(possouris) or self.curseur_moving_mode
