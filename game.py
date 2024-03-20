@@ -394,7 +394,10 @@ class Game:
                         else:
                             pk_item = objet.Objet(pk_item)
 
-                        self.player.team[i-1] = pokemon.Pokemon(pk_infos[0], pk_infos[4], self, pk_infos[1] == 'True', item)
+                        self.player.team[i-1] = pokemon.Pokemon(name=pk_infos[0], level=pk_infos[1], game=self, is_shiny=pk_infos[4] == 'True', objet_tenu=pk_item)
+                        self.player.team[i-1].load_save_infos(pk_infos)
+
+                        """
                         self.player.team[i-1].id = int(pk_infos[2])
                         bonus_stats = pk_infos[5].split(" ")
                         self.player.team[i-1].health = int(bonus_stats[0])
@@ -419,6 +422,7 @@ class Game:
                             attaque_pool[n] = attaque
                             n += 1
                         self.player.team[i-1].attaque_pool = attaque_pool
+                        """
 
                 i += 1
             team_file.close()
@@ -443,7 +447,7 @@ class Game:
             self.next_pk_id = int(game_infos[0])
             self.general_seed = int(game_infos[1])
 
-            dresseur_infos = game_infos[2].split(' ')
+            dresseur_infos = game_infos[2].split('|')
             next_fighting_dresseur = dresseur.get_dresseur_by_name(dresseur_infos[0])
 
 
@@ -570,6 +574,7 @@ class Game:
             i = 0
             for item in sac_infos:
                 if i != 0:
+                    print(item)
                     if item[0] != 'None':
                         self.player.sac[i-1] = objet.Objet(item[0], item[1])
                     else:
