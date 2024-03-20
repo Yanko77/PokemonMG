@@ -121,7 +121,7 @@ class SpawnPanel:
                 surface.blit(self.catch_confirm_hover, self.catch_confirm_rect)
             else:
                 if not self.spawning_pk_move_mode:
-                    if self.game.player.actions > 0 and self.spawning_pk is not None:
+                    if self.spawning_pk is not None:
                         if self.is_spawning_pk_lock:
                             surface.blit(self.catch_button_hover, self.catch_button_rect)
                             surface.blit(self.catch_popup, (507 + window_pos[0], 219 + window_pos[1]))
@@ -225,15 +225,25 @@ class SpawnPanel:
             self.is_spawning_pk_lock = True
 
     def update_spawning_pk_level(self):
-        if not round(self.game.player.level*1.5+2 + self.spawning_pk_level_bonus) == self.min_spawning_pk_level:
-            self.min_spawning_pk_level = round(self.game.player.level*1.5+2 + self.spawning_pk_level_bonus)
+        min_lv = round((self.game.player.level ** 1.9) * 0.30 + 5 + self.spawning_pk_level_bonus)
 
-        if not round(self.game.player.level*1.5+5 + self.spawning_pk_level_bonus) == self.max_spawning_pk_level:
-            self.max_spawning_pk_level = round(self.game.player.level*1.5+5 + self.spawning_pk_level_bonus)
+        if not min_lv == self.min_spawning_pk_level:
+            if min_lv > 100:
+                min_lv = 100
+            self.min_spawning_pk_level = min_lv
+
+        max_lv = round((self.game.player.level ** 1.9) * 0.35 + 6 + self.spawning_pk_level_bonus)
+
+        if not max_lv == self.max_spawning_pk_level:
+            if max_lv > 100:
+                max_lv = 100
+            self.max_spawning_pk_level = max_lv
 
     def spawn_pk(self):
-        self.spawning_pk = pokemon.Pokemon(self.get_spawning_pokemon(self.game.player.level),
-                                           random.randint(self.min_spawning_pk_level, self.max_spawning_pk_level),
+        spawning_pk_lv = random.randint(self.min_spawning_pk_level, self.max_spawning_pk_level)
+
+        self.spawning_pk = pokemon.Pokemon(self.get_spawning_pokemon(self.game.player.level, spawning_pk_lv),
+                                           spawning_pk_lv,
                                            self.game)
         self.is_spawning_pk_lock = True
 
@@ -288,32 +298,33 @@ class SpawnPanel:
                 if line.split()[0] == name:
                     return line.split()
 
-    def get_valable_pokemons(self, player_level):
+    def get_valable_pokemons(self, player_level, spawning_pk_level):
         valable_pks = []
-        with open('all_pokemons.txt', 'r') as file:
-            for line in file.readlines():
-                line = line.split()
-                if not (line[0] == "#" or line[0] == "name"):
-                    if int(line[9]) <= player_level:
-                        valable_pks.append(line[0])
+
+        for pokemon_infos in self.game.pokemons_list.values():
+            if pokemon_infos[9] <= player_level and pokemon_infos[11] < spawning_pk_level < pokemon_infos[12]:
+                valable_pks.append(pokemon_infos[0])
+
         return valable_pks
 
-    def get_pk_rarity(self, pokemon):
-        pokemon_rarity = int(self.find_pokemon_line(pokemon)[1])
+    def get_pk_rarity(self, pokemon_name):
+        pokemon_rarity = self.game.pokemons_list[pokemon_name][1]
         pokemon_rarity = 100 - pokemon_rarity
         return pokemon_rarity
 
     def get_total_spawn_chances(self, valable_pks):
         total_rarity = 0
-        for pokemon in valable_pks:
-            pokemon_rarity = self.get_pk_rarity(pokemon)
+        for pokemon_name in valable_pks:
+            pokemon_rarity = self.get_pk_rarity(pokemon_name)
             total_rarity += pokemon_rarity
         return total_rarity
 
-    def get_spawning_pokemon(self, player_level):
-        generated_number = random.randint(0, self.get_total_spawn_chances(self.get_valable_pokemons(player_level)))
+    def get_spawning_pokemon(self, player_level, spawning_pk_lv):
+        valables_pokemons = self.get_valable_pokemons(player_level, spawning_pk_lv)
+
+        generated_number = random.randint(0, self.get_total_spawn_chances(valables_pokemons))
         max_spawn_value = 0
-        for pokemon in self.get_valable_pokemons(player_level):
+        for pokemon in valables_pokemons:
             max_spawn_value += self.get_pk_rarity(pokemon)
             if max_spawn_value < generated_number:
                 pass

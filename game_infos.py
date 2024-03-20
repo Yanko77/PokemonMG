@@ -51,12 +51,12 @@ types_affinities = {
             'sol': 1,
             'vol': 1,
             'psy': 1,
-            'insect': 0.5,
-            'roche': 2,
+            'insect': 2,
+            'roche': 0.5,
             'spectre': 1,
             'dragon': 0.5,
             'dark': 1,
-            'acier': 0.5,
+            'acier': 2,
             'fee': 1},
     'eau': {'normal': 1,
             'plante': 0.5,
@@ -399,7 +399,7 @@ def get_mutiliplicateur(type_atk_pk, type_def_pk2):
     return types_affinities[type_atk_pk][type_def_pk2]
 
 
-def get_all_diff_pokemons(game, attacking_pokemon, difficulty='easy'):
+def get_all_diff_pokemons(game, attacking_pokemon, level: int, difficulty='easy'):
     multiplicateur_diff = {
         'easy': (16, 8, 4, 2,),
         'normal': (1,),
@@ -419,19 +419,27 @@ def get_all_diff_pokemons(game, attacking_pokemon, difficulty='easy'):
     type_list2.append('NoType')
 
     pokemons_list = []
-    with open('all_pokemons.txt', 'r') as file:
-        for line in file.readlines():
-            if not line.split()[0] == '#' and not line.split()[0] == 'name':
-                if int(line.split()[9]) <= game.player.get_level():
-                    # Type 1 "dominant" Type 2 "neutre"
-                    if line.split()[2] in types_list:
-                        if line.split()[10] in type_list2:
-                            pokemons_list.append(line.split()[0])
 
-                    # Type 2 "dominant" Type 1 "neutre"
-                    elif line.split()[10] in types_list:
-                        if line.split()[2] in type_list2:
-                            pokemons_list.append(line.split()[0])
+    for pokemon_infos in game.pokemons_list.values():
+        if pokemon_infos[9] <= game.player.get_level() and pokemon_infos[11] < level < pokemon_infos[12]:
+        # if pokemon_infos[9] <= game.player.get_level():
+            if pokemon_infos[2] in types_list:
+                if pokemon_infos[10] in type_list2:
+                    pokemons_list.append(pokemon_infos[0])
+            elif pokemon_infos[10] in types_list:
+                if pokemon_infos[2] in type_list2:
+                    pokemons_list.append(pokemon_infos[0])
+
+    if pokemons_list == []:
+
+        if difficulty == 'hard':
+            diff = 'normal'
+        elif difficulty == 'normal':
+            diff = 'easy'
+        elif difficulty == 'easy':
+            diff = 'normal'
+
+        pokemons_list = get_all_diff_pokemons(game, attacking_pokemon, level, diff)
 
     return pokemons_list
 
@@ -460,11 +468,11 @@ def get_type_color(type):
 
 if __name__ == '__main__':
     # Facile
-    '''print(get_diff_types('normal', 'vol', (16, 8, 4, 2)))
-    print(get_diff_types('normal', 'vol', (16, 8, 4, 2, 1)))'''
+    print(get_diff_types('normal', 'fee', (16, 8, 4, 2)))
+    print(get_diff_types('normal', 'fee', (16, 8, 4, 2, 1)))
     # Normal
     '''print(get_diff_types('normal', 'vol', (1,)))
     print(get_diff_types('normal', 'vol', (1,)))'''
     # Difficile
-    print(get_diff_types('normal', 'vol', (0.5, 0.25, 0.125, 0.0625,)))
-    print(get_diff_types('normal', 'vol', (0.5, 0.25, 0.125, 0.0625, 1)))
+    '''print(get_diff_types('normal', 'vol', (0.5, 0.25, 0.125, 0.0625,)))
+    print(get_diff_types('normal', 'vol', (0.5, 0.25, 0.125, 0.0625, 1)))'''

@@ -396,7 +396,7 @@ class TrainPanel:
         self.ennemy_pk_preview_diff_text_pos = (700 + self.window_pos[0], 367 + self.window_pos[1])
 
     def start_fight(self):
-        print(self.ennemy_pks)
+        # print(self.ennemy_pks)
         self.game.start_fight(self.training_pk, dresseur.Sauvage(self.game, self.ennemy_pks[self.difficult]), self.difficult)
     
     def set_difficult(self, diff='easy'):
@@ -448,7 +448,7 @@ class TrainPanel:
             self.ennemy_pk_def = self.ennemy_pk_stats_font.render(str(self.ennemy_pk.get_stats()[2]), False, (191, 200, 0))
             self.ennemy_pk_vit = self.ennemy_pk_stats_font.render(str(self.ennemy_pk.get_stats()[3]), False, (0, 139, 230))
             
-    def get_ennemy_pk_name(self, diff) -> str or None:
+    def get_ennemy_pk_name(self, diff, ennemy_pk_lv: int) -> str or None:
         """
         Methode qui détermine le nom du pokémon ennemi en fonction de la difficulté
         """
@@ -459,7 +459,7 @@ class TrainPanel:
         r = random.Random()
         r.seed(self.training_pk.random_seed + self.game.general_seed)
         
-        spawnable_pks = game_infos.get_all_diff_pokemons(self.game, self.training_pk, diff)
+        spawnable_pks = game_infos.get_all_diff_pokemons(self.game, self.training_pk, ennemy_pk_lv, diff)
         ennemy_pk_name = r.choice(spawnable_pks)
         
         return ennemy_pk_name
@@ -495,11 +495,13 @@ class TrainPanel:
         """
         Methode qui génére et renvoie le pokémon ennemi en fonction de la difficulté
         """
-        ennemy_pk_name = self.get_ennemy_pk_name(diff)
-        if ennemy_pk_name is None:
+        if self.training_pk is None:
             return None
         else:
-            return pokemon.Pokemon(ennemy_pk_name, self.get_ennemy_pk_level(diff), self.game)
+            ennemy_pk_lv = self.get_ennemy_pk_level(diff)
+            ennemy_pk_name = self.get_ennemy_pk_name(diff, ennemy_pk_lv)
+
+            return pokemon.Pokemon(ennemy_pk_name, ennemy_pk_lv, self.game)
         
     def open_settings_popup(self):
         self.boolSettings_popup = True

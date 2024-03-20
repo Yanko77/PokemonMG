@@ -399,7 +399,7 @@ class GamePanel:
     def update_pk_move(self, possouris, i):
 
         if not self.pk_move_mode:
-            if not self.player_name_editing_mode and not self.ingame_window.is_hovering(possouris):
+            if not self.player_name_editing_mode and not self.ingame_window.is_hovering(possouris) and not self.ingame_window.train_panel.pk_move_mode:
                 if self.game.mouse_pressed[1] and self.pk_rects[i].collidepoint(possouris):
                     self.pk_move_mode = True
                     self.moving_pk[i] = True
@@ -561,13 +561,14 @@ class GamePanel:
                     self.pokemon_info_mode = False
 
     def right_clic_interactions(self, possouris):
-        i = 0
-        for pk_rect in self.pk_rects:
-            if pk_rect.collidepoint(possouris):
-                self.pokemon_info = self.game.player.team[i]
-                self.pokemon_info_mode = True
-            i += 1
+        if not self.player_name_editing_mode:
 
+            i = 0
+            for pk_rect in self.pk_rects:
+                if pk_rect.collidepoint(possouris):
+                    self.pokemon_info = self.game.player.team[i]
+                    self.pokemon_info_mode = True
+                i += 1
 
     def get_interactions(self, possouris):
         if self.ingame_window.is_hovering(possouris):

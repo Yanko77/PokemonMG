@@ -4,13 +4,16 @@ import random
 
 class Attaque:
 
-    def __init__(self, name):
+    def __init__(self, name, pp=None):
         self.name = name
         self.name_ = self.reformate_name()
         self.line = self.find_attaque_line()
 
         self.type = self.line[1]
-        self.pp = int(self.line[2])
+        if pp is None:
+            self.pp = int(self.line[2])
+        else:
+            self.pp = pp
 
         self.bool_special_puissance = ':' in self.line[3]  # Bool
         self.special_puissance = ''
@@ -21,8 +24,8 @@ class Attaque:
             elif self.special_puissance[1] == "opp.pv":
                 self.puissance = "ennemy_pv"
             elif self.special_puissance[0] == "v":
-                self.special_puissance = "v"
                 self.puissance = self.special_puissance[1]
+                self.special_puissance = "v"
             elif self.special_puissance[0] == "r":
                 values = self.special_puissance[1].split("-")
                 self.puissance = random.randint(int(values[0]), int(values[1]))
@@ -56,6 +59,9 @@ class Attaque:
             return self.name_
         else:
             return self.name
+
+    def set_pp(self, amount):
+        self.pp = amount
 
     def reformate_name(self):
         name = ''

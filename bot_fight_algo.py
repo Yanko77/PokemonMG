@@ -66,7 +66,7 @@ def get_npc_action(pk, ennemy_pk, att:list):
                 degat = calcul_degats(pk, ennemy_pk, attaque, False)
                 degat_crit = calcul_degats(pk, ennemy_pk, attaque, True)
                 delta_degat = degat_crit - degat
-                t = round(int(pk.line[6]) / 2) * attaque.taux_crit
+                t = round(int(pk.infos[6]) / 2) * attaque.taux_crit
                 scoretemp = degat + delta_degat * t
                 taux = attaque.precision/100
 
@@ -82,7 +82,7 @@ def get_npc_action(pk, ennemy_pk, att:list):
                     #scoretemp = scoretemp * (1 + (SPEED_HEAL/400) * float(taux_heal_on_atk))
                     scoretemp = scoretemp * (1 + (SPEED_HEAL/400) * float(taux_heal_on_atk) * (-2*(pk.health/pk.pv)+2))
 
-                print(attaque.name, scoretemp)
+                # print(attaque.name, scoretemp)
 
                 score.append(scoretemp)
 

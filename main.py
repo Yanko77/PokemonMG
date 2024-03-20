@@ -39,13 +39,16 @@ def main():
         for event in pygame.event.get():  # Detection actions du joueur
             if event.type == pygame.QUIT:
                 running = False
+                game.save()
 
             if event.type == pygame.KEYDOWN:
                 game.pressed[event.key] = True
 
                 # Touche de test admin
                 if event.key == pygame.K_a:
-                    game.player.add_team_pk(pokemon.Pokemon("Evoli", 15, game))
+                    game.save()
+                elif event.key == pygame.K_z:
+                    game.load()
 
             if event.type == pygame.KEYUP:
                 game.pressed[event.key] = False
