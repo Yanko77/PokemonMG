@@ -4,20 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add load &amp; save system">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="clean files for release">
+      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Mackogneur.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot_fight_algo.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_fight_algo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/pokemons_icons/Mackgneur.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save/game.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/game.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save/game_pks.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/game_pks.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save/player.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/player.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save/team.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/team.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
-    </list>
-    <list id="6b020bdf-4424-4520-9683-d419f22e11f8" name="Changes by matva" comment="">
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/special_pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemon.py" afterDir="false" />
     </list>
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="" />
@@ -65,30 +58,6 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Dummy.txt" root0="SKIP_HIGHLIGHTING" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/game.py">
-      <ranges>
-        <range start1="87" end1="89" start2="87" end2="89" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="92" end1="93" start2="92" end2="92" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="217" end1="218" start2="216" end2="216" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="242" end1="243" start2="240" end2="240" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="267" end1="285" start2="264" end2="264" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="286" end1="287" start2="265" end2="265" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="293" end1="294" start2="271" end2="271" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="319" end1="320" start2="296" end2="297" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="322" end1="323" start2="299" end2="300" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="326" end1="327" start2="303" end2="303" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="330" end1="330" start2="306" end2="321" changelist="6b020bdf-4424-4520-9683-d419f22e11f8" />
-        <range start1="347" end1="348" start2="338" end2="339" changelist="6b020bdf-4424-4520-9683-d419f22e11f8" />
-        <range start1="358" end1="376" start2="349" end2="349" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="398" end1="425" start2="371" end2="371" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="462" end1="567" start2="408" end2="408" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="570" end1="571" start2="411" end2="412" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="576" end1="577" start2="417" end2="417" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="583" end1="583" start2="423" end2="480" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -297,20 +266,6 @@
       <workItem from="1710697695635" duration="70000" />
       <workItem from="1710698071806" duration="25000" />
       <workItem from="1710776324298" duration="1716000" />
-    </task>
-    <task id="LOCAL-00056" summary="continue fight.py">
-      <created>1708299158225</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1708299158225</updated>
-    </task>
-    <task id="LOCAL-00057" summary="continue fight.py&#10;add sac_action, add curseur">
-      <created>1708342934374</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1708342934374</updated>
     </task>
     <task id="LOCAL-00058" summary="continue fight.py&#10;add item icons in sac action during fights">
       <created>1708362033767</created>
@@ -641,7 +596,21 @@
       <option name="project" value="LOCAL" />
       <updated>1710966107335</updated>
     </task>
-    <option name="localTasksCounter" value="105" />
+    <task id="LOCAL-00105" summary="clean files for release">
+      <created>1710967966319</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1710967966319</updated>
+    </task>
+    <task id="LOCAL-00106" summary="Changes by matva">
+      <created>1710967978635</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1710967978635</updated>
+    </task>
+    <option name="localTasksCounter" value="107" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -663,7 +632,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="add pokemon from team delete system&#10;rework pokemon from team icon moving mode fade" />
     <MESSAGE value="add game notifications system" />
     <MESSAGE value="add evol action system" />
     <MESSAGE value="add all pokemons attaque_pool&#10;attaque special effect working for: taken_dmg" />
@@ -687,6 +655,7 @@
     <MESSAGE value="add cool things and debug" />
     <MESSAGE value="huge debugging + begin txt to csv" />
     <MESSAGE value="add load &amp; save system" />
+    <MESSAGE value="clean files for release" />
     <MESSAGE value="Changes by matva" />
     <option name="LAST_COMMIT_MESSAGE" value="Changes by matva" />
   </component>
