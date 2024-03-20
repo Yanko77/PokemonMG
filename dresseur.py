@@ -229,5 +229,22 @@ class Iris(Dresseur):
         self.init_pk()
 
 
+def get_dresseur_by_name(name):
+    if name == 'Iris':
+        return Iris
+    elif name == 'Olea':
+        return Olea
+    elif name == 'Ondine':
+        return Ondine
+    elif name == 'Pierre':
+        return Pierre
+    elif name == 'Blue':
+        return Blue
+    elif name == 'Red':
+        return Red
+    elif name == 'Alizee':
+        return Alizee
+
+
 if __name__ == '__main__':
     pass

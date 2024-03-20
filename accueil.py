@@ -160,7 +160,8 @@ class Accueil:
             self.game.start_new_game()
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
         elif button_name == 'load_game':
-            pass
+            self.game.load_game()
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
         else:
             self.jouer = False
             self.parametres = False

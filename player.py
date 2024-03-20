@@ -196,6 +196,16 @@ class Player:
     def get_level(self):
         return self.level
 
+    def get_actions(self):
+        return self.actions
+
+    def get_max_actions(self):
+        return self.max_actions
+
+    def get_money(self):
+        return self.money
+
+
 
 
 if __name__ == "__main__":

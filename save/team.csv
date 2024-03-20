@@ -1,7 +1,7 @@
 Name,is_shiny,id,objet_tenu,level,bonus_stat bonus_pvmax bonus_attack bonus_defense bonus_speed,is_alive,attaque_pool
 ,,,,,,,
-Galekid,False,8,None,6,0 0 0 0 ,True,Pisto-Poing:30 Charge:35 
 ,,,,,,,
 ,,,,,,,
-Bulbizarre,False,1,None,9,0 0 0 0 ,False,Charge:35 Vive-Attaque:30 Feuillage:40 Abri:10 
+,,,,,,,
+,,,,,,,
 ,,,,,,,

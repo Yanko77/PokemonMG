@@ -10,7 +10,7 @@ from dresseur import Alizee, Olea, Ondine, Pierre, Blue, Red, Iris, Sauvage
 from bot_fight_algo import get_npc_action
 import attaques
 
-# declaration des constante
+# Déclaration des constantes
 DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red]
 # DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red, Iris]
 
@@ -701,8 +701,6 @@ class Fight:
             # Attaque le pokemon ennemi et affecte le resultat de l'attaque dans reussite_attaque (bool)
             info_attaque = pk.attaque(ennemy_pk, attaque)
 
-            print('AAAAA', info_attaque)
-
             if info_attaque[0]:  # Si l'attaque a abouti
                 self.add_logs(('ATTAQUE', pk, attaque))
 
@@ -948,8 +946,6 @@ class Fight:
         """
         Methode qui actualise les effets des objets tenus par les pokemons
         """
-
-        print('update items')
 
         # Pokémon du joueur
         if self.player_pk.objet_tenu is not None:
