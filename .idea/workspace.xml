@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="clean files for release">
-      <change afterPath="$PROJECT_DIR$/assets/game/pokemons_icons/Mackogneur.png" afterDir="false" />
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="edit spawn level range">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/pokemons_icons/Mackgneur.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/special_pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemon.py" afterDir="false" />
     </list>
-    <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="" />
+    <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -266,20 +261,6 @@
       <workItem from="1710697695635" duration="70000" />
       <workItem from="1710698071806" duration="25000" />
       <workItem from="1710776324298" duration="1716000" />
-    </task>
-    <task id="LOCAL-00058" summary="continue fight.py&#10;add item icons in sac action during fights">
-      <created>1708362033767</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1708362033767</updated>
-    </task>
-    <task id="LOCAL-00059" summary="game is playable !!!">
-      <created>1708373493832</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1708373493832</updated>
     </task>
     <task id="LOCAL-00060" summary="Changes by matva">
       <created>1708373496601</created>
@@ -610,7 +591,21 @@
       <option name="project" value="LOCAL" />
       <updated>1710967978635</updated>
     </task>
-    <option name="localTasksCounter" value="107" />
+    <task id="LOCAL-00107" summary="debugging">
+      <created>1710974208036</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1710974208036</updated>
+    </task>
+    <task id="LOCAL-00108" summary="edit spawn level range">
+      <created>1710974835327</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1710974835328</updated>
+    </task>
+    <option name="localTasksCounter" value="109" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -632,7 +627,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="add game notifications system" />
     <MESSAGE value="add evol action system" />
     <MESSAGE value="add all pokemons attaque_pool&#10;attaque special effect working for: taken_dmg" />
     <MESSAGE value="rework player sac system&#10;rework healing attaques in choosing attack algo" />
@@ -650,13 +644,14 @@
     <MESSAGE value="clean game restart system" />
     <MESSAGE value="begin addind save files" />
     <MESSAGE value="delete useless files&#10;new train panel background" />
-    <MESSAGE value="debugging" />
     <MESSAGE value="add cool things" />
     <MESSAGE value="add cool things and debug" />
     <MESSAGE value="huge debugging + begin txt to csv" />
     <MESSAGE value="add load &amp; save system" />
     <MESSAGE value="clean files for release" />
     <MESSAGE value="Changes by matva" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes by matva" />
+    <MESSAGE value="debugging" />
+    <MESSAGE value="edit spawn level range" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit spawn level range" />
   </component>
 </project>
