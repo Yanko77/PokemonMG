@@ -279,8 +279,137 @@ class Game:
 
                 i += 1
             print(listecsv)
+            file.close()  # Close the file
+
+        self.write_down_backup('team.csv', listecsv)
+
+        # save player
+        with open('save/player.csv') as file:
+            rows = csv.reader(file, delimiter=',')
+            i = 0
+            listecsv = []
+            for line in rows:
+                if not i == 0:
+                    line[0] = self.player.name
+                    line[1] = str(self.player.get_level())
+                    line[2] = str(self.player.get_actions())
+                    line[3] = str(self.player.get_max_actions())
+                    line[4] = str(self.player.always_shiny_on)
+                    line[5] = str(self.player.get_money())
+                listecsv.append(line)
+                i += 1
             file.close()
-        with open('save/team.csv','w', newline='') as file:
+
+        self.write_down_backup('player.csv', listecsv)
+
+        # save game
+        with open('save/game.csv') as file:
+            rows = csv.reader(file, delimiter=',')
+            i = 0
+            listecsv = []
+            for line in rows:
+                if not i == 0:
+                    line[0] = str(self.next_pk_id)
+                    line[1] = str(self.general_seed)
+                    line[2] = f'{self.next_fighting_dresseur.name} {self.next_fighting_dresseur.pk.name} {self.next_fighting_dresseur.pk.get_level()} '
+                    objet_tenu = self.next_fighting_dresseur.pk.objet_tenu
+                    if objet_tenu != None:
+                        line[2] += f'{self.next_fighting_dresseur.pk.objet_tenu.name}'
+                    else:
+                        line[2] += "None"
+
+                    # line[5]
+                    training_pk = self.classic_panel.ingame_window.train_panel.training_pk
+
+                    if not training_pk == None:
+                        training_pk_bonus = f"{training_pk.health} "
+                        for y in training_pk.get_bonus_stats():
+                            training_pk_bonus += f'{y} '
+                        pk_att_pool = ""
+                        for att in training_pk.get_attaque_pool():
+                            if att is not None:
+                                pk_att_pool += f'{att.name}:{att.pp} '
+
+                        training_pk_item = training_pk.objet_tenu
+                        if training_pk_item is None:
+                            training_pk_item = 'None'
+                        else:
+                            training_pk_item = f'{training_pk_item.name}'
+
+                        line[3] = f'{training_pk.name} {training_pk.is_shiny} {training_pk.get_id()} {training_pk.get_level()} {training_pk_bonus} {training_pk.is_alive} {pk_att_pool} {training_pk_item}'
+                    else:
+                        line[3] = 'None'
+
+
+                    # line[6]
+                    spawning_pk = self.classic_panel.ingame_window.spawn_panel.spawning_pk
+                    if not spawning_pk == None:
+                        spawning_pk_bonus = f"{spawning_pk.health} "
+                        for y in spawning_pk.get_bonus_stats():
+                            spawning_pk_bonus += f'{y} '
+                        pk_att_pool = ""
+                        for att in spawning_pk.get_attaque_pool():
+                            if att is not None:
+                                pk_att_pool += f'{att.name}:{att.pp} '
+                        spawning_pk_item = spawning_pk.objet_tenu
+                        if spawning_pk_item is None:
+                            spawning_pk_item = 'None'
+                        else:
+                            spawning_pk_item = f'{spawning_pk_item.name}'
+                        line[4] = f'{spawning_pk.name} {spawning_pk.is_shiny} {spawning_pk.get_id()} {spawning_pk.get_level()} {spawning_pk_bonus} {spawning_pk.is_alive} {pk_att_pool} {spawning_pk_item}'
+                    else:
+                        line[4] = 'None'
+
+
+                    # line[7]
+                    evolving_pk = self.classic_panel.ingame_window.evol_panel.evolving_pk
+                    if not evolving_pk == None:
+                        evolving_pk_bonus = f"{evolving_pk.health} "
+                        for y in evolving_pk.get_bonus_stats():
+                            evolving_pk_bonus += f'{y} '
+                        pk_att_pool = ""
+                        for att in evolving_pk.get_attaque_pool():
+                            if att is not None:
+                                pk_att_pool += f'{att.name}:{att.pp} '
+
+                        evolving_pk_item = evolving_pk.objet_tenu
+                        if evolving_pk_item is None:
+                            evolving_pk_item = 'None'
+                        else:
+                            evolving_pk_item = f'{evolving_pk_item.name}'
+                        line[5] = f'{evolving_pk.name} {evolving_pk.is_shiny} {evolving_pk.get_id()} {evolving_pk.get_level()} {evolving_pk_bonus} {evolving_pk.is_alive} {pk_att_pool} {evolving_pk_item}'
+
+                    else:
+                        line[5] = 'None'
+
+                listecsv.append(line)
+                i += 1
+            file.close()
+
+        self.write_down_backup('game.csv', listecsv)
+
+        # save sac
+        with open("save/sac.csv") as file:
+            rows = csv.reader(file, delimiter=',')
+            i = 0
+            listecsv = []
+            sac = self.player.sac
+            for line in rows:
+                if not i == 0:
+                    if sac[i-1] != None:
+                        line[0] = sac[i-1].name
+                        line[1] = sac[i-1].quantite
+                    else:
+                        line = ["None", 0]
+                listecsv.append(line)
+                i += 1
+        self.write_down_backup('sac.csv', listecsv)
+
+    def write_down_backup(self, file_name: str, listecsv: list):
+        """
+        Methode qui écrit la sauvegarde dans le fichier en mémoire
+        """
+        with open(f'save/{file_name}', 'w', newline='') as file:
             rows = csv.writer(file)
             rows.writerows(listecsv)
             file.close()

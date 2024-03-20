@@ -57,6 +57,9 @@ class Attaque:
         else:
             return self.name
 
+    def set_pp(self, amount):
+        self.pp = amount
+
     def reformate_name(self):
         name = ''
         for mot in self.name.split("_"):

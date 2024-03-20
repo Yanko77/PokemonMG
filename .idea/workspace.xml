@@ -4,10 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="huge debugging + begin txt to csv">
+      <change afterPath="$PROJECT_DIR$/save/fight.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save/game.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save/sac.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/attaques.py" beforeDir="false" afterPath="$PROJECT_DIR$/attaques.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save/team.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/team.csv" afterDir="false" />
     </list>
     <list id="42c5e2b7-9d13-4366-8c66-8a63e8f9c30d" name="Changes by matva" comment="" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
-    <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="" />
+    <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="">
+      <change beforePath="$PROJECT_DIR$/dresseur.py" beforeDir="false" afterPath="$PROJECT_DIR$/dresseur.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pk_to_add.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pk_to_add.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save/player.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/player.csv" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,6 +69,30 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Dummy.txt" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/pokemon.py">
+      <ranges>
+        <range start1="40" end1="41" start2="40" end2="41" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
+        <range start1="45" end1="46" start2="45" end2="46" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
+        <range start1="50" end1="51" start2="50" end2="51" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
+        <range start1="55" end1="56" start2="55" end2="56" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
+        <range start1="126" end1="126" start2="126" end2="130" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
+        <range start1="147" end1="148" start2="151" end2="152" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/game.py">
+      <ranges>
+        <range start1="2" end1="2" start2="2" end2="4" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
+        <range start1="4" end1="4" start2="6" end2="7" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
+        <range start1="266" end1="267" start2="269" end2="270" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
+        <range start1="276" end1="276" start2="279" end2="281" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
+        <range start1="281" end1="281" start2="286" end2="305" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="282" end1="283" start2="306" end2="417" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="307" end1="308" start2="441" end2="442" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
+        <range start1="312" end1="312" start2="446" end2="579" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -241,7 +282,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.starters" />
+        <item itemvalue="Python.special_pokemon" />
         <item itemvalue="Python.game_infos" />
+        <item itemvalue="Python.game" />
+        <item itemvalue="Python.fight" />
       </list>
     </recent_temporary>
   </component>
@@ -256,6 +301,41 @@
       <workItem from="1710697695635" duration="70000" />
       <workItem from="1710698071806" duration="25000" />
       <workItem from="1710776324298" duration="1716000" />
+    </task>
+    <task id="LOCAL-00054" summary="continue fight.py&#10;begin user interactions w/ fight buttons&#10;befin left click interaction in fight.py&#10;add pokemon info bar during fights">
+      <created>1708280454339</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1708280454339</updated>
+    </task>
+    <task id="LOCAL-00055" summary="continue fight.py">
+      <created>1708299153609</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1708299153609</updated>
+    </task>
+    <task id="LOCAL-00056" summary="continue fight.py">
+      <created>1708299158225</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1708299158225</updated>
+    </task>
+    <task id="LOCAL-00057" summary="continue fight.py&#10;add sac_action, add curseur">
+      <created>1708342934374</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1708342934374</updated>
+    </task>
+    <task id="LOCAL-00058" summary="continue fight.py&#10;add item icons in sac action during fights">
+      <created>1708362033767</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1708362033767</updated>
     </task>
     <task id="LOCAL-00059" summary="game is playable !!!">
       <created>1708373493832</created>
@@ -565,42 +645,7 @@
       <option name="project" value="LOCAL" />
       <updated>1710806024777</updated>
     </task>
-    <task id="LOCAL-00103" summary="Add all new pokemons attaque_pool &amp; icons">
-      <created>1710870145434</created>
-      <option name="number" value="00103" />
-      <option name="presentableId" value="LOCAL-00103" />
-      <option name="project" value="LOCAL" />
-      <updated>1710870145434</updated>
-    </task>
-    <task id="LOCAL-00104" summary="Add all new pokemons attaque_pool &amp; icons">
-      <created>1710870559760</created>
-      <option name="number" value="00104" />
-      <option name="presentableId" value="LOCAL-00104" />
-      <option name="project" value="LOCAL" />
-      <updated>1710870559760</updated>
-    </task>
-    <task id="LOCAL-00105" summary="Add all new pokemons attaque_pool &amp; icons">
-      <created>1710870663538</created>
-      <option name="number" value="00105" />
-      <option name="presentableId" value="LOCAL-00105" />
-      <option name="project" value="LOCAL" />
-      <updated>1710870663538</updated>
-    </task>
-    <task id="LOCAL-00106" summary="Add all new pokemons attaque_pool &amp; icons">
-      <created>1710870790634</created>
-      <option name="number" value="00106" />
-      <option name="presentableId" value="LOCAL-00106" />
-      <option name="project" value="LOCAL" />
-      <updated>1710870790634</updated>
-    </task>
-    <task id="LOCAL-00107" summary="Add all new pokemons attaque_pool &amp; icons">
-      <created>1710870853258</created>
-      <option name="number" value="00107" />
-      <option name="presentableId" value="LOCAL-00107" />
-      <option name="project" value="LOCAL" />
-      <updated>1710870853258</updated>
-    </task>
-    <option name="localTasksCounter" value="108" />
+    <option name="localTasksCounter" value="103" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -622,6 +667,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="add fight popup x button" />
     <MESSAGE value="add pokemon from team delete system&#10;rework pokemon from team icon moving mode fade" />
     <MESSAGE value="add game notifications system" />
     <MESSAGE value="add evol action system" />
@@ -646,7 +692,6 @@
     <MESSAGE value="add cool things" />
     <MESSAGE value="add cool things and debug" />
     <MESSAGE value="huge debugging + begin txt to csv" />
-    <MESSAGE value="Add all new pokemons attaque_pool &amp; icons" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add all new pokemons attaque_pool &amp; icons" />
+    <option name="LAST_COMMIT_MESSAGE" value="huge debugging + begin txt to csv" />
   </component>
 </project>

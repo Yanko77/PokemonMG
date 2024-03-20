@@ -145,7 +145,7 @@ class Pokemon:
         return self.pv, self.attack, self.defense, self.speed
 
     def get_bonus_stats(self):
-        return self.bonus_pvmax, self.bonus_attack, self.bonus_defense, self.bonus_speed
+        return self.bonus_pvmax, self.bonus_attack, self.bonus_defense, self.bonus_speed, self.multiplicateur_pvmax, self.multiplicateur_attack, self.multiplicateur_defense, self.multiplicateur_speed
 
     def get_level(self):
         return self.level
