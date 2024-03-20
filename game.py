@@ -103,7 +103,6 @@ class Game:
         self.is_starter_selected = True
         self.load()
 
-
     def game_over(self):
         self.__init__()
 
@@ -117,7 +116,7 @@ class Game:
 
     def cancel_fight(self):
         self.current_fight = None
-        self.is_fighting = False
+        self.is_fighting = False0
 
     def end_fight(self):
         if self.current_fight.fight_type == 'Boss':
