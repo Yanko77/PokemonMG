@@ -304,6 +304,21 @@ class Game:
         self.write_down_backup('game.csv', content)
 
         # save game_pks.csv
+        with open('save/game_pks.csv') as game_pks_file:
+            listecsv = [["type_pk,Name,level,id,objet_tenu,is_shiny,health,all_bonus_stats,is_alive,attaque_pool"],
+                        ["", "", "", "", "", "", "", ""],
+                        ["", "", "", "", "", "", "", ""],
+                        ["", "", "", "", "", "", "", ""]]
+            if self.classic_panel.ingame_window.train_panel.training_pk is not None:
+                listecsv[1] = self.classic_panel.ingame_window.train_panel.training_pk.get_save_infos(delimiter=',').split(',')
+            if self.classic_panel.ingame_window.spawn_panel.spawning_pk is not None:
+                listecsv[2] = self.classic_panel.ingame_window.spawn_panel.spawning_pk.get_save_infos(delimiter=',').split(',')
+            if self.classic_panel.ingame_window.evol_panel.evolving_pk is not None:
+                listecsv[3] = self.classic_panel.ingame_window.evol_panel.evolving_pk.get_save_infos(delimiter=',').split(',')
+
+            self.write_down_backup('game_pks.csv', listecsv)
+
+        game_pks_file.close()
 
 
         # save sac
@@ -321,7 +336,7 @@ class Game:
                         line = ["None", 0]
                 listecsv.append(line)
                 i += 1
-        print(listecsv)
+        file.close()
         self.write_down_backup('sac.csv', listecsv)
 
     def write_down_backup(self, file_name: str, listecsv: list):
