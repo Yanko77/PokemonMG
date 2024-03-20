@@ -116,7 +116,7 @@ class Game:
 
     def cancel_fight(self):
         self.current_fight = None
-        self.is_fighting = False0
+        self.is_fighting = False
 
     def end_fight(self):
         if self.current_fight.fight_type == 'Boss':
