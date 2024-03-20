@@ -1,2 +1,2 @@
-next_pk_id,general_random_seed,next_fighting_dresseur dresseur_pk pk_lv pk_item,training_pk,spawning_pk,evolving_pk
-8,792418882,Red Pichu 6 None,Bulbizarre False 1 6 17 0 0 0 0 1 1 1 1  True Charge:35 Vive-Attaque:30 Feuillage:40 Abri:10  None,None,None
+next_pk_id,random_seed,next_dresseur
+12,173163247120,Red|Pichu;5;11;None;False;22;0/0/0/0/1/1/1/1;True;Charge:35/Vive-Attaque:30/Eclair:30/None

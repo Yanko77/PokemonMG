@@ -1,7 +1,7 @@
-Name,is_shiny,id,objet_tenu,level,health bonus_pvmax bonus_attack bonus_defense bonus_speed coef_pvmax coef_atk coef_def coef_speed,is_alive,attaque_pool
-,,,,,,,
-,,,,,,,
-,,,,,,,
+Name,is_shiny,id,objet_tenu,level,bonus_stat bonus_pvmax bonus_attack bonus_defense bonus_speed,is_alive,attaque_pool
+Pichu,5,10,None,False,22,0/0/0/0/1/1/1/1,True,Charge:35/Vive-Attaque:30/Eclair:30/None
+Roucool,6,5,None,False,23,0/0/0/0/1/1/1/1,True,Charge:35/Vive-Attaque:30/Picpic:35/None
+Salameche,5,2,None,False,20,0/0/0/0/1/1/1/1,True,Charge:35/Vive-Attaque:30/Flameche:25/Abri:10
 ,,,,,,,
 ,,,,,,,
 ,,,,,,,

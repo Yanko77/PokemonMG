@@ -99,6 +99,12 @@ class Game:
         self.is_accueil = False
         self.create_new_game()
 
+    def load_game(self):
+        self.is_accueil = False
+        self.is_starter_selected = True
+        self.load()
+
+
     def game_over(self):
         self.__init__()
 
@@ -259,7 +265,7 @@ class Game:
                 if not i == 0:
                     pk = self.player.team[i-1]
                     if pk != None:
-                        line[0] = pk.name
+                        '''line[0] = pk.name
                         line[1] = str(pk.is_shiny)
                         line[2] = str(pk.get_id())
                         if pk.objet_tenu == None:
@@ -276,7 +282,9 @@ class Game:
                         for att in pk.get_attaque_pool():
                             if att is not None:
                                 pk_att_pool += f'{att.name}:{att.pp} '
-                        line[7] = pk_att_pool
+                        line[7] = pk_att_pool'''
+                        line = pk.get_save_infos(delimiter=',').split(',')
+                        print(line)
                     else:
                         line = ["", "", "", "", "", "", "", ""]
 
@@ -308,90 +316,19 @@ class Game:
         self.write_down_backup('player.csv', listecsv)
 
         # save game
-        with open('save/game.csv') as file:
-            rows = csv.reader(file, delimiter=',')
-            i = 0
-            listecsv = []
-            for line in rows:
-                if not i == 0:
-                    line[0] = str(self.next_pk_id)
-                    line[1] = str(self.general_seed)
-                    line[2] = f'{self.next_fighting_dresseur.name} {self.next_fighting_dresseur.pk.name} {self.next_fighting_dresseur.pk.get_level()} '
-                    objet_tenu = self.next_fighting_dresseur.pk.objet_tenu
-                    if objet_tenu != None:
-                        line[2] += f'{self.next_fighting_dresseur.pk.objet_tenu.name}'
-                    else:
-                        line[2] += "None"
+        with open('save/game.csv') as game_file:
+            content = [["next_pk_id","random_seed","next_dresseur"],
+                       [""]]
 
-                    # line[5]
-                    training_pk = self.classic_panel.ingame_window.train_panel.training_pk
+            content[1] = [str(self.next_pk_id),str(self.general_seed),f"{self.next_fighting_dresseur.name}|{self.next_fighting_dresseur.pk.get_save_infos(delimiter=';')}"]
 
-                    if not training_pk == None:
-                        training_pk_bonus = f"{training_pk.health} "
-                        for y in training_pk.get_bonus_stats():
-                            training_pk_bonus += f'{y} '
-                        pk_att_pool = ""
-                        for att in training_pk.get_attaque_pool():
-                            if att is not None:
-                                pk_att_pool += f'{att.name}:{att.pp} '
+            game_file.close()
 
-                        training_pk_item = training_pk.objet_tenu
-                        if training_pk_item is None:
-                            training_pk_item = 'None'
-                        else:
-                            training_pk_item = f'{training_pk_item.name}'
+        print(content)
+        self.write_down_backup('game.csv', content)
 
-                        line[3] = f'{training_pk.name} {training_pk.is_shiny} {training_pk.get_id()} {training_pk.get_level()} {training_pk_bonus} {training_pk.is_alive} {pk_att_pool} {training_pk_item}'
-                    else:
-                        line[3] = 'None'
+        # save game_pks.csv
 
-
-                    # line[6]
-                    spawning_pk = self.classic_panel.ingame_window.spawn_panel.spawning_pk
-                    if not spawning_pk == None:
-                        spawning_pk_bonus = f"{spawning_pk.health} "
-                        for y in spawning_pk.get_bonus_stats():
-                            spawning_pk_bonus += f'{y} '
-                        pk_att_pool = ""
-                        for att in spawning_pk.get_attaque_pool():
-                            if att is not None:
-                                pk_att_pool += f'{att.name}:{att.pp} '
-                        spawning_pk_item = spawning_pk.objet_tenu
-                        if spawning_pk_item is None:
-                            spawning_pk_item = 'None'
-                        else:
-                            spawning_pk_item = f'{spawning_pk_item.name}'
-                        line[4] = f'{spawning_pk.name} {spawning_pk.is_shiny} {spawning_pk.get_id()} {spawning_pk.get_level()} {spawning_pk_bonus} {spawning_pk.is_alive} {pk_att_pool} {spawning_pk_item}'
-                    else:
-                        line[4] = 'None'
-
-
-                    # line[7]
-                    evolving_pk = self.classic_panel.ingame_window.evol_panel.evolving_pk
-                    if not evolving_pk == None:
-                        evolving_pk_bonus = f"{evolving_pk.health} "
-                        for y in evolving_pk.get_bonus_stats():
-                            evolving_pk_bonus += f'{y} '
-                        pk_att_pool = ""
-                        for att in evolving_pk.get_attaque_pool():
-                            if att is not None:
-                                pk_att_pool += f'{att.name}:{att.pp} '
-
-                        evolving_pk_item = evolving_pk.objet_tenu
-                        if evolving_pk_item is None:
-                            evolving_pk_item = 'None'
-                        else:
-                            evolving_pk_item = f'{evolving_pk_item.name}'
-                        line[5] = f'{evolving_pk.name} {evolving_pk.is_shiny} {evolving_pk.get_id()} {evolving_pk.get_level()} {evolving_pk_bonus} {evolving_pk.is_alive} {pk_att_pool} {evolving_pk_item}'
-
-                    else:
-                        line[5] = 'None'
-
-                listecsv.append(line)
-                i += 1
-            file.close()
-
-        self.write_down_backup('game.csv', listecsv)
 
         # save sac
         with open("save/sac.csv") as file:
@@ -408,6 +345,7 @@ class Game:
                         line = ["None", 0]
                 listecsv.append(line)
                 i += 1
+        print(listecsv)
         self.write_down_backup('sac.csv', listecsv)
 
     def write_down_backup(self, file_name: str, listecsv: list):
@@ -426,14 +364,7 @@ class Game:
             listecsv = []
             for line in rows:
                 if i != 0:
-                    line[0] = ""
-                    line[1] = ""
-                    line[2] = ""
-                    line[3] = ""
-                    line[4] = ""
-                    line[5] = ""
-                    line[6] = ""
-                    line[7] = ""
+                    line = ["", "", "", "", "", "", "", ""]
 
                 listecsv.append(line)
                 i += 1
@@ -457,11 +388,11 @@ class Game:
                     if pk_infos[0] == '':
                         self.player.team[i-1] = None
                     else:
-                        item = pk_infos[3]
-                        if item == 'None':
-                            item = None
+                        pk_item = pk_infos[3]
+                        if pk_item == 'None':
+                            pk_item = None
                         else:
-                            item = objet.Objet(item)
+                            pk_item = objet.Objet(pk_item)
 
                         self.player.team[i-1] = pokemon.Pokemon(pk_infos[0], pk_infos[4], self, pk_infos[1] == 'True', item)
                         self.player.team[i-1].id = int(pk_infos[2])
@@ -514,54 +445,122 @@ class Game:
 
             dresseur_infos = game_infos[2].split(' ')
             next_fighting_dresseur = dresseur.get_dresseur_by_name(dresseur_infos[0])
-            item = dresseur_infos[3]
-            if item == 'None':
-                item = None
-            else:
-                item = objet.Objet(item)
 
-            dresseur_pk = pokemon.Pokemon(dresseur_infos[1], int(dresseur_infos[2]), self, objet_tenu=item)
+
+            dresseur_pk_infos = dresseur_infos[1].split(';')
+            dresseur_pk_item = dresseur_pk_infos[3]
+            if dresseur_pk_item == 'None':
+                dresseur_pk_item = None
+            else:
+                dresseur_pk_item = objet.Objet(dresseur_pk_item)
+
+            dresseur_pk = pokemon.Pokemon(dresseur_pk_infos[0], int(dresseur_pk_infos[1]), self, objet_tenu=dresseur_pk_item)
             self.next_fighting_dresseur = next_fighting_dresseur(self, pk=dresseur_pk)
 
-            panels_pks = (
-                (self.classic_panel.ingame_window.train_panel.training_pk, 3),
-                (self.classic_panel.ingame_window.spawn_panel.spawning_pk, 4),
-                (self.classic_panel.ingame_window.evol_panel.evolving_pk, 5),
-            )
+            """
+            # TRAIN
+            pk_infos = game_infos[3].split(' ')
+            if pk_infos[0] != 'None':
+                item = pk_infos[-1]
+                if item == 'None':
+                    item = None
+                else:
+                    item = objet.Objet(item)
 
-            for pk, i in panels_pks:
-                pk_infos = game_infos[i].split(' ')
-                if pk_infos[0] != 'None':
-                    item = pk_infos[-1]
-                    if item == 'None':
-                        item = None
-                    else:
-                        item = objet.Objet(item)
+                self.classic_panel.ingame_window.train_panel.training_pk = pokemon.Pokemon(pk_infos[0], int(pk_infos[3]), self, is_shiny=pk_infos[1]=='True', objet_tenu=item)
+                self.classic_panel.ingame_window.train_panel.training_pk.id = int(pk_infos[2])
+                training_pk_bonus_stats = pk_infos[4].split('-')
+                self.classic_panel.ingame_window.train_panel.training_pk.health = int(training_pk_bonus_stats[0])
+                self.classic_panel.ingame_window.train_panel.training_pk.bonus_pvmax = int(training_pk_bonus_stats[1])
+                self.classic_panel.ingame_window.train_panel.training_pk.bonus_attack = int(training_pk_bonus_stats[2])
+                self.classic_panel.ingame_window.train_panel.training_pk.bonus_defense = int(training_pk_bonus_stats[3])
+                self.classic_panel.ingame_window.train_panel.training_pk.bonus_speed = int(training_pk_bonus_stats[4])
+                self.classic_panel.ingame_window.train_panel.training_pk.multiplicateur_pvmax = int(training_pk_bonus_stats[5])
+                self.classic_panel.ingame_window.train_panel.training_pk.multiplicateur_attack = int(training_pk_bonus_stats[6])
+                self.classic_panel.ingame_window.train_panel.training_pk.multiplicateur_defense = int(training_pk_bonus_stats[7])
+                self.classic_panel.ingame_window.train_panel.training_pk.multiplicateur_speed = int(training_pk_bonus_stats[8])
+                self.classic_panel.ingame_window.train_panel.training_pk.is_alive = pk_infos[5] == 'True'
 
-                    pk = pokemon.Pokemon(pk_infos[0], int(pk_infos[3]), self, is_shiny=pk_infos[1]=='True', objet_tenu=item)
-                    pk.id = int(pk_infos[2])
-                    training_pk_bonus_stats = pk_infos[4].split(' ')
-                    pk.health = int(training_pk_bonus_stats[0])
-                    pk.bonus_pvmax = int(training_pk_bonus_stats[1])
-                    pk.bonus_attack = int(training_pk_bonus_stats[2])
-                    pk.bonus_defense = int(training_pk_bonus_stats[3])
-                    pk.bonus_speed = int(training_pk_bonus_stats[4])
-                    pk.multiplicateur_pvmax = int(training_pk_bonus_stats[5])
-                    pk.multiplicateur_attack = int(training_pk_bonus_stats[6])
-                    pk.multiplicateur_defense = int(training_pk_bonus_stats[7])
-                    pk.multiplicateur_speed = int(training_pk_bonus_stats[8])
-                    pk.is_alive = pk_infos[5] == 'True'
+                attaque_pool = [None, None, None, None]
+                n = 0
+                for att in pk_infos[6].split(" "):
+                    att_name, att_pp = att.split(':')[0], att.split(':')[1]
+                    attaque = attaques.Attaque(att_name)
+                    attaque.set_pp(int(att_pp))
 
-                    attaque_pool = [None, None, None, None]
-                    i = 0
-                    for att in pk_infos[6]:
-                        att_name, att_pp = att.split(':')
-                        attaque = attaques.Attaque(att_name)
-                        attaque.set_pp(int(att_pp))
+                    attaque_pool[n] = attaque
+                    n += 1
+                self.classic_panel.ingame_window.train_panel.training_pk.attaque_pool = attaque_pool
 
-                        attaque_pool[i] = attaque
-                        i += 1
-                    pk.attaque_pool = attaque_pool
+            # EVOL
+            pk_infos = game_infos[4].split(' ')
+            if pk_infos[0] != 'None':
+                item = pk_infos[-1]
+                if item == 'None':
+                    item = None
+                else:
+                    item = objet.Objet(item)
+
+                self.classic_panel.ingame_window.evol_panel.evolving_pk = pokemon.Pokemon(pk_infos[0], int(pk_infos[3]), self, is_shiny=pk_infos[1]=='True', objet_tenu=item)
+                self.classic_panel.ingame_window.evol_panel.evolving_pk.id = int(pk_infos[2])
+                training_pk_bonus_stats = pk_infos[4].split('-')
+                self.classic_panel.ingame_window.evol_panel.evolving_pk.health = int(training_pk_bonus_stats[0])
+                self.classic_panel.ingame_window.evol_panel.evolving_pk.bonus_pvmax = int(training_pk_bonus_stats[1])
+                self.classic_panel.ingame_window.evol_panel.evolving_pk.bonus_attack = int(training_pk_bonus_stats[2])
+                self.classic_panel.ingame_window.evol_panel.evolving_pk.bonus_defense = int(training_pk_bonus_stats[3])
+                self.classic_panel.ingame_window.evol_panel.evolving_pk.bonus_speed = int(training_pk_bonus_stats[4])
+                self.classic_panel.ingame_window.evol_panel.evolving_pk.multiplicateur_pvmax = int(training_pk_bonus_stats[5])
+                self.classic_panel.ingame_window.evol_panel.evolving_pk.multiplicateur_attack = int(training_pk_bonus_stats[6])
+                self.classic_panel.ingame_window.evol_panel.evolving_pk.multiplicateur_defense = int(training_pk_bonus_stats[7])
+                self.classic_panel.ingame_window.evol_panel.evolving_pk.multiplicateur_speed = int(training_pk_bonus_stats[8])
+                self.classic_panel.ingame_window.evol_panel.evolving_pk.is_alive = pk_infos[5] == 'True'
+
+                attaque_pool = [None, None, None, None]
+                n = 0
+                for att in pk_infos[6].split(" "):
+                    att_name, att_pp = att.split(':')[0], att.split(':')[1]
+                    attaque = attaques.Attaque(att_name)
+                    attaque.set_pp(int(att_pp))
+
+                    attaque_pool[n] = attaque
+                    n += 1
+                self.classic_panel.ingame_window.evol_panel.evolving_pk.attaque_pool = attaque_pool
+
+            # SPAWN
+            pk_infos = game_infos[5].split(' ')
+            if pk_infos[0] != 'None':
+                item = pk_infos[-1]
+                if item == 'None':
+                    item = None
+                else:
+                    item = objet.Objet(item)
+
+                self.classic_panel.ingame_window.spawn_panel.spawning_pk = pokemon.Pokemon(pk_infos[0], int(pk_infos[3]), self, is_shiny=pk_infos[1]=='True', objet_tenu=item)
+                self.classic_panel.ingame_window.spawn_panel.spawning_pk.id = int(pk_infos[2])
+                training_pk_bonus_stats = pk_infos[4].split('-')
+                self.classic_panel.ingame_window.spawn_panel.spawning_pk.health = int(training_pk_bonus_stats[0])
+                self.classic_panel.ingame_window.spawn_panel.spawning_pk.bonus_pvmax = int(training_pk_bonus_stats[1])
+                self.classic_panel.ingame_window.spawn_panel.spawning_pk.bonus_attack = int(training_pk_bonus_stats[2])
+                self.classic_panel.ingame_window.spawn_panel.spawning_pk.bonus_defense = int(training_pk_bonus_stats[3])
+                self.classic_panel.ingame_window.spawn_panel.spawning_pk.bonus_speed = int(training_pk_bonus_stats[4])
+                self.classic_panel.ingame_window.spawn_panel.spawning_pk.multiplicateur_pvmax = int(training_pk_bonus_stats[5])
+                self.classic_panel.ingame_window.spawn_panel.spawning_pk.multiplicateur_attack = int(training_pk_bonus_stats[6])
+                self.classic_panel.ingame_window.spawn_panel.spawning_pk.multiplicateur_defense = int(training_pk_bonus_stats[7])
+                self.classic_panel.ingame_window.spawn_panel.spawning_pk.multiplicateur_speed = int(training_pk_bonus_stats[8])
+                self.classic_panel.ingame_window.spawn_panel.spawning_pk.is_alive = pk_infos[5] == 'True'
+
+                attaque_pool = [None, None, None, None]
+                n = 0
+                for att in pk_infos[6].split(" "):
+                    att_name, att_pp = att.split(':')[0], att.split(':')[1]
+                    attaque = attaques.Attaque(att_name)
+                    attaque.set_pp(int(att_pp))
+
+                    attaque_pool[n] = attaque
+                    n += 1
+                self.classic_panel.ingame_window.spawn_panel.spawning_pk.attaque_pool = attaque_pool
+                
+            """
 
             game_file.close()
 
@@ -575,7 +574,7 @@ class Game:
                         self.player.sac[i-1] = objet.Objet(item[0], item[1])
                     else:
                         self.player.sac[i-1] = None
-                    i += 1
+                i += 1
             sac_file.close()
 
 

@@ -142,14 +142,90 @@ class Pokemon:
     def full_heal(self):
         self.health = self.pv
 
+    def get_save_infos(self, delimiter:str = ',') -> str:
+        """
+        Retourne la ligne à écrire pour stocker l'ensemble des informations à sauvegarder concernant le pokémon
+        Ex: Name, level, id, objet, is_shiny, health, all_bonus_stats, is_alive, attaque_pool
+        "Pikachu,10,5,None,18,0/0/0/0/1/1/1/1,True,Griffe:25/Vive-Attaque:15/..."
+        """
+        assert not delimiter in (' ', ':', '/'), "Séparateur déjà utilisé, causera des erreurs de split"
+        item = self.objet_tenu
+        if item is None:
+            item = 'None'
+        else:
+            item = item.name
+
+        return f"{self.get_name()}{delimiter}{self.get_level()}{delimiter}{self.get_id()}{delimiter}{item}{delimiter}{self.is_shiny}{delimiter}{self.health}{delimiter}{self.get_bonus_stats_backup()}{delimiter}{self.is_alive}{delimiter}{self.get_attaque_pool_backup()}"
+
+    def get_bonus_stats_backup(self) -> str:
+        all_bonus_stat = self.bonus_pvmax, self.bonus_attack, self.bonus_defense, self.bonus_speed, self.multiplicateur_pvmax, self.multiplicateur_attack, self.multiplicateur_defense, self.multiplicateur_speed
+        all_bonus_stat_backup = ""
+        for bonus in all_bonus_stat:
+            all_bonus_stat_backup += f'{bonus}/'
+
+        return all_bonus_stat_backup[:-1]
+
+    def get_attaque_pool_backup(self) -> str:
+        attaque_pool = [None,None,None,None]
+        i = 0
+        for att in self.attaque_pool:
+            if att is not None:
+                attaque_pool[i] = f"{att.name}:{att.pp}"
+            i += 1
+
+        attaque_pool_backup = ""
+        for attaque_infos in attaque_pool:
+            if attaque_infos is None:
+                attaque_pool_backup += "None/"
+            else:
+                attaque_pool_backup += f"{attaque_infos}/"
+
+        return attaque_pool_backup[:-1]
+
+    def load_save_infos(self, save_infos: list):
+        """
+        Methode qui charge les informations sauvegardées du pokémon
+        """
+        # f"{self.get_name()}{delimiter}{self.get_level()}{delimiter}{self.get_id()}{delimiter}{item}{delimiter}{self.is_shiny}{delimiter}{self.health}{delimiter}{self.get_bonus_stats_backup()}{delimiter}{self.is_alive}{delimiter}{self.get_attaque_pool_backup()}"
+        self.id = int(save_infos[2])
+        self.health = int(save_infos[5])
+        stats = save_infos[6].split('/')
+        self.bonus_pvmax = int(stats[0])
+        self.bonus_attack = int(stats[1])
+        self.bonus_defense = int(stats[2])
+        self.bonus_speed = int(stats[3])
+        self.multiplicateur_pvmax = int(stats[4])
+        self.multiplicateur_attack = int(stats[5])
+        self.multiplicateur_defense = int(stats[6])
+        self.multiplicateur_speed = int(stats[7])
+
+        # Application des bonus
+        diff = self.pv - self.health
+        self.pv = round((round((2 * int(self.infos[3]) * self.level) / 100 + self.level + 10) + self.bonus_pvmax) * self.multiplicateur_pvmax)
+        self.health = self.pv - diff
+        self.base_attack = round((round((2 * int(self.infos[4]) * self.level) / 100 + 5) + self.bonus_attack) * self.multiplicateur_attack)
+        self.base_defense = round((round((2 * int(self.infos[5]) * self.level) / 100 + 5) + self.bonus_defense) * self.multiplicateur_defense)
+        self.base_speed = round((round((2 * int(self.infos[6]) * self.level) / 100 + 5) + self.bonus_speed) * self.multiplicateur_speed)
+
+        self.attack = self.base_attack
+        self.defense = self.base_defense
+        self.speed = self.base_speed
+
+        self.is_alive = save_infos[7] == 'True'
+        attaque_pool = []
+        for att in save_infos[8].split("/"):
+            if att == 'None':
+                attaque_pool.append(None)
+            else:
+                attaque_pool.append(attaques.Attaque(att.split(":")[0], pp=int(att.split(":")[1])))
+
+        self.attaque_pool = attaque_pool
+
     def get_id(self):
         return self.id
 
     def get_stats(self):
         return self.pv, self.attack, self.defense, self.speed
-
-    def get_bonus_stats(self):
-        return self.bonus_pvmax, self.bonus_attack, self.bonus_defense, self.bonus_speed, self.multiplicateur_pvmax, self.multiplicateur_attack, self.multiplicateur_defense, self.multiplicateur_speed
 
     def get_level(self):
         return self.level

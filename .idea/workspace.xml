@@ -5,26 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="huge debugging + begin txt to csv">
-      <change afterPath="$PROJECT_DIR$/save/fight.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/save/game.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/save/sac.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/save/game_pks.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accueil.py" beforeDir="false" afterPath="$PROJECT_DIR$/accueil.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/attaques.py" beforeDir="false" afterPath="$PROJECT_DIR$/attaques.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save/fight.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/save/game.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/game.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save/player.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/player.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save/sac.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/sac.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save/team.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/team.csv" afterDir="false" />
     </list>
-    <list id="42c5e2b7-9d13-4366-8c66-8a63e8f9c30d" name="Changes by matva" comment="" />
-    <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
-    <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="">
-      <change beforePath="$PROJECT_DIR$/dresseur.py" beforeDir="false" afterPath="$PROJECT_DIR$/dresseur.py" afterDir="false" />
+    <list id="5d484e25-e411-46a6-9c02-69aa32c03bc2" name="Changes by matva" comment="">
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pk_to_add.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pk_to_add.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save/player.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/player.csv" afterDir="false" />
     </list>
+    <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="" />
+    <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,26 +68,34 @@
     <setting file="mock:///Dummy.txt" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/pokemon.py">
-      <ranges>
-        <range start1="40" end1="41" start2="40" end2="41" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="45" end1="46" start2="45" end2="46" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="50" end1="51" start2="50" end2="51" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="55" end1="56" start2="55" end2="56" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="126" end1="126" start2="126" end2="130" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="147" end1="148" start2="151" end2="152" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-      </ranges>
-    </file>
     <file path="$PROJECT_DIR$/game.py">
       <ranges>
-        <range start1="2" end1="2" start2="2" end2="4" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="4" end1="4" start2="6" end2="7" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="266" end1="267" start2="269" end2="270" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="276" end1="276" start2="279" end2="281" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="281" end1="281" start2="286" end2="305" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="282" end1="283" start2="306" end2="417" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="307" end1="308" start2="441" end2="442" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="312" end1="312" start2="446" end2="579" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
+        <range start1="100" end1="100" start2="100" end2="106" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="261" end1="262" start2="267" end2="268" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="278" end1="279" start2="284" end2="287" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="310" end1="342" start2="318" end2="321" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="343" end1="346" start2="322" end2="323" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="347" end1="347" start2="324" end2="325" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="348" end1="366" start2="326" end2="328" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="367" end1="367" start2="329" end2="330" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="368" end1="394" start2="331" end2="331" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="410" end1="410" start2="347" end2="348" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="428" end1="436" start2="366" end2="367" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="459" end1="462" start2="390" end2="393" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="463" end1="464" start2="394" end2="395" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="465" end1="466" start2="396" end2="400" changelist="5d484e25-e411-46a6-9c02-69aa32c03bc2" />
+        <range start1="490" end1="490" start2="424" end2="425" changelist="5d484e25-e411-46a6-9c02-69aa32c03bc2" />
+        <range start1="514" end1="515" start2="449" end2="450" changelist="5d484e25-e411-46a6-9c02-69aa32c03bc2" />
+        <range start1="516" end1="519" start2="451" end2="457" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="520" end1="521" start2="458" end2="459" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="522" end1="523" start2="460" end2="461" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="525" end1="530" start2="463" end2="486" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="531" end1="539" start2="487" end2="506" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="540" end1="553" start2="507" end2="520" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="554" end1="560" start2="521" end2="527" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="561" end1="564" start2="528" end2="567" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="573" end1="573" start2="576" end2="577" changelist="5d484e25-e411-46a6-9c02-69aa32c03bc2" />
+        <range start1="577" end1="578" start2="581" end2="582" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
       </ranges>
     </file>
   </component>
@@ -123,22 +128,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "mathias__7",
-    "last_opened_file_path": "C:/Users/yanko/PycharmProjects/PokemonManagementGame",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;mathias__7&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/yanko/PycharmProjects/PokemonManagementGame&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\yanko\PycharmProjects\PokemonManagementGame" />
@@ -209,14 +214,14 @@
       <method v="2" />
     </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python">
-      <module name="PokemonMG" />
+      <module name="PokemonManagementGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\matva\AppData\Local\Programs\Python\Python312\python.exe" />
-      <option name="SDK_NAME" value="Python 3.12" />
+      <option name="SDK_HOME" value="C:\Users\yanko\AppData\Local\RLBotGUIX\Python37\python.exe" />
+      <option name="SDK_NAME" value="Python 3.7" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
