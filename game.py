@@ -5,6 +5,7 @@ import dresseur
 import fight
 import objet
 import pokemon
+import special_pokemon
 import starters
 import csv
 from player import Player
@@ -403,7 +404,11 @@ class Game:
             else:
                 dresseur_pk_item = objet.Objet(dresseur_pk_item)
 
-            dresseur_pk = pokemon.Pokemon(dresseur_pk_infos[0], int(dresseur_pk_infos[1]), self, objet_tenu=dresseur_pk_item)
+            if dresseur_pk_infos[0] in special_pokemon.SPECIAL_PKS_LIST:
+                dresseur_pk = special_pokemon.Pokemon(dresseur_pk_infos[0], int(dresseur_pk_infos[1]), self,
+                                              objet_tenu=dresseur_pk_item)
+            else:
+                dresseur_pk = pokemon.Pokemon(dresseur_pk_infos[0], int(dresseur_pk_infos[1]), self, objet_tenu=dresseur_pk_item)
             self.next_fighting_dresseur = next_fighting_dresseur(self, pk=dresseur_pk)
 
             game_file.close()

@@ -540,6 +540,7 @@ class Pokemon:
                    + str(random.randint(0, 255))
                    + str(random.randint(0, 255)))
 
+SPECIAL_PKS = []
 
 if __name__ == "__main__":
     pass
