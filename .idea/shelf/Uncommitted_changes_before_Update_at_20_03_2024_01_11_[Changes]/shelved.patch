@@ -1,0 +1,25 @@
+Index: save/team.csv
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>Name,is_shiny,id,objet_tenu,level,bonus_stat bonus_pvmax bonus_attack bonus_defense bonus_speed,is_alive,attaque_pool\r\n\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"\r\n\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"\r\n\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"\r\n\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"\r\n\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"\r\n\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/save/team.csv b/save/team.csv
+--- a/save/team.csv	(revision 7953d9f73b2f1c96832b108b6284916b4caf4ff7)
++++ b/save/team.csv	(date 1710893409864)
+@@ -1,7 +1,7 @@
+ Name,is_shiny,id,objet_tenu,level,bonus_stat bonus_pvmax bonus_attack bonus_defense bonus_speed,is_alive,attaque_pool
+-"","","","","","","",""
+-"","","","","","","",""
+-"","","","","","","",""
+-"","","","","","","",""
+-"","","","","","","",""
+-"","","","","","","",""
+\ No newline at end of file
++,,,,,,,
++Galekid,False,8,None,6,0 0 0 0 ,True,Pisto-Poing:30 Charge:35 
++,,,,,,,
++,,,,,,,
++Bulbizarre,False,1,None,9,0 0 0 0 ,False,Charge:35 Vive-Attaque:30 Feuillage:40 Abri:10 
++,,,,,,,
