@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="debugging: add Repos attaque">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="debugging">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dresseur.py" beforeDir="false" afterPath="$PROJECT_DIR$/dresseur.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/all_attaques.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_attaques.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokemon_attaque_pool.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon_attaque_pool.txt" afterDir="false" />
     </list>
     <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -248,13 +249,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-    </task>
-    <task id="LOCAL-00045" summary="continue train.py&#10;beginning fight.py, dresseur.py">
-      <created>1705179759828</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1705179759828</updated>
     </task>
     <task id="LOCAL-00046" summary="continue train.py&#10;beginning fight.py, dresseur.py">
       <created>1705694167777</created>
@@ -592,7 +586,14 @@
       <option name="project" value="LOCAL" />
       <updated>1710980029229</updated>
     </task>
-    <option name="localTasksCounter" value="94" />
+    <task id="LOCAL-00094" summary="debugging">
+      <created>1710981105408</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1710981105408</updated>
+    </task>
+    <option name="localTasksCounter" value="95" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -631,8 +632,8 @@
     <MESSAGE value="add reset_attaque_fight()" />
     <MESSAGE value="rewrite typing error" />
     <MESSAGE value="rework ennemy pks spawning in train panel" />
-    <MESSAGE value="debugging" />
     <MESSAGE value="debugging: add Repos attaque" />
-    <option name="LAST_COMMIT_MESSAGE" value="debugging: add Repos attaque" />
+    <MESSAGE value="debugging" />
+    <option name="LAST_COMMIT_MESSAGE" value="debugging" />
   </component>
 </project>

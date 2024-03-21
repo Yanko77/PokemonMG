@@ -193,7 +193,7 @@ Machoc                  Poing_Karate,Charge
 Machopeur               Vampi-Poing,Vive-Attaque,Charge
 Mackogneur              Vampi-Poing,Close_Combat,Larcin,Effort
 #
-Ronflex                 Koud'Krane,Effort,Repos,Riposte
+Ronflex                 Coud'Krane,Effort,Repos,Riposte
 #
 Miaouss                 Vive-Attaque,Effort,Double_Pied
 Persian                 Croc_Fatal,Effort,Vive-Attaque,Coup_Bas
