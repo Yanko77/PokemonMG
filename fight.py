@@ -654,6 +654,8 @@ class Fight:
             self.update_pk_attaques(player_pk_action, dresseur_pk_action)
             self.player_pk.reset_turn_effects()
             self.dresseur.pk.reset_turn_effects()
+            self.player_pk.apply_turn_effects()
+            self.dresseur.pk.apply_turn_effects()
             self.update_pk_item()
             self.executing_turn = False
             self.compteur = 1
