@@ -1,7 +1,7 @@
 Name,is_shiny,id,objet_tenu,level,bonus_stat bonus_pvmax bonus_attack bonus_defense bonus_speed,is_alive,attaque_pool
-Florizarre,28,29,Graine_Miracle,False,88,0/0/10/0/1/1/1/1,True,Giga-Sangsue:10/Poudre_Dodo:15/Eco-Sphere:10/Laser_Glace:10
-Steelix,19,38,None,False,57,0/0/0/0/1/1/1/1,True,Seisme:10/Abime:5/Rayon_Gemme:20/Queue_de_Fer:15
-Tylton,18,52,None,False,10,0/0/0/0/1/1/1/1,True,Picpic:35/Vive-Attaque:30/Double_Baffe:15/None
-Ortide,21,65,None,False,59,0/0/0/0/1/1/1/1,True,Vive-Attaque:30/Poudre_Dodo:15/Mega-Sangsue:15/Toxik:10
-Reptincel,14,42,None,False,42,0/0/0/0/1/1/1/1,True,Crocs_Feu:15/Vive-Attaque:30/Nitrocharge:20/Poursuite:20
-Voltali,23,62,None,False,69,0/0/0/0/1/1/1/1,True,Boule_Elek:10/Cage_Eclair:20/Vif_Eclair:20/Effort:5
+Florizarre,28,29,Graine_Miracle,False,88,0/0/10/0/1.0/1.0/1.0/1.0,True,Giga-Sangsue:10/Poudre_Dodo:15/Eco-Sphere:10/Laser_Glace:10
+Steelix,19,38,None,False,57,0/0/0/0/1.0/1.0/1.0/1.0,True,Seisme:10/Abime:5/Rayon_Gemme:20/Queue_de_Fer:15
+Tylton,18,52,None,False,10,0/0/0/0/1.0/1.0/1.0/1.0,True,Picpic:35/Vive-Attaque:30/Double_Baffe:15/None
+Ortide,21,65,None,False,59,0/0/0/0/1.0/1.0/1.0/1.0,True,Vive-Attaque:30/Poudre_Dodo:15/Mega-Sangsue:15/Toxik:10
+Reptincel,14,42,None,False,42,0/0/0/0/1.0/1.0/1.0/1.0,True,Crocs_Feu:15/Vive-Attaque:30/Nitrocharge:20/Poursuite:20
+Voltali,23,62,None,False,69,0/0/0/0/1.0/1.0/1.0/1.0,True,Boule_Elek:10/Cage_Eclair:20/Vif_Eclair:20/Effort:5
