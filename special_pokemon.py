@@ -398,7 +398,7 @@ class Pokemon:
     def reset_turn_effects(self):
         self.is_vulnerable = True
 
-    def apply_turn_effect(self):
+    def apply_turn_effects(self):
         """
         Methode qui applique les effets de tour de fight
         """
