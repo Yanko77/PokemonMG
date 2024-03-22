@@ -385,6 +385,12 @@ class Pokemon:
     def reset_turn_effects(self):
         self.is_vulnerable = True
 
+    def apply_turn_effects(self):
+        """
+        Methode qui applique les effets de tour de fight
+        """
+        self.heal(self.passive_heal)
+
     def update_item_turn_effects(self):
         """
         Methode qui actualise les effets des objets à la fin d'un tour de combat
