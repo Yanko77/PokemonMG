@@ -560,6 +560,10 @@ class GamePanel:
                 if pygame.Rect(1210, 9, 59, 59).collidepoint(possouris):
                     self.pokemon_info_mode = False
 
+        elif self.player_name_editing_mode:
+            if not self.player_name_rect.collidepoint(possouris):
+                self.player_name_editing_mode = False
+
     def right_clic_interactions(self, possouris):
         if not self.player_name_editing_mode:
 

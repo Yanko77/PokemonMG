@@ -166,7 +166,7 @@ class Pokemon:
         return all_bonus_stat_backup[:-1]
 
     def get_attaque_pool_backup(self) -> str:
-        attaque_pool = [None,None,None,None]
+        attaque_pool = [None, None, None, None]
         i = 0
         for att in self.attaque_pool:
             if att is not None:
@@ -194,10 +194,10 @@ class Pokemon:
         self.bonus_attack = int(stats[1])
         self.bonus_defense = int(stats[2])
         self.bonus_speed = int(stats[3])
-        self.multiplicateur_pvmax = int(stats[4])
-        self.multiplicateur_attack = int(stats[5])
-        self.multiplicateur_defense = int(stats[6])
-        self.multiplicateur_speed = int(stats[7])
+        self.multiplicateur_pvmax = float(stats[4])
+        self.multiplicateur_attack = float(stats[5])
+        self.multiplicateur_defense = float(stats[6])
+        self.multiplicateur_speed = float(stats[7])
 
         # Application des bonus
         diff = self.pv - self.health
@@ -264,7 +264,6 @@ class Pokemon:
             - 'None' si l'attaque n'a pas appliqué d'effet à personne, (<nom_effet>, <self ou pokemon>) sinon
         """
         attaque_infos = []
-
 
         precision_value = random.randint(0, 99)
         print(f'{attaque.name}: {attaque.precision} | {precision_value}')
