@@ -1,7 +1,4 @@
-Name,is_shiny,id,objet_tenu,level,bonus_stat bonus_pvmax bonus_attack bonus_defense bonus_speed,is_alive,attaque_pool
-Arcko,5,1,None,False,21,0/0/0/0/1/1/1/1,True,Charge:35/Vive-Attaque:30/Vole-vie:25/Abri:10
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
+Name,level,id,objet_tenu,is_shiny,health,bonus_stat bonus_pvmax bonus_attack bonus_defense bonus_speed,is_alive,attaque_pool
+Tortank,71,23,Bec_Pointu,False,6301,65/0/10/0/23.83990055917926/1.0/1.0/1.0,True,Hydro-Queue:10/Aqua-Jet:20/Draco-Choc:10/Tete_de_Fer:15
+Aspicot,7,9,None,False,24,0/0/0/0/1.0/1.0/1.0/1.0,True,Charge:35/Feuillage:40/None/None
+Miaouss,13,8,None,False,41,0/0/10/10/1.0/1.0/1.0/1.0,True,Vive-Attaque:30/Effort:5/Double_Pied:30/None

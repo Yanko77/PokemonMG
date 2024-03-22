@@ -223,12 +223,14 @@ class GamePanel:
         if self.game.player.name == "Nom":
             surface.blit(self.player_name_indication, (760, 30))
 
-        '''if self.player_name_editing_mode:
-            pygame.draw.rect(surface, (0, 0, 0),
-                             pygame.Rect(self.player_name_text.get_rect().x + self.player_name_text.get_width() + 7,
-                                         self.player_name_text.get_rect().y - self.player_name_text.get_height(),
-                                         5,
-                                         self.player_name_text.get_height()))'''
+        if self.player_name_editing_mode:
+            if self.player_name_cursor_compteur > 20:
+                curseur = self.create_rect_alpha((2, self.player_name_text.get_height() - 16), (0, 0, 0), 200)
+                surface.blit(curseur, (665 + self.player_name_text.get_width(), 16))
+
+            self.player_name_cursor_compteur += 1
+            if self.player_name_cursor_compteur > 40:
+                self.player_name_cursor_compteur = 0
 
     def update_player_lv(self, surface):
         self.player_lv_image = self.font_size3.render(str(self.game.player.level), False, (124, 124, 124))
