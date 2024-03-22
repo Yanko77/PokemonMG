@@ -194,10 +194,10 @@ class Pokemon:
         self.bonus_attack = int(stats[1])
         self.bonus_defense = int(stats[2])
         self.bonus_speed = int(stats[3])
-        self.multiplicateur_pvmax = float(stats[4])
-        self.multiplicateur_attack = float(stats[5])
-        self.multiplicateur_defense = float(stats[6])
-        self.multiplicateur_speed = float(stats[7])
+        self.multiplicateur_pvmax = int(stats[4])
+        self.multiplicateur_attack = int(stats[5])
+        self.multiplicateur_defense = int(stats[6])
+        self.multiplicateur_speed = int(stats[7])
 
         # Application des bonus
         diff = self.pv - self.health
