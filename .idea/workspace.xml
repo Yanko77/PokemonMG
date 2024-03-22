@@ -4,23 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="add load &amp; save system">
+    <list default="true" id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="debugging">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot_fight_algo.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_fight_algo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save/game.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/game.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save/game_pks.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/game_pks.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save/player.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/player.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save/sac.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/sac.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save/team.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/team.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/special_pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemon.py" afterDir="false" />
     </list>
-    <list id="6b020bdf-4424-4520-9683-d419f22e11f8" name="Changes by matva" comment="">
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-    </list>
-    <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <list id="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" name="Changes by yanko" comment="" />
+    <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,7 +31,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Yanko" />
+        <entry key="$PROJECT_DIR$" value="mathias_5" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -66,30 +61,6 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Dummy.txt" root0="SKIP_HIGHLIGHTING" />
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/game.py">
-      <ranges>
-        <range start1="87" end1="89" start2="87" end2="89" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="92" end1="93" start2="92" end2="92" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="217" end1="218" start2="216" end2="216" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="242" end1="243" start2="240" end2="240" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="267" end1="285" start2="264" end2="264" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="286" end1="287" start2="265" end2="265" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="293" end1="294" start2="271" end2="271" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="319" end1="320" start2="296" end2="297" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="322" end1="323" start2="299" end2="300" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="326" end1="327" start2="303" end2="303" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="330" end1="330" start2="306" end2="321" changelist="6b020bdf-4424-4520-9683-d419f22e11f8" />
-        <range start1="347" end1="348" start2="338" end2="339" changelist="6b020bdf-4424-4520-9683-d419f22e11f8" />
-        <range start1="358" end1="376" start2="349" end2="349" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="398" end1="425" start2="371" end2="371" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="462" end1="567" start2="408" end2="408" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="570" end1="571" start2="411" end2="412" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="576" end1="577" start2="417" end2="417" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="583" end1="583" start2="423" end2="480" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-      </ranges>
-    </file>
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -107,9 +78,6 @@
     </hideBySeverity>
     <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
-}</component>
   <component name="ProjectId" id="2R9QZ1D1JLZELWGXamy94TMfapC" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="false" id="Update" />
@@ -122,17 +90,9 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;mathias__7&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/yanko/PycharmProjects/PokemonManagementGame&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -141,6 +101,48 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
+    <configuration name="attaques" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PokemonManagementGame" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/attaques.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="bot_fight_algo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PokemonManagementGame" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bot_fight_algo.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="fight" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PokemonManagementGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -154,27 +156,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/fight.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="game" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PokemonManagementGame" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/game.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -247,42 +228,21 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="starters" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PokemonManagementGame" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/starters.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Python.main" />
+      <item itemvalue="Python.attaques" />
+      <item itemvalue="Python.bot_fight_algo" />
       <item itemvalue="Python.fight" />
-      <item itemvalue="Python.game" />
       <item itemvalue="Python.game_infos" />
       <item itemvalue="Python.special_pokemon" />
-      <item itemvalue="Python.starters" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.starters" />
-        <item itemvalue="Python.special_pokemon" />
         <item itemvalue="Python.game_infos" />
-        <item itemvalue="Python.game" />
+        <item itemvalue="Python.attaques" />
+        <item itemvalue="Python.special_pokemon" />
         <item itemvalue="Python.fight" />
+        <item itemvalue="Python.bot_fight_algo" />
       </list>
     </recent_temporary>
   </component>
@@ -294,9 +254,69 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686659868714</updated>
-      <workItem from="1710697695635" duration="70000" />
-      <workItem from="1710698071806" duration="25000" />
-      <workItem from="1710776324298" duration="1716000" />
+    </task>
+    <task id="LOCAL-00047" summary="continue dresseur.py:&#10;- add init_inventory()">
+      <created>1706895000843</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1706895000843</updated>
+    </task>
+    <task id="LOCAL-00048" summary="continue dresseur.py:&#10;- added a few new dresseurs&#10;&#10;continue bot_algo...">
+      <created>1707081958035</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1707081958035</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Changes by matva">
+      <created>1707081960981</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1707081960981</updated>
+    </task>
+    <task id="LOCAL-00050" summary="begin fight.py:&#10;- added images&#10;- added first methods">
+      <created>1707332168613</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1707332168614</updated>
+    </task>
+    <task id="LOCAL-00051" summary="begin fight.py:&#10;- added images&#10;- added first methods">
+      <created>1707347456804</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1707347456804</updated>
+    </task>
+    <task id="LOCAL-00052" summary="continue fight.py&#10;&#10;begin user interactions w/ fight buttons">
+      <created>1708257580303</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1708257580303</updated>
+    </task>
+    <task id="LOCAL-00053" summary="continue fight.py&#10;begin user interactions w/ fight buttons&#10;befin left click interaction in fight.py&#10;add pokemon info bar during fights">
+      <created>1708280449106</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1708280449107</updated>
+    </task>
+    <task id="LOCAL-00054" summary="continue fight.py&#10;begin user interactions w/ fight buttons&#10;befin left click interaction in fight.py&#10;add pokemon info bar during fights">
+      <created>1708280454339</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1708280454339</updated>
+    </task>
+    <task id="LOCAL-00055" summary="continue fight.py">
+      <created>1708299153609</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1708299153609</updated>
     </task>
     <task id="LOCAL-00056" summary="continue fight.py">
       <created>1708299158225</created>
@@ -550,105 +570,36 @@
       <option name="project" value="LOCAL" />
       <updated>1710540340989</updated>
     </task>
-    <task id="LOCAL-00092" summary="add Home screen graphic rework files fix#43">
-      <created>1710629570120</created>
+    <task id="LOCAL-00092" summary="debugging">
+      <created>1710979460152</created>
       <option name="number" value="00092" />
       <option name="presentableId" value="LOCAL-00092" />
       <option name="project" value="LOCAL" />
-      <updated>1710629570120</updated>
+      <updated>1710979460152</updated>
     </task>
-    <task id="LOCAL-00093" summary="delete useless code parts">
-      <created>1710629885984</created>
+    <task id="LOCAL-00093" summary="debugging: add Repos attaque">
+      <created>1710980029229</created>
       <option name="number" value="00093" />
       <option name="presentableId" value="LOCAL-00093" />
       <option name="project" value="LOCAL" />
-      <updated>1710629885984</updated>
+      <updated>1710980029229</updated>
     </task>
-    <task id="LOCAL-00094" summary="add home screen back button">
-      <created>1710678623889</created>
+    <task id="LOCAL-00094" summary="debugging">
+      <created>1710981105408</created>
       <option name="number" value="00094" />
       <option name="presentableId" value="LOCAL-00094" />
       <option name="project" value="LOCAL" />
-      <updated>1710678623889</updated>
+      <updated>1710981105408</updated>
     </task>
-    <task id="LOCAL-00095" summary="rework starter choice system">
-      <created>1710693230877</created>
+    <task id="LOCAL-00095" summary="debugging">
+      <created>1710981950176</created>
       <option name="number" value="00095" />
       <option name="presentableId" value="LOCAL-00095" />
       <option name="project" value="LOCAL" />
-      <updated>1710693230877</updated>
+      <updated>1710981950176</updated>
     </task>
-    <task id="LOCAL-00096" summary="clean game restart system">
-      <created>1710696128648</created>
-      <option name="number" value="00096" />
-      <option name="presentableId" value="LOCAL-00096" />
-      <option name="project" value="LOCAL" />
-      <updated>1710696128648</updated>
-    </task>
-    <task id="LOCAL-00097" summary="delete useless files&#10;new train panel background">
-      <created>1710705126148</created>
-      <option name="number" value="00097" />
-      <option name="presentableId" value="LOCAL-00097" />
-      <option name="project" value="LOCAL" />
-      <updated>1710705126148</updated>
-    </task>
-    <task id="LOCAL-00098" summary="debugging">
-      <created>1710720857026</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1710720857027</updated>
-    </task>
-    <task id="LOCAL-00099" summary="add cool things">
-      <created>1710721752219</created>
-      <option name="number" value="00099" />
-      <option name="presentableId" value="LOCAL-00099" />
-      <option name="project" value="LOCAL" />
-      <updated>1710721752219</updated>
-    </task>
-    <task id="LOCAL-00100" summary="add cool things and debug">
-      <created>1710722906533</created>
-      <option name="number" value="00100" />
-      <option name="presentableId" value="LOCAL-00100" />
-      <option name="project" value="LOCAL" />
-      <updated>1710722906533</updated>
-    </task>
-    <task id="LOCAL-00101" summary="huge debugging + begin txt to csv">
-      <created>1710804463295</created>
-      <option name="number" value="00101" />
-      <option name="presentableId" value="LOCAL-00101" />
-      <option name="project" value="LOCAL" />
-      <updated>1710804463295</updated>
-    </task>
-    <task id="LOCAL-00102" summary="huge debugging + begin txt to csv">
-      <created>1710806024777</created>
-      <option name="number" value="00102" />
-      <option name="presentableId" value="LOCAL-00102" />
-      <option name="project" value="LOCAL" />
-      <updated>1710806024777</updated>
-    </task>
-    <task id="LOCAL-00103" summary="add load &amp; save system">
-      <created>1710966102921</created>
-      <option name="number" value="00103" />
-      <option name="presentableId" value="LOCAL-00103" />
-      <option name="project" value="LOCAL" />
-      <updated>1710966102921</updated>
-    </task>
-    <task id="LOCAL-00104" summary="Changes by matva">
-      <created>1710966107335</created>
-      <option name="number" value="00104" />
-      <option name="presentableId" value="LOCAL-00104" />
-      <option name="project" value="LOCAL" />
-      <updated>1710966107335</updated>
-    </task>
-    <option name="localTasksCounter" value="105" />
+    <option name="localTasksCounter" value="96" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="UnknownFeatures">
-    <option featureType="com.intellij.fileTypeFactory" implementationName="*.csv" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -663,31 +614,31 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="added end turn fight button" />
+    <MESSAGE value="add end fight panel files&#10;debug player name editing" />
+    <MESSAGE value="try status effect in fight.py" />
+    <MESSAGE value="status effect in fight.py" />
+    <MESSAGE value="rework fight items usable (fix #63)&#10;status effect logs infos in fight.py" />
+    <MESSAGE value="Add a few pokemons" />
+    <MESSAGE value="Changes by matva on new pokemons" />
+    <MESSAGE value="add end turn fight&#10;add special pokemons ( pokemons with edited stats )" />
+    <MESSAGE value="add new dresseur : Alizee&#10;add Alizee pokemons and evolution family" />
+    <MESSAGE value="end turn fight 100% working&#10;add next turn system&#10;replace game random seed system&#10;replace game round system" />
+    <MESSAGE value="add fight popup x button" />
     <MESSAGE value="add pokemon from team delete system&#10;rework pokemon from team icon moving mode fade" />
     <MESSAGE value="add game notifications system" />
     <MESSAGE value="add evol action system" />
     <MESSAGE value="add all pokemons attaque_pool&#10;attaque special effect working for: taken_dmg" />
     <MESSAGE value="rework player sac system&#10;rework healing attaques in choosing attack algo" />
+    <MESSAGE value="Changes by matva" />
     <MESSAGE value="add all dresseur icons&#10;add fight dresseur icon display" />
     <MESSAGE value="rework train_panel way to choose training pk&#10;add rappel item&#10;add pokemon ko info display &#10;debug pk_move interactions" />
     <MESSAGE value="debug fight system&#10;rework get_rewards with item spawn quantite&#10;add some objet special effects&#10;add some attaque special effects&#10;add fight log info for new status effect&#10;add Blue's pokemons&#10;rework Alizee's pokemon list&#10;rework Vole-vie attaque&#10;add Teleport attaque" />
     <MESSAGE value="add reset_attaque_fight()" />
     <MESSAGE value="rewrite typing error" />
     <MESSAGE value="rework ennemy pks spawning in train panel" />
-    <MESSAGE value="add Home screen graphic rework files fix#43" />
-    <MESSAGE value="delete useless code parts" />
-    <MESSAGE value="add home screen back button" />
-    <MESSAGE value="rework starter choice system" />
-    <MESSAGE value="rework starter choice system fix#64" />
-    <MESSAGE value="clean game restart system" />
-    <MESSAGE value="begin addind save files" />
-    <MESSAGE value="delete useless files&#10;new train panel background" />
+    <MESSAGE value="debugging: add Repos attaque" />
     <MESSAGE value="debugging" />
-    <MESSAGE value="add cool things" />
-    <MESSAGE value="add cool things and debug" />
-    <MESSAGE value="huge debugging + begin txt to csv" />
-    <MESSAGE value="add load &amp; save system" />
-    <MESSAGE value="Changes by matva" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes by matva" />
+    <option name="LAST_COMMIT_MESSAGE" value="debugging" />
   </component>
 </project>

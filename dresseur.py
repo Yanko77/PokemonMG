@@ -232,7 +232,7 @@ class Iris(Dresseur):
 def get_dresseur_by_name(name):
     if name == 'Iris':
         return Iris
-    elif name == 'Olea':
+    elif name == 'Oléa':
         return Olea
     elif name == 'Ondine':
         return Ondine
@@ -242,7 +242,7 @@ def get_dresseur_by_name(name):
         return Blue
     elif name == 'Red':
         return Red
-    elif name == 'Alizee':
+    elif name == 'Alizée':
         return Alizee
 
 
