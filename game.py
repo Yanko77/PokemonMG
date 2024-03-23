@@ -148,7 +148,7 @@ class Game:
             for line in file.readlines():
                 item_name = line.split()[0]
                 if not item_name == '#':
-                    items_list.append(objet.Objet(item_name))
+                    items_list.append(objet.Objet(item_name, self))
 
             return items_list
 
@@ -365,7 +365,7 @@ class Game:
                         if pk_item == 'None':
                             pk_item = None
                         else:
-                            pk_item = objet.Objet(pk_item)
+                            pk_item = objet.Objet(pk_item, self)
 
                         self.player.team[i-1] = pokemon.Pokemon(name=pk_infos[0], level=pk_infos[1], game=self, is_shiny=pk_infos[4] == 'True', objet_tenu=pk_item)
                         self.player.team[i-1].load_save_infos(pk_infos)
@@ -402,7 +402,7 @@ class Game:
             if dresseur_pk_item == 'None':
                 dresseur_pk_item = None
             else:
-                dresseur_pk_item = objet.Objet(dresseur_pk_item)
+                dresseur_pk_item = objet.Objet(dresseur_pk_item,self)
                 
             if dresseur_pk_infos[0] in special_pokemon.SPECIAL_PKS_LIST:
                 dresseur_pk = special_pokemon.Pokemon(dresseur_pk_infos[0], int(dresseur_pk_infos[1]), self, objet_tenu=dresseur_pk_item)
@@ -471,7 +471,7 @@ class Game:
                         if pk_item == 'None':
                             pk_item = None
                         else:
-                            pk_item = objet.Objet(pk_item)
+                            pk_item = objet.Objet(pk_item, self)
 
                         self.classic_panel.ingame_window.evol_panel.evolving_pk = pokemon.Pokemon(
                             name=pk_infos[0], level=pk_infos[1], game=self,
