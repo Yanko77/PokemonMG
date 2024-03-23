@@ -396,7 +396,6 @@ class Game:
             dresseur_infos = game_infos[2].split('|')
             next_fighting_dresseur = dresseur.get_dresseur_by_name(dresseur_infos[0])
 
-
             dresseur_pk_infos = dresseur_infos[1].split(';')
             dresseur_pk_item = dresseur_pk_infos[3]
             if dresseur_pk_item == 'None':

@@ -342,6 +342,8 @@ class Pokemon:
                 random_cm = random.randint(85, 100)
                 cm = cm * random_cm / 100
 
+                puissance = 0
+
                 if attaque.puissance == "level":
                     puissance = self.level
 
@@ -356,21 +358,26 @@ class Pokemon:
                     elif attaque.special_puissance[0] == 'r':
                         values = attaque.special_puissance[1].split("-")
                         puissance = random.randint(int(values[0]), int(values[1]))
+                    elif attaque.special_puissance == 'ennemy_pv':
+                        if pokemon.health == 1:
+                            degats = 1
+                        else:
+                            degats = round(pokemon.health * attaque.puissance)
+
                     else:
                         puissance = attaque.puissance
                 else:
                     puissance = attaque.puissance
 
-                if attaque.special_puissance == 'c':
-                    degats = attaque.puissance
-                elif attaque.puissance == "effort":
-                    degats = pokemon.pv - self.health
-                elif attaque.puissance == "ennemy_pv":
-                    degats = pokemon.pv*2
-                elif attaque.special_effect[0] == "use_opponent_attack_stat":
-                    degats = round((((((self.level * 0.4 + 2) * pokemon.attack * puissance) / self.defense) / 50) + 2) * cm)
-                else:
-                    degats = round((((((self.level * 0.4 + 2) * self.attack * puissance) / self.defense) / 50) + 2) * cm)
+                if degats == 0:
+                    if attaque.special_puissance == 'c':
+                        degats = attaque.puissance
+                    elif attaque.puissance == "effort":
+                        degats = pokemon.pv - self.health
+                    elif attaque.special_effect[0] == "use_opponent_attack_stat":
+                        degats = round((((((self.level * 0.4 + 2) * pokemon.attack * puissance) / self.defense) / 50) + 2) * cm)
+                    else:
+                        degats = round((((((self.level * 0.4 + 2) * self.attack * puissance) / self.defense) / 50) + 2) * cm)
 
                 pokemon.damage(degats)
 

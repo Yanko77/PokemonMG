@@ -114,7 +114,7 @@ Dard_Mortel                     insect          25      50          100         
 Charge                          normal          35      40          100         1           0           None
 Coud'Krane                      normal          10      130         100         1           0           self.pv:0.3*dmg
 Coupe                           normal          30      50          95          1           0           None
-Croc_Fatal                      normal          10      :s.pv*0.5   90          2           0           None
+Croc_Fatal                      normal          10      opp.pv:0.5  90          2           0           None
 Griffe                          normal          35      40          100         1           0           None
 Tranche                         normal          20      70          100         2           1           None
 Vive-Attaque                    normal          30      30          100         1           1           None
@@ -158,7 +158,7 @@ Vif_Roc                         roche           20      40          100         
 Laser_Meteore                   roche           10      120         90          1           0           None
 Tunnel                          sol             30      30          100         1           0           None
 Magnitude                       sol             30      30          100         1           0           None
-Abime                           sol             5       :opp.pv     25          1           0           None
+Abime                           sol             5       opp.pv:1    25          1           0           None
 Seisme                          sol             10      100         100         1           0           None
 Charge_Os                       sol             10      50          90          1           0           None
 Telluriforce                    sol             10      90          100         1           0           None

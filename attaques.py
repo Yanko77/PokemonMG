@@ -21,8 +21,10 @@ class Attaque:
             self.special_puissance = self.line[3].split(':')
             if self.special_puissance[1] == "s.lv":
                 self.puissance = "level"
-            elif self.special_puissance[1] == "opp.pv":
-                self.puissance = "ennemy_pv"
+            elif self.special_puissance[0] == "opp.pv":
+                self.puissance = float(self.special_puissance[1])
+                self.special_puissance = "ennemy_pv"
+                # de la forme : ('ennemy_pv', 0.5)
             elif self.special_puissance[0] == "v":
                 self.puissance = self.special_puissance[1]
                 self.special_puissance = "v"
