@@ -1,4 +1,4 @@
 Name,level,id,objet_tenu,is_shiny,health,bonus_stat bonus_pvmax bonus_attack bonus_defense bonus_speed,is_alive,attaque_pool
-Bulbizarre,6,1,None,False,0,0/0/0/0/1/1/1/1,False,Charge:35/Vive-Attaque:30/Feuillage:40/Abri:10
-Roucool,9,8,Baie_Sitrus,False,18,0/0/0/0/1/1/1/1,True,Charge:35/Vive-Attaque:30/Picpic:35/None
+Arcko,5,1,None,False,21,0/0/0/0/1/1/1/1,True,Charge:35/Vive-Attaque:30/Vole-vie:25/Abri:10
+,,,,,,,
 ,,,,,,,

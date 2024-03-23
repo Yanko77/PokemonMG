@@ -6,17 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="963bc74e-7554-4532-b01c-42122082889e" name="Changes" comment="debugging">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/all_attaques.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_attaques.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attaques.py" beforeDir="false" afterPath="$PROJECT_DIR$/attaques.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/items.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokemon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_panel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save/game.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/game.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save/player.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/player.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save/sac.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/sac.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save/team.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/team.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/special_pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +24,10 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2e3MABDwNg8K2KH9yLggMkyGxxX" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
