@@ -104,7 +104,6 @@ class Game:
         self.is_starter_selected = True
         self.load()
 
-
     def game_over(self):
         self.__init__()
 

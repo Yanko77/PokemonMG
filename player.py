@@ -1,3 +1,5 @@
+import pygame.key
+
 import objet
 import player_name
 import pokemon
@@ -51,19 +53,24 @@ class Player:
 
         self.money = 1000
 
-    def edit_name(self, mode='add', letter=''):
-        if mode == 'add':
-            if player_name.get_pixels(self.name) < player_name.MAX_PLAYER_NAME_LENGTH:
-                self.name += letter
-        elif mode == 'suppr':
+    def edit_name(self, key):
+        if self.game.pressed[pygame.K_LSHIFT]:
+            character = pygame.key.name(key).upper()
+        else:
+            character = pygame.key.name(key)
+
+        if character in "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" and self.game.classic_panel.player_name_text.get_width() < 385:
+            self.name += character
+        elif character == "backspace":
             self.name = self.name[:-1]
-        elif mode == 'change':
-            self.name = letter
-        elif mode == 'delete':
-            self.name = ''
+        elif character == "space":
+            self.name += " "
+
+        self.game.classic_panel.update_player_name()
 
     def reset_name(self):
-        self.name = "Nom"
+        self.name = ""
+        self.game.classic_panel.update_player_name()
 
     def reset_actions(self):
         self.actions = self.max_actions
@@ -101,9 +108,15 @@ class Player:
 
         if item_place is None:  # Si l'item n'est pas déjà présent dans le sac
             i = 0
-            while self.sac[i] is not None:
-                i += 1
-            self.sac[i] = item
+            while i < len(self.sac) and self.sac[i] is not None:
+
+                if i == len(self.sac) - 1 and self.sac[i] is not None:
+                    i = 100
+                else:
+                    i += 1
+
+            if i != 100:
+                self.sac[i] = item
 
         else:
             self.sac[item_place].quantite += item.quantite

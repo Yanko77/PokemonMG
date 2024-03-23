@@ -35,6 +35,8 @@ class GamePanel:
         self.font_pokemon_info_lv = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 42)
         self.font_pokemon_info_name = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 23)
         self.font_pokemon_type = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 15)
+        #   # Pre-loading
+        self.player_name_text = self.font.render(self.game.player.name, False, (15, 0, 124))
 
         # LOADING IMAGES --------------------------------------------
 
@@ -99,6 +101,7 @@ class GamePanel:
         # SET VARIABLES --------------------------------------------
         #   # Player name
         self.player_name_editing_mode = False
+        self.player_name_cursor_compteur = 0
         #   # Pokemon infos
         self.pokemon_info_mode = False
         self.pokemon_info = None
@@ -200,7 +203,7 @@ class GamePanel:
 
     def update_player_infos(self, surface, possouris):
         # PLAYER NAME
-        self.update_player_name(surface, possouris)
+        self.display_player_name(surface, possouris)
 
         # PLAYER LEVEL
         self.update_player_lv(surface)
@@ -211,11 +214,23 @@ class GamePanel:
         # PLAYER ACTIONS_LEFT
         surface.blit(self.actions_font.render(str(self.game.player.actions), False, (0, 0, 0)), (385, 12))
 
-    def update_player_name(self, surface, possouris):
-        surface.blit(self.font.render(self.game.player.name, False, (15, 0, 124)), (662, 10))
+    def update_player_name(self):
+        self.player_name_text = self.font.render(self.game.player.name, False, (15, 0, 124))
+
+    def display_player_name(self, surface, possouris):
+        surface.blit(self.player_name_text, (662, 10))
 
         if self.game.player.name == "Nom":
             surface.blit(self.player_name_indication, (760, 30))
+
+        if self.player_name_editing_mode:
+            if self.player_name_cursor_compteur > 20:
+                curseur = self.create_rect_alpha((2, self.player_name_text.get_height() - 16), (0, 0, 0), 200)
+                surface.blit(curseur, (665 + self.player_name_text.get_width(), 16))
+
+            self.player_name_cursor_compteur += 1
+            if self.player_name_cursor_compteur > 40:
+                self.player_name_cursor_compteur = 0
 
     def update_player_lv(self, surface):
         self.player_lv_image = self.font_size3.render(str(self.game.player.level), False, (124, 124, 124))
@@ -510,38 +525,40 @@ class GamePanel:
         if not self.pk_move_mode and not self.player_name_editing_mode:
             if self.player_name_rect.collidepoint(possouris):
                 self.player_name_editing_mode = True
+                self.game.player.reset_name()
+                self.update_player_name()
+
                 self.pokemon_info_mode = False
 
                 if self.ingame_window.is_open:
                     self.ingame_window.close()
 
-            if self.game.is_starter_selected:
-                if not self.boolFight_popup:
-                    if self.buttons.spawn_button_rect.collidepoint(possouris):
-                        if self.buttons.unlocked_buttons['Spawn']:
-                            self.ingame_window.update_panel('Spawn')
-                            self.ingame_window.open()
-                            self.ingame_window.maximize()
-                    elif self.buttons.train_button_rect.collidepoint(possouris):
-                        if self.buttons.unlocked_buttons['Train']:
-                            self.ingame_window.update_panel('Train')
-                            self.ingame_window.open()
-                            self.ingame_window.maximize()
-                    elif self.buttons.grind_button_rect.collidepoint(possouris):
-                        if self.buttons.unlocked_buttons['Grind']:
-                            self.ingame_window.update_panel('Grind')
-                            self.ingame_window.open()
-                            self.ingame_window.maximize()
-                    elif self.buttons.items_button_rect.collidepoint(possouris):
-                        if self.buttons.unlocked_buttons['Items']:
-                            self.ingame_window.update_panel('Items')
-                            self.ingame_window.open()
-                            self.ingame_window.maximize()
-                    elif self.buttons.evol_button_rect.collidepoint(possouris):
-                        if self.buttons.unlocked_buttons['Evol']:
-                            self.ingame_window.update_panel('Evolutions')
-                            self.ingame_window.open()
-                            self.ingame_window.maximize()
+            if not self.boolFight_popup:
+                if self.buttons.spawn_button_rect.collidepoint(possouris):
+                    if self.buttons.unlocked_buttons['Spawn']:
+                        self.ingame_window.update_panel('Spawn')
+                        self.ingame_window.open()
+                        self.ingame_window.maximize()
+                elif self.buttons.train_button_rect.collidepoint(possouris):
+                    if self.buttons.unlocked_buttons['Train']:
+                        self.ingame_window.update_panel('Train')
+                        self.ingame_window.open()
+                        self.ingame_window.maximize()
+                elif self.buttons.grind_button_rect.collidepoint(possouris):
+                    if self.buttons.unlocked_buttons['Grind']:
+                        self.ingame_window.update_panel('Grind')
+                        self.ingame_window.open()
+                        self.ingame_window.maximize()
+                elif self.buttons.items_button_rect.collidepoint(possouris):
+                    if self.buttons.unlocked_buttons['Items']:
+                        self.ingame_window.update_panel('Items')
+                        self.ingame_window.open()
+                        self.ingame_window.maximize()
+                elif self.buttons.evol_button_rect.collidepoint(possouris):
+                    if self.buttons.unlocked_buttons['Evol']:
+                        self.ingame_window.update_panel('Evolutions')
+                        self.ingame_window.open()
+                        self.ingame_window.maximize()
 
             if self.sac_button_rect.collidepoint(possouris):
                 self.ingame_window.update_panel("Sac d'objets")
@@ -559,9 +576,17 @@ class GamePanel:
             if self.pokemon_info_mode:
                 if pygame.Rect(1210, 9, 59, 59).collidepoint(possouris):
                     self.pokemon_info_mode = False
+                elif self.pokemon_info_obj_rect.collidepoint(possouris):
+                    item = self.pokemon_info.objet_tenu
+                    if item is not None:
+                        self.pokemon_info.objet_tenu = None
+                        self.game.player.add_sac_item(item)
 
         elif self.player_name_editing_mode:
             if not self.player_name_rect.collidepoint(possouris):
+                if self.game.player.name == "":
+                    self.game.player.name = 'Nom'
+                    self.update_player_name()
                 self.player_name_editing_mode = False
 
     def right_clic_interactions(self, possouris):
@@ -574,9 +599,20 @@ class GamePanel:
                     self.pokemon_info_mode = True
                 i += 1
 
+    def keydown(self, event_key):
+        if event_key == pygame.K_RETURN:
+            if self.game.player.name == "":
+                self.game.player.name = "Nom"
+                self.update_player_name()
+            self.player_name_editing_mode = False
+        else:
+            self.game.player.edit_name(event_key)
+
     def get_interactions(self, possouris):
         if self.ingame_window.is_hovering(possouris):
             return self.ingame_window.is_hovering_buttons(possouris) or self.pk_move_mode
+        if self.player_name_editing_mode:
+            pass
         else:
             if self.player_name_rect.collidepoint(possouris):
                 if self.pokemon_info_mode:

@@ -44,11 +44,12 @@ def main():
             if event.type == pygame.KEYDOWN:
                 game.pressed[event.key] = True
 
-                # Touche de test admin
-                if event.key == pygame.K_a:
-                    game.save()
-                elif event.key == pygame.K_z:
-                    game.load()
+                if event.key == pygame.K_UP:
+                    print(posSouris)
+
+                if game.is_playing:
+                    if game.classic_panel.player_name_editing_mode:
+                        game.classic_panel.keydown(event.key)
 
             if event.type == pygame.KEYUP:
                 game.pressed[event.key] = False
