@@ -48,13 +48,9 @@ class ItemsPanel:
         else:  # a supr
             print('achat non effectué')  # a supr
 
-    def sell_item(self):
+    def sell_item(self, objet):
         if objet.can_be_sell:
-            if objet.variable_sell_price:
-                self.game.player.money += random.seed(game.general_seed)
-            else:
-                if self.game.player.money + objet.sell_price >= 0:
-                    self.game.player.money += objet.sell_price
+            self.game.player.money += objet.sell_price
             objet.quantite -= 1
 
     def reset(self):

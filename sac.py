@@ -93,11 +93,7 @@ class SacIngamePanel:
                              (window_pos[0] + 602, window_pos[1] + 493))
 
             if self.selected_item.can_be_sell:
-                if type(self.selected_item.sell_price) is list:
-                    surface.blit(self.prices_item_font.render('Variable', False, (204, 0, 0)),
-                                 (window_pos[0] + 784, window_pos[1] + 493))
-                else:
-                    surface.blit(self.prices_item_font.render(str(self.selected_item.sell_price), False, (204, 0, 0)), (window_pos[0]+784, window_pos[1]+493))
+                surface.blit(self.prices_item_font.render(str(self.selected_item.sell_price), False, (204, 0, 0)), (window_pos[0]+784, window_pos[1]+493))
             else:
                 surface.blit(self.prices_item_font.render(' /', False, (204, 0, 0)),
                              (window_pos[0] + 784, window_pos[1] + 493))

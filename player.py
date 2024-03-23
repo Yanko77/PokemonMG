@@ -219,6 +219,19 @@ class Player:
     def get_money(self):
         return self.money
 
+    def next_turn(self):
+        """
+        Methode qui execute toutes les modifications dues au changement de tour de jeu
+        """
+        self.reset_actions()
+        self.level_up()
+        if self.find_sac_item(objet.Objet("Piquants", self)) is not None:
+            self.money -= 1000
+
+        for item in self.sac:
+            if item is not None:
+                item.set_sell_price()
+
 
 
 
