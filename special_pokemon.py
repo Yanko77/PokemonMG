@@ -117,8 +117,11 @@ class Pokemon:
 
         return f"{self.get_name()}{delimiter}{self.get_level()}{delimiter}{self.get_id()}{delimiter}{item}{delimiter}{self.is_shiny}{delimiter}{self.health}{delimiter}{self.get_bonus_stats_backup()}{delimiter}{self.is_alive}{delimiter}{self.get_attaque_pool_backup()}"
 
+    def get_bonus_stats(self):
+        return self.bonus_pvmax, self.bonus_attack, self.bonus_defense, self.bonus_speed, self.multiplicateur_pvmax, self.multiplicateur_attack, self.multiplicateur_defense, self.multiplicateur_speed
+
     def get_bonus_stats_backup(self) -> str:
-        all_bonus_stat = self.bonus_pvmax, self.bonus_attack, self.bonus_defense, self.bonus_speed, self.multiplicateur_pvmax, self.multiplicateur_attack, self.multiplicateur_defense, self.multiplicateur_speed
+        all_bonus_stat = self.get_bonus_stats()
         all_bonus_stat_backup = ""
         for bonus in all_bonus_stat:
             all_bonus_stat_backup += f'{bonus}/'
@@ -207,13 +210,50 @@ class Pokemon:
         self.base_defense = round((round((2 * int(self.infos[5]) * self.level)/100 + 5) + self.bonus_defense) * self.multiplicateur_defense)
         self.base_speed = round((round((2 * int(self.infos[6]) * self.level)/100 + 5) + self.bonus_speed) * self.multiplicateur_speed)
 
+    def set_bonus_stats(self, bonus_stats):
+        """
+        Methode qui applique les bonus stats prise en parametre, de la forme:
+        (pvmax_bonus,
+        atk_bonus,
+        def_bonus,
+        speed_bonus,
+        pvmax_multiplicateur,
+        atk_multiplicateur,
+        def_multiplicateur,
+        speed_multiplicateur)
+        """
+        stats = bonus_stats
+
+        self.bonus_pvmax = int(stats[0])
+        self.bonus_attack = int(stats[1])
+        self.bonus_defense = int(stats[2])
+        self.bonus_speed = int(stats[3])
+        self.multiplicateur_pvmax = float(stats[4])
+        self.multiplicateur_attack = float(stats[5])
+        self.multiplicateur_defense = float(stats[6])
+        self.multiplicateur_speed = float(stats[7])
+
+        # Application des bonus
+        diff = self.pv - self.health
+        self.pv = round((round((2 * int(self.infos[3]) * self.level) / 100 + self.level + 10) + self.bonus_pvmax) * self.multiplicateur_pvmax)
+        self.health = self.pv - diff
+        self.base_attack = round((round((2 * int(self.infos[4]) * self.level) / 100 + 5) + self.bonus_attack) * self.multiplicateur_attack)
+        self.base_defense = round((round((2 * int(self.infos[5]) * self.level) / 100 + 5) + self.bonus_defense) * self.multiplicateur_defense)
+        self.base_speed = round((round((2 * int(self.infos[6]) * self.level) / 100 + 5) + self.bonus_speed) * self.multiplicateur_speed)
+
+        self.attack = self.base_attack
+        self.defense = self.base_defense
+        self.speed = self.base_speed
+
     def evolution(self):
         if self.evolution_name == '0':
             print("Ce pokémon n'a pas d'évolution(s)")
             return self
         else:
             if self.level >= self.evolution_level:
-                return Pokemon(self.evolution_name, self.level, self.game, self.is_shiny, objet_tenu=self.objet_tenu)
+                evol = Pokemon(self.evolution_name, self.level, self.game, self.is_shiny, objet_tenu=self.objet_tenu)
+                evol.set_bonus_stats(self.get_bonus_stats())
+                return evol
             else:
                 return self
 

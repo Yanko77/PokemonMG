@@ -279,7 +279,7 @@ class Game:
             i = 0
             listecsv = []
             for line in rows:
-                if not i == 0:
+                if i == 1:
                     line[0] = self.player.name
                     line[1] = str(self.player.get_level())
                     line[2] = str(self.player.get_actions())

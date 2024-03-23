@@ -578,6 +578,7 @@ class GamePanel:
                     self.pokemon_info_mode = False
                 elif self.pokemon_info_obj_rect.collidepoint(possouris):
                     item = self.pokemon_info.objet_tenu
+                    item.quantite += 1
                     if item is not None:
                         self.pokemon_info.objet_tenu = None
                         self.game.player.add_sac_item(item)
