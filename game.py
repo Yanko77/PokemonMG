@@ -30,6 +30,9 @@ class Game:
         self.mouse_pressed = {1: False,
                               3: False}
 
+        self.round = Round(self)
+        self.general_seed = self.round.get_random_seed()
+
         self.items_list = self.get_all_items_list()
         self.pokemons_list = self.init_pokemons_list()
         self.special_pokemons_list = self.init_special_pokemons_list()
@@ -51,10 +54,8 @@ class Game:
         self.starter_panel = starters.StarterPanel(self)
 
         self.classic_panel = GamePanel(self)
-        self.round = Round(self)
-        self.notifs = Notif()
 
-        self.general_seed = self.round.get_random_seed()
+        self.notifs = Notif()
 
         self.next_fighting_dresseur = self.get_fighting_dresseur()
 
@@ -131,16 +132,28 @@ class Game:
     def next_turn(self):
         self.round.next()
         self.update_random_seed()
-        self.player.reset_actions()
-        self.player.level_up()
+        self.player.next_turn()
+
         self.classic_panel.next_turn()
         self.next_fighting_dresseur = self.get_fighting_dresseur()
+
         # add everything that have to be edited for each turn
 
     def get_init_pokemon_id(self):
         id = self.next_pk_id
         self.next_pk_id += 1
         return id
+
+    def get_item_price(self, item: objet.Objet):
+        """
+        Methode qui retourne le prix de l'item rentré en parametre
+        """
+        if item.bool_variable_sell_price:
+            r = random.Random()
+            r.seed(self.general_seed)
+            return r.randint(item.variable_sell_price[0], item.variable_sell_price[1])
+        else:
+            return item.sell_price
 
     def init_items_list(self):
         with open('all_objets.txt', 'r') as file:
@@ -419,7 +432,7 @@ class Game:
             for item in sac_infos:
                 if i != 0:
                     if item[0] != 'None':
-                        self.player.sac[i-1] = objet.Objet(item[0], item[1])
+                        self.player.sac[i-1] = objet.Objet(item[0], self, item[1])
                     else:
                         self.player.sac[i-1] = None
                 i += 1
@@ -439,7 +452,7 @@ class Game:
                         if pk_item == 'None':
                             pk_item = None
                         else:
-                            pk_item = objet.Objet(pk_item)
+                            pk_item = objet.Objet(pk_item, self)
 
                         self.classic_panel.ingame_window.train_panel.training_pk = pokemon.Pokemon(name=pk_infos[0], level=pk_infos[1], game=self,
                                                                                                    is_shiny=pk_infos[4] == 'True',
@@ -455,7 +468,7 @@ class Game:
                         if pk_item == 'None':
                             pk_item = None
                         else:
-                            pk_item = objet.Objet(pk_item)
+                            pk_item = objet.Objet(pk_item, self)
 
                         self.classic_panel.ingame_window.spawn_panel.spawning_pk = pokemon.Pokemon(name=pk_infos[0], level=pk_infos[1], game=self,
                                                                                                    is_shiny=pk_infos[4] == 'True',
