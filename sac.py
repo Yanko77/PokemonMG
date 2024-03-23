@@ -172,10 +172,8 @@ class SacIngamePanel:
                                 if 'Give' in self.selected_item.fonctionnement:
                                     if hover_pk.objet_tenu is None:
                                         hover_pk.give_item(self.selected_item)
-                                        self.selected_item.quantite -= 1
                                 elif 'Use' in self.selected_item.fonctionnement:
                                     hover_pk.use_item(self.selected_item)
-                                    self.selected_item.quantite -= 1
 
                         if self.selected_item.quantite <= 0:
                             self.game.player.sac[sac_i] = None

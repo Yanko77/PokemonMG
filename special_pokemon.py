@@ -454,6 +454,7 @@ class Pokemon:
         self.speed = self.base_speed
 
     def use_item(self, item):
+        item.quantite -= 1
 
         if item.bool_revive_effect:
             self.is_alive = True
@@ -488,24 +489,25 @@ class Pokemon:
             if not item.multiplicateur_stats[stat] == 1:
                 if stat == 'pv':
                     diff = self.pv - self.health
-                    self.multiplicateur_pvmax = item.multiplicateur_stats[stat]
+                    self.multiplicateur_pvmax *= item.multiplicateur_stats[stat]
                     self.pv = round(self.pv * item.multiplicateur_stats[stat])
                     self.health = self.pv - diff
                 elif stat == 'atk':
-                    self.multiplicateur_attack = item.multiplicateur_stats[stat]
+                    self.multiplicateur_attack *= item.multiplicateur_stats[stat]
                     self.attack = round(self.attack * item.multiplicateur_stats[stat])
                 elif stat == 'def':
-                    self.multiplicateur_defense = item.multiplicateur_stats[stat]
+                    self.multiplicateur_defense *= item.multiplicateur_stats[stat]
                     self.defense = round(self.defense * item.multiplicateur_stats[stat])
                 elif stat == 'vit':
-                    self.multiplicateur_speed = item.multiplicateur_stats[stat]
+                    self.multiplicateur_speed *= item.multiplicateur_stats[stat]
                     self.speed = round(self.speed * item.multiplicateur_stats[stat])
 
         if not item.bonus_lv == 0:
             self.level_up(item.bonus_lv)
 
     def give_item(self, item):
-        self.objet_tenu = item
+        self.objet_tenu = objet.Objet(item.name)
+        item.quantite -= 1
 
         self.bonus_attaque_type = self.objet_tenu.type
         self.multiplicateur_bonus_attaque = self.objet_tenu.multiplicateur_attaque_dmg
