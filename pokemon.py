@@ -179,7 +179,7 @@ class Pokemon:
     def full_heal(self):
         self.health = self.pv
 
-    def get_save_infos(self, delimiter:str = ',') -> str:
+    def get_save_infos(self, delimiter: str = ',') -> str:
         """
         Retourne la ligne à écrire pour stocker l'ensemble des informations à sauvegarder concernant le pokémon
         Ex: Name, level, id, objet, is_shiny, health, all_bonus_stats, is_alive, attaque_pool

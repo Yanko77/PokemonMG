@@ -108,9 +108,15 @@ class Player:
 
         if item_place is None:  # Si l'item n'est pas déjà présent dans le sac
             i = 0
-            while self.sac[i] is not None:
-                i += 1
-            self.sac[i] = item
+            while i < len(self.sac) and self.sac[i] is not None:
+
+                if i == len(self.sac) - 1 and self.sac[i] is not None:
+                    i = 100
+                else:
+                    i += 1
+
+            if i != 100:
+                self.sac[i] = item
 
         else:
             self.sac[item_place].quantite += item.quantite

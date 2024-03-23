@@ -533,33 +533,32 @@ class GamePanel:
                 if self.ingame_window.is_open:
                     self.ingame_window.close()
 
-            if self.game.is_starter_selected:
-                if not self.boolFight_popup:
-                    if self.buttons.spawn_button_rect.collidepoint(possouris):
-                        if self.buttons.unlocked_buttons['Spawn']:
-                            self.ingame_window.update_panel('Spawn')
-                            self.ingame_window.open()
-                            self.ingame_window.maximize()
-                    elif self.buttons.train_button_rect.collidepoint(possouris):
-                        if self.buttons.unlocked_buttons['Train']:
-                            self.ingame_window.update_panel('Train')
-                            self.ingame_window.open()
-                            self.ingame_window.maximize()
-                    elif self.buttons.grind_button_rect.collidepoint(possouris):
-                        if self.buttons.unlocked_buttons['Grind']:
-                            self.ingame_window.update_panel('Grind')
-                            self.ingame_window.open()
-                            self.ingame_window.maximize()
-                    elif self.buttons.items_button_rect.collidepoint(possouris):
-                        if self.buttons.unlocked_buttons['Items']:
-                            self.ingame_window.update_panel('Items')
-                            self.ingame_window.open()
-                            self.ingame_window.maximize()
-                    elif self.buttons.evol_button_rect.collidepoint(possouris):
-                        if self.buttons.unlocked_buttons['Evol']:
-                            self.ingame_window.update_panel('Evolutions')
-                            self.ingame_window.open()
-                            self.ingame_window.maximize()
+            if not self.boolFight_popup:
+                if self.buttons.spawn_button_rect.collidepoint(possouris):
+                    if self.buttons.unlocked_buttons['Spawn']:
+                        self.ingame_window.update_panel('Spawn')
+                        self.ingame_window.open()
+                        self.ingame_window.maximize()
+                elif self.buttons.train_button_rect.collidepoint(possouris):
+                    if self.buttons.unlocked_buttons['Train']:
+                        self.ingame_window.update_panel('Train')
+                        self.ingame_window.open()
+                        self.ingame_window.maximize()
+                elif self.buttons.grind_button_rect.collidepoint(possouris):
+                    if self.buttons.unlocked_buttons['Grind']:
+                        self.ingame_window.update_panel('Grind')
+                        self.ingame_window.open()
+                        self.ingame_window.maximize()
+                elif self.buttons.items_button_rect.collidepoint(possouris):
+                    if self.buttons.unlocked_buttons['Items']:
+                        self.ingame_window.update_panel('Items')
+                        self.ingame_window.open()
+                        self.ingame_window.maximize()
+                elif self.buttons.evol_button_rect.collidepoint(possouris):
+                    if self.buttons.unlocked_buttons['Evol']:
+                        self.ingame_window.update_panel('Evolutions')
+                        self.ingame_window.open()
+                        self.ingame_window.maximize()
 
             if self.sac_button_rect.collidepoint(possouris):
                 self.ingame_window.update_panel("Sac d'objets")
@@ -577,6 +576,11 @@ class GamePanel:
             if self.pokemon_info_mode:
                 if pygame.Rect(1210, 9, 59, 59).collidepoint(possouris):
                     self.pokemon_info_mode = False
+                elif self.pokemon_info_obj_rect.collidepoint(possouris):
+                    item = self.pokemon_info.objet_tenu
+                    if item is not None:
+                        self.pokemon_info.objet_tenu = None
+                        self.game.player.add_sac_item(item)
 
         elif self.player_name_editing_mode:
             if not self.player_name_rect.collidepoint(possouris):
