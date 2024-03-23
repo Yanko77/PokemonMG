@@ -1,4 +1,4 @@
 Name,level,id,objet_tenu,is_shiny,health,bonus_stat bonus_pvmax bonus_attack bonus_defense bonus_speed,is_alive,attaque_pool
-Carapuce,7,6,None,False,7,0/0/0/0/1/1/1/1,True,Charge:35/Aqua-Jet:20/Vibraqua:20/Abri:10
-,,,,,,,
-,,,,,,,
+Massko,12,13,Graine_Miracle,False,0,0/5/0/0/1.0/1.0/1.0/1.0,False,Mega-Sangsue:15/Vive-Attaque:30/Vendetta:10/Vent_Glace:15
+Carapuce,7,8,None,False,0,0/0/0/0/1.0/1.0/1.0/1.0,False,Charge:35/Aqua-Jet:20/Vibraqua:20/Abri:10
+Abo,8,20,None,False,29,0/0/0/0/1.0/1.0/1.0/1.0,True,Charge:35/Dard-venin:35/None/None

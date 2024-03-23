@@ -464,6 +464,7 @@ class Pokemon:
         self.speed = self.base_speed
 
     def use_item(self, item):
+        item.quantite -= 1
 
         if item.bool_revive_effect:
             self.is_alive = True
@@ -515,7 +516,8 @@ class Pokemon:
             self.level_up(item.bonus_lv)
 
     def give_item(self, item):
-        self.objet_tenu = item
+        self.objet_tenu = objet.Objet(item.name)
+        item.quantite -= 1
 
         self.bonus_attaque_type = self.objet_tenu.type
         self.multiplicateur_bonus_attaque = self.objet_tenu.multiplicateur_attaque_dmg
