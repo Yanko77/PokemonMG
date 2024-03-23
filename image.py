@@ -13,42 +13,42 @@ class ClassicGamePanelButtons:
                                  }
         # SPAWN BUTTON
         self.spawn_button = load_image('assets/game/panels/classic_panel/spawn_button.png')
-        self.spawn_button_rect = get_custom_rect(self.spawn_button, 42, 138, 250, 250)
+        self.spawn_button_rect = get_custom_rect(self.spawn_button, 37, 133, 250, 250)
 
         self.spawn_button_hover = load_image('assets/game/panels/classic_panel/spawn_button_hover.png')
-        self.spawn_button_pos = (22, 126)
+        self.spawn_button_pos = (32, 136)
 
         # TRAIN BUTTON
         self.train_button = load_image('assets/game/panels/classic_panel/train_button.png')
-        self.train_button_rect = get_custom_rect(self.train_button, 327, 138, 250, 250)
+        self.train_button_rect = get_custom_rect(self.train_button, 319, 133, 250, 250)
 
         self.train_button_hover = load_image('assets/game/panels/classic_panel/train_button_hover.png')
 
-        self.train_button_pos = (307, 126)
+        self.train_button_pos = (317, 136)
 
         # GRIND BUTTON
         self.grind_button = load_image('assets/game/panels/classic_panel/grind_button.png')
-        self.grind_button_rect = get_custom_rect(self.grind_button, 612, 138, 250, 250)
+        self.grind_button_rect = get_custom_rect(self.grind_button, 607, 133, 250, 250)
 
         self.grind_button_hover = load_image('assets/game/panels/classic_panel/grind_button_hover.png')
 
-        self.grind_button_pos = (592, 126)
+        self.grind_button_pos = (602, 136)
 
         # ITEMS BUTTON
         self.items_button = load_image('assets/game/panels/classic_panel/items_button.png')
-        self.items_button_rect = get_custom_rect(self.items_button, 78, 422, 250, 250)
+        self.items_button_rect = get_custom_rect(self.items_button, 72, 417, 250, 250)
 
         self.items_button_hover = load_image('assets/game/panels/classic_panel/items_button_hover.png')
 
-        self.items_button_pos = (58, 410)
+        self.items_button_pos = (68, 420)
 
         # EVOL BUTTON
         self.evol_button = load_image('assets/game/panels/classic_panel/evol_button.png')
-        self.evol_button_rect = get_custom_rect(self.evol_button, 362, 422, 250, 250)
+        self.evol_button_rect = get_custom_rect(self.evol_button, 357, 417, 250, 250)
 
         self.evol_button_hover = load_image('assets/game/panels/classic_panel/evol_button_hover.png')
 
-        self.evol_button_pos = (342, 410)
+        self.evol_button_pos = (352, 420)
 
         # EDIT BUTTON
         self.edit_actions_button = load_image('assets/game/panels/classic_panel/edit_actions_button.png')
