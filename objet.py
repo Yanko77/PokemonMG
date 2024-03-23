@@ -4,7 +4,9 @@ pygame.font.init()
 
 class Objet:
 
-    def __init__(self, name, quantite=1):
+    def __init__(self, name, game, quantite=1):
+        self.game = game
+
         self.name = name[0].upper() + name[1:]
         self.name_ = self.reformate_name(self.name)
         self.icon_image = pygame.image.load(f'assets/items/{self.name}.png')
@@ -55,11 +57,16 @@ class Objet:
         self.can_be_sell = int(self.line[5].split(':')[0])
         if self.can_be_sell:
             if self.line[5].split(':')[1] == 'v':
-                self.variable_sell_price = True
-                self.sell_price = [int(self.line[5].split(':')[2].split('-')[0]), int(self.line[5].split(':')[2].split('-')[1])]
+                self.bool_variable_sell_price = True
+                self.variable_sell_price = [int(self.line[5].split(':')[2].split('-')[0]), int(self.line[5].split(':')[2].split('-')[1])]
+                self.set_sell_price()
             else:
-                self.variable_sell_price = False
+                self.bool_variable_sell_price = False
+                self.variable_sell_price = [int(self.line[5].split(':')[1]),
+                                            int(self.line[5].split(':')[1])]
                 self.sell_price = int(self.line[5].split(':')[1])
+        else:
+            self.bool_variable_sell_price = False
 
         self.desc_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 17)
         self.description = self.line[6][:-1]
@@ -132,6 +139,12 @@ class Objet:
                 player.always_shiny_on = True
 
             self.quantite -= 1
+
+    def set_sell_price(self):
+        self.sell_price = self.get_sell_price()
+
+    def get_sell_price(self):
+        return self.game.get_item_price(self)
 
     def reformate_name(self, name):
         reformated_name = ''

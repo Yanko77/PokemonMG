@@ -506,7 +506,7 @@ class Pokemon:
             self.level_up(item.bonus_lv)
 
     def give_item(self, item):
-        self.objet_tenu = objet.Objet(item.name)
+        self.objet_tenu = objet.Objet(item.name, self.game)
         item.quantite -= 1
 
         self.bonus_attaque_type = self.objet_tenu.type

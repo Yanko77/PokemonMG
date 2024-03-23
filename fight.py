@@ -843,7 +843,7 @@ class Fight:
                 self.game.player.add_sac_item(reward)
 
             # TEMPORAIRE
-            self.game.player.add_sac_item(objet.Objet('Potion'))
+            self.game.player.add_sac_item(objet.Objet('Potion',self.game))
 
             self.player_pk.heal(self.player_pk.passive_heal)  # Heal le pokémon du joueur selon son heal passif
             self.player_pk.reset_status()

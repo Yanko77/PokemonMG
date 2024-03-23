@@ -43,19 +43,14 @@ class ItemsPanel:
     def buy_item(self, objet):
         if self.game.player.money >= objet.buy_price and objet.can_be_buy:
             self.game.player.money -= objet.buy_price
-            objet.quantite += 1
-            print('achat effectué!')  # a supr
-        else:  # a supr
-            print('achat non effectué')  # a supr
-        # gerer le fait qu'il y en ait 0 initialement peut poser probleme
+            self.game.player.add_sac_item(item=objet)
+            print('achat effectué!')
+        else:
+            print('achat non effectué')
 
-    def sell_item(self):
+    def sell_item(self, objet):
         if objet.can_be_sell:
-            if objet.variable_sell_price:
-                self.game.player.money += random.seed(game.general_seed)
-            else:
-                if self.game.player.money + objet.sell_price >= 0:
-                    self.game.player.money += objet.sell_price
+            self.game.player.money += objet.sell_price
             objet.quantite -= 1
 
     def reset(self):
