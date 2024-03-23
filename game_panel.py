@@ -231,6 +231,9 @@ class GamePanel:
             self.player_name_cursor_compteur += 1
             if self.player_name_cursor_compteur > 40:
                 self.player_name_cursor_compteur = 0
+        else:
+            if self.player_name_rect.collidepoint(possouris) and not self.ingame_window.is_hovering(possouris):
+                surface.blit(self.player_name_hover, (0, 0))
 
     def update_player_lv(self, surface):
         self.player_lv_image = self.font_size3.render(str(self.game.player.level), False, (124, 124, 124))
@@ -611,8 +614,8 @@ class GamePanel:
     def get_interactions(self, possouris):
         if self.ingame_window.is_hovering(possouris):
             return self.ingame_window.is_hovering_buttons(possouris) or self.pk_move_mode
-        if self.player_name_editing_mode:
-            pass
+        elif self.player_name_editing_mode:
+            return self.player_name_rect.collidepoint(possouris)
         else:
             if self.player_name_rect.collidepoint(possouris):
                 if self.pokemon_info_mode:

@@ -44,9 +44,9 @@ class ItemsPanel:
         if self.game.player.money >= objet.buy_price and objet.can_be_buy:
             self.game.player.money -= objet.buy_price
             self.game.player.add_sac_item(item=objet)
-            print('achat effectué!')
-        else:
-            print('achat non effectué')
+            print('achat effectué!')  # a supr
+        else:  # a supr
+            print('achat non effectué')  # a supr
 
     def sell_item(self, objet):
         if objet.can_be_sell:

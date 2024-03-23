@@ -215,7 +215,6 @@ class TrainPanel:
             else:
                 pk_rect = self.training_pk_rect.copy()
 
-
             # Affichages des boutons relatifs au popup ADD_TRAINING_PK
             if self.boolAdd_training_pk_popup:
 

@@ -299,8 +299,9 @@ class Pokemon:
             - True si l'attaque a abouti, False sinon
             - 'None' si l'attaque n'a pas appliqué d'effet à personne, (<nom_effet>, <self ou pokemon>) sinon
         """
+        attaque_infos = []
 
-        precision_value = random.randint(0, 100)
+        precision_value = random.randint(0, 99)
         print(f'{attaque.name}: {attaque.precision} | {precision_value}')
         if precision_value < attaque.precision:
 
@@ -333,9 +334,11 @@ class Pokemon:
                 if self.objet_tenu is not None:
                     if self.objet_tenu.type is None or self.objet_tenu.type == attaque.type:
                         cm *= self.objet_tenu.multiplicateur_attaque_dmg
-                        print(f"Augmentation des dégats de l'attaque de {self.objet_tenu.multiplicateur_attaque_dmg*100}%")
+                        # print(f"Augmentation des dégats de l'attaque de {self.objet_tenu.multiplicateur_attaque_dmg*100}%")
                 random_cm = random.randint(85, 100)
                 cm = cm * random_cm / 100
+
+                puissance = 0
 
                 if attaque.puissance == "level":
                     puissance = self.level
@@ -351,19 +354,28 @@ class Pokemon:
                     elif attaque.special_puissance[0] == 'r':
                         values = attaque.special_puissance[1].split("-")
                         puissance = random.randint(int(values[0]), int(values[1]))
+                    elif attaque.special_puissance == 'ennemy_pv':
+                        if pokemon.health == 1:
+                            degats = 1
+                        else:
+                            degats = round(pokemon.health * attaque.puissance)
+
                     else:
                         puissance = attaque.puissance
                 else:
                     puissance = attaque.puissance
 
-                if attaque.special_puissance == 'c':
-                    degats = attaque.puissance
-                elif attaque.puissance == "effort":
-                    degats = pokemon.pv - self.health
-                elif attaque.puissance == "ennemy_pv":
-                    degats = pokemon.pv*2
-                else:
-                    degats = round((((((self.level * 0.4 + 2) * self.attack * puissance) / self.defense) / 50) + 2) * cm)
+                if degats == 0:
+                    if attaque.special_puissance == 'c':
+                        degats = attaque.puissance
+                    elif attaque.puissance == "effort":
+                        degats = pokemon.pv - self.health
+                    elif attaque.special_effect[0] == "use_opponent_attack_stat":
+                        degats = round(
+                            (((((self.level * 0.4 + 2) * pokemon.attack * puissance) / self.defense) / 50) + 2) * cm)
+                    else:
+                        degats = round(
+                            (((((self.level * 0.4 + 2) * self.attack * puissance) / self.defense) / 50) + 2) * cm)
 
                 pokemon.damage(degats)
 
@@ -372,35 +384,42 @@ class Pokemon:
                     if effet[0] == 'taken_dmg':
                         value = int(effet[1])
                         self.is_vulnerable = False
-                        self.health -= value
+                        self.damage(value)
                     elif effet[0] == 'heal_on_maxpv':
                         coef = float(effet[1])
-                        self.health += round(self.pv*coef)
+                        self.health += round(self.pv * coef)
                         if self.health > self.pv:
                             self.health = self.pv
                     elif effet[0] == 'heal_on_atk':
                         coef = float(effet[1][:-4])
-                        self.heal(round(degats*coef))
+                        self.heal(round(degats * coef))
                     elif effet[0] == 'self.pv':
-                        self.damage(round(degats*float(effet[1][:-4])))
+                        self.damage(round(degats * float(effet[1][:-4])))
+                    elif effet[0] == 'self-status':
+                        r_value = random.randint(0, 99)
+                        if r_value < int(effet[2]):
+                            self.status[effet[1]] = True
+                            attaque_infos = [True, (effet[1], self)]
 
             if pokemon.is_vulnerable:
                 if attaque.special_effect[0][0] == "status":
                     r = random.randint(0, 99)
                     if r < int(attaque.special_effect[0][2]):
                         pokemon.status[attaque.special_effect[0][1]] = True
-                        print(attaque.special_effect[0][1], 'appliqué sur', pokemon.name)
-                        return [True, (attaque.special_effect[0][1], pokemon)]
+                        # print(attaque.special_effect[0][1], 'appliqué sur', pokemon.name)
+                        attaque_infos = [True, (attaque.special_effect[0][1], pokemon)]
                     else:
-                        return [True, None]
+                        attaque_infos = [True, None]
                 else:
-                    return [True, None]
+                    attaque_infos = [True, None]
             else:
-                return [True, None]
+                attaque_infos = [True, None]
 
         else:
             print(f'{attaque.name_} ratée')
-            return [False, None]
+            attaque_infos = [False, None]
+
+        return attaque_infos
 
     def reset_status(self):
         self.status = {
