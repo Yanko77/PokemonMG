@@ -58,7 +58,7 @@ class Dresseur:
                     temp_items[item.name] = 1
 
         for item_name in temp_items.keys():
-            self.inventory.append(objet.Objet(item_name, quantite=temp_items[item_name]))
+            self.inventory.append(objet.Objet(item_name,self.game, quantite=temp_items[item_name]))
             # print(f'{item_name} added')
 
     def get_pk_level(self):
