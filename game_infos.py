@@ -394,6 +394,15 @@ type_names_to_print = {
 
 }
 
+status_color = {
+    'BRULURE': (255, 143, 0),
+    'POISON': (220, 0, 255),
+    'GEL': (0, 236, 255),
+    'SOMMEIL': (0, 36, 108),
+    'CONFUSION': (159, 157, 0),
+    'PARALYSIE': (254, 239, 0)
+}
+
 
 def get_mutiliplicateur(type_atk_pk, type_def_pk2):
     return types_affinities[type_atk_pk][type_def_pk2]

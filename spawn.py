@@ -228,15 +228,15 @@ class SpawnPanel:
         min_lv = round((self.game.player.level ** 1.9) * 0.22 + 4 + self.spawning_pk_level_bonus)
 
         if not min_lv == self.min_spawning_pk_level:
-            if min_lv > 100:
-                min_lv = 100
+            if min_lv >= 100:
+                min_lv = 99
             self.min_spawning_pk_level = min_lv
 
         max_lv = round((self.game.player.level ** 1.9) * 0.40 + 7 + self.spawning_pk_level_bonus)
 
         if not max_lv == self.max_spawning_pk_level:
-            if max_lv > 100:
-                max_lv = 100
+            if max_lv >= 100:
+                max_lv = 99
             self.max_spawning_pk_level = max_lv
 
     def spawn_pk(self):

@@ -369,7 +369,9 @@ class Pokemon:
                     if attaque.special_puissance == 'c':
                         degats = attaque.puissance
                     elif attaque.puissance == "effort":
-                        degats = pokemon.pv - self.health
+                        degats = self.pv - self.health
+                        if degats < 0:
+                            degats = 0
                     elif attaque.special_effect[0] == "use_opponent_attack_stat":
                         degats = round(
                             (((((self.level * 0.4 + 2) * pokemon.attack * puissance) / self.defense) / 50) + 2) * cm)

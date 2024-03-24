@@ -487,6 +487,11 @@ class TrainPanel:
         max_lv = round(self.game.player.get_level() / 2
                        + self.LV_DIFFICULT_COEFS[diff][1] * self.training_pk.get_level())
 
+        if min_lv > 100:
+            min_lv = 99
+        if max_lv > 100:
+            max_lv = 99
+
         ennemy_pk_lv = r.randint(min_lv, max_lv)
         return ennemy_pk_lv
     
