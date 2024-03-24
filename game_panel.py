@@ -37,7 +37,9 @@ class GamePanel:
         self.font_pokemon_type = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 15)
         #   # Pre-loading
         self.player_name_text = self.font.render(self.game.player.name, False, (15, 0, 124))
-
+        #   # Dresseur fonts
+        self.dresseur_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 30)
+        self.dresseur_info_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 21)
         # LOADING IMAGES --------------------------------------------
 
         # Elements permanents
@@ -200,6 +202,18 @@ class GamePanel:
 
         # Affichage de l'icone du dresseur
         surface.blit(self.game.next_fighting_dresseur.icon, (18, 148))
+        # Affichage du nom du dresseur
+        surface.blit(self.dresseur_name_font.render(self.game.next_fighting_dresseur.name, False, (40, 40, 40)),
+                     (187, 138))
+        # Affichage du nombre de round
+        surface.blit(self.dresseur_name_font.render(str(self.game.round.num), False, (80, 80, 80)), (138, 315))
+        # Affichage du niveau du joueur
+        surface.blit(self.dresseur_name_font.render(str(self.game.player.get_level()), False, (80, 80, 80)), (196, 348))
+
+        # Affichage de la puissance du dresseur (power)
+        surface.blit(self.dresseur_info_font.render(str(self.game.next_fighting_dresseur.power), False, (180, 0, 0)), (447, 200))
+        # Affichage du niveau du dresseur (niveau du pokemon)
+        surface.blit(self.dresseur_info_font.render(str(self.game.next_fighting_dresseur.pk.get_level()), False, (255, 255, 0)), (424, 226))
 
     def update_player_infos(self, surface, possouris):
         # PLAYER NAME

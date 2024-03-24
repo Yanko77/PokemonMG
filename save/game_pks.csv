@@ -1,4 +1,4 @@
 "type_pk,Name,level,id,objet_tenu,is_shiny,health,all_bonus_stats,is_alive,attaque_pool"
 ,,,,,,,
-,,,,,,,
+Farfuret,7,7,None,False,26,0/0/0/0/1/1/1/1,True,Eclats_Glace:30/Vive-Attaque:30/Poursuite:20/None
 ,,,,,,,

@@ -4,19 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="963bc74e-7554-4532-b01c-42122082889e" name="Changes" comment="patch d'equilibrage des items">
+    <list default="true" id="963bc74e-7554-4532-b01c-42122082889e" name="Changes" comment="display pk status during fights">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_infos.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_infos.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save/game.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/game.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save/game_pks.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/game_pks.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save/player.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/player.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save/sac.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/sac.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save/team.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/team.csv" afterDir="false" />
-    </list>
-    <list id="f8ff3f5a-ffa3-4f87-9463-6c5864846e67" name="Changes by matva" comment="patch d'equilibrage des items">
-      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_panel.py" afterDir="false" />
     </list>
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,15 +53,6 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Dummy.txt" root0="SKIP_HIGHLIGHTING" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/fight.py">
-      <ranges>
-        <range start1="123" end1="123" start2="123" end2="124" changelist="963bc74e-7554-4532-b01c-42122082889e" />
-        <range start1="366" end1="369" start2="367" end2="387" changelist="963bc74e-7554-4532-b01c-42122082889e" />
-        <range start1="390" end1="390" start2="408" end2="427" changelist="f8ff3f5a-ffa3-4f87-9463-6c5864846e67" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -454,7 +435,21 @@
       <option name="project" value="LOCAL" />
       <updated>1711289210970</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="display pk status during fights">
+      <created>1711291148257</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1711291148257</updated>
+    </task>
+    <task id="LOCAL-00014" summary="display pk status during fights">
+      <created>1711291159385</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1711291159385</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -494,6 +489,7 @@
     <MESSAGE value="add player name hover" />
     <MESSAGE value="rework graphique des boutons" />
     <MESSAGE value="patch d'equilibrage des items" />
-    <option name="LAST_COMMIT_MESSAGE" value="patch d'equilibrage des items" />
+    <MESSAGE value="display pk status during fights" />
+    <option name="LAST_COMMIT_MESSAGE" value="display pk status during fights" />
   </component>
 </project>
