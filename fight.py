@@ -407,6 +407,25 @@ class Fight:
         surface.blit(self.dresseur_pk_name_font.render(f"  Lv.{self.dresseur.pk.level}", False, (0, 0, 0)),
                      (905 + self.dresseur_pk_name.get_width(), 51))
 
+        # Status
+        all_status_on = []
+        for status in self.dresseur.pk.status.keys():
+            if self.dresseur.pk.status[status]:
+                all_status_on.append(status.upper())
+
+        # "POISON BRULÉ SOMMEIL GEL PARALYSÉ CONFUS"
+        status_text_list = []
+        for status in all_status_on:
+            color = game_infos.status_color[status]
+            status_text_list.append(self.dresseur_pk_pv_font.render(status, False, color))
+
+        x = 0
+        for status_text in status_text_list:
+            surface.blit(status_text, (906 + x, 115))
+            x += status_text.get_width() + 7
+
+
+
     def animate_player_pk_damage(self, surface):
         if self.player_pk.health < self.saved_player_pk_pv:
 
