@@ -47,6 +47,9 @@ def main():
                 if event.key == pygame.K_UP:
                     print(posSouris)
 
+                elif event.key == pygame.K_DOWN:
+                    game.start_fight(pokemon.Pokemon("Spododo", 100, game), dresseur.Sauvage(game, pokemon.Pokemon("Goupix", 20, game)))
+
                 if game.is_playing:
                     if game.classic_panel.player_name_editing_mode:
                         game.classic_panel.keydown(event.key)

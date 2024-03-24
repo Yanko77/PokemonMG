@@ -121,6 +121,7 @@ class Fight:
         self.player_pk_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 40)
         self.dresseur_pk_name_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 30)
         self.pk_pv_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 25)
+        self.dresseur_pk_pv_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 20)
         self.attaque_font = pygame.font.Font('assets/fonts/Cheesecake.ttf', 55)
         self.sac_page_font = pygame.font.Font('assets/fonts/Cheesecake.ttf', 65)
         self.item_quantite_font = pygame.font.Font('assets/fonts/Impact.ttf', 30)
@@ -364,9 +365,26 @@ class Fight:
         pygame.draw.rect(surface, (42, 214, 0),
                          pygame.Rect(31, 646, self.player_pk.health / self.player_pk.pv * 263, 24))
         # PV
-        surface.blit(
-            self.pk_pv_font.render(str(self.player_pk.health) + "/" + str(self.player_pk.pv),
-                                   False, (40, 40, 40)), (39, 669))
+        pv_text = self.pk_pv_font.render(str(self.player_pk.health) + "/" + str(self.player_pk.pv),
+                                   False, (40, 40, 40))
+        surface.blit(pv_text, (39, 669))
+        # Status
+        all_status_on = []
+        for status in self.player_pk.status.keys():
+            if self.player_pk.status[status]:
+                all_status_on.append(status.upper())
+
+        # "POISON BRULÉ SOMMEIL GEL PARALYSÉ CONFUS"
+        status_text_list = []
+        for status in all_status_on:
+            color = game_infos.status_color[status]
+            status_text_list.append(self.pk_pv_font.render(status, False, color))
+
+        x = 0
+        for status_text in status_text_list:
+            surface.blit(status_text, (39 + pv_text.get_width() + 7 + x, 669))
+            x += status_text.get_width() + 7
+
         # Nom
         surface.blit(self.player_pk_name, (40, 584))
         # Level
