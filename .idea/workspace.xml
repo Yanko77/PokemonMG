@@ -4,21 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="963bc74e-7554-4532-b01c-42122082889e" name="Changes" comment="add player name hover">
+    <list default="true" id="963bc74e-7554-4532-b01c-42122082889e" name="Changes" comment="rework graphique des boutons">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/evol_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/panels/classic_panel/evol_button.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/evol_button_hover.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/panels/classic_panel/evol_button_hover.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/grind_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/panels/classic_panel/grind_button.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/grind_button_hover.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/panels/classic_panel/grind_button_hover.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/items_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/panels/classic_panel/items_button.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/items_button_hover.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/panels/classic_panel/items_button_hover.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/spawn_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/panels/classic_panel/spawn_button.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/spawn_button_hover.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/panels/classic_panel/spawn_button_hover.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/train_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/panels/classic_panel/train_button.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/game/panels/classic_panel/train_button_hover.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/panels/classic_panel/train_button_hover.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/image.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/objet.py" beforeDir="false" afterPath="$PROJECT_DIR$/objet.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save/game.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/game.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save/player.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/player.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save/sac.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/sac.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save/team.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/team.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spawn.py" beforeDir="false" afterPath="$PROJECT_DIR$/spawn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/special_pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +124,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711228824837</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="rework graphique des boutons">
+      <created>1711237004983</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1711237004983</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -138,6 +140,7 @@
     <MESSAGE value="patch full inventory crash glitch" />
     <MESSAGE value="debugging" />
     <MESSAGE value="add player name hover" />
-    <option name="LAST_COMMIT_MESSAGE" value="add player name hover" />
+    <MESSAGE value="rework graphique des boutons" />
+    <option name="LAST_COMMIT_MESSAGE" value="rework graphique des boutons" />
   </component>
 </project>

@@ -53,6 +53,9 @@ class Objet:
             self.buy_price = int(self.line[4].split(':')[1])
 
         self.can_be_sell = int(self.line[5].split(':')[0])
+
+        self.sell_price = None
+
         if self.can_be_sell:
             if self.line[5].split(':')[1] == 'v':
                 self.variable_sell_price = True
