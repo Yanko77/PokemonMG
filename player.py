@@ -146,6 +146,17 @@ class Player:
 
         self.game.notif(text=text, color=(225, 0, 0))
 
+    def payer(self, price: int) -> bool:
+        """
+        Methode qui permet au joueur de payer
+        Renvoie True s'il a payé, False sinon
+        """
+        if self.money >= price:
+            self.money -= price
+            return True
+        else:
+            return False
+
     def level_up(self, nb_lv=1):
         self.level += nb_lv
 

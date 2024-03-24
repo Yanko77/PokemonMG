@@ -4,10 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="963bc74e-7554-4532-b01c-42122082889e" name="Changes" comment="display pk status during fights">
+    <list default="true" id="963bc74e-7554-4532-b01c-42122082889e" name="Changes" comment="display dresseur info">
+      <change afterPath="$PROJECT_DIR$/assets/game/ingame_windows/Items/buy_emp_hover.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/ingame_windows/Items/buy_emp_hover2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/ingame_windows/Items/buy_panel.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/ingame_windows/Items/buy_panel_x_button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/game/ingame_windows/Items/curseur.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/all_objets.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_objets.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/game/ingame_windows/Items/background2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/game/ingame_windows/Items/background2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_panel.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_panel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/items.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/objet.py" beforeDir="false" afterPath="$PROJECT_DIR$/objet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save/game.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/game.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save/game_pks.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/game_pks.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save/player.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/player.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save/team.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/team.csv" afterDir="false" />
     </list>
+    <list id="1bb68367-f84a-4289-b311-bc7d0fced6a2" name="Changes by matva" comment="" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,7 +214,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" name="Default Changelist" comment="" />
+      <changelist id="963bc74e-7554-4532-b01c-42122082889e" name="Changes" comment="display dresseur info" />
       <created>1686659868714</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -449,7 +465,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711291159385</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="display dresseur info">
+      <created>1711292724955</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1711292724955</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -465,7 +488,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="sac_items during fight can move" />
     <MESSAGE value="items can be used during fights" />
     <MESSAGE value="added end turn fight button" />
     <MESSAGE value="add end fight panel files&#10;debug player name editing" />
@@ -490,6 +512,7 @@
     <MESSAGE value="rework graphique des boutons" />
     <MESSAGE value="patch d'equilibrage des items" />
     <MESSAGE value="display pk status during fights" />
-    <option name="LAST_COMMIT_MESSAGE" value="display pk status during fights" />
+    <MESSAGE value="display dresseur info" />
+    <option name="LAST_COMMIT_MESSAGE" value="display dresseur info" />
   </component>
 </project>

@@ -161,8 +161,6 @@ class GamePanel:
         # Interactions
         self.update_cursor(possouris)
 
-        self.update_player_name_editing_mode(surface)
-
         # POKEMON INFO
         self.update_pokemon_info(surface, possouris)
 
@@ -316,7 +314,7 @@ class GamePanel:
             else:
                 color = (163, 171, 255)
 
-            if self.pk_rects[i].collidepoint(possouris):
+            if self.pk_rects[i].collidepoint(possouris) and not self.ingame_window.is_hovering(possouris):
                 surface.blit(self.create_rect_alpha((369, 69), color), (self.pk_rects[i].x, self.pk_rects[i].y))
 
             d = ((1272 - pk_rect.x) ** 2 + (637 - pk_rect.y) ** 2) ** 0.5
