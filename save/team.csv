@@ -1,4 +1,4 @@
 Name,level,id,objet_tenu,is_shiny,health,bonus_stat bonus_pvmax bonus_attack bonus_defense bonus_speed,is_alive,attaque_pool
-Evoli,200,1,None,True,0,0/0/0/0/1.0/1.0/1.0/1.0,False,Charge:10/Effort:10/None/None
-Tyranocif,103,11,Baie_Oran,False,0,0/0/0/0/1/1/1/1,False,Lame_de_Roc:5/Machouille:15/Vif_Roc:20/Pouvoir_Antique:5
-,,,,,,,
+Arcko,6,1,None,False,15,0/0/0/0/1/1/1/1,True,Charge:35/Vive-Attaque:30/Vole-vie:25/Abri:10
+Riolu,9,8,None,False,19,0/0/0/0/1/1/1/1,True,Eclate-Roc:15/Griffe:35/Vive-Attaque:30/None
+Terhal,5,9,None,False,22,0/0/0/0/1/1/1/1,True,Pisto-Poing:30/Vive-Attaque:30/None/None

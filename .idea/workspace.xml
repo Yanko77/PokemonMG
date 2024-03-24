@@ -6,14 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="963bc74e-7554-4532-b01c-42122082889e" name="Changes" comment="rework graphique des boutons">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/objet.py" beforeDir="false" afterPath="$PROJECT_DIR$/objet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/all_objets.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_objets.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save/game.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/game.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save/player.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/player.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save/sac.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/sac.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save/team.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/team.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spawn.py" beforeDir="false" afterPath="$PROJECT_DIR$/spawn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/special_pokemon.py" beforeDir="false" afterPath="$PROJECT_DIR$/special_pokemon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
+    </list>
+    <list id="f8ff3f5a-ffa3-4f87-9463-6c5864846e67" name="Changes by matva" comment="">
+      <change beforePath="$PROJECT_DIR$/all_objets.txt" beforeDir="false" afterPath="$PROJECT_DIR$/all_objets.txt" afterDir="false" />
     </list>
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -62,21 +62,14 @@
     <setting file="mock:///Dummy.txt" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/game.py">
+    <file path="$PROJECT_DIR$/all_objets.txt">
       <ranges>
-        <range start1="31" end1="31" start2="31" end2="34" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="53" end1="54" start2="56" end2="57" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="55" end1="57" start2="58" end2="58" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="133" end1="135" start2="134" end2="136" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="137" end1="137" start2="138" end2="139" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="144" end1="144" start2="146" end2="157" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="150" end1="151" start2="163" end2="164" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="367" end1="368" start2="380" end2="381" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="404" end1="405" start2="417" end2="418" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
-        <range start1="421" end1="422" start2="434" end2="435" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="441" end1="442" start2="454" end2="455" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="457" end1="458" start2="470" end2="471" changelist="f36d5fc1-90f2-48ea-8f9a-4c43a792f429" />
-        <range start1="473" end1="474" start2="486" end2="487" changelist="70a8f8e9-b9ee-4043-aaf7-17abfcf103b3" />
+        <range start1="3" end1="4" start2="3" end2="4" changelist="f8ff3f5a-ffa3-4f87-9463-6c5864846e67" />
+        <range start1="6" end1="7" start2="6" end2="7" changelist="f8ff3f5a-ffa3-4f87-9463-6c5864846e67" />
+        <range start1="8" end1="10" start2="8" end2="10" changelist="963bc74e-7554-4532-b01c-42122082889e" />
+        <range start1="18" end1="30" start2="18" end2="30" changelist="963bc74e-7554-4532-b01c-42122082889e" />
+        <range start1="31" end1="34" start2="31" end2="34" changelist="963bc74e-7554-4532-b01c-42122082889e" />
+        <range start1="35" end1="42" start2="35" end2="42" changelist="963bc74e-7554-4532-b01c-42122082889e" />
       </ranges>
     </file>
   </component>
@@ -99,7 +92,7 @@
     &quot;last_opened_file_path&quot;: &quot;C:/Users/yanko/PycharmProjects/PokemonManagementGame/main.py&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.main">
     <configuration name="PokemonMG" type="PythonConfigurationType" factoryName="Python">
       <module name="PokemonManagementGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -164,14 +157,14 @@
       <method v="2" />
     </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python">
-      <module name="PokemonMG" />
+      <module name="PokemonManagementGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\matva\AppData\Local\Programs\Python\Python312\python.exe" />
-      <option name="SDK_NAME" value="Python 3.12" />
+      <option name="SDK_HOME" value="C:\Users\yanko\AppData\Local\RLBotGUIX\Python37\python.exe" />
+      <option name="SDK_NAME" value="Python 3.7" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -207,19 +200,16 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.PokemonMG" />
       <item itemvalue="Python.main" />
-      <item itemvalue="Python.attaques" />
-      <item itemvalue="Python.bot_fight_algo" />
       <item itemvalue="Python.dresseur" />
       <item itemvalue="Python.fight" />
       <item itemvalue="Python.special_pokemon" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.attaques" />
         <item itemvalue="Python.special_pokemon" />
         <item itemvalue="Python.fight" />
-        <item itemvalue="Python.bot_fight_algo" />
         <item itemvalue="Python.dresseur" />
       </list>
     </recent_temporary>
