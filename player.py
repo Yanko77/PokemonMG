@@ -51,7 +51,7 @@ class Player:
                     None,
                     None]
 
-        self.money = 1000
+        self.money = 0
 
     def edit_name(self, key):
         if self.game.pressed[pygame.K_LSHIFT]:
@@ -251,15 +251,12 @@ class Player:
         """
         self.reset_actions()
         self.level_up()
-        if self.find_sac_item(objet.Objet("Piquants", self)) is not None:
+        if self.find_sac_item(objet.Objet("Piquants", self.game)) is not None:
             self.money -= 1000
 
         for item in self.sac:
             if item is not None:
                 item.set_sell_price()
-
-
-
 
 if __name__ == "__main__":
     player = Player()

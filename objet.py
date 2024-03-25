@@ -58,7 +58,6 @@ class Objet:
             if self.line[5].split(':')[1] == 'v':
                 self.bool_variable_sell_price = True
                 self.variable_sell_price = [int(self.line[5].split(':')[2].split('-')[0]), int(self.line[5].split(':')[2].split('-')[1])]
-                self.set_sell_price()
             else:
                 self.bool_variable_sell_price = False
                 self.variable_sell_price = [int(self.line[5].split(':')[1]),
@@ -72,10 +71,7 @@ class Objet:
         if self.can_be_buy:
             self.buy_price = int(self.line[4].split(':')[1])
 
-        self.out_of_stock = False
-        if self.buy_price < self.sell_price and self.bool_variable_sell_price:
-            self.can_be_buy = False
-            self.out_of_stock = True
+        self.set_sell_price()
 
         self.desc_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 17)
         self.description = self.line[6][:-1]
@@ -132,15 +128,6 @@ class Objet:
                 else:  # self.effect == l
                     self.bonus_lv = int(self.line[3].split(':')[2])
 
-    def set_buy_infos(self):
-        if self.variable_sell_price:
-            if self.buy_price < self.sell_price:
-                self.out_of_stock = True
-                self.can_be_buy = False
-            else:
-                self.out_of_stock = False
-                self.can_be_buy = True
-
     def find_item_line(self):
         with open('all_objets.txt') as file:
             for line in file.readlines():
@@ -160,6 +147,9 @@ class Objet:
 
     def set_sell_price(self):
         self.sell_price = self.get_sell_price()
+
+        if self.sell_price > self.buy_price:
+            self.can_be_buy = False
 
     def get_sell_price(self):
         return self.game.get_item_price(self)

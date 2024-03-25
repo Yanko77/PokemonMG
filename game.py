@@ -34,7 +34,6 @@ class Game:
         self.general_seed = self.round.get_random_seed()
 
         self.items_list = self.get_all_items_list()
-        self.update_variable_sell_price_items()
 
         self.pokemons_list = self.init_pokemons_list()
         self.special_pokemons_list = self.init_special_pokemons_list()
@@ -94,6 +93,7 @@ class Game:
 
     def init_new_game(self):
         self.is_starter_selected = False
+        self.player.add_sac_item(objet.Objet('Poke_Ball', self, 3))
 
     def create_new_game(self):
         self.init_new_game()
@@ -138,19 +138,18 @@ class Game:
 
         self.classic_panel.next_turn()
         self.next_fighting_dresseur = self.get_fighting_dresseur()
-        self.update_variable_sell_price_items()
+        self.update_variable_item_price()
 
         # add everything that have to be edited for each turn
-
-    def update_variable_sell_price_items(self):
-        for item in self.items_list['All']:
-            if item.bool_variable_sell_price:
-                item.set_buy_infos()
 
     def get_init_pokemon_id(self):
         id = self.next_pk_id
         self.next_pk_id += 1
         return id
+
+    def update_variable_item_price(self):
+        for item in self.items_list['All']:
+            item.set_sell_price()
 
     def get_item_price(self, item: objet.Objet):
         """
