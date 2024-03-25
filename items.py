@@ -15,6 +15,7 @@ class ItemsPanel:
         # FONTS
         self.entrer_price_font = pygame.font.Font('assets/fonts/Cheesecake.ttf', 50)
         self.item_price_font = pygame.font.Font('assets/fonts/Cheesecake.ttf', 30)
+        self.item_quantite_font = pygame.font.Font('assets/fonts/impact.ttf', 30)
         self.player_money_font = pygame.font.Font('assets/fonts/Cheesecake.ttf', 40)
         self.categorie_font = pygame.font.Font('assets/fonts/Cheesecake.ttf', 25)
         self.research_text_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 30)
@@ -39,7 +40,16 @@ class ItemsPanel:
         self.buyable_emp_hover = self.img_load('buy_emp_hover')
         self.unbuyable_emp_hover = self.img_load('buy_emp_hover2')
 
+        self.sell_panel = self.img_load('sell_panel')
+        self.sell_panel_rect = pygame.Rect(1, 0, 873, 490)
+
+        self.sell_emp_hover = self.img_load('sell_emp_hover')
+
+        self.sell_panel_x_button = self.img_load('sell_panel_x_button')
+        self.sell_panel_x_button_rect = pygame.Rect(818, 11, 44, 44)
+
         self.categorie_hover = self.img_load('categorie_hover')
+        self.sell_categorie_hover = self.img_load('sell_categorie_hover')
 
         self.curseur = self.img_load('curseur')
         self.curseur_rect = pygame.Rect(842, 96, 17, 45)
@@ -97,6 +107,9 @@ class ItemsPanel:
         self.page = 0
         if len(self.current_buy_item_list) % 10 == 0:
             self.max_page = len(self.current_buy_item_list) // 10
+            if self.max_page < 1:
+                self.max_page = 1
+
         else:
             self.max_page = len(self.current_buy_item_list) // 10 + 1
 
@@ -198,18 +211,63 @@ class ItemsPanel:
         """
         Methode qui gère l'actualisation de l'affichage du panel de vente d'objet
         """
-        pass
+        # Fenetre d'achat
+        self.display(self.sell_panel, self.sell_panel_rect, surface)
+
+        # Texte recherché
+        self.display_research_text(surface, possouris)
+
+        # X Button
+        if self.rect(self.sell_panel_x_button_rect).collidepoint(possouris):
+            self.display(self.sell_panel_x_button, self.sell_panel_x_button_rect, surface, (44, 0, 44, 44))
+        else:
+            self.display(self.sell_panel_x_button, self.sell_panel_x_button_rect, surface, (0, 0, 44, 44))
+
+        # Curseur
+        self.display_curseur(surface, possouris)
+
+        # Page
+        page_ind_text = self.item_price_font.render(f'{self.page + 1}/{self.max_page}', False, (0, 0, 0))
+        self.display(page_ind_text,
+                     (769 + 35 - page_ind_text.get_width() // 2, 338),
+                     surface)
+
+        # Items emps
+        self.display_sell_items_emps(surface, possouris)
+
+        # Item selectionné
+        self.update_selected_item(possouris)
+
+        # Catégories
+        self.display_categories(surface, possouris)
+
+        # Items descriptions
+        self.display_item_desc(surface)
+
+        # Solde
+        solde_text = self.player_money_font.render(str(self.game.player.money), False, (0, 0, 0))
+        self.display(solde_text,
+                     (86 - solde_text.get_width() // 2, 463 - solde_text.get_height() // 2),
+                     surface)
 
     def display_categories(self, surface, possouris):
 
-        color = (59, 33, 0)  # Buy color
+        if self.bool_buy:
+            color = (59, 33, 0)  # Buy color
+        elif self.bool_sell:
+            color = (0, 34, 3)  # Sell color
 
         for i in range(6):
             if self.rect(self.categories_rects[i]).collidepoint(possouris) or self.categorie_selected == \
                     self.categories_names_[i]:
-                self.display(self.categorie_hover,
-                             self.categories_rects[i],
-                             surface)
+                if self.bool_sell:
+                    self.display(self.sell_categorie_hover,
+                                 self.categories_rects[i],
+                                 surface)
+                elif self.bool_buy:
+                    self.display(self.categorie_hover,
+                                 self.categories_rects[i],
+                                 surface)
 
             self.display(self.categorie_font.render(self.categories_names[i], False, color),
                          (self.categories_rects[i].x + 10,
@@ -257,6 +315,47 @@ class ItemsPanel:
                                                    item_rect.y + 89),
                                  surface)
 
+            i += 1
+
+    def display_sell_items_emps(self, surface, possouris):
+        i = 0
+        for item_rect in self.emp_rects:
+
+            if i + self.page * 10 >= len(self.current_sell_item_list):
+                item = None
+            else:
+                item = self.current_sell_item_list[i + self.page * 10]
+
+            if item is not None:
+                self.display(pygame.transform.scale(item.icon_image, (80, 80)),
+                             (item_rect.x + 13,
+                              item_rect.y + 12), surface)
+
+                if self.rect(item_rect).collidepoint(possouris):
+                    if item.can_be_sell:
+                        self.display(self.sell_emp_hover, (item_rect.x + 5,
+                                                           item_rect.y + 4,
+                                                           item_rect.w,
+                                                           item_rect.h),
+                                     surface)
+                    else:
+                        self.display(self.unbuyable_emp_hover, (item_rect.x + 2,
+                                                                item_rect.y + 4,
+                                                                item_rect.w,
+                                                                item_rect.h),
+                                     surface)
+
+                if item.can_be_sell:
+                    item_price_text = self.item_price_font.render(str(item.sell_price), False, (0, 0, 0))
+                    self.display(item_price_text, (item_rect.x + 53 - item_price_text.get_width() // 2,
+                                                   item_rect.y + 89),
+                                 surface)
+
+                # Affichage de la quantite
+                item_quantite_text = self.item_quantite_font.render(str(item.quantite), False, (255, 255, 255))
+                self.display(item_quantite_text, (item_rect.x + 90 - item_quantite_text.get_width() // 2,
+                                                  item_rect.y + 70),
+                             surface)
             i += 1
 
     def display_item_desc(self, surface):
@@ -340,15 +439,28 @@ class ItemsPanel:
         """
         Methode d'actualisation de l'item sélectionné
         """
-        i = 0
-        for item_rect in self.emp_rects:
-            if i + self.page * 10 < len(self.current_buy_item_list):
-                if self.rect(item_rect).collidepoint(possouris):
-                    self.item_selected = self.current_buy_item_list[i + self.page * 10]
-                elif self.item_selected == self.current_buy_item_list[i + self.page * 10]:
-                    self.item_selected = None
+        if self.bool_sell:
+            i = 0
+            for item_rect in self.emp_rects:
+                if i + self.page * 10 < len(self.current_sell_item_list) and self.current_sell_item_list[i + self.page * 10] is not None:
+                    if self.rect(item_rect).collidepoint(possouris):
+                        self.item_selected = self.current_sell_item_list[i + self.page * 10]
+                    elif self.item_selected == self.current_sell_item_list[i + self.page * 10]:
+                        self.item_selected = None
 
-            i += 1
+                i += 1
+
+        elif self.bool_buy:
+
+            i = 0
+            for item_rect in self.emp_rects:
+                if i + self.page * 10 < len(self.current_buy_item_list):
+                    if self.rect(item_rect).collidepoint(possouris):
+                        self.item_selected = self.current_buy_item_list[i + self.page * 10]
+                    elif self.item_selected == self.current_buy_item_list[i + self.page * 10]:
+                        self.item_selected = None
+
+                i += 1
 
     def update_curseur_rect(self):
         if self.page == self.max_page - 1 and self.max_page != 1:
@@ -369,12 +481,22 @@ class ItemsPanel:
     def update_current_items_list(self):
         self.current_buy_item_list = self.research_item('Buy')
         self.current_sell_item_list = self.research_item('Sell')
-
-        self.page = 0
-        if len(self.current_buy_item_list) % 10 == 0:
-            self.max_page = len(self.current_buy_item_list) // 10
-        else:
-            self.max_page = len(self.current_buy_item_list) // 10 + 1
+        if self.bool_sell:
+            self.page = 0
+            if len(self.current_sell_item_list) % 10 == 0:
+                self.max_page = len(self.current_sell_item_list) // 10
+                if self.max_page < 1:
+                    self.max_page = 1
+            else:
+                self.max_page = len(self.current_sell_item_list) // 10 + 1
+        elif self.bool_buy:
+            self.page = 0
+            if len(self.current_buy_item_list) % 10 == 0:
+                self.max_page = len(self.current_buy_item_list) // 10
+                if self.max_page < 1:
+                    self.max_page = 1
+            else:
+                self.max_page = len(self.current_buy_item_list) // 10 + 1
 
     def buy_item(self, objet):
         """
@@ -415,6 +537,17 @@ class ItemsPanel:
                         tri = True
             return liste_objet
 
+        elif mode == 'Sell':
+            tri = True
+            while tri:
+                tri = False
+                for objet_index in range(1, len(liste_objet)):
+                    if liste_objet[objet_index].sell_price < liste_objet[objet_index - 1].sell_price:
+                        liste_objet[objet_index], liste_objet[objet_index - 1] = liste_objet[objet_index - 1], \
+                            liste_objet[objet_index]
+                        tri = True
+            return liste_objet
+
     def research_item(self, mode='Buy') -> list:
         """
         Methode de recherche d'objet dans la boutique
@@ -428,6 +561,19 @@ class ItemsPanel:
                                                                                            1:].lower() in objet.name_:
                     if objet.categorie == self.categorie_selected or self.categorie_selected is None:
                         liste_r.append(objet)
+
+            liste_r = self.tri_croisant_prix(liste_r, mode)
+            return liste_r
+
+        elif mode == 'Sell':
+            liste = self.game.player.sac.copy()
+            liste_r = []
+            for objet in liste:
+                if objet is not None:
+                    if text in objet.name_ or text.lower() in objet.name_ or text[0].upper() + text[
+                                                                                               1:].lower() in objet.name_:
+                        if objet.categorie == self.categorie_selected or self.categorie_selected is None:
+                            liste_r.append(objet)
 
             liste_r = self.tri_croisant_prix(liste_r, mode)
             return liste_r
@@ -463,7 +609,41 @@ class ItemsPanel:
                 if self.game.player.payer(self.entrer_price):
                     self.bool_entrer = True
         elif self.bool_sell:
-            pass
+            if self.rect(self.sell_panel_x_button_rect).collidepoint(possouris):
+                self.reset_research()
+                self.categorie_selected = None
+                self.bool_sell = False
+            elif self.rect(self.search_bar_rect).collidepoint(possouris):
+                self.research_mode = True
+            else:
+                if self.research_mode and not self.rect(self.search_bar_rect).collidepoint(possouris):
+                    self.research_mode = False
+
+                i_categorie = 0
+                for categorie_rect in self.categories_rects:
+                    if self.rect(categorie_rect).collidepoint(possouris):
+                        if not self.categorie_selected == self.categories_names_[i_categorie]:
+                            self.categorie_selected = self.categories_names_[i_categorie]
+                        else:
+                            self.categorie_selected = None
+                        self.update_current_items_list()
+                        self.update_curseur_rect()
+                    i_categorie += 1
+
+                i_item = 0
+                for item_rect in self.emp_rects:
+                    if self.rect(item_rect).collidepoint(possouris):
+                        if i_item + self.page * 10 < len(self.current_sell_item_list) and self.current_sell_item_list[i_item + self.page * 10] is not None:
+                            item = self.current_sell_item_list[i_item + self.page * 10]
+                            if item.can_be_sell:
+                                player_item_i = self.game.player.find_sac_item(item)
+                                player_item = self.game.player.sac[player_item_i]
+                                self.sell_item(player_item)
+                                if player_item.quantite <= 0:
+                                    self.game.player.sac[player_item_i] = None
+                                self.update_current_items_list()
+                                self.update_curseur_rect()
+                    i_item += 1
         elif self.bool_buy:
             if self.rect(self.buy_panel_x_button_rect).collidepoint(possouris):
                 self.reset_research()
@@ -496,8 +676,10 @@ class ItemsPanel:
         else:
             if self.rect(self.sell_mode_button_rect).collidepoint(possouris):
                 self.bool_sell = True
+                self.update_current_items_list()
             elif self.rect(self.buy_mode_button_rect).collidepoint(possouris):
                 self.bool_buy = True
+                self.update_current_items_list()
 
     def right_clic_interactions(self, posssouris):
         pass
@@ -536,7 +718,20 @@ class ItemsPanel:
             if not self.game.classic_panel.ingame_window.window_bar_rect.collidepoint(possouris):
                 return True
         elif self.bool_sell:
-            pass
+            if self.curseur_move_mode:
+                return True
+            elif self.rect(self.sell_panel_x_button_rect).collidepoint(possouris):
+                return True
+            elif self.rect(self.curseur_rect).collidepoint(possouris):
+                return True
+            else:
+                for categorie_rect in self.categories_rects:
+                    if self.rect(categorie_rect).collidepoint(possouris):
+                        return True
+
+                for item_rect in self.emp_rects:
+                    if self.rect(item_rect).collidepoint(possouris):
+                        return True
         elif self.bool_buy:
             if self.curseur_move_mode:
                 return True

@@ -1,4 +1,4 @@
 Name,level,id,objet_tenu,is_shiny,health,bonus_stat bonus_pvmax bonus_attack bonus_defense bonus_speed,is_alive,attaque_pool
-,,,,,,,
+Gobou,7,3,None,False,20,0/0/0/0/1.0/1.0/1.0/1.0,True,Charge:35/Aqua-Jet:20/Vibraqua:20/Abri:10
 ,,,,,,,
 ,,,,,,,
