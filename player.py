@@ -99,6 +99,19 @@ class Player:
                 if sac_item.name == item.name:
                     return i
 
+    def find_sac_item_by_str(self, item):
+        """
+        Methode qui renvoie l'index de l'item recherché dans le sac.
+        Renvoie None s'il n'est pas présent
+        """
+
+        for i in range(len(self.sac)):
+            sac_item = self.sac[i]
+
+            if sac_item is not None:
+                if sac_item.name == item:
+                    return i
+
     def add_sac_item(self, item):
         """
         Fonction qui ajoute au sac un objet et qui le stack si possible
@@ -120,6 +133,9 @@ class Player:
 
         else:
             self.sac[item_place].quantite += item.quantite
+
+    def remove_item_sac(self,index):
+        self.sac[index] = None
 
     def add_team_pk(self, pk, i=0):
         if self.get_nb_team_members() < 6:
