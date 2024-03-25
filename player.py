@@ -119,7 +119,6 @@ class Player:
                 self.sac[i] = objet.Objet(item.name, self.game, item.quantite)
 
         else:
-            print(item.quantite)
             self.sac[item_place].quantite += item.quantite
 
     def add_team_pk(self, pk, i=0):

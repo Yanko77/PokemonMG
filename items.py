@@ -82,6 +82,8 @@ class ItemsPanel:
         ]
 
         self.search_bar_rect = pygame.Rect(9, 11, 771, 47)
+        self.items_space_rect = pygame.Rect(160, 76, 691, 294)
+        self.curseur_bar_rect = pygame.Rect(842, 96, 17, 220)
         # VARIABLES
         self.entrer_price = 100
 
@@ -152,6 +154,7 @@ class ItemsPanel:
         """
         Methode qui gère l'actualisation de l'affichage du panel d'achat d'objet
         """
+
         # Fenetre d'achat
         self.display(self.buy_panel, self.buy_panel_rect, surface)
 
@@ -202,7 +205,8 @@ class ItemsPanel:
         color = (59, 33, 0)  # Buy color
 
         for i in range(6):
-            if self.rect(self.categories_rects[i]).collidepoint(possouris) or self.categorie_selected == self.categories_names_[i]:
+            if self.rect(self.categories_rects[i]).collidepoint(possouris) or self.categorie_selected == \
+                    self.categories_names_[i]:
                 self.display(self.categorie_hover,
                              self.categories_rects[i],
                              surface)
@@ -236,9 +240,9 @@ class ItemsPanel:
                                          surface)
                         else:
                             self.display(self.buyable_emp_hover, (item_rect.x + 2,
-                                                              item_rect.y + 4,
-                                                              item_rect.w,
-                                                              item_rect.h),
+                                                                  item_rect.y + 4,
+                                                                  item_rect.w,
+                                                                  item_rect.h),
                                          surface)
                     else:
                         self.display(self.unbuyable_emp_hover, (item_rect.x + 2,
@@ -272,8 +276,6 @@ class ItemsPanel:
                              surface)
                 y += 28
 
-
-
     def display_curseur(self, surface, possouris):
         """
         Methode d'actualisation de l'affichage du curseur
@@ -291,21 +293,11 @@ class ItemsPanel:
             if not self.game.mouse_pressed[1]:
                 self.curseur_move_mode = False
 
-            grand_rect = pygame.Rect(842, 96, 17, 220)
             for n in range(self.max_page):
-                if possouris[1] > self.rect(grand_rect).y + grand_rect.h // self.max_page * n:
+                if possouris[1] > self.rect(self.curseur_bar_rect).y + self.curseur_bar_rect.h // self.max_page * n:
                     self.page = n
 
-                    if self.page == self.max_page-1 and self.max_page != 1:
-                        self.curseur_rect = pygame.Rect(842,
-                                                        272,
-                                                        17,
-                                                        45)
-                    else:
-                        self.curseur_rect = pygame.Rect(842,
-                                                        grand_rect.y + grand_rect.h // self.max_page * self.page,
-                                                        17,
-                                                        45)
+                    self.update_curseur_rect()
 
     def display_research_text(self, surface, possouris):
         """
@@ -317,10 +309,11 @@ class ItemsPanel:
                      surface)
         if self.research_mode:
             if self.research_curseur_compteur > 20:
-                pygame.draw.rect(surface, (0, 0, 0), self.rect(pygame.Rect(67 + research_text.get_width(), 21, 2, research_text.get_height() - 16)))
+                pygame.draw.rect(surface, (0, 0, 0), self.rect(
+                    pygame.Rect(67 + research_text.get_width(), 21, 2, research_text.get_height() - 16)))
 
             self.research_curseur_compteur += 1
-            if self.research_curseur_compteur > 41 :
+            if self.research_curseur_compteur > 41:
                 self.research_curseur_compteur = 0
 
             '''curseur = self.create_rect_alpha((2, self.player_name_text.get_height() - 16), (0, 0, 0), 200)
@@ -349,13 +342,19 @@ class ItemsPanel:
         """
         i = 0
         for item_rect in self.emp_rects:
-            if i + self.page*10 < len(self.current_buy_item_list):
+            if i + self.page * 10 < len(self.current_buy_item_list):
                 if self.rect(item_rect).collidepoint(possouris):
-                    self.item_selected = self.current_buy_item_list[i + self.page*10]
-                elif self.item_selected == self.current_buy_item_list[i + self.page*10]:
+                    self.item_selected = self.current_buy_item_list[i + self.page * 10]
+                elif self.item_selected == self.current_buy_item_list[i + self.page * 10]:
                     self.item_selected = None
 
             i += 1
+
+    def update_curseur_rect(self):
+        if self.page == self.max_page - 1 and self.max_page != 1:
+            self.curseur_rect = pygame.Rect(842, 272, 17, 45)
+        else:
+            self.curseur_rect = pygame.Rect(842, self.curseur_bar_rect.y + self.curseur_bar_rect.h // self.max_page * self.page, 17, 45)
 
     def update_research_text(self, character: str):
         if character in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ':
@@ -389,7 +388,6 @@ class ItemsPanel:
         if objet.can_be_buy:
             if self.game.player.payer(objet.buy_price):  # Le joueur paye s'il peut
                 self.game.player.add_sac_item(item=objet)
-                print('objet q ' + str(objet.quantite))
                 self.game.notif(f"Objet ajouté au sac !", (0, 0, 0))
 
     def sell_item(self, objet):
@@ -413,7 +411,7 @@ class ItemsPanel:
                 for objet_index in range(1, len(liste_objet)):
                     if liste_objet[objet_index].buy_price < liste_objet[objet_index - 1].buy_price:
                         liste_objet[objet_index], liste_objet[objet_index - 1] = liste_objet[objet_index - 1], \
-                        liste_objet[objet_index]
+                            liste_objet[objet_index]
                         tri = True
             return liste_objet
 
@@ -426,7 +424,8 @@ class ItemsPanel:
             liste = self.game.items_list['All'].copy()
             liste_r = []
             for objet in liste:
-                if text in objet.name_ or text.lower() in objet.name_ or text[0].upper() + text[1:].lower() in objet.name_:
+                if text in objet.name_ or text.lower() in objet.name_ or text[0].upper() + text[
+                                                                                           1:].lower() in objet.name_:
                     if objet.categorie == self.categorie_selected or self.categorie_selected is None:
                         liste_r.append(objet)
 
@@ -447,6 +446,7 @@ class ItemsPanel:
         self.research_text = ""
         self.research_mode = False
         self.update_current_items_list()
+        self.update_curseur_rect()
 
     def reset(self):
         pass
@@ -483,13 +483,15 @@ class ItemsPanel:
                         else:
                             self.categorie_selected = None
                         self.update_current_items_list()
+                        self.update_curseur_rect()
                     i_categorie += 1
 
                 i_item = 0
                 for item_rect in self.emp_rects:
                     if self.rect(item_rect).collidepoint(possouris):
-                        item = self.current_buy_item_list[i_item + self.page*10]
-                        self.buy_item(item)
+                        if i_item + self.page * 10 < len(self.current_buy_item_list):
+                            item = self.current_buy_item_list[i_item + self.page * 10]
+                            self.buy_item(item)
                     i_item += 1
         else:
             if self.rect(self.sell_mode_button_rect).collidepoint(possouris):
@@ -512,6 +514,22 @@ class ItemsPanel:
                     self.update_research_text(pygame.key.name(event_key).upper())
                 else:
                     self.update_research_text(pygame.key.name(event_key))
+
+    def mouse_wheel(self, possouris, value):
+        """
+        Methode qui gère les interactions utilisateurs avec la molette haut/bas de la souris
+        @in : int, puissance de l'action molette. Ex : 1 = haut de 1
+                                                      -2 = bas de 2
+        """
+        if self.rect(self.items_space_rect).collidepoint(possouris):
+            if self.page - value > self.max_page - 1:
+                self.page = self.max_page - 1
+            elif self.page - value < 0:
+                self.page = 0
+            else:
+                self.page -= value
+
+            self.update_curseur_rect()
 
     def is_hovering_buttons(self, possouris):
         if not self.bool_entrer:

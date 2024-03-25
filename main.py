@@ -89,6 +89,11 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 game.mouse_pressed[event.button] = True
 
+            if event.type == pygame.MOUSEWHEEL:
+                if game.is_playing:
+                    if game.classic_panel.ingame_window.current_panel_name == "Items":
+                        game.classic_panel.ingame_window.items_panel.mouse_wheel(posSouris, event.y)
+
         clock.tick(FPS)
 
     pygame.quit()
