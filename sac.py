@@ -140,7 +140,7 @@ class SacIngamePanel:
 
         if self.game.player.sac[sac_i] is not None:
             if not self.emp_move_mode and not self.emp_moving[i-1]:
-                if self.game.mouse_pressed[1] and self.all_emp_rect[i].collidepoint(possouris):
+                if self.game.mouse_pressed[1] and self.all_emp_rect[i].collidepoint(possouris) and not self.game.classic_panel.ingame_window.moving:
                     self.emp_move_mode = True
                     self.emp_moving[i-1] = True
                     self.rel_possouris = [0, 0]

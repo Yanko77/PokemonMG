@@ -51,12 +51,13 @@ class Objet:
         self.set_special_effects()
 
         self.can_be_buy = int(self.line[4].split(':')[0])
+        self.buy_price = float('inf')
         if self.can_be_buy:
             self.buy_price = int(self.line[4].split(':')[1])
 
         self.can_be_sell = int(self.line[5].split(':')[0])
 
-        self.sell_price = None
+        self.sell_price = float('inf')
 
         if self.can_be_sell:
             if self.line[5].split(':')[1] == 'v':

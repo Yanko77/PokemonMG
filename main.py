@@ -48,11 +48,14 @@ def main():
                     print(posSouris)
 
                 elif event.key == pygame.K_DOWN:
-                    game.start_fight(pokemon.Pokemon("Spododo", 100, game), dresseur.Sauvage(game, pokemon.Pokemon("Goupix", 20, game)))
+                    for item in game.classic_panel.ingame_window.items_panel.research_item(input()):
+                        print(item.name)
 
                 if game.is_playing:
                     if game.classic_panel.player_name_editing_mode:
                         game.classic_panel.keydown(event.key)
+                    elif game.classic_panel.ingame_window.current_panel_name == 'Items':
+                        game.classic_panel.ingame_window.items_panel.keydown(event.key)
 
             if event.type == pygame.KEYUP:
                 game.pressed[event.key] = False
@@ -85,6 +88,11 @@ def main():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 game.mouse_pressed[event.button] = True
+
+            if event.type == pygame.MOUSEWHEEL:
+                if game.is_playing:
+                    if game.classic_panel.ingame_window.current_panel_name == "Items":
+                        game.classic_panel.ingame_window.items_panel.mouse_wheel(posSouris, event.y)
 
         clock.tick(FPS)
 
