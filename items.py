@@ -389,6 +389,8 @@ class ItemsPanel:
         if objet.can_be_buy:
             if self.game.player.payer(objet.buy_price):  # Le joueur paye s'il peut
                 self.game.player.add_sac_item(item=objet)
+                print('objet q ' + str(objet.quantite))
+                self.game.notif(f"Objet ajouté au sac !", (0, 0, 0))
 
     def sell_item(self, objet):
         """
@@ -487,9 +489,7 @@ class ItemsPanel:
                 for item_rect in self.emp_rects:
                     if self.rect(item_rect).collidepoint(possouris):
                         item = self.current_buy_item_list[i_item + self.page*10]
-                        if self.game.player.payer(item.buy_price):
-                            self.game.player.add_sac_item(item)
-                            self.game.notif(f"Objet ajouté au sac !", (0, 0, 0))
+                        self.buy_item(item)
                     i_item += 1
         else:
             if self.rect(self.sell_mode_button_rect).collidepoint(possouris):

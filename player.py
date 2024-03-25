@@ -116,7 +116,7 @@ class Player:
                     i += 1
 
             if i != 100:
-                self.sac[i] = item
+                self.sac[i] = objet.Objet(item.name, self.game, item.quantite)
 
         else:
             print(item.quantite)
