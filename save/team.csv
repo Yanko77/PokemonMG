@@ -1,4 +1,4 @@
 Name,level,id,objet_tenu,is_shiny,health,bonus_stat bonus_pvmax bonus_attack bonus_defense bonus_speed,is_alive,attaque_pool
-Carapuce,6,3,None,False,24,0/0/0/0/1.0/1.0/1.0/1.0,True,Charge:35/Aqua-Jet:20/Vibraqua:20/Abri:10
-,,,,,,,
+Flingouste,5,6,None,False,21,0/0/0/0/1/1/1/1,True,Aqua-Jet:20/Vibraqua:20/Abri:10/None
+Goelise,6,7,None,False,22,0/0/0/0/1/1/1/1,True,Picpic:35/Vive-Attaque:30/Ecume:30/None
 ,,,,,,,

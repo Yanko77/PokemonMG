@@ -3,7 +3,7 @@ import random
 
 import image
 import pokemon
-
+import objet
 
 class SpawnPanel:
     def __init__(self, game):
@@ -251,7 +251,13 @@ class SpawnPanel:
         self.game.classic_panel.boolNotif = True
 
     def catch_pk(self):
-        self.is_spawning_pk_lock = False
+        pokeball_index = self.game.player.find_sac_item_by_str('Poke_Ball')
+        if pokeball_index is not None:
+            self.is_spawning_pk_lock = False
+            self.game.player.sac[pokeball_index].quantite -= 1
+            if self.game.player.sac[pokeball_index].quantite == 0:
+                self.game.player.remove_item_sac(pokeball_index)
+
 
         # self.game.player.use_action()
 
