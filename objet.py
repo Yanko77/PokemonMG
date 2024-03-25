@@ -50,11 +50,6 @@ class Objet:
 
         self.set_special_effects()
 
-        self.can_be_buy = int(self.line[4].split(':')[0])
-        self.buy_price = float('inf')
-        if self.can_be_buy:
-            self.buy_price = int(self.line[4].split(':')[1])
-
         self.can_be_sell = int(self.line[5].split(':')[0])
 
         self.sell_price = float('inf')
@@ -71,6 +66,16 @@ class Objet:
                 self.sell_price = int(self.line[5].split(':')[1])
         else:
             self.bool_variable_sell_price = False
+
+        self.can_be_buy = int(self.line[4].split(':')[0])
+        self.buy_price = float('inf')
+        if self.can_be_buy:
+            self.buy_price = int(self.line[4].split(':')[1])
+
+        self.out_of_stock = False
+        if self.buy_price < self.sell_price and self.bool_variable_sell_price:
+            self.can_be_buy = False
+            self.out_of_stock = True
 
         self.desc_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 17)
         self.description = self.line[6][:-1]
@@ -126,6 +131,15 @@ class Objet:
                     self.heal_value = 1000
                 else:  # self.effect == l
                     self.bonus_lv = int(self.line[3].split(':')[2])
+
+    def set_buy_infos(self):
+        if self.variable_sell_price:
+            if self.buy_price < self.sell_price:
+                self.out_of_stock = True
+                self.can_be_buy = False
+            else:
+                self.out_of_stock = False
+                self.can_be_buy = True
 
     def find_item_line(self):
         with open('all_objets.txt') as file:

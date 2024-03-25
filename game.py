@@ -34,6 +34,8 @@ class Game:
         self.general_seed = self.round.get_random_seed()
 
         self.items_list = self.get_all_items_list()
+        self.update_variable_sell_price_items()
+
         self.pokemons_list = self.init_pokemons_list()
         self.special_pokemons_list = self.init_special_pokemons_list()
 
@@ -136,8 +138,14 @@ class Game:
 
         self.classic_panel.next_turn()
         self.next_fighting_dresseur = self.get_fighting_dresseur()
+        self.update_variable_sell_price_items()
 
         # add everything that have to be edited for each turn
+
+    def update_variable_sell_price_items(self):
+        for item in self.items_list['All']:
+            if item.bool_variable_sell_price:
+                item.set_buy_infos()
 
     def get_init_pokemon_id(self):
         id = self.next_pk_id
@@ -163,7 +171,7 @@ class Game:
                 if not item_name == '#':
                     items_list.append(objet.Objet(item_name, self))
 
-            return items_list
+        return items_list
 
     def get_all_items_list(self):
         """
@@ -457,6 +465,8 @@ class Game:
                                                                                                    is_shiny=pk_infos[4] == 'True',
                                                                                                    objet_tenu=pk_item)
                         self.classic_panel.ingame_window.train_panel.training_pk.load_save_infos(pk_infos)
+                        self.classic_panel.ingame_window.train_panel.set_ennemy_pks()
+                        self.classic_panel.ingame_window.train_panel.load_ennemy_pk()
 
                 # Spawning pk
                 if i == 2:

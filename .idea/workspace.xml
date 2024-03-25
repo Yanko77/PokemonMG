@@ -4,14 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="963bc74e-7554-4532-b01c-42122082889e" name="Changes" comment="debug">
+    <list default="true" id="963bc74e-7554-4532-b01c-42122082889e" name="Changes" comment="sell system">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fight.py" beforeDir="false" afterPath="$PROJECT_DIR$/fight.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/items.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/objet.py" beforeDir="false" afterPath="$PROJECT_DIR$/objet.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save/game.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/game.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save/player.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/player.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save/sac.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/sac.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save/team.csv" beforeDir="false" afterPath="$PROJECT_DIR$/save/team.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <list id="1bb68367-f84a-4289-b311-bc7d0fced6a2" name="Changes by matva" comment="" />
     <list id="5bd8204f-3e47-4224-9dc9-08feb0e4d8cc" name="Changes by Yanko" comment="" />
@@ -490,7 +493,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711376692162</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="sell system">
+      <created>1711382966685</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1711382966685</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -506,7 +516,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="status effect in fight.py" />
     <MESSAGE value="rework fight items usable (fix #63)&#10;status effect logs infos in fight.py" />
     <MESSAGE value="Add a few pokemons" />
     <MESSAGE value="Changes by matva on new pokemons" />
@@ -531,6 +540,7 @@
     <MESSAGE value="fix buy item duplication glitch" />
     <MESSAGE value="add mouse wheel scroll &amp; debugging" />
     <MESSAGE value="debug" />
-    <option name="LAST_COMMIT_MESSAGE" value="debug" />
+    <MESSAGE value="sell system" />
+    <option name="LAST_COMMIT_MESSAGE" value="sell system" />
   </component>
 </project>
