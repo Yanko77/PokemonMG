@@ -7,7 +7,7 @@ class ClassicGamePanelButtons:
     def __init__(self):
         self.unlocked_buttons = {'Spawn': True,
                                  'Train': True,
-                                 'Grind': True,
+                                 'Grind': False,
                                  'Items': True,
                                  'Evol': True
                                  }

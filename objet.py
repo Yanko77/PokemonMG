@@ -50,11 +50,6 @@ class Objet:
 
         self.set_special_effects()
 
-        self.can_be_buy = int(self.line[4].split(':')[0])
-        self.buy_price = float('inf')
-        if self.can_be_buy:
-            self.buy_price = int(self.line[4].split(':')[1])
-
         self.can_be_sell = int(self.line[5].split(':')[0])
 
         self.sell_price = float('inf')
@@ -63,7 +58,6 @@ class Objet:
             if self.line[5].split(':')[1] == 'v':
                 self.bool_variable_sell_price = True
                 self.variable_sell_price = [int(self.line[5].split(':')[2].split('-')[0]), int(self.line[5].split(':')[2].split('-')[1])]
-                self.set_sell_price()
             else:
                 self.bool_variable_sell_price = False
                 self.variable_sell_price = [int(self.line[5].split(':')[1]),
@@ -71,6 +65,13 @@ class Objet:
                 self.sell_price = int(self.line[5].split(':')[1])
         else:
             self.bool_variable_sell_price = False
+
+        self.can_be_buy = int(self.line[4].split(':')[0])
+        self.buy_price = float('inf')
+        if self.can_be_buy:
+            self.buy_price = int(self.line[4].split(':')[1])
+
+        self.set_sell_price()
 
         self.desc_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 17)
         self.description = self.line[6][:-1]
@@ -146,6 +147,9 @@ class Objet:
 
     def set_sell_price(self):
         self.sell_price = self.get_sell_price()
+
+        if self.sell_price > self.buy_price:
+            self.can_be_buy = False
 
     def get_sell_price(self):
         return self.game.get_item_price(self)

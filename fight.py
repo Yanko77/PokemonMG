@@ -859,13 +859,13 @@ class Fight:
         # level up du pokemon
         if self.difficult == 'easy':
             self.player_pk.level_up()
-            self.game.player.add_money(250)
+            self.game.player.add_money(random.randint(150, 350))
         elif self.difficult == 'normal':
             self.player_pk.level_up(2)
-            self.game.player.add_money(500)
+            self.game.player.add_money(random.randint(350, 650))
         elif self.difficult == 'hard':
             self.player_pk.level_up(3)
-            self.game.player.add_money(850)
+            self.game.player.add_money(random.randint(650, 1050))
 
         return rewards
 
@@ -878,9 +878,6 @@ class Fight:
 
             for reward in rewards:
                 self.game.player.add_sac_item(reward)
-
-            # TEMPORAIRE
-            self.game.player.add_sac_item(objet.Objet('Potion',self.game))
 
             self.player_pk.heal(self.player_pk.passive_heal)  # Heal le pokémon du joueur selon son heal passif
             self.player_pk.reset_status()

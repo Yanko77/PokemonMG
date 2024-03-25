@@ -29,11 +29,11 @@ Cuillere_Tordue     1:55:1-1    Objets          Give:p:psy      1:3000      1:75
 Aimant              1:55:1-1    Objets          Give:p:acier    1:3000      1:750           Augmente la puissance des attaques de type ELECTRIC de 20%. A tenir: Cliquer-Glisser dans Equipe
 Vive_Griffe         1:45:1-1    Objets          Give:special    1:8000      1:2000          Une griffe legere offrant 50% de chance au pokemon qui la tient de frapper en premier. A tenir: Cliquer-Glisser dans Equipe
 Bandeau_Muscle      1:40:1-1    Objets          Give:special    1:2500      1:1250          Tenu par un pokemon, augmente la puissance de ses attaques de 10%. A tenir: Cliquer-Glisser dans Equipe
-Poussiere_Etoile    1:70:1-2    Marchandises    Sell            0           1:15000         Item tres prise. Uniquement revendable au shop. A Vendre: Items.
-Poussiere_Bleute    1:70:1-1    Marchandises    Sell            1:10000     1:v:8000-15000  Item dont le prix varie aleatoirement. Investie ton argent intelligement. Revendable au shop. A Vendre: Items.
-Poussiere_Jaunete   1:70:1-1    Marchandises    Sell            1:10001     1:v:0-20000     Comme la Poussiere Bleute mais jaune. La variation de prix est encore plus aleatoirement. A Vendre: Items.
+Poussiere_Etoile    1:80:1-2    Marchandises    Sell            0           1:15000         Item tres prise. Uniquement revendable au shop. A Vendre: Items.
+Poussiere_Bleute    1:80:1-1    Marchandises    Sell            1:10000     1:v:8000-15000  Item dont le prix varie aleatoirement. Investie ton argent intelligement. Revendable au shop. A Vendre: Items.
+Poussiere_Jaunete   1:80:1-1    Marchandises    Sell            1:10001     1:v:0-20000     Comme la Poussiere Bleute mais jaune. La variation de prix est encore plus aleatoirement. A Vendre: Items.
 # Poussiere_Noire   0:0:0-0     Marchandises    Sell            0           1:50000         tu peux le craft en combinant les Poussiere coute extremment cher a la revente!
-Poudre_Verdatre     1:55:1-3    Marchandises    Sell            0           1:1000          Butin super rare !!! Se revend pour 1000 au shop :) A Vendre: Items.
+Poudre_Verdatre     1:60:1-3    Marchandises    Sell            0           1:1000          Butin super rare !!! Se revend pour 1000 au shop :) A Vendre: Items.
 Collier_Agathe      1:80:1-1    Objets          Give:special    1:15000     1:5000          Tant qu'il est tenu par un pokemon, ce dernier voit ses PVmax diminuer de 20% mais il est full HP apres chaque combat. A tenir: Cliquer-Glisser dans Equipe
 Casquette_de_Nathan 1:93:1-1    Objets_rares    Give:special    1:100000    0               Equipable uniquement sur Tyranocif. Augmente toutes les stats de Tyranocif de 25%. A tenir: Cliquer-Glisser dans Equipe
 Charme_Chroma       1:97:1-1    Objets_rares    Enable          0           0               Une fois utilisee, tous les pokemons deviennent shiny :) Activable: Clic droit.

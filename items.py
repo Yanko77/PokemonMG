@@ -509,6 +509,9 @@ class ItemsPanel:
         """
         if objet.can_be_buy:
             if self.game.player.payer(objet.buy_price):  # Le joueur paye s'il peut
+                if objet.categorie == 'Objets_rares':
+                    objet.can_be_buy = False
+
                 self.game.player.add_sac_item(item=objet)
                 self.game.notif(f"Objet ajouté au sac !", (0, 0, 0))
 
@@ -524,6 +527,7 @@ class ItemsPanel:
         if objet.can_be_sell:
             self.game.player.money += objet.sell_price
             objet.quantite -= 1
+            self.game.notif(f"Objet vendu !", (0, 0, 0))
 
     def tri_croisant_prix(self, liste_objet: list, mode='Buy') -> list:
         if mode == 'Buy':

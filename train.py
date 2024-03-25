@@ -109,6 +109,7 @@ class TrainPanel:
 
         self.ennemy_pks_backup = {}
 
+        self.set_ennemy_pks()
         self.load_ennemy_pk()
 
         self.ennemy_pk_icon_pos = (455, 273)
@@ -408,18 +409,18 @@ class TrainPanel:
         """
         Methode d'actualisation des pokémons ennemis en fonction du pokémon à entrainer du joueur
         """
-
-        if self.training_pk.get_id() in self.ennemy_pks_backup.keys():
-            self.ennemy_pks = self.ennemy_pks_backup[self.training_pk.get_id()]
-            self.ennemy_pk = self.ennemy_pks[self.difficult]
-        else:
-            self.ennemy_pks = {
-                'easy': self.spawn_ennemy_pk('easy'),
-                'normal': self.spawn_ennemy_pk('normal'),
-                'hard': self.spawn_ennemy_pk('hard')
-            }
-            self.ennemy_pk = self.ennemy_pks[self.difficult]
-            self.ennemy_pks_backup[self.training_pk.get_id()] = self.ennemy_pks
+        if self.training_pk is not None:
+            if self.training_pk.get_id() in self.ennemy_pks_backup.keys():
+                self.ennemy_pks = self.ennemy_pks_backup[self.training_pk.get_id()]
+                self.ennemy_pk = self.ennemy_pks[self.difficult]
+            else:
+                self.ennemy_pks = {
+                    'easy': self.spawn_ennemy_pk('easy'),
+                    'normal': self.spawn_ennemy_pk('normal'),
+                    'hard': self.spawn_ennemy_pk('hard')
+                }
+                self.ennemy_pk = self.ennemy_pks[self.difficult]
+                self.ennemy_pks_backup[self.training_pk.get_id()] = self.ennemy_pks
         
     def load_ennemy_pk(self):
         """
