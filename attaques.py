@@ -3,6 +3,12 @@ import random
 
 
 class Attaque:
+    """
+    Classe représentant une l'attaque d'un pokémon.
+    Une attaque est définie par son nom et son nombre de PP (optionnel, utile uniquement si on veut charger
+        une attaque qui n'a pas son nombre de PP initial au maximum).
+    Les PP sont les Points de Pouvoir. Si les PP d'une attaque tombent à 0, elle ne peut plus être lancée.
+    """
 
     def __init__(self, name, pp=None):
         self.name = name
@@ -53,19 +59,52 @@ class Attaque:
         self.special_effect = self.line[7].split(',')
         self.special_effect = [effet.split(':') for effet in self.special_effect]
 
-    def get_stats(self):
+    def get_stats(self) -> tuple:
+        """
+        Methode qui retourne toutes les stats de l'attaque :
+        - Son type, str
+        - Son nombre de PP, int
+        - Sa puissance, int (ou str si puissance spéciale)
+        - Sa precision, int
+        - Ses chances de critique, float
+        - Sa priorité, int
+        - Ses effets spéciaux, list
+
+        @out: tuple
+        """
         return self.type, self.pp, self.puissance, self.precision, self.taux_crit, self.priorite, self.special_effect
 
-    def get_name(self, mode_affichage=False):
+    def get_name(self, mode_affichage=False) -> str:
+        """
+        Méthode qui retourne le nom de l'attaque.
+        Retourne le nom à afficher si mode_affichage est True.
+        Retourne le nom en interne du jeu sinon.
+
+        Exemple avec l'attaque Croc Fatal :
+                nom en interne du jeu : "Croc_Fatal"
+                nom à afficher : "Croc Fatal"
+
+        @in: mode_affichage, bool
+        @out: str
+        """
         if mode_affichage:
             return self.name_
         else:
             return self.name
 
-    def set_pp(self, amount):
+    def set_pp(self, amount: int):
+        """
+        Methode qui permet de définir le nombre de PP de l'attaque.
+        @in: amoount, int
+        """
         self.pp = amount
 
-    def reformate_name(self):
+    def reformate_name(self) -> str:
+        """
+        Methode de reformatage du nom de l'attaque.
+        Tranforme le nom en interne du jeu en nom à afficher pour le joueur.
+        @out: name, str
+        """
         name = ''
         for mot in self.name.split("_"):
             if mot == 'a':
@@ -79,6 +118,10 @@ class Attaque:
         return name
 
     def find_attaque_line(self) -> list:
+        """
+        Methode qui trouve, lit et renvoie le ligne d'infos de l'attaque.
+        @out: list
+        """
         with open('all_attaques.txt') as file:
             for line in file.readlines():
                 if line.split()[0] == self.name:
