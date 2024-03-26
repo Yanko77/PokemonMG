@@ -1,3 +1,7 @@
+"""
+Fichier contenant les fonctions de calcul du selection de l'action à réaliser par les PNJ (Personnage Non-Joueur) durant un combat.
+"""
+
 # importation des modules
 import pokemon
 import game_infos
@@ -7,7 +11,17 @@ SPEED_HEAL = 333  # valeur entre 0 et 1000
 
 
 # declaration des fonctions
-def calcul_degats(pk, ennemy_pk, attaque, crit=False):
+def calcul_degats(pk, ennemy_pk, attaque, crit=False) -> int:
+    """
+    Methode de calcul des dégats simulés d'une attaque du pokémon du PNJ sur le pokémon du joueur.
+    Retourne le montant de dégats de la simulation sur le pokémon du joueur.
+    
+    @in: pk, pokemon.Pokemon => Pokémon du PNJ
+    @in: ennemy_pk, pokemon.Pokemon => Pokémon du joueur
+    @in: attaque, attaque.Attaque => Attaque simulée
+    @in: crit, bool => True si l'attaque critique, False sinon
+    @out: degats, int
+    """
     if attaque.puissance != 0 and ennemy_pk.is_vulnerable:
         cm = 1
         # Calcul avec stab ( attaque de type maternel )
@@ -51,7 +65,16 @@ def calcul_degats(pk, ennemy_pk, attaque, crit=False):
     return degats
 
 
-def get_npc_action(pk, ennemy_pk, att:list):
+def get_npc_action(pk, ennemy_pk, att: list) -> attaque.Attaque:
+    """
+    Methode de selection de la meilleure action à réaliser pour le pokémon du PNJ.
+    Retourne l'attaque à réaliser.
+
+    @in: pk, pokemon.Pokemon => Pokémon du PNJ
+    @in: ennemy_pk, pokemon.Pokemon => Pokémon du joueur
+    @in: att, list => liste d'attaque du pokémon du PNJ
+    @out: attaque.Attaque => Meilleure attaque à réaliser pour le pokémon du PNJ
+    """
     score = []
     is_killing = []
     for attaque in att:
