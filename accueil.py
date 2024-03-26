@@ -2,7 +2,10 @@ import pygame
 
 
 class Accueil:
-
+    """
+    Classe représentant l'écran d'accueil du jeu.
+    """
+    
     def __init__(self, game):
         self.game = game
         self.PATH = 'assets/accueil/'
@@ -52,6 +55,9 @@ class Accueil:
         self.buttons = []
 
     def update(self, surface, possouris):
+        """
+        Méthode d'actualisation de l'affichage.
+        """
         if self.intro:
             self.update_intro(surface)
         else:
@@ -86,7 +92,7 @@ class Accueil:
 
     def update_home_screen(self, surface, possouris):
         """
-        Methode d'actualisation de l'écran d'accueil
+        Methode d'actualisation de l'affichage de l'écran d'accueil
         """
         surface.fill((0, 0, 0))
 
@@ -170,6 +176,9 @@ class Accueil:
         self.home_screen_compteur = 0
 
     def left_clic_interactions(self, possouris):
+        """
+        Méthode gérant les interactions de clic gauche de l'utilisateur avec l'écran d'accueil.
+        """
         if self.home_screen_compteur > 55:
             i = 0
             for button in self.buttons:
@@ -181,7 +190,11 @@ class Accueil:
                 if self.back_button_rect.collidepoint(possouris):
                     self.clic('back')
 
-    def is_hovering_buttons(self, possouris):
+    def is_hovering_buttons(self, possouris) -> bool:
+        """
+        Méthode qui détecte si le joueur pointe le curseur de la souris sur un bouton de l'écran d'accueil.
+        Retourne un booléen : True si le curseur est sur un bouton, False sinon
+        """
         if self.home_screen_compteur > 55:
             i = 0
             for rect in self.buttons_rect:
@@ -197,7 +210,12 @@ class Accueil:
             return False
         return False
 
-    def img_load(self, path):
+    def img_load(self, path: str) -> pygame.Surface:
+        """
+        Methode de chargement d'image dépendant du chemin d'accès (self.PATH, une constante).
+        Retourne une surface pygame.
+        @in: path, chemin d'accès du fichier depuis self.PATH
+        """
         return pygame.image.load(f'{self.PATH}{path}.png')
 
 
