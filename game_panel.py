@@ -137,6 +137,9 @@ class GamePanel:
     # UPDATES -----------------------------
 
     def update(self, surface, possouris):
+        """
+        Methode d'actualisation de l'affichage de l'ecran principal du jeu.
+        """
         # BACKGROUND
         if self.game.player.actions > 0:
             surface.blit(self.background, (0, 0))
@@ -180,6 +183,9 @@ class GamePanel:
         self.update_player_name_editing_mode(surface)
 
     def update_fight_popup(self, surface, possouris):
+        """
+        Methode d'actualisation de l'affichage du popup FIGHT.
+        """
         surface.blit(self.fight_popup, (0, 0))
 
         # BUTTONS
@@ -214,6 +220,9 @@ class GamePanel:
         surface.blit(self.dresseur_info_font.render(str(self.game.next_fighting_dresseur.pk.get_level()), False, (255, 255, 0)), (424, 226))
 
     def update_player_infos(self, surface, possouris):
+        """
+        Methode d'actualisation de l'affichage des infos du joueur.
+        """
         # PLAYER NAME
         self.display_player_name(surface, possouris)
 
@@ -227,9 +236,15 @@ class GamePanel:
         surface.blit(self.actions_font.render(str(self.game.player.actions), False, (0, 0, 0)), (385, 12))
 
     def update_player_name(self):
+        """
+        Methode d'actualisation de l'image du nom du joueur
+        """
         self.player_name_text = self.font.render(self.game.player.name, False, (15, 0, 124))
 
     def display_player_name(self, surface, possouris):
+        """
+        Methode d'actualisation de l'affichage du nom du joueur.
+        """
         surface.blit(self.player_name_text, (662, 10))
 
         if self.game.player.name == "Nom":
@@ -248,6 +263,9 @@ class GamePanel:
                 surface.blit(self.player_name_hover, (0, 0))
 
     def update_player_lv(self, surface):
+        """
+        Methode d'actualisation de l'affichage du niveau du joueur.
+        """
         self.player_lv_image = self.font_size3.render(str(self.game.player.level), False, (124, 124, 124))
         if self.game.player.level >= 10:
             surface.blit(self.player_lv_image, (955, 73))
@@ -255,6 +273,9 @@ class GamePanel:
             surface.blit(self.player_lv_image, (965, 73))
 
     def update_hover_pokemon(self):
+        """
+        Methode d'actualisation du pokémon sur lequel pointe le curseur de souris.
+        """
         is_a_pk_hover = False
         for pk_i in range(6):
             if self.current_hover_pokemon_register[pk_i]:
@@ -264,10 +285,16 @@ class GamePanel:
             self.current_hover_pokemon = None
 
     def update_player_name_editing_mode(self, surface):
+        """
+        Methode d'actualisation de l'affichage du mode d'edition du nom du joueur.
+        """
         if self.player_name_editing_mode:
             surface.blit(self.mode_changement_pseudo_image, (0, 0))
 
     def update_team_pokemons(self, surface, possouris):
+        """
+        Methode d'actualisation de l'affichage de l'equipe du joueur.
+        """
         # Bouton delete pokemon
         if self.pk_move_mode:
             if self.delete_pk_button_rect.collidepoint(possouris):
