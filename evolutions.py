@@ -2,6 +2,10 @@ import pygame
 
 
 class EvolPanel:
+    """
+    Classe représentant le panel de l'action Evolution.
+    Définie par la game.
+    """
 
     def __init__(self, game):
         self.game = game
@@ -34,6 +38,13 @@ class EvolPanel:
         self.window_pos = (1, 1)
 
     def update(self, surface, possouris, window_pos):
+        """
+        Methode d'actualisation de l'affichage du panel Evolution.
+
+        @in: surface, pygame.Surface => fenetre du jeu
+        @in: possouris, list => coordonées courantes de la souris
+        @in: window_pos, list => coordonnées de la fenêtre ingame.
+        """
         if self.window_pos != window_pos:
             self.update_rects(window_pos)
 
@@ -43,6 +54,9 @@ class EvolPanel:
         self.update_pk_emp(surface, possouris)
 
     def update_evol_pk(self, surface, possouris):
+        """
+        Methode d'actualisation de l'affichage du pokémon à évoluer.
+        """
         if self.pk_move_mode:
             pk_rect = pygame.Rect(possouris[0] - self.moving_pk_rel_possouris[0],
                                   possouris[1] - self.moving_pk_rel_possouris[1],
@@ -113,11 +127,19 @@ class EvolPanel:
                         self.add_pk_to_team(5)
 
     def add_pk_to_team(self, team_i):
+        """
+        Methode qui ajoute un pokémon à l'équipe (redondance avec une méthode de l'objet Player)
+
+        @in: team_i, int => indice du pokémon dans l'équipe.
+        """
         if self.game.player.team[team_i] is None:
             self.game.player.team[team_i] = self.evolving_pk
             self.evolving_pk = None
 
     def update_pk_emp(self, surface, possouris):
+        """
+        Methode d'actualisation de l'affichage de l'emplacement pokémon à évoluer.
+        """
         surface.blit(self.pk_emp, self.pk_emp_pos)
 
         if self.evolving_pk_rect.collidepoint(possouris):
@@ -127,6 +149,9 @@ class EvolPanel:
         self.update_evol_pk(surface, possouris)
 
     def update_evol_button(self, surface, possouris):
+        """
+        Methode d'actualisation de l'affichage du bouton pour évoluer.
+        """
 
         if self.evol_button_rect.collidepoint(possouris):
             surface.blit(self.evol_button, self.evol_button_rect, (138, 0, 138, 140))
@@ -153,7 +178,10 @@ class EvolPanel:
             self.evolving_pk = self.game.player.team[self.game.classic_panel.moving_pk.index(True)]
             self.game.player.team[self.game.classic_panel.moving_pk.index(True)] = None
 
-    def update_rects(self, window_pos):
+    def update_rects(self, window_pos: list):
+        """
+        Methode d'actualisation des positions des rects du panel en fonction de la position de la fenetre ingame.
+        """
         self.window_pos = window_pos.copy()
 
         self.background_pos = self.window_pos.copy()
