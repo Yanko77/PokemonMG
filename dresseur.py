@@ -7,6 +7,16 @@ import objet
 
 
 class Dresseur:
+    """
+    Classe représentant un dresseur (PNJ).
+    Un dresseur est défini par:
+    - Son nom, str
+    - La game dans laquelle il intervient, game.Game
+    - Sa classe, str
+    - Sa puissance, int
+    - La liste de pokémons qu'il peut posséder, list
+    - Le pokémon qu'il possède s'il est déjà déterminé, pokemon.Pokemon
+    """
 
     def __init__(self, name: str, game, dresseur_type='Classic', power=1, pk_lists=None, pk=None):
         self.game = game
@@ -28,6 +38,9 @@ class Dresseur:
         self.init_inventory()
 
     def init_pk(self):
+        """
+        Methode qui initialise et/ou détermine le pokémon du dresseur.
+        """
         # Eviter les erreurs de None != []
         if self.pk_lists is None:
             self.pk_lists = []
@@ -46,6 +59,9 @@ class Dresseur:
                 self.pk = pokemon.Pokemon(pk_name, self.get_pk_level(), self.game)
 
     def init_inventory(self):
+        """
+        Methode qui initialise l'inventaire du dresseur et détermine son contenu.
+        """
         temp_items = {}
         if self.type == 'Classic':
             nb_items = random.randint(self.power - 1, self.power + 1)
@@ -61,7 +77,14 @@ class Dresseur:
             self.inventory.append(objet.Objet(item_name,self.game, quantite=temp_items[item_name]))
             # print(f'{item_name} added')
 
-    def get_pk_level(self):
+    def get_pk_level(self) -> int:
+        """
+        Methode qui calcul le niveau du pokémon du dresseur.
+
+        Ce niveau est calculé de manière aléatoire dans un intervalle de 2 valeurs entières.
+
+        @out: int => niveau du pokémon.
+        """
         min_lv = round((self.game.player.level ** 1.9) * 0.30 + 5)
         max_lv = round((self.game.player.level ** 1.9) * 0.35 + 6)
 
@@ -70,7 +93,16 @@ class Dresseur:
 
         return r.randint(min_lv, max_lv)
 
-    def get_infos(self):
+    def get_infos(self) -> tuple:
+        """
+        Methode qui retourne les infos du dresseur:
+        - Son nom, str
+        - Sa classe, str
+        - Sa puissance, int
+        - Son inventaire, list
+
+        @out: tuple
+        """
         return self.name, self.type, self.power, self.inventory
 
 
@@ -96,25 +128,24 @@ Guzma 3
 Kiawe 2
 
 TEMPLATE :
-
 class Name(Dresseur):
 
     def __init__(self, game):
         super().__init__('', game, power=2)
         self.pokemons_list = ['', '', '', '']
-
 '''
 
 
 class Sauvage(Dresseur):
-
     def __init__(self, game, pk):
         super().__init__('Sauvage', game, dresseur_type='Sauvage', pk=pk)
         self.init_pk()
 
 
 class Alizee(Dresseur):
-
+    """
+    Classe représentant le dresseur du nom de Alizee.
+    """
     def __init__(self, game, pk=None):
         super().__init__('Alizée', game, power=3,
                          pk_lists=[
@@ -131,7 +162,9 @@ class Alizee(Dresseur):
 
 
 class Red(Dresseur):
-
+    """
+    Classe représentant le dresseur du nom de Red.
+    """
     def __init__(self, game, pk=None):
         super().__init__('Red', game, power=4,
                          # pk_lists=["Red's Pikachu", 'Mentali', 'Ronflex', 'Tortank', 'Florizarre', 'Lokhlass',
@@ -150,6 +183,9 @@ class Red(Dresseur):
 
 
 class Blue(Dresseur):
+    """
+    Classe représentant le dresseur du nom de Blue.
+    """
 
     def __init__(self, game, pk=None):
         super().__init__('Blue', game, power=4,
@@ -167,6 +203,9 @@ class Blue(Dresseur):
 
 
 class Pierre(Dresseur):
+    """
+    Classe représentant le dresseur du nom de Pierre.
+    """
 
     def __init__(self, game, pk=None):
         super().__init__('Pierre', game, power=3,
@@ -186,6 +225,9 @@ class Pierre(Dresseur):
 
 
 class Ondine(Dresseur):
+    """
+    Classe représentant le dresseur du nom de Ondine.
+    """
 
     def __init__(self, game, pk=None):
         super().__init__('Ondine', game, power=3,
@@ -205,6 +247,9 @@ class Ondine(Dresseur):
 
 
 class Olea(Dresseur):
+    """
+    Classe représentant le dresseur du nom de Oléa.
+    """
 
     def __init__(self, game, pk=None):
         super().__init__('Oléa', game, power=2,
@@ -223,6 +268,9 @@ class Olea(Dresseur):
 
 
 class Iris(Dresseur):
+    """
+    Classe représentant le dresseur du nom de Iris.
+    """
 
     def __init__(self, game, pk=None):
         super().__init__('Iris', game, power=2, pk_lists=['Emolga', 'Griknot', 'Dracolosse', 'Vipélierre'], pk=pk)
@@ -230,6 +278,12 @@ class Iris(Dresseur):
 
 
 def get_dresseur_by_name(name):
+    """
+    Fonction qui retourne la classe du dresseur à partir de son nom (prise en compte des accents !).
+
+    @in: name, str
+    @out: dresseur_class issu de la super-classe Dresseur.
+    """
     if name == 'Iris':
         return Iris
     elif name == 'Oléa':
