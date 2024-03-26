@@ -19,6 +19,10 @@ from game_round import Round
 
 
 class Game:
+    """
+    Classe représentant le jeu.
+    Initialise tous les elements du jeu.
+    """
     def __init__(self):
         self.is_playing = False
         self.is_accueil = True
@@ -65,6 +69,9 @@ class Game:
         self.bool_game_over = False
 
     def update(self, screen, possouris):
+        """
+        Methode d'actualisation de l'affichage du jeu
+        """
 
         if self.is_playing:
             if self.is_starter_selected:
@@ -84,33 +91,63 @@ class Game:
         self.notifs.update(screen)
 
     def notif(self, text, color):
+        """
+        Methode permettant d'emettre une notification.
+
+        @in: text, str
+        @in: color, tuple
+        """
         self.notifs.new_notif(text, color)
 
     def get_fighting_dresseur(self):
+        """
+        Methode permettant de determiner et de retourner le dresseur à combattre lors du combat final de fin de tour.
+
+        @out: dresseur.Dresseur class
+        """
+        
         r = random.Random()
         return r.choice(fight.DRESSEUR_LIST)(self)
         # return fight.Red(self)
 
     def init_new_game(self):
+        """
+        Methode d'initialisation d'une nouvelle partie.
+        """
         self.is_starter_selected = False
         self.player.add_sac_item(objet.Objet('Poke_Ball', self, 3))
 
     def create_new_game(self):
+        """
+        Methode de création d'une nouvelle partie.
+        """
         self.init_new_game()
 
     def start_new_game(self):
+        """
+        Methode de démarrage d'une nouvelle partie.
+        """
         self.is_accueil = False
         self.create_new_game()
 
     def load_game(self):
+        """
+        Methode de lancement d'une partie à charger depuis les fichiers de sauvegarde.
+        """
         self.is_accueil = False
         self.is_starter_selected = True
         self.load()
 
     def game_over(self):
+        """
+        Methode permettant de relancer le jeu après qu'il se soit terminé.
+        """
         self.__init__()
 
     def start_fight(self, player_pk, dresseur=None, difficult="easy", fight_type='Classic'):
+        """
+        Methode de lancement de combat.
+        """
         if fight_type == 'Classic':
             self.init_fight(player_pk, dresseur, difficult, fight_type)
             self.is_fighting = True
@@ -119,19 +156,32 @@ class Game:
             self.is_fighting = True
 
     def cancel_fight(self):
+        """
+        Methode d'annulation du combat en cours.
+        """
         self.current_fight = None
         self.is_fighting = False
 
     def end_fight(self):
+        """
+        Methode de fin du combat en cours.
+        """
         if self.current_fight.fight_type == 'Boss':
             self.next_turn()
         self.current_fight = None
         self.is_fighting = False
 
     def init_fight(self, player_pk, dresseur=None, difficult='easy', fight_type='Classic'):
+        """
+        Methode d'initialisation d'un combat.
+        """
+        
         self.current_fight = Fight(self, player_pk, dresseur, difficult, fight_type)
 
     def next_turn(self):
+        """
+        Methode permettant de passer au tour de jeu suivant.
+        """
         self.round.next()
         self.update_random_seed()
         self.player.next_turn()
@@ -142,12 +192,20 @@ class Game:
 
         # add everything that have to be edited for each turn
 
-    def get_init_pokemon_id(self):
+    def get_init_pokemon_id(self) -> int:
+        """
+        Methode permettant de récupérer l'id unique d'un pokémon.
+
+        @out: id, int => id unique.
+        """
         id = self.next_pk_id
         self.next_pk_id += 1
         return id
 
     def update_variable_item_price(self):
+        """
+        Methode permettant d'actualiser le prix variables des objets concernés.
+        """
         for item in self.items_list['All']:
             item.set_sell_price()
 
@@ -162,7 +220,13 @@ class Game:
         else:
             return item.sell_price
 
-    def init_items_list(self):
+    def init_items_list(self) -> list:
+        """
+        Methode d'initialisation de la liste de tous les items du jeu.
+
+        @out: list
+        """
+        
         with open('all_objets.txt', 'r') as file:
             items_list = []
             for line in file.readlines():
@@ -172,8 +236,10 @@ class Game:
 
         return items_list
 
-    def get_all_items_list(self):
+    def get_all_items_list(self) -> dict:
         """
+        Methode qui retourne la liste de tous les items du jeu.
+        
         Retourne le dict: {
             'All': all_items
             'Use': use_items,
@@ -183,7 +249,7 @@ class Game:
             'Spawnble': spawnable_items
              }
 
-        :return: items_list, dict
+        @out: items_list, dict
         """
 
         items_list = {
@@ -210,9 +276,17 @@ class Game:
         return items_list
 
     def get_items_list(self):
+        """
+        Methode qui renvoie le liste des objets du jeu.
+        """
         return self.items_list
 
-    def init_pokemons_list(self):
+    def init_pokemons_list(self) -> list:
+        """
+        Methode d'initialisation de la liste de tous les pokémons du jeu.
+
+        @out: list
+        """
         with open('all_pokemons.csv', newline='') as file:
             pokemons_list = {}
             lines = csv.reader(file, delimiter=',', quotechar='|')
@@ -236,7 +310,12 @@ class Game:
                     )
             return pokemons_list
 
-    def init_special_pokemons_list(self):
+    def init_special_pokemons_list(self) -> list:
+        """
+        Methode d'initialisation de la liste de tous les pokémon spéciaux du jeu.
+
+        @out: list
+        """
         with open('special_pokemons.csv', newline='') as file:
             pokemons_list = {}
             lines = csv.reader(file, delimiter=',', quotechar='|')
@@ -260,9 +339,11 @@ class Game:
                     )
             return pokemons_list
 
-    def get_total_items_rarity(self):
+    def get_total_items_rarity(self) -> int:
         """
         Methode qui renvoie la somme de toutes les raretés des objets du jeu obtenable via spawn
+
+        @out: int
         """
         total_rarity = 0
         for OBJECT in self.get_items_list()['Spawnable']:
@@ -270,9 +351,15 @@ class Game:
         return total_rarity
 
     def update_random_seed(self):
+        """
+        Methode d'actualisation de la seed aléatoire du jeu.
+        """
         self.general_seed = self.round.get_random_seed()
 
     def save(self):
+        """
+        Méthode d'écriture de la sauvegarde du jeu.
+        """
         # save team
         with open('save/team.csv', newline='') as file:
             rows = csv.reader(file, delimiter=',')
@@ -361,7 +448,7 @@ class Game:
 
     def write_down_backup(self, file_name: str, listecsv: list):
         """
-        Methode qui écrit la sauvegarde dans le fichier en mémoire
+        Methode qui écrit la sauvegarde dans le fichier en mémoire.
         """
         with open(f'save/{file_name}', 'w', newline='') as file:
             rows = csv.writer(file)
@@ -370,7 +457,7 @@ class Game:
 
     def load(self):
         """
-        Methode qui charge la sauvegarde
+        Methode qui charge la sauvegarde du jeu.
         """
         # Team
         with open('save/team.csv') as team_file:
