@@ -16,13 +16,19 @@ DRESSEUR_LIST = [Alizee, Olea, Ondine, Pierre, Blue, Red]
 
 
 class Fight:
+    """
+    Classe représentant un combat entre le pokémon du joueur, et un dresseur (PNJ)
+    
+    Classe définie par:
+    - La game, game.Game
+    - Le pokémon du joueur, pokemon.Pokemon
+    - Le dresseur
+    - La difficulté du combat, str
+    - Le type de combat, str ('Classic' ou 'Boss')
+    
+    """
 
     def __init__(self, game, player_pk, dresseur=None, difficult='easy', fight_type='Classic'):
-        """
-        La classe Fight est définie par:
-        - Le pokemon envoyé par le joueur (player_pk)
-        - Le dresseur à affronter (dresseur_class)
-        """
         self.game = game
         self.player_pk = player_pk
         self.dresseur = self.init_dresseur(dresseur)
@@ -174,6 +180,9 @@ class Fight:
         self.saved_dresseur_pk_pv = self.dresseur.pk.health
 
     def update(self, surface, possouris):
+        """
+        Methode d'actualisation de l'affichage du combat.
+        """
 
         if not self.boolEnding:
 
@@ -209,16 +218,23 @@ class Fight:
                 pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
     def init_dresseur(self, dresseur=None):
+        """
+        Methode d'initialisation du dresseur.
+        Retourne la classe d'objet du dresseur.
+        """
         r = random.Random()
         r.seed(self.game.round.random_seed)
 
         if dresseur is None:
-            # dresseur = r.choice(DRESSEUR_LIST)
-            return r.choice([Alizee, Blue])(self.game)
+            dresseur = r.choice(DRESSEUR_LIST)
 
         return dresseur
 
     def update_end_panel(self, surface, possouris):
+        """
+        Methode d'actualisation de l'affichage du panel de fin de combat.
+        """
+
         if self.compteur_end < 200:
             self.is_animating_end_panel = True
         else:
@@ -239,15 +255,24 @@ class Fight:
             # surface.blit(self.end_fight_panel, (0, 0))
 
     def update_current_action(self, possouris):
+        """
+        Methode permettant de modifier l'action en cours du joueur.
+        """
         if self.current_action is not None:
             if not self.item_moving_mode:
                 if not self.current_action_rect.collidepoint(possouris):
                     self.current_action = None
 
     def update_turn_exec_info(self, surface):
+        """
+        Methode d'actualisation de l'affichage des infos d'execution du tour du combat.
+        """
         surface.blit(self.turn_exec_info_font.render(self.turn_exec_info, False, (255, 255, 255)), (502, 9))
 
     def update_fight_buttons(self, surface, possouris):
+        """
+        Methode d'actualisation de l'affichage des boutons du combat.
+        """
         if self.fight_result is None:
 
             # Si aucun bouton n'a été cliqué
@@ -354,6 +379,9 @@ class Fight:
                 surface.blit(self.fin_du_combat_button, self.fin_du_combat_button_rect, (0, 0, 424, 101))
 
     def update_pokemons(self, surface):
+        """
+        Methode d'actualisation de l'affichage des pokémons (Celui du joueur et celui du dresseur).
+        """
         # Pokemon du joueur
         # Icone
         surface.blit(pygame.transform.scale(self.player_pk.icon_image, (700, 350)), (180, 270), (0, 0, 350, 350))
@@ -427,6 +455,9 @@ class Fight:
 
 
     def animate_player_pk_damage(self, surface):
+        """
+        Methode d'actualisation de l'affichage de l'animation de la barre rouge de dégats subis par le pokémon du joueur.
+        """
         if self.player_pk.health < self.saved_player_pk_pv:
 
             # Barre de vie rouge
@@ -439,6 +470,9 @@ class Fight:
             self.saved_player_pk_pv = self.player_pk.health
 
     def animate_dresseur_pk_damage(self, surface):
+        """
+        Methode d'actualisation de l'affichage de l'animation de la barre rouge de dégats subis par le pokémon du dresseur.
+        """
         if self.dresseur.pk.health < self.saved_dresseur_pk_pv:
 
             # Barre de vie rouge
@@ -451,6 +485,9 @@ class Fight:
             self.saved_dresseur_pk_pv = self.dresseur.pk.health
 
     def sac_item_update(self, surface, possouris, item, i):
+        """
+        Methode d'actualisation de l'affichage de l'emplacement d'objet dans l'action 'SAC'.
+        """
         if self.item_moving_mode and self.item_moving_i == i:
             item_rect = pygame.Rect(possouris[0] - self.current_moving_item_rel_possouris[0],
                                     possouris[1] - self.current_moving_item_rel_possouris[1],
@@ -499,6 +536,9 @@ class Fight:
                                     self.executing_turn = True
 
     def sac_curseur_update(self, possouris):
+        """
+        Methode d'actualisation de la position du curseur et de la possibilité de le déplacer à la souris.
+        """
         if not self.item_moving_mode:
             if not self.curseur_moving_mode:
                 if self.sac_action_curseur_rect.collidepoint(possouris) and self.game.mouse_pressed[1]:
@@ -518,13 +558,13 @@ class Fight:
                         self.sac_action_curseur_pos = 2
                         self.sac_action_curseur_rect = self.sac_action_curseur_rects[2]
 
-    def get_action_order(self, player_pk_action, dresseur_pk_action):
+    def get_action_order(self, player_pk_action, dresseur_pk_action) -> str:
         """
         Déterminer l'ordre d'agissement des 2 pokemons.
         Renvoie le premier pokémon à attaquer.
 
-        || in : player_pk_action, dresseur_pk_action --> ('ITEM', objet.Objet(), i) ou ('ATTAQUE', attaque.Attaque())
-        || out : str --> "player_pk" ou "dresseur_pk"
+        @in : player_pk_action & dresseur_pk_action --> ('ITEM', objet.Objet(), i) ou ('ATTAQUE', attaque.Attaque())
+        @out : str --> "player_pk" ou "dresseur_pk"
 
         """
 
@@ -577,6 +617,7 @@ class Fight:
             - Application des effets de status sur le 1er pokémon (si encore vivant)
             - Application des effets de status sur le 2e pokémon (si encore vivant)
 
+        @in: tuple => action du joueur
         """
 
         if self.compteur == 0:
@@ -747,12 +788,18 @@ class Fight:
                 self.add_logs(('Status effect', info_attaque[1][1], info_attaque[1][0]))
 
     def add_logs(self, info):
+        """
+        Methode qui ajoute aux logs du combat une information.
+        """
         if len(self.fight_logs) >= 6:
             self.fight_logs.pop(0)
 
         self.fight_logs.append(info)
 
     def update_fight_logs(self, surface):
+        """
+        Methode d'actualisation de l'affichage des logs du combat.
+        """
         x = 13
         y = 248
 
@@ -838,6 +885,9 @@ class Fight:
         return pygame.image.load(self.path + file_name + '.png')
 
     def get_rewards(self):
+        """
+        Methode permettant de donner au joueur les recompenses du combat.
+        """
         # utilisation d'une action pour reclamer recompense
         if self.fight_type != 'Boss':
             self.game.player.use_action()
@@ -870,6 +920,9 @@ class Fight:
         return rewards
 
     def end_fight(self):
+        """
+        Methode permettant de terminer le combat.
+        """
         self.dresseur.pk.full_heal()  # Remettre full vie le pokémon du dresseur
         self.dresseur.pk.reset_status()
 
@@ -892,6 +945,9 @@ class Fight:
 
 
     def apply_status_effects(self, pk):
+        """
+        Methode qui applique les effets de status du pokémon pris en parametre d'entrée.
+        """
         print('Application des effets du pokemon :', pk.name)
         if pk.status["Brulure"]:
             pk.damage(round(pk.pv / 16))
@@ -915,6 +971,9 @@ class Fight:
             print('Effet confusion')
 
     def update_status_effects(self, pk):
+        """
+        Methode d'actualisation des effets de status du pokémon pris en parametre d'entrée.
+        """
         print('Update des effets du pokemon :', pk.name)
         if pk.status["Brulure"]:
             if random.randint(1, 8) == 3:
@@ -958,6 +1017,9 @@ class Fight:
                 self.confusion_compteur_tour[pk] -= 1
 
     def update_pk_attaques(self, player_pk_action, dresseur_pk_action):
+        """
+        Methode d'actualisation de certain effets des attaques des pokémons d'un tour à l'autre.
+        """
         # Pokémon du joueur
         for attaque in self.player_pk.attaque_pool:
             if attaque is not None:
