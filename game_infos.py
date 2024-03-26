@@ -1,4 +1,11 @@
+"""
+Fichier qui contient toutes les infos pratiques du jeu :
+- Les infos concernant les types
+- Les infos concernant les status
+- Les fonctions associées à l'accession de ces données.
+"""
 
+# Affinités des types entre-eux.
 types_affinities = {
     'normal': {'normal': 1,
                'plante': 1,
@@ -351,6 +358,7 @@ types_affinities = {
 
 }
 
+# Couleur des types
 type_colors = {
     'normal': (168, 167, 122),
     'plante': (122, 199, 76),
@@ -372,6 +380,7 @@ type_colors = {
     'fee': (214, 133, 173)
 }
 
+# Noms à afficher des types
 type_names_to_print = {
     'normal': 'NORMAL',
     'plante': 'PLANTE',
@@ -394,6 +403,7 @@ type_names_to_print = {
 
 }
 
+# Couleurs des status
 status_color = {
     'BRULURE': (255, 143, 0),
     'POISON': (220, 0, 255),
@@ -408,7 +418,15 @@ def get_mutiliplicateur(type_atk_pk, type_def_pk2):
     return types_affinities[type_atk_pk][type_def_pk2]
 
 
-def get_all_diff_pokemons(game, attacking_pokemon, level: int, difficulty='easy'):
+def get_all_diff_pokemons(game, attacking_pokemon, level: int, difficulty='easy') -> list:
+    """
+    Methode qui retourne la lise de tous les pokémons d'un certain niveau pouvant apparaitre contre le pokémon du joueur selon la difficulté du combat.
+
+    @in: game, game.Game
+    @in: attacking_pokemon, pokemon.Pokemon
+    @in: level, int => Niveau d'apparition du pokémon
+    @in: difficulty, str
+    """
     multiplicateur_diff = {
         'easy': (16, 8, 4, 2,),
         'normal': (1,),
@@ -453,7 +471,12 @@ def get_all_diff_pokemons(game, attacking_pokemon, level: int, difficulty='easy'
     return pokemons_list
 
 
-def get_diff_types(pokemon_type, pokemon_type2, multiplicateur):
+def get_diff_types(pokemon_type, pokemon_type2, multiplicateur) -> list:
+    """
+    Methode retournant la liste de tous les types des pokémons pouvant apparaitre selon les types du pokémon du joueur et l'affinité de type attendue.
+
+    @out: types_list, list
+    """
     types_list = []
 
     for pk_type in types_affinities[pokemon_type]:
