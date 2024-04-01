@@ -1,0 +1,32 @@
+POKEMONMG - Requirements.
+
+Ce fichier contient les pré-requis de lancement du jeu.
+
+
+/!\ Nous ne garantissons pas la fonctionnalité du jeu sous Linux !
+Le jeu est prévu pour être lancé sous Windows !
+
+
+Pour lancer le jeu, il faut éxécuter le fichier "main.py" du dossier "sources".
+Étant donné que c'est un fichier python, il faut python d'installé sur la machine et un IDE pour l'éxécuter.
+
+Si vous n'avez pas d'IDE :
+    - Nous vous conseillons d'installer Thonny : https://github.com/thonny/thonny/releases/download/v4.1.4/thonny-4.1.4.exe
+      C'est un IDE très accessible et gratuit.
+
+Pour lancer le jeu, il sera nécessaire d'installer le module pygame.
+Pour cela, accédez à la console de votre IDE et tapez la commande suivante : 
+
+pip install pygame
+
+Lorsqu'il sera affiché en console que le module a bien été installé, vous pourrez lancer le jeu !
+Accédez au fichier main.py et éxécutez-le via l'IDE.
+
+Remarque : une version évécutable (en .exe) du jeu sera disponible sous peu. Ne fonctionnera que sous Windows !
+
+/!\ Si le module ne s'installe pas correctement :
+
+Si vous rencontrez un problème lors de l'installation du module pygame, c'est sûrement dû au fait que les variables de l'environnement de python ne sont pas correctement installées sur votre machine. Réinstallez python et cochez bien la case "set environment variables lors du l'installation.
+Cela devrait résoudre votre problème.
+
+Bon jeu !
