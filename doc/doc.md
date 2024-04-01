@@ -33,7 +33,7 @@
 
 
 
-## *```accueil.py ```*
+## *```accueil.py```*
 
 
 ### ```class  accueil.Accueil([game])```
@@ -86,26 +86,26 @@
 > 
 > @in : path, str → chemin d'accès du fichier depuis self.PATH
 
-## *```all_attaques.txt ```*
+## *```all_attaques.txt```*
 
 ### Fichier qui contient toutes les informations sur les attaques des Pokémons.
 
 > **Format :** ```Name	type	pp	puissance	precision	taux_crit	priorite	spécialités```
 
-## *```all_objets.txt ```*
+## *```all_objets.txt```*
 
 ### Fichier qui contient toutes les informations sur les objets des Pokémons.
 
 > **Format :** ```Name spawning_infos catégorie fonctionnement achat vente description```
 
-## *```all_pokemons.csv ```*
+## *```all_pokemons.csv```*
 
 ### Fichier qui contient toutes les informations sur les stats des Pokémons.
 
 > **Format :** ```Name, rareté, type, pv, attack, defense, speed, evolution_level, evolution_name, player_lv_to_spawn, type2, min_lv_at_spawn, max_lv_at_spawn```
 
 
-## *```attaques.py ```*
+## *```attaques.py```*
 
 
 ### ```class  attaques.Attaque([name], [pp]=None)```
@@ -160,7 +160,7 @@
 
 
 
-## *```dresseur.py ```*
+## *```dresseur.py```*
 
 
 ### ```class  dresseur.Dresseur([name], [pp], [type], [power], [pk_lists]=None, [pk]=None)```
@@ -253,7 +253,7 @@ Un dresseur est défini par:
 > @out: dresseur_class issu de la super-classe Dresseur.
 
 
-## *```evolutions.py ```*
+## *```evolutions.py```*
 
 ### ```class evolutions.EvolPanel([game])``` 
 
