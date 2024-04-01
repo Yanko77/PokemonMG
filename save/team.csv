@@ -1,4 +1,0 @@
-Name,level,id,objet_tenu,is_shiny,health,bonus_stat bonus_pvmax bonus_attack bonus_defense bonus_speed,is_alive,attaque_pool
-Bulbizarre,5,1,None,False,21,0/0/0/0/1/1/1/1,True,Charge:35/Vive-Attaque:30/Feuillage:40/Abri:10
-,,,,,,,
-,,,,,,,
