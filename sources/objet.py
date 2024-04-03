@@ -46,6 +46,7 @@ class Objet:
 
         # FONCTIONNEMENT
         self.fonctionnement = self.line[3].split(':')[0]
+        self.target_pk = 'all'
 
         # BUY INFOS
         buy_infos = self.line[4].split(':')
@@ -71,6 +72,7 @@ class Objet:
         # EFFECTS
         self.effects = {
             'Use': {
+                'full_heal': False,
                 'heal': 0,  # Instant healing
                 'stats': {  # Bonus stats
                     'flat': {
@@ -121,7 +123,10 @@ class Objet:
                     'percent_activate': 0,
                     'value': 0
                 },
-                'endfight_heal': 0,
+                'endfight_heal': {
+                    'full_heal': False,
+                    'value': 0
+                },
                 'first_chance': 0,
             },
             'Enable': {
@@ -148,13 +153,88 @@ class Objet:
         """
         Méthode d'initialisation des effets spéciaux de l'objet.
         """
-        if self.fonctionnement == 'Use':
-            pass
-        elif self.fonctionnement == 'Give':
-            pass
-        elif self.fonctionnement == 'Enable':
-            pass
+        effects_list = self.line[6].split('|')
+        for effect in effects_list:
+            effect_infos = effect.split(':')
 
+            if self.fonctionnement == 'Use':
+                # bonus stats
+                if effect_infos[0] == 'b':
+                    self.effects['Use']['stats']['flat'][effect_infos[1]] = int(effect_infos[2])
+
+                # Instant heal
+                elif effect_infos[0] == 'h':
+                    self.effects['Use']['heal'] = int(effect_infos[1])  # nb_pv
+
+                # Multiplicateur de stats
+                elif effect_infos[0] == 'm':
+                    self.effects['Use']['stats']['percent'][effect_infos[1]] = int(effect_infos[2])
+
+                # Effets de status retirés
+                elif effect_infos[0] == 's':
+                    if effect_infos[1] == 'all':
+                        self.effects['Use']['status'] = {
+                            'Sommeil': True,
+                            'Brulure': True,
+                            'Confusion': True,
+                            'Gel': True,
+                            'Poison': True,
+                            'Paralysie': True
+                        }
+                    else:
+                        self.effects['Use']['status'][effect_infos[1]] = True
+
+                # Instant full heal
+                elif effect_infos[0] == 'full_h':
+                    self.effects['Use']['full_heal'] = True
+
+                # Level up
+                elif effect_infos[0] == 'l':
+                    self.effects['Use']['level'] = int(effect_infos[1])
+
+            elif self.fonctionnement == 'Give':
+
+                # Puissance bonus des attaques
+                if effect_infos[0] == 'p':
+                    self.effects['Give']['attaque']['type'] = effect_infos[1]
+                    self.effects['Give']['attaque']['percent_bonus'] = int(effect_infos[2])
+
+                # Instant heal (avec poucentage d'activation)
+                elif effect_infos[0] == 'h':
+                    self.effects['Give']['heal']['percent_activate'] = int(effect_infos[1].split("-")[1][:-1])
+                    self.effects['Give']['heal']['value'] = int(effect_infos[1].split("-")[0])
+
+                # Multiplicateur de stats (en pourcentage)
+                elif effect_infos[0] == 'm':
+                    if effect_infos[1] == 'all':
+                        self.effects['Give']['stats']['percent'] = {'pv': int(effect_infos[2]),
+                                                                    'atk': int(effect_infos[2]),
+                                                                    'def': int(effect_infos[2]),
+                                                                    'vit': int(effect_infos[2])}
+                    else:
+                        self.effects['Give']['stats']['percent'][effect_infos[1]] = int(effect_infos[2])
+
+                # Instant heal de fin de combat
+                elif effect_infos[0] == 'endfight_heal':
+                    if effect_infos[1] == 'full':
+                        self.effects['Give']['endfight_heal']['full_heal'] = True
+                    else:
+                        self.effects['Give']['endfight_heal']['value'] = int(effect_infos[1])
+
+                # Chances d'attaquer en premier en combat
+                elif effect_infos[0] == 'first_chance':
+                    self.effects['Give']['first_chance'] = int(effect_infos[1])
+
+            elif self.fonctionnement == 'Enable':
+
+                if effect_infos[0] == "max_actions":
+                    self.effects["Enable"]["max_action_bonus"] = int(effect_infos[1])
+
+                elif effect_infos[0] == "all_shiny":
+                    self.effects["Enable"]["all_shiny"] = True
+
+            if effect_infos[0] == 'target':
+                self.target_pk = effect_infos[1]
 
 
 # Fonctions
