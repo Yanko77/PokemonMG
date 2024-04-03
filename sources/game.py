@@ -75,8 +75,6 @@ class Game:
 
         self.current_fight = None
 
-        self.bool_game_over = False
-
     def update(self, screen, possouris):
         """
         Methode d'actualisation de l'affichage du jeu

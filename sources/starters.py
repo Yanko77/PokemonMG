@@ -340,5 +340,3 @@ class StarterPanel:
         elif self.compteur > 100:
             if self.skip_intro_button_rect.collidepoint(possouris):
                 self.skip_intro()
-
-

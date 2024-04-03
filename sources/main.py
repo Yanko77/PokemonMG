@@ -45,9 +45,6 @@ def main():
 
         game.update(screen, posSouris)
 
-        if game.bool_game_over:
-            running = False
-
         pygame.display.flip()  # Update de la fenetre
 
         for event in pygame.event.get():  # Detection actions du joueur
@@ -117,4 +114,30 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+
+    import csv
+    with open('all_objets.txt', 'r') as file:
+        lignes = file.readlines()
+
+        write = []
+        for line in lignes:
+            line = line.split()
+            desc = ''
+            for mot in line[6:]:
+                desc += f'{mot} '
+            line = line[:6]
+            line.append(desc)
+
+            write.append(line)
+        print(write)
+
+
+        file.close()
+        with open('all_objets.csv', 'w', newline='') as file:
+            rows = csv.writer(file)
+            rows.writerows(write)
+            file.close()
+
+
+
