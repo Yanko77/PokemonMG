@@ -27,7 +27,7 @@ pygame.display.set_icon(icon)
 
 clock = pygame.time.Clock()
 
-game = Game()
+#game = Game()
 
 # Définition des fonctions
 
