@@ -465,6 +465,7 @@ class Objet:
 
 # Fonctions
 
+
 def get_name_(name):
     """
     Fonction de reformatage du nom.
