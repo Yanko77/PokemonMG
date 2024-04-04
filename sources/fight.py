@@ -940,10 +940,10 @@ class Fight:
         acc = 0
         for objet in self.game.get_items_list()['Spawnable']:
             for r_value in r_values_list:
-                if r_value in range(acc, acc + (100 - objet.rarity)):
-                    objet.quantite = random.randint(objet.quantite_at_spawn[0], objet.quantite_at_spawn[1])
+                if r_value in range(acc, acc + (100 - objet.spawn_rarity)):
+                    objet.quantite = random.randint(objet.spawn_quantite[0], objet.spawn_quantite[1])
                     rewards.append(objet)
-            acc += (100 - objet.rarity)
+            acc += (100 - objet.spawn_rarity)
 
         # level up du pokemon
         if self.difficult == 'easy':

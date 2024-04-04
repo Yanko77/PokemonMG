@@ -464,7 +464,7 @@ class GamePanel:
 
                 if self.ingame_window.sac_panel.emp_move_mode:
                     if self.game.player.team[i] is not None:
-                        if self.ingame_window.sac_panel.selected_item.target_pokemon == 'All' or \
+                        if self.ingame_window.sac_panel.selected_item.target_pokemon == 'all' or \
                                 self.game.player.team[
                                     i].name == self.ingame_window.sac_panel.selected_item.target_pokemon:
 
@@ -686,10 +686,7 @@ class GamePanel:
                 if pygame.Rect(1210, 9, 59, 59).collidepoint(possouris):
                     self.pokemon_info_mode = False
                 elif self.pokemon_info_obj_rect.collidepoint(possouris):
-                    item = self.pokemon_info.objet_tenu
-                    if item is not None:
-                        self.pokemon_info.objet_tenu = None
-                        self.game.player.add_sac_item(item)
+                    self.pokemon_info.remove_item()
 
         elif self.player_name_editing_mode:
             if not self.player_name_rect.collidepoint(possouris):

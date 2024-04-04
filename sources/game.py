@@ -220,7 +220,8 @@ class Game:
         Methode permettant d'actualiser le prix variables des objets concernés.
         """
         for item in self.items_list['All']:
-            item.set_sell_price()
+            if item.boolSell:
+                item.set_sell_price()
 
     def get_item_price(self, item: objet.Objet):
         """
@@ -228,12 +229,13 @@ class Game:
 
         @in : item, objet.Objet
         """
-        if item.bool_variable_sell_price:
-            r = random.Random()
-            r.seed(self.general_seed)
-            return r.randint(item.variable_sell_price[0], item.variable_sell_price[1])
-        else:
-            return item.sell_price
+        if item.boolSell:
+            if item.boolVariableSellPrice:
+                r = random.Random()
+                r.seed(self.general_seed)
+                return r.randint(item.variable_sell_price[0], item.variable_sell_price[1])
+            else:
+                return item.sell_price
 
     def init_items_list(self) -> list:
         """
@@ -242,10 +244,10 @@ class Game:
         @out : list
         """
         
-        with open('all_objets.txt', 'r') as file:
+        with open('all_objets.csv', 'r') as file:
             items_list = []
             for line in file.readlines():
-                item_name = line.split()[0]
+                item_name = line.split(',')[0]
                 if not item_name == '#':
                     items_list.append(objet.Objet(item_name, self))
 
@@ -256,11 +258,11 @@ class Game:
         Methode qui retourne la liste de tous les items du jeu.
         
         Retourne le dict: {
-            'All': all_items
+            'All' : all_items
             'Use': use_items,
             'Give': give_items,
             'Sell': sell_items,
-            'Enable': enable_items,
+            'Enable' : enable_items,
             'Spawnble': spawnable_items
              }
 
@@ -277,15 +279,15 @@ class Game:
         }
         for item in self.init_items_list():
             items_list['All'].append(item)
-            if item.fonctionnement.split(":")[0] == 'Use':
+            if item.fonctionnement == 'Use':
                 items_list['Use'].append(item)
-            elif item.fonctionnement.split(":")[0] == 'Give':
+            elif item.fonctionnement == 'Give':
                 items_list['Give'].append(item)
-            elif item.fonctionnement.split(":")[0] == 'Sell':
+            elif item.fonctionnement == 'Sell':
                 items_list['Sell'].append(item)
-            elif item.fonctionnement.split(":")[0] == 'Enable':
+            elif item.fonctionnement == 'Enable':
                 items_list['Enable'].append(item)
-            if item.boolSpawnable:
+            if item.boolSpawn:
                 items_list['Spawnable'].append(item)
 
         return items_list
@@ -362,7 +364,7 @@ class Game:
         """
         total_rarity = 0
         for OBJECT in self.get_items_list()['Spawnable']:
-            total_rarity += abs(OBJECT.rarity - 100)
+            total_rarity += abs(OBJECT.spawn_rarity - 100)
         return total_rarity
 
     def update_random_seed(self):

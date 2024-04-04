@@ -341,7 +341,7 @@ class ItemsPanel:
                               item_rect.y + 12), surface)
 
                 if self.rect(item_rect).collidepoint(possouris):
-                    if item.can_be_buy:
+                    if item.boolBuy:
                         if self.game.player.money >= item.buy_price:
                             self.display(self.buy_emp_hover, (item_rect.x + 2,
                                                               item_rect.y + 4,
@@ -361,7 +361,7 @@ class ItemsPanel:
                                                                 item_rect.h),
                                      surface)
 
-                if item.can_be_buy:
+                if item.boolBuy:
                     item_price_text = self.item_price_font.render(str(item.buy_price), False, (0, 0, 0))
                     self.display(item_price_text, (item_rect.x + 53 - item_price_text.get_width() // 2,
                                                    item_rect.y + 89),
@@ -390,7 +390,7 @@ class ItemsPanel:
                               item_rect.y + 12), surface)
 
                 if self.rect(item_rect).collidepoint(possouris):
-                    if item.can_be_sell:
+                    if item.boolSell:
                         self.display(self.sell_emp_hover, (item_rect.x + 5,
                                                            item_rect.y + 4,
                                                            item_rect.w,
@@ -403,7 +403,7 @@ class ItemsPanel:
                                                                 item_rect.h),
                                      surface)
 
-                if item.can_be_sell:
+                if item.boolSell:
                     item_price_text = self.item_price_font.render(str(item.sell_price), False, (0, 0, 0))
                     self.display(item_price_text, (item_rect.x + 53 - item_price_text.get_width() // 2,
                                                    item_rect.y + 89),
@@ -604,10 +604,10 @@ class ItemsPanel:
 
         @in : item, objet.Objet → Objet à acheter
         """
-        if item.can_be_buy:
+        if item.boolBuy:
             if self.game.player.payer(item.buy_price):  # Le joueur paye s'il peut
                 if item.categorie == 'Objets_rares':
-                    item.can_be_buy = False
+                    item.boolBuy = False
 
                 self.game.player.add_sac_item(item=item)
                 self.game.notif(f"Objet ajouté au sac !", (0, 0, 0))
@@ -617,7 +617,7 @@ class ItemsPanel:
         Methode qui permet de vendre un objet.
         @in : item, objet.Objet → Objet à vendre
         """
-        if item.can_be_sell:
+        if item.boolSell:
             self.game.player.money += item.sell_price
             item.quantite -= 1
             self.game.notif(f"Objet vendu !", (0, 0, 0))
@@ -638,10 +638,17 @@ class ItemsPanel:
             while tri:
                 tri = False
                 for objet_index in range(1, len(liste_objet)):
-                    if liste_objet[objet_index].buy_price < liste_objet[objet_index - 1].buy_price:
-                        liste_objet[objet_index], liste_objet[objet_index - 1] = liste_objet[objet_index - 1], \
-                            liste_objet[objet_index]
-                        tri = True
+                    if not liste_objet[objet_index - 1].boolBuy:
+                        if liste_objet[objet_index].boolBuy:
+                            liste_objet[objet_index], liste_objet[objet_index - 1] = liste_objet[objet_index - 1], \
+                                liste_objet[objet_index]
+                            tri = True
+
+                    elif liste_objet[objet_index].boolBuy:
+                        if liste_objet[objet_index].buy_price < liste_objet[objet_index - 1].buy_price:
+                            liste_objet[objet_index], liste_objet[objet_index - 1] = liste_objet[objet_index - 1], \
+                                liste_objet[objet_index]
+                            tri = True
             return liste_objet
 
         elif mode == 'Sell':
@@ -649,10 +656,16 @@ class ItemsPanel:
             while tri:
                 tri = False
                 for objet_index in range(1, len(liste_objet)):
-                    if liste_objet[objet_index].sell_price < liste_objet[objet_index - 1].sell_price:
-                        liste_objet[objet_index], liste_objet[objet_index - 1] = liste_objet[objet_index - 1], \
-                            liste_objet[objet_index]
-                        tri = True
+                    if not liste_objet[objet_index - 1].boolSell:
+                        if liste_objet[objet_index].boolSell:
+                            liste_objet[objet_index], liste_objet[objet_index - 1] = liste_objet[objet_index - 1], \
+                                liste_objet[objet_index]
+                            tri = True
+                    elif liste_objet[objet_index].boolSell:
+                        if liste_objet[objet_index].sell_price < liste_objet[objet_index - 1].sell_price:
+                            liste_objet[objet_index], liste_objet[objet_index - 1] = liste_objet[objet_index - 1], \
+                                liste_objet[objet_index]
+                            tri = True
             return liste_objet
 
     def research_item(self, mode='Buy') -> list:
@@ -775,7 +788,7 @@ class ItemsPanel:
                         if i_item + self.page * 10 < len(self.current_sell_item_list) and self.current_sell_item_list[
                             i_item + self.page * 10] is not None:
                             item = self.current_sell_item_list[i_item + self.page * 10]
-                            if item.can_be_sell:
+                            if item.boolSell:
                                 player_item_i = self.game.player.find_sac_item(item)
                                 player_item = self.game.player.sac[player_item_i]
                                 self.sell_item(player_item)

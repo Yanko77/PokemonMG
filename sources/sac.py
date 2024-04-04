@@ -107,13 +107,13 @@ class SacIngamePanel:
             surface.blit(self.desc_item_font.render(self.selected_item.description[2], False, (20, 20, 20)),
                          (window_pos[0] + (885-self.desc_item_font.render(self.selected_item.description[2], False, (0, 0, 0)).get_rect().w), window_pos[1] + 475))
             surface.blit(pygame.transform.scale(self.selected_item.icon_image, (100, 100)), (window_pos[0] + 405, window_pos[1] + 420))
-            if self.selected_item.can_be_buy:
+            if self.selected_item.boolBuy:
                 surface.blit(self.prices_item_font.render(str(self.selected_item.buy_price), False, (0, 42, 255)), (window_pos[0]+602, window_pos[1]+493))
             else:
                 surface.blit(self.prices_item_font.render(' /', False, (0, 42, 255)),
                              (window_pos[0] + 602, window_pos[1] + 493))
 
-            if self.selected_item.can_be_sell:
+            if self.selected_item.boolSell:
                 surface.blit(self.prices_item_font.render(str(self.selected_item.sell_price), False, (204, 0, 0)), (window_pos[0]+784, window_pos[1]+493))
             else:
                 surface.blit(self.prices_item_font.render(' /', False, (204, 0, 0)),
@@ -159,7 +159,7 @@ class SacIngamePanel:
                     if self.game.classic_panel.current_hover_pokemon is not None:
                         hover_pk = self.game.player.team[self.game.classic_panel.current_hover_pokemon]
                         if hover_pk is not None:
-                            if self.selected_item.target_pokemon == 'All' or self.selected_item.target_pokemon == hover_pk.name:
+                            if self.selected_item.target_pokemon == 'all' or self.selected_item.target_pokemon == hover_pk.name:
                                 if 'Give' in self.selected_item.fonctionnement:
                                     if hover_pk.objet_tenu is None:
                                         hover_pk.give_item(self.selected_item)
@@ -171,7 +171,7 @@ class SacIngamePanel:
 
                     # Si l'endoit où on relâche le clic est sur l'emplacement pour Enable un item
                     elif self.game.classic_panel.logo_enable_item_rect.collidepoint(possouris):
-                        self.selected_item.enable_item()
+                        self.selected_item.enable()
                         if self.selected_item.quantite <= 0:
                             self.game.player.sac[sac_i] = None
 

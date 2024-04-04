@@ -61,7 +61,7 @@ class Player:
                     None,
                     None]
 
-        self.money = 0
+        self.money = 10000000
 
     def edit_name(self, key):
         """
@@ -243,12 +243,14 @@ class Player:
         """
         self.money += amount
 
-    def rise_max_actions_value(self):
+    def rise_max_actions_value(self, amount):
         """
         Méthode d'augmentation du nombre d'actions maximum réalisables par tour.
+
+        @in : amount, int
         """
-        self.max_actions += 1
-        self.actions += 1
+        self.max_actions += amount
+        self.actions += amount
 
     def get_nb_team_members(self):
         """

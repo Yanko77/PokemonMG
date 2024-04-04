@@ -27,7 +27,7 @@ pygame.display.set_icon(icon)
 
 clock = pygame.time.Clock()
 
-#game = Game()
+game = Game()
 
 # Définition des fonctions
 
@@ -59,8 +59,7 @@ def main():
                     print(posSouris)
 
                 elif event.key == pygame.K_DOWN:
-                    for item in game.classic_panel.ingame_window.items_panel.research_item(input()):
-                        print(item.name)
+                    game.player.add_team_pk(pokemon.Pokemon('Tyranocif', 60, game))
 
                 if game.is_playing:
                     if game.classic_panel.player_name_editing_mode:
@@ -114,30 +113,4 @@ def main():
 
 
 if __name__ == '__main__':
-    # main()
-
-    import csv
-    with open('all_objets.txt', 'r') as file:
-        lignes = file.readlines()
-
-        write = []
-        for line in lignes:
-            line = line.split()
-            desc = ''
-            for mot in line[6:]:
-                desc += f'{mot} '
-            line = line[:6]
-            line.append(desc)
-
-            write.append(line)
-        print(write)
-
-
-        file.close()
-        with open('all_objets.csv', 'w', newline='') as file:
-            rows = csv.writer(file)
-            rows.writerows(write)
-            file.close()
-
-
-
+    main()

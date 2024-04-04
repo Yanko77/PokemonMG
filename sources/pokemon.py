@@ -97,10 +97,6 @@ class Pokemon:
         else:
             self.icon_image = pygame.image.load(f'assets/icons/pokemons/{self.name}.png')
 
-        self.bonus_attaque_type = None
-        self.multiplicateur_bonus_attaque = 1
-
-        self.item_pourcent_hp_activate = None
         self.passive_heal = 0
 
         self.attaque_pool_line = self.find_attaque_pool_line()
@@ -428,9 +424,8 @@ class Pokemon:
                     print(f'CRITIQUE DE {self.name}')
 
                 if self.objet_tenu is not None:
-                    if self.objet_tenu.type is None or self.objet_tenu.type == attaque.type:
-                        cm *= self.objet_tenu.multiplicateur_attaque_dmg
-                        # print(f"Augmentation des dégats de l'attaque de {self.objet_tenu.multiplicateur_attaque_dmg*100}%")
+                    if self.objet_tenu.effects['Give']['attaque']['type'] == attaque.type or self.objet_tenu.effects['Give']['attaque']['type'] == 'All':
+                        cm *= (1 + self.objet_tenu.effects['Give']['attaque']['type']/100)
                 random_cm = random.randint(85, 100)
                 cm = cm * random_cm / 100
 
@@ -560,11 +555,9 @@ class Pokemon:
         assert self.objet_tenu is not None, "Erreur: tentative d'update sur un objet inexistant"
 
         if self.is_alive:
-            if self.item_pourcent_hp_activate is not None:
-                if self.health <= self.pv * self.item_pourcent_hp_activate / 100:
-                    self.health += self.objet_tenu.heal_value
-                    if self.health > self.pv:
-                        self.health = self.pv
+            if self.objet_tenu.effects['Give']['heal']['percent_activate'] != 0:
+                if self.health <= self.pv * self.objet_tenu.effects['Give']['heal']['percent_activate'] / 100:
+                    self.heal(self.objet_tenu.effects['Give']['heal']['value'])
 
                     self.objet_tenu = None
 
@@ -582,56 +575,7 @@ class Pokemon:
 
         @in : item, objet.Objet
         """
-        item.quantite -= 1
-
-        if item.bool_revive_effect:
-            self.is_alive = True
-
-        if self.is_alive:
-            self.heal(item.heal_value)
-
-        self.bonus_attaque_type = item.type
-        self.multiplicateur_bonus_attaque = item.multiplicateur_attaque_dmg
-        if item.stat == 'pv':
-            self.pv += item.bonus_stat
-            self.health += item.bonus_stat
-            self.bonus_pvmax += item.bonus_stat
-        elif item.stat == 'atk':
-            self.attack += item.bonus_stat
-            self.bonus_attack += item.bonus_stat
-        elif item.stat == 'def':
-            self.defense += item.bonus_stat
-            self.bonus_defense += item.bonus_stat
-        elif item.stat == 'vit':
-            self.speed += item.bonus_stat
-            self.bonus_speed += item.bonus_stat
-
-        for status in self.status:
-            if item.removed_status[status]:
-                self.status[status] = False
-
-        self.pv = round(self.pv * item.multiplicateur_pvmax)
-        self.health = round(self.health * item.multiplicateur_pvmax)
-
-        for stat in item.multiplicateur_stats:
-            if not item.multiplicateur_stats[stat] == 1:
-                if stat == 'pv':
-                    diff = self.pv - self.health
-                    self.multiplicateur_pvmax *= item.multiplicateur_stats[stat]
-                    self.pv = round(self.pv * item.multiplicateur_stats[stat])
-                    self.health = self.pv - diff
-                elif stat == 'atk':
-                    self.multiplicateur_attack *= item.multiplicateur_stats[stat]
-                    self.attack = round(self.attack * item.multiplicateur_stats[stat])
-                elif stat == 'def':
-                    self.multiplicateur_defense *= item.multiplicateur_stats[stat]
-                    self.defense = round(self.defense * item.multiplicateur_stats[stat])
-                elif stat == 'vit':
-                    self.multiplicateur_speed *= item.multiplicateur_stats[stat]
-                    self.speed = round(self.speed * item.multiplicateur_stats[stat])
-
-        if not item.bonus_lv == 0:
-            self.level_up(item.bonus_lv)
+        item.use(self)
 
     def give_item(self, item):
         """
@@ -641,55 +585,14 @@ class Pokemon:
         @in : item, objet.Objet
         """
         self.objet_tenu = objet.Objet(item.name, self.game)
-        item.quantite -= 1
 
-        self.bonus_attaque_type = self.objet_tenu.type
-        self.multiplicateur_bonus_attaque = self.objet_tenu.multiplicateur_attaque_dmg
+        item.give(self)
 
-        if self.objet_tenu.stat == 'pv':
-            self.pv += self.objet_tenu.bonus_stat
-            self.health += self.objet_tenu.bonus_stat
-            self.bonus_pvmax += self.objet_tenu.bonus_stat
-        elif self.objet_tenu.stat == 'atk':
-            self.attack += self.objet_tenu.bonus_stat
-            self.bonus_attack += self.objet_tenu.bonus_stat
-        elif self.objet_tenu.stat == 'def':
-            self.defense += self.objet_tenu.bonus_stat
-            self.bonus_defense += self.objet_tenu.bonus_stat
-        elif self.objet_tenu.stat == 'vit':
-            self.speed += self.objet_tenu.bonus_stat
-            self.bonus_speed += self.objet_tenu.bonus_stat
-
-        self.item_pourcent_hp_activate = self.objet_tenu.pv_pourcent_activate
-
-        for status in self.status:
-            if self.objet_tenu.removed_status[status]:
-                self.status[status] = False
-
-        if self.objet_tenu.multiplicateur_pvmax != 1:
-            diff = self.pv - self.health
-            self.pv = round(self.pv * self.objet_tenu.multiplicateur_pvmax)
-            self.health = self.pv - diff
-
-        self.passive_heal = self.objet_tenu.heal_after_each_fight
-
-        for stat in self.objet_tenu.multiplicateur_stats:
-            if not self.objet_tenu.multiplicateur_stats[stat] == 1:
-                if stat == 'pv':
-                    diff = self.pv - self.health
-                    self.bonus_pvmax += round(self.pv * self.objet_tenu.multiplicateur_stats[stat]) - self.pv
-                    self.pv = round(self.pv * self.objet_tenu.multiplicateur_stats[stat])
-                    self.health = self.pv - diff
-                elif stat == 'atk':
-                    self.bonus_attack += round(self.attack * self.objet_tenu.multiplicateur_stats[stat]) - self.attack
-                    self.attack = round(self.attack * self.objet_tenu.multiplicateur_stats[stat])
-                elif stat == 'def':
-                    self.bonus_defense += round(
-                        self.defense * self.objet_tenu.multiplicateur_stats[stat]) - self.defense
-                    self.defense = round(self.defense * self.objet_tenu.multiplicateur_stats[stat])
-                elif stat == 'vit':
-                    self.bonus_speed += round(self.speed * self.objet_tenu.multiplicateur_stats[stat]) - self.speed
-                    self.speed = round(self.speed * self.objet_tenu.multiplicateur_stats[stat])
+    def remove_item(self):
+        if self.objet_tenu is not None:
+            self.objet_tenu.remove(self)
+            self.game.player.add_sac_item(self.objet_tenu)
+            self.objet_tenu = None
 
     def def_shiny(self, is_shiny):
         """
