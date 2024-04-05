@@ -41,4 +41,4 @@ Caillou,1:85:1-1,Objets,Give,0,1:1,m:vit:-1,Diminue la vitesse du pokemon auquel
 CD,1:85:1-1,Objets_rares,Sell,0,1:10,,Obtenu pour 100 euros sur Aliexpress : LE CD LE PLUS RARE DU MONDE. A Vendre: Items.
 Piquants,1:97:1-1,Objets_rares,Sell,0,1:-5000,,Vous perdez 1000 pokedollars par tour tant que l'objet reste dans le sac. A Vendre: Items.
 Rappel,1:45:1-2,Medecine,Use,1:4750,1:1000,revive|full_h,Reanime un pokemon K.O et restaure tous ses PV. Utilisable: Cliquer-Glisser dans Equipe.
-#,Grigri_Protecteur,1:85,1-1,Objets,Give,1:4000,1:1500,degats_subis:super_efficace:'All':50,Objet mysterieux permettant au pokemon qui le tient de subir 50% de degats en moins des attaques super-efficaces. A tenir.
+Grigri_Protecteur,1:85:1-1,Objets,Give,1:4000,1:1500,degats_subis:super_efficace:All:50,Objet mysterieux permettant au pokemon qui le tient de subir 50% de degats en moins des attaques super-efficaces. A tenir.

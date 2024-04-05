@@ -59,7 +59,7 @@ def main():
                     print(posSouris)
 
                 elif event.key == pygame.K_DOWN:
-                    game.player.add_team_pk(pokemon.Pokemon('Tyranocif', 60, game))
+                    game.player.add_sac_item(objet.Objet('Grigri_Protecteur', game))
 
                 if game.is_playing:
                     if game.classic_panel.player_name_editing_mode:

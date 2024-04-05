@@ -211,6 +211,10 @@ class Objet:
                 # Level up
                 elif effect_infos[0] == 'l':
                     self.effects['Use']['level'] = int(effect_infos[1])
+                    
+                # Revive
+                elif effect_infos[0] == 'revive':
+                    self.effects['Use']['revive'] = True
 
             elif self.fonctionnement == 'Give':
 
@@ -247,12 +251,12 @@ class Objet:
                 
                 # Dégats subis en moins
                 elif effect_infos[0] == 'degats_subis':
-                    if self.effect_infos[1] == 'all_attaques':
-                        self.effects['Give']['degats_subis']['all_attaques']['type'] = self.effect_infos[2]
-                        self.effects['Give']['degats_subis']['all_attaques']['percent'] = int(self.effect_infos[3])
-                    elif self.effect_infos[1] == 'super_efficace':
-                        self.effects['Give']['degats_subis']['super_efficace_attaques']['type'] = self.effect_infos[2]
-                        self.effects['Give']['degats_subis']['super_efficace_attaques']['percent'] = int(self.effect_infos[3])
+                    if effect_infos[1] == 'all_attaques':
+                        self.effects['Give']['degats_subis']['all_attaques']['type'] = effect_infos[2]
+                        self.effects['Give']['degats_subis']['all_attaques']['percent'] = int(effect_infos[3])
+                    elif effect_infos[1] == 'super_efficace':
+                        self.effects['Give']['degats_subis']['super_efficace_attaques']['type'] = effect_infos[2]
+                        self.effects['Give']['degats_subis']['super_efficace_attaques']['percent'] = int(effect_infos[3])
 
             elif self.fonctionnement == 'Enable':
                 if effect_infos[0] == "max_actions":
@@ -314,9 +318,10 @@ class Objet:
 
         @in : pokemon, pokemon.Pokemon
         """
-
+        print(self.effects['Use']['revive'])
         if self.effects['Use']['revive']:
             pokemon.is_alive = True
+            print('oui')
 
         if self.effects['Use']['full_heal']:
             pokemon.health = pokemon.pv
