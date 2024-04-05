@@ -110,6 +110,17 @@ class Objet:
                     'type': 'All',
                     'percent_bonus': 0,
                 },
+                'degats_subis': {
+                    'all_attaques': {
+                        'type': 'All',  # Type d'attaque dont les degats sont altérés
+                        'percent': 0,  # Pourcentage de dégats subis en moins
+                        },
+                    'super_efficace_attaques': {
+                        'type': 'All',  # Type d'attaque dont les degats sont altérés
+                        'percent': 0,  # Pourcentage de dégats subis en moins
+                    }
+                },
+                
                 'stats': {  # Bonus sur les stats
                     'flat': {
                         'pv': 0,
@@ -233,6 +244,15 @@ class Objet:
                 # Chances d'attaquer en premier en combat
                 elif effect_infos[0] == 'first_chance':
                     self.effects['Give']['first_chance'] = int(effect_infos[1])
+                
+                # Dégats subis en moins
+                elif effect_infos[0] == 'degats_subis':
+                    if self.effect_infos[1] == 'all_attaques':
+                        self.effects['Give']['degats_subis']['all_attaques']['type'] = self.effect_infos[2]
+                        self.effects['Give']['degats_subis']['all_attaques']['percent'] = int(self.effect_infos[3])
+                    elif self.effect_infos[1] == 'super_efficace':
+                        self.effects['Give']['degats_subis']['super_efficace_attaques']['type'] = self.effect_infos[2]
+                        self.effects['Give']['degats_subis']['super_efficace_attaques']['percent'] = int(self.effect_infos[3])
 
             elif self.fonctionnement == 'Enable':
                 if effect_infos[0] == "max_actions":
