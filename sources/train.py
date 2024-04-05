@@ -663,9 +663,9 @@ class TrainPanel:
                         else:
                             self.game.notif('Action nécessaire', (255, 0, 0))
                     else:
-                        self.game.notif('Vous avez déjà battu ce pokémon !', (255, 0, 0))
+                        self.game.notif('Votre pokémon doit être vivant !', (255, 0, 0))
                 else:
-                    self.game.notif('Votre pokémon doit être vivant !', (255, 0, 0))
+                    self.game.notif('Vous avez déjà battu ce pokémon !', (255, 0, 0))
 
     def right_clic_interactions(self, posssouris):
         """

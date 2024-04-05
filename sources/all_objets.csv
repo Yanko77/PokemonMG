@@ -28,7 +28,7 @@ Lunettes_Noires,1:55:1-1,Objets,Give,1:3000,1:750,p:dark:50,Augmente la puissanc
 Cuillere_Tordue,1:55:1-1,Objets,Give,1:3000,1:750,p:psy:50,Augmente la puissance des attaques de type PSY de 50%. A tenir: Cliquer-Glisser dans Equipe
 Aimant,1:55:1-1,Objets,Give,1:3000,1:750,p:acier:50,Augmente la puissance des attaques de type ELECTRIC de 50%. A tenir: Cliquer-Glisser dans Equipe
 Vive_Griffe,1:45:1-1,Objets,Give,1:4000,1:2000,first_chance:75,Une griffe legere offrant 75% de chance au pokemon qui la tient de frapper en premier. A tenir: Cliquer-Glisser dans Equipe
-Bandeau_Muscle,1:40:1-1,Objets,Give,1:1500,1:1250,p:all:25,Augmente la puissance des attaques du pokemon auquel il est attache de 10%. A tenir: Cliquer-Glisser dans Equipe
+Bandeau_Muscle,1:40:1-1,Objets,Give,1:1500,1:1250,p:all:25,Augmente la puissance des attaques du pokemon auquel il est attache de 25%. A tenir: Cliquer-Glisser dans Equipe
 Poussiere_Etoile,1:80:1-1,Marchandises,Sell,0,1:15000,,Item tres prise. Uniquement revendable au shop. A Vendre: Items.
 Poussiere_Bleute,1:80:1-1,Marchandises,Sell,1:10000,1:v6000-16000,,Item dont le prix varie aleatoirement. Investie ton argent intelligement. Revendable au shop. A Vendre: Items.
 Poussiere_Jaunete,1:80:1-1,Marchandises,Sell,1:10001,1:v0-22000,,Comme la Poussiere Bleute mais jaune. La variation de prix est encore plus aleatoirement. A Vendre: Items.

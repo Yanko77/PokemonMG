@@ -238,6 +238,15 @@ class Objet:
                     else:
                         self.effects['Give']['stats']['percent'][effect_infos[1]] = int(effect_infos[2])
 
+                elif effect_infos[0] == 's':
+                    if effect_infos[1] == 'all':
+                        self.effects['Give']['stats']['flat'] = {'pv': int(effect_infos[2]),
+                                                                 'atk': int(effect_infos[2]),
+                                                                 'def': int(effect_infos[2]),
+                                                                 'vit': int(effect_infos[2])}
+                    else:
+                        self.effects['Give']['stats']['flat'][effect_infos[1]] = int(effect_infos[2])
+
                 # Instant heal de fin de combat
                 elif effect_infos[0] == 'endfight_heal':
                     if effect_infos[1] == 'full':
@@ -390,6 +399,7 @@ class Objet:
         # Flat
         pokemon.bonus_pvmax += self.effects['Give']['stats']['flat']['pv']
         pokemon.pv += self.effects['Give']['stats']['flat']['pv']
+        pokemon.health += self.effects['Give']['stats']['flat']['pv']
 
         pokemon.bonus_attack += self.effects['Give']['stats']['flat']['atk']
         pokemon.attack += self.effects['Give']['stats']['flat']['atk']

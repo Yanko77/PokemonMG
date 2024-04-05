@@ -61,7 +61,7 @@ class Player:
                     None,
                     None]
 
-        self.money = 10000000
+        self.money = 0
 
     def edit_name(self, key):
         """
@@ -162,7 +162,10 @@ class Player:
                 self.sac[i] = objet.Objet(item.name, self.game, item.quantite)
 
         else:
+            print(item.quantite)
+            print(self.sac[item_place].quantite)
             self.sac[item_place].quantite += item.quantite
+            print(self.sac[item_place].quantite)
 
     def remove_item_sac(self, index):
         """
