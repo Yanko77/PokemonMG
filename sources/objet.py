@@ -57,6 +57,8 @@ class Objet:
         self.boolBuy = int(buy_infos[0])
         if self.boolBuy:
             self.buy_price = int(buy_infos[1])
+        else:
+            self.buy_price = None
 
         # SELL INFOS
         sell_infos = self.line[5].split(':')
@@ -453,12 +455,14 @@ class Objet:
         Méthode d'actualisation du prix de vente.
         Utile notamment pour les gérer le principe de prix variables du marché
         """
-        self.sell_price = self.get_sell_price()
-
-        if self.sell_price > self.buy_price:
-            self.boolBuy = False
-        else:
-            self.boolBuy = True
+        if self.boolSell:
+            self.sell_price = self.get_sell_price()
+                
+            if self.buy_price is not None:
+                if self.sell_price > self.buy_price:
+                    self.boolBuy = False
+                else:
+                    self.boolBuy = True
 
     def get_sell_price(self):
         return self.game.get_item_price(self)

@@ -595,12 +595,12 @@ class Fight:
         @out : str --> "player_pk" ou "dresseur_pk"
         """
 
-        if self.player_pk.objet_tenu is not None and self.player_pk.objet_tenu.name == "Vive_Griffe":
-            if random.randint(0, 1):
+        if self.player_pk.objet_tenu is not None and self.player_pk.objet_tenu.effects['Give']['first_chance'] != 0:
+            if random.randint(0, 100) <= self.player_pk.objet_tenu.effects['Give']['first_chance']:
                 return 'player_pk'
 
-        elif self.dresseur.pk.objet_tenu is not None and self.dresseur.pk.objet_tenu.name == "Vive_Griffe":
-            if random.randint(0, 1):
+        elif self.dresseur.pk.objet_tenu is not None and self.dresseur_pk.objet_tenu.effects['Give']['first_chance'] != 0:
+            if random.randint(0, 100) <= self.dresseur_pk.objet_tenu.effects['Give']['first_chance']:
                 return 'dresseur_pk'
 
         player_pk_action_type = player_pk_action[0]
