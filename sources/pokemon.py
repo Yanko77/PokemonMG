@@ -469,10 +469,15 @@ class Pokemon:
                             (((((self.level * 0.4 + 2) * self.attack * puissance) / self.defense) / 50) + 2) * cm)
                 
                 if pokemon.objet_tenu is not None:
+                    print(degats)
                     if pokemon.objet_tenu.effects['Give']['degats_subis']['all_attaques']['type'] == 'All' or pokemon.objet_tenu.effects['Give']['degats_subis']['all_attaques']['type'] == attaque.type:
                         degats *= 1 + pokemon.objet_tenu.effects['Give']['degats_subis']['all_attaques']['percent']/100
+                    print(degats)
                     if pokemon.objet_tenu.effects['Give']['degats_subis']['super_efficace_attaques']['type'] == 'All' or pokemon.objet_tenu.effects['Give']['degats_subis']['super_efficace_attaques']['type'] == attaque.type:
                         degats *= 1 + pokemon.objet_tenu.effects['Give']['degats_subis']['super_efficace_attaques']['percent']/100
+                    print(degats)
+
+                    degats = round(degats)
                 
                 pokemon.damage(degats)
 
