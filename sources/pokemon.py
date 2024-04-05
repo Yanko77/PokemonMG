@@ -425,7 +425,7 @@ class Pokemon:
 
                 if self.objet_tenu is not None:
                     if self.objet_tenu.effects['Give']['attaque']['type'] == attaque.type or self.objet_tenu.effects['Give']['attaque']['type'] == 'All':
-                        cm *= (1 + self.objet_tenu.effects['Give']['attaque']['type']/100)
+                        cm *= (1 + self.objet_tenu.effects['Give']['attaque']['percent_bonus']/100)
                 random_cm = random.randint(85, 100)
                 cm = cm * random_cm / 100
 

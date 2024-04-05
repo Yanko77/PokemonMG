@@ -1,6 +1,6 @@
-#,name,spawn_d,categorie,Fonctionnement,achat,revente Description 
-#,Valeurs,exemple,1:rarety:q,Objets,Use/Give,1:10000 1:1500 
-#,
+#,name,spawn_d,categorie,Fonctionnement,achat,revente Description ,
+#,Valeurs,exemple,1:rarety:q,Objets,Use/Give,1:10000 1:1500 ,
+#,,,,,,,
 Poke_Ball,1:35:2-10,Balls,Throw,1:800,1:800,,Une BALL pouvant capturer un Pokemon sauvage. Utilisable: Spawn.
 Velo,0:0:0-0,Objets_rares,Enable,1:15000,0,max_actions:1,Velo permettant de faire 1 action supplementaire chaque tour. Activable: Clic droit.
 Pokeflute,0:0:0-0,Objets_rares,Enable,1:40000,0,max_actions:1,Flute divine permettant de faire 1 action supplementaire chaque tour. Activable: Clic droit.
@@ -14,8 +14,8 @@ Fer,1:50:1-2,Medecine,Use,1:7000,1:4000,b:def:10,Augmente la stat de defense du 
 Carbone,1:50:1-2,Medecine,Use,1:7000,1:4000,b:vit:10,Augmente la stat de vitesse du pokemon de 10. Utilisable: Cliquer-Glisser dans Equipe
 Super_Bonbon,1:20:1-2,Medecine,Use,0,1:5000,l:1,Augmente le niveau du pokemon de 1. Utilisable: Cliquer-Glisser dans Equipe.
 Eau_Fraiche,1:30:1-1,Medecine,Use,1:800,1:350,h:50,Restaure 50 PV perdus au combat. Utilisable: Cliquer-Glisser dans Equipe.
-Baie_Oran,1:25:1-3,Baies,Give,0,1:50,h:25-50%,Restaure 25 pv au pokémon qui la tient en combat quand il passe sous 50% hp. A tenir: Cliquer-Glisser dans Equipe
-Baie_Sitrus,1:25:1-3,Baies,Give,0,1:75,h:60-33%,Restaure 60 pv au pokémon qui la tient en combat quand il passe sous 33% hp. A tenir: Cliquer-Glisser dans Equipe
+Baie_Oran,1:25:1-3,Baies,Give,0,1:50,h:25-50%,Restaure 25 pv au pokemon qui la tient en combat quand il passe sous 50% hp. A tenir: Cliquer-Glisser dans Equipe
+Baie_Sitrus,1:25:1-3,Baies,Give,0,1:75,h:60-33%,Restaure 60 pv au pokemon qui la tient en combat quand il passe sous 33% hp. A tenir: Cliquer-Glisser dans Equipe
 Mouchoir_Soie,1:55:1-1,Objets,Give,1:3000,1:750,p:normal:50,Augmente la puissance des attaques de type NORMAL de 50%. A tenir: Cliquer-Glisser dans Equipe
 Bec_Pointu,1:55:1-1,Objets,Give,1:3000,1:750,p:vol:50,Augmente la puissance des attaques de type VOL de 50%. A tenir: Cliquer-Glisser dans Equipe
 Pic_Venin,1:55:1-1,Objets,Give,1:3000,1:750,p:poison:50,Augmente la puissance des attaques de type POISON de 50%. A tenir: Cliquer-Glisser dans Equipe
@@ -28,16 +28,16 @@ Lunettes_Noires,1:55:1-1,Objets,Give,1:3000,1:750,p:dark:50,Augmente la puissanc
 Cuillere_Tordue,1:55:1-1,Objets,Give,1:3000,1:750,p:psy:50,Augmente la puissance des attaques de type PSY de 50%. A tenir: Cliquer-Glisser dans Equipe
 Aimant,1:55:1-1,Objets,Give,1:3000,1:750,p:acier:50,Augmente la puissance des attaques de type ELECTRIC de 50%. A tenir: Cliquer-Glisser dans Equipe
 Vive_Griffe,1:45:1-1,Objets,Give,1:4000,1:2000,first_chance:75,Une griffe legere offrant 75% de chance au pokemon qui la tient de frapper en premier. A tenir: Cliquer-Glisser dans Equipe
-Bandeau_Muscle,1:40:1-1,Objets,Give,1:1500,1:1250,p:all:25,Augmente la puissance des attaques du pokémon auquel il est attaché de 10%. A tenir: Cliquer-Glisser dans Equipe
+Bandeau_Muscle,1:40:1-1,Objets,Give,1:1500,1:1250,p:all:25,Augmente la puissance des attaques du pokemon auquel il est attache de 10%. A tenir: Cliquer-Glisser dans Equipe
 Poussiere_Etoile,1:80:1-1,Marchandises,Sell,0,1:15000,,Item tres prise. Uniquement revendable au shop. A Vendre: Items.
 Poussiere_Bleute,1:80:1-1,Marchandises,Sell,1:10000,1:v6000-16000,,Item dont le prix varie aleatoirement. Investie ton argent intelligement. Revendable au shop. A Vendre: Items.
 Poussiere_Jaunete,1:80:1-1,Marchandises,Sell,1:10001,1:v0-22000,,Comme la Poussiere Bleute mais jaune. La variation de prix est encore plus aleatoirement. A Vendre: Items.
-#,Poussiere_Noire,0:0:0-0,Marchandises,Sell,0,1:50000 tu peux le craft en combinant les Poussiere coute extremment cher a la revente! 
+#,Poussiere_Noire,0:0:0-0,Marchandises,Sell,0,1:50000 tu peux le craft en combinant les Poussiere coute extremment cher a la revente! ,
 Poudre_Verdatre,1:60:1-3,Marchandises,Sell,0,1:2500,,Poussiere de basse qualite. Certains marchands peuvent etre interesses. A Vendre: Items.
-Collier_d'Agathe,1:80:1-1,Objets,Give,1:7500,1:5000,endfight_heal:full|s:pv:30,Le pokémon qui le tient voit ses PVmax augmenter de 30 et il est full HP apres chaque combat. A tenir: Cliquer-Glisser dans Equipe
+Collier_d'Agathe,1:80:1-1,Objets,Give,1:7500,1:5000,endfight_heal:full|s:pv:30,Le pokemon qui le tient voit ses PVmax augmenter de 30 et il est full HP apres chaque combat. A tenir: Cliquer-Glisser dans Equipe
 Casquette_de_Nathan,1:93:1-1,Objets_rares,Give,1:50000,0,m:all:50|target:Tyranocif,Equipable uniquement sur Tyranocif. Augmente toutes les stats de Tyranocif de 50%. A tenir: Cliquer-Glisser dans Equipe
 Charme_Chroma,1:97:1-1,Objets_rares,Enable,0,0,all_shiny,Tous les pokemons deviennent shiny :) Activable: Clic droit.
-Caillou,1:85:1-1,Objets,Give,0,1:1,m:vit:-1,Diminue la vitesse du pokémon auquel il est attaché de 1%. A tenir: Cliquer-Glisser dans Equipe
+Caillou,1:85:1-1,Objets,Give,0,1:1,m:vit:-1,Diminue la vitesse du pokemon auquel il est attache de 1%. A tenir: Cliquer-Glisser dans Equipe
 CD,1:85:1-1,Objets_rares,Sell,0,1:10,,Obtenu pour 100 euros sur Aliexpress : LE CD LE PLUS RARE DU MONDE. A Vendre: Items.
 Piquants,1:97:1-1,Objets_rares,Sell,0,1:-5000,,Vous perdez 1000 pokedollars par tour tant que l'objet reste dans le sac. A Vendre: Items.
 Rappel,1:45:1-2,Medecine,Use,1:4750,1:1000,revive|full_h,Reanime un pokemon K.O et restaure tous ses PV. Utilisable: Cliquer-Glisser dans Equipe.
