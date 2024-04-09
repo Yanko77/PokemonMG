@@ -8,6 +8,7 @@ import pygame
 
 import starters
 import train
+import grind
 import spawn
 import sac
 import items
@@ -24,6 +25,9 @@ class IngameWindow:
 
     def __init__(self, game):
         self.game = game
+
+        self.WIDTH = 870
+        self.HEIGHT = 488
 
         # Variables
         self.is_open = False
@@ -84,6 +88,8 @@ class IngameWindow:
         self.sac_panel = sac.SacIngamePanel(self.game)
         self.spawn_panel = spawn.SpawnPanel(self.game)
         self.train_panel = train.TrainPanel(self.game)
+        self.grind_panel = grind.GrindPanel(self.game)
+        self.grind_panel.graph.init_graph(self)
         self.items_panel = items.ItemsPanel(self.game)
         self.evol_panel = evolutions.EvolPanel(self.game)
 
@@ -91,6 +97,7 @@ class IngameWindow:
             "Sac d'objets": self.sac_panel,
             "Spawn": self.spawn_panel,
             "Train": self.train_panel,
+            "Grind": self.grind_panel,
             "Items": self.items_panel,
             "Evolutions": self.evol_panel,
         }
@@ -204,6 +211,8 @@ class IngameWindow:
         self.x_button_rect.x, self.x_button_rect.y = self.basic_window_pos[0] + 854, self.basic_window_pos[1] + 4
         self.min_button_rect.x, self.min_button_rect.y = self.basic_window_pos[0] + 816, self.basic_window_pos[1] + 4
 
+        self.grind_panel.graph.init_graph(self)
+
     # Méthode d'actualisation de variables
 
     def update_panel(self, panel_name):
@@ -221,6 +230,12 @@ class IngameWindow:
         self.icon = self.icon = pygame.image.load(f'assets/game/ingame_windows/{self.current_panel_name}/icon.png')
 
     # Méthodes basiques
+
+    def get_width(self):
+        return self.WIDTH
+
+    def get_height(self):
+        return self.HEIGHT
 
     def open(self):
         """

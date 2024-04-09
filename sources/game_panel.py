@@ -817,7 +817,7 @@ class GamePanelButtons:
     def __init__(self):
         self.unlocked_buttons = {'Spawn': True,
                                  'Train': True,
-                                 'Grind': False,
+                                 'Grind': True,
                                  'Items': True,
                                  'Evol': True
                                  }

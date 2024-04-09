@@ -8,17 +8,89 @@ GRAPH_CIRCLES_RADIUS = 25
 GRAPH_CIRCLES_WIDTH = 5
 GRAPH_MAX_LINE_ANGLE = 75
 
-GRAPH_DICT = {}
-
 
 class GrindPanel:
 
     def __init__(self, game):
         self.game = game
 
+        self.PATH = 'assets/game/ingame_windows/Grind/'
+
         self.graph = Graph(self.game, GRAPH_DICT)
 
-    def update(self, surface, possouris):
+        self.background = self.img_load('background')
+
+        self.window_pos = (0, 0)
+
+    def update(self, surface, possouris, window_pos):
+        self.window_pos = window_pos
+
+        self.display(self.background, (-21, -60), surface)
+
+        self.graph.display(surface, possouris)
+
+    def display(self,
+                image: pygame.Surface,
+                pos,
+                surface: pygame.Surface,
+                rect=None):
+        """
+        Méthode d'affichage d'une image.
+        Prend en paramètre une position relative à la fenêtre ingame.
+
+        @in : image, pygame.Surface → image à afficher
+        @in : pos, tuple ou pygame.Rect → position souhaitée relative à la fenêtre ingame
+        @in : surface, pygame.Surface → fenêtre du jeu
+        @in : rect, pygame.Rect ou None → zone de l'image à afficher
+
+        """
+        if rect is None:
+            surface.blit(image, (pos[0] + self.window_pos[0] + 19,
+                                 pos[1] + self.window_pos[1] + 39))
+        else:
+            surface.blit(image, (pos[0] + self.window_pos[0] + 19,
+                                 pos[1] + self.window_pos[1] + 39),
+                         rect)
+
+    def img_load(self, file_name):
+        return pygame.image.load(f'{self.PATH}{file_name}.png')
+
+    def reset(self):
+        """
+        Méthode de réinitialisation du panel.
+        Utilisée lors de l'initialisation d'un nouveau tour de jeu.
+        """
+        pass
+
+    def close(self):
+        """
+        Méthode classique qui éxécute tout ce qu'il faut faire lorsque le panel est fermé.
+        """
+        pass
+
+    def left_clic_interactions(self, possouris: list):
+        """
+        Méthode gérant les intéractions de l'utilisateur avec le clic gauche de la souris.
+
+        @in : possouris, list → coordonnées du pointeur de souris
+        """
+        pass
+
+    def right_clic_interactions(self, posssouris: list):
+        """
+        Méthode gérant les intéractions de l'utilisateur avec le clic droit de la souris.
+
+        @in : possouris, list → coordonnées du pointeur de souris
+        """
+        pass
+
+    def is_hovering_buttons(self, possouris) -> bool:
+        """
+        Méthode qui retourne True si la souris est positionnée sur un bouton du panel.
+
+        @in : possouris, list → coordonnées du pointeur de souris
+        @out : bool
+        """
         pass
 
 
@@ -52,9 +124,9 @@ class Graph:
 
             i += 1
 
-    def init_graph(self, screen):
-        pos = (screen.get_width() // 2,
-               screen.get_height() // 2)
+    def init_graph(self, window):
+        pos = (window.get_width() // 2 + window.basic_window_pos[0],
+               window.get_height() // 2 + window.basic_window_pos[1])
 
         angle = radians(0)
 
@@ -157,6 +229,18 @@ def draw_forme(forme: str):
     }
 
     return formes_functions[forme]
+
+
+GRAPH_DICT = {
+        Upgrade('1', None): {Upgrade('2', None): {},
+                             Upgrade('3', None): {Upgrade('4', None): {}},
+                             Upgrade('7', None): {},},
+
+        Upgrade('5', None): {Upgrade('6', None): {}, Upgrade('6', None): {}},
+        Upgrade('5', None): {},
+
+    }
+
 
 
 if __name__ == '__main__':
