@@ -55,11 +55,11 @@ def main():
             if event.type == pygame.KEYDOWN:
                 game.pressed[event.key] = True
 
-                if event.key == pygame.K_UP:
-                    print(posSouris)
-
-                elif event.key == pygame.K_DOWN:
-                    game.player.add_sac_item(objet.Objet('Grigri_Protecteur', game))
+                if event.key == pygame.K_F11:
+                    if pygame.display.is_fullscreen():
+                        pygame.display.set_mode((1280, 720))
+                    else:
+                        pygame.display.set_mode((1280, 720), pygame.FULLSCREEN)
 
                 if game.is_playing:
                     if game.classic_panel.player_name_editing_mode:
