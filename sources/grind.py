@@ -2,10 +2,10 @@ import pygame
 
 from math import cos, sin, tan, radians
 
-GRAPH_LINES_LENGTH = 50
-GRAPH_LINES_WIDTH = 5
-GRAPH_CIRCLES_RADIUS = 25
-GRAPH_CIRCLES_WIDTH = 5
+GRAPH_LINES_LENGTH = 75
+GRAPH_LINES_WIDTH = 6
+GRAPH_CIRCLES_RADIUS = 35
+GRAPH_CIRCLES_WIDTH = 6
 GRAPH_MAX_LINE_ANGLE = 75
 
 
@@ -118,15 +118,28 @@ class Graph:
                     self.root.pos[0] + GRAPH_LINES_LENGTH * cos(angle),
                     self.root.pos[1] + GRAPH_LINES_LENGTH * sin(angle)
             )
-            draw_forme('line')(surface, self.root.pos, point_arrivee)
+            draw_forme('line')(surface, self.root.pos, point_arrivee, width=round(GRAPH_LINES_WIDTH * 1.4))
 
             next_upgrade.display(surface, possouris)
 
             i += 1
 
+        i = 0
+        for next_upgrade in self.root.next:
+            angle = radians(360 / nb_upgrades * i)
+
+            point_arrivee = (
+                self.root.pos[0] + GRAPH_LINES_LENGTH * cos(angle),
+                self.root.pos[1] + GRAPH_LINES_LENGTH * sin(angle)
+            )
+
+            draw_forme('line')(surface, self.root.pos, point_arrivee, color=(50, 50, 50))
+
+            i += 1
+
     def init_graph(self, window):
         pos = (window.get_width() // 2 + window.basic_window_pos[0],
-               window.get_height() // 2 + window.basic_window_pos[1])
+               window.get_height() // 2 + window.basic_window_pos[1] + 39)
 
         angle = radians(0)
 
@@ -163,7 +176,10 @@ class Upgrade:
         self.is_unlock = False
 
     def display(self, surface, possouris):
-        draw_forme('circle')(surface, center=self.pos)
+        if self.is_unlock:
+            color = (220, 220, 0)
+        else:
+            color = (0, 0, 0)
 
         point_accroche = (
             self.pos[0] + GRAPH_CIRCLES_RADIUS * cos(self.angle),
@@ -176,18 +192,40 @@ class Upgrade:
             if nb_upgrades == 1:
                 angle = self.angle
             else:
-                angle = angle = self.angle + radians(GRAPH_MAX_LINE_ANGLE * 2 / nb_upgrades) * (i - (nb_upgrades - 1) / 2)
+                angle = self.angle + radians(GRAPH_MAX_LINE_ANGLE * 2 / nb_upgrades) * (i - (nb_upgrades - 1) / 2)
 
             point_arrivee = (
                 point_accroche[0] + GRAPH_LINES_LENGTH * cos(angle),
                 point_accroche[1] + GRAPH_LINES_LENGTH * sin(angle)
             )
 
-            draw_forme('line')(surface, point_accroche, point_arrivee)
+            draw_forme('line')(surface, point_accroche, point_arrivee, width=round(GRAPH_LINES_WIDTH * 1.4))
 
             next_upgrade.display(surface, possouris)
 
             i += 1
+
+        i = 0
+        for next_upgrade in self.next:
+            if nb_upgrades == 1:
+                angle = self.angle
+            else:
+                angle = self.angle + radians(GRAPH_MAX_LINE_ANGLE * 2 / nb_upgrades) * (i - (nb_upgrades - 1) / 2)
+
+            point_arrivee = (
+                point_accroche[0] + GRAPH_LINES_LENGTH * cos(angle),
+                point_accroche[1] + GRAPH_LINES_LENGTH * sin(angle)
+            )
+
+            draw_forme('line')(surface, point_accroche, point_arrivee, color=(50, 50, 50))
+
+            i += 1
+
+        draw_forme('circle')(surface, center=self.pos, radius=GRAPH_CIRCLES_RADIUS + 3, color=(220, 220, 220),
+                             width=round(GRAPH_CIRCLES_WIDTH + 2))
+        draw_forme('circle')(surface, center=self.pos, radius=GRAPH_CIRCLES_RADIUS + 2, color=(50, 50, 50),
+                             width=round(GRAPH_CIRCLES_WIDTH + 2))
+        draw_forme('circle')(surface, center=self.pos, color=color)
 
     def set_display_infos(self, pos, angle):
         self.pos = pos
@@ -217,11 +255,11 @@ class Upgrade:
 
 def draw_forme(forme: str):
 
-    def line(surface, pos_deb, pos_fin, color=(255, 255, 255)):
-        pygame.draw.line(surface, color, pos_deb, pos_fin, width=GRAPH_LINES_WIDTH)
+    def line(surface, pos_deb, pos_fin, color=(255, 255, 255), width=GRAPH_LINES_WIDTH):
+        pygame.draw.line(surface, color, pos_deb, pos_fin, width=width)
 
-    def circle(surface, center, color=(255, 255, 255)):
-        pygame.draw.circle(surface, center=center, color=color, radius=GRAPH_CIRCLES_RADIUS, width=GRAPH_CIRCLES_WIDTH)
+    def circle(surface, center, color=(255, 255, 255), radius=GRAPH_CIRCLES_RADIUS, width=GRAPH_CIRCLES_WIDTH):
+        pygame.draw.circle(surface, center=center, color=color, radius=radius, width=width)
 
     formes_functions = {
         'line': line,
