@@ -1,7 +1,7 @@
 Name,level,id,objet_tenu,is_shiny,health,bonus_stat bonus_pvmax bonus_attack bonus_defense bonus_speed,is_alive,attaque_pool
-Bulbizarre,6,1,Grigri_Protecteur,False,0,0.0/0.0/0/0.0/1.0/1.0/1.0/1.0,False,Charge:35/Vive-Attaque:30/Feuillage:40/Abri:10
-Galifeu,12,14,Charbon,False,39,0/0/0/0/1.0/1.0/1.0/1.0,True,Nitrocharge:20/Feu_Follet:15/Vive-Attaque:30/Balayage:20
-Sabelette,4,9,None,False,20,0/0/0/0/1/1/1/1,True,Charge:35/Magnitude:30/Coud'Krane:10/None
+Carapuce,5,3,None,False,22,0/0/0/0/1/1/1/1,True,Charge:35/Aqua-Jet:20/Vibraqua:20/Abri:10
+,,,,,,,
+,,,,,,,
 ,,,,,,,
 ,,,,,,,
 ,,,,,,,

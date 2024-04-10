@@ -71,7 +71,7 @@ class SacIngamePanel:
 
     # Méthodes d'affichage
 
-    def update(self, surface, possouris, window_pos):
+    def update(self, surface, possouris, window):
         """
         Méthode d'actualisation de l'affichage du panel.
 
@@ -79,6 +79,8 @@ class SacIngamePanel:
         @in : possouris, list → coordonnées du pointeur de souris
         @in : window_pos, list → coordonnées de la fenêtre ingame
         """
+        window_pos = window.basic_window_pos
+
         if self.page == 1:
             surface.blit(self.background1, window_pos)
         elif self.page == 2:

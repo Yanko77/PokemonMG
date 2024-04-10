@@ -136,7 +136,7 @@ class IngameWindow:
                 surface.blit(self.icon, self.basic_window_pos)
 
                 # self.update_current_panel(surface, possouris)
-                self.current_panel.update(surface, possouris, self.basic_window_pos)
+                self.current_panel.update(surface, possouris, self)
                 self.update_buttons(surface, possouris)
 
                 self.update_window_pos(possouris)

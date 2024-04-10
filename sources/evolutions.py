@@ -47,7 +47,7 @@ class EvolPanel:
 
     # Méthodes d'affichage
 
-    def update(self, surface, possouris, window_pos):
+    def update(self, surface, possouris, window):
         """
         Méthode d'actualisation de l'affichage du panel.
 
@@ -55,6 +55,8 @@ class EvolPanel:
         @in : possouris, list → coordonnées du pointeur de souris
         @in : window_pos, list → coordonnées de la fenêtre ingame
         """
+        window_pos = window.basic_window_pos
+
         if self.window_pos != window_pos:
             self.update_rects(window_pos)
 

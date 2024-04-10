@@ -18,16 +18,20 @@ class GrindPanel:
 
         self.graph = Graph(self.game, GRAPH_DICT)
 
+        self.form_surface = pygame.surface.Surface((1280, 720))
+        self.form_surface.fill((0, 255, 0))
+        self.form_surface.set_colorkey((0, 255, 0))
+
         self.background = self.img_load('background')
 
         self.window_pos = (0, 0)
 
-    def update(self, surface, possouris, window_pos):
-        self.window_pos = window_pos
+    def update(self, surface, possouris, window):
+        self.window_pos = window.basic_window_pos
 
         self.display(self.background, (-21, -60), surface)
 
-        self.graph.display(surface, possouris)
+        self.graph.display(surface, possouris, self.form_surface, window)
 
     def display(self,
                 image: pygame.Surface,
@@ -106,7 +110,8 @@ class Graph:
 
         self.root.set_next_upgrades(dico)
 
-    def display(self, surface, possouris):
+    def display(self, surface, possouris, form_surface, window):
+        window_pos = window.basic_window_pos
 
         i = 0
         nb_upgrades = len(self.root.next)
@@ -118,9 +123,9 @@ class Graph:
                     self.root.pos[0] + GRAPH_LINES_LENGTH * cos(angle),
                     self.root.pos[1] + GRAPH_LINES_LENGTH * sin(angle)
             )
-            draw_forme('line')(surface, self.root.pos, point_arrivee, width=round(GRAPH_LINES_WIDTH * 1.4))
+            draw_forme('line')(form_surface, self.root.pos, point_arrivee, width=round(GRAPH_LINES_WIDTH * 1.4))
 
-            next_upgrade.display(surface, possouris)
+            next_upgrade.display(surface, possouris, form_surface)
 
             i += 1
 
@@ -133,9 +138,12 @@ class Graph:
                 self.root.pos[1] + GRAPH_LINES_LENGTH * sin(angle)
             )
 
-            draw_forme('line')(surface, self.root.pos, point_arrivee, color=(50, 50, 50))
+            draw_forme('line')(form_surface, self.root.pos, point_arrivee, color=(50, 50, 50))
 
             i += 1
+
+        surface.blit(form_surface, (window_pos[0] + 21, window_pos[1] + window.window_bar_rect.h), (window_pos[0] + 21, window_pos[1] + window.window_bar_rect.h, window.WIDTH, window.HEIGHT))
+        form_surface.fill((0, 255, 0))
 
     def init_graph(self, window):
         pos = (window.get_width() // 2 + window.basic_window_pos[0],
@@ -143,7 +151,7 @@ class Graph:
 
         angle = radians(0)
 
-        self.root.set_display_infos(pos, angle)
+        self.root.set_display_infos(pos, angle, window)
 
         i = 0
         nb_upgrades = len(self.root.next)
@@ -153,7 +161,7 @@ class Graph:
                 self.root.pos[0] + (GRAPH_LINES_LENGTH + GRAPH_CIRCLES_RADIUS) * cos(angle),
                 self.root.pos[1] + (GRAPH_LINES_LENGTH + GRAPH_CIRCLES_RADIUS) * sin(angle)
             )
-            next_upgrade.set_display_infos(pos, angle)
+            next_upgrade.set_display_infos(pos, angle, window)
 
             i += 1
 
@@ -166,6 +174,7 @@ class Upgrade:
         self.name = name
         self.pos = (0, 0)
         self.angle = 0
+        self.rect = pygame.Rect(0, 0, 0, 0)
 
         if next_list is None:
             self.next = []
@@ -175,7 +184,7 @@ class Upgrade:
         self.cost = cost
         self.is_unlock = False
 
-    def display(self, surface, possouris):
+    def display(self, surface, possouris, form_surface):
         if self.is_unlock:
             color = (220, 220, 0)
         else:
@@ -199,9 +208,9 @@ class Upgrade:
                 point_accroche[1] + GRAPH_LINES_LENGTH * sin(angle)
             )
 
-            draw_forme('line')(surface, point_accroche, point_arrivee, width=round(GRAPH_LINES_WIDTH * 1.4))
+            draw_forme('line')(form_surface, point_accroche, point_arrivee, width=round(GRAPH_LINES_WIDTH * 1.4))
 
-            next_upgrade.display(surface, possouris)
+            next_upgrade.display(surface, possouris, form_surface)
 
             i += 1
 
@@ -217,19 +226,45 @@ class Upgrade:
                 point_accroche[1] + GRAPH_LINES_LENGTH * sin(angle)
             )
 
-            draw_forme('line')(surface, point_accroche, point_arrivee, color=(50, 50, 50))
+            draw_forme('line')(form_surface, point_accroche, point_arrivee, color=(50, 50, 50))
 
             i += 1
 
-        draw_forme('circle')(surface, center=self.pos, radius=GRAPH_CIRCLES_RADIUS + 3, color=(220, 220, 220),
+        draw_forme('circle')(form_surface, center=self.pos, radius=GRAPH_CIRCLES_RADIUS + 3, color=(220, 220, 220),
                              width=round(GRAPH_CIRCLES_WIDTH + 2))
-        draw_forme('circle')(surface, center=self.pos, radius=GRAPH_CIRCLES_RADIUS + 2, color=(50, 50, 50),
+        draw_forme('circle')(form_surface, center=self.pos, radius=GRAPH_CIRCLES_RADIUS + 2, color=(50, 50, 50),
                              width=round(GRAPH_CIRCLES_WIDTH + 2))
-        draw_forme('circle')(surface, center=self.pos, color=color)
+        draw_forme('circle')(form_surface, center=self.pos, color=color)
 
-    def set_display_infos(self, pos, angle):
+        if self.rect.collidepoint(possouris):
+            print(self.name)
+
+    def set_display_infos(self, pos, angle, window):
         self.pos = pos
         self.angle = angle
+
+        dist_with_window_border = [
+            window.basic_window_pos[0] + window.get_width() - self.pos[0],
+            window.basic_window_pos[1] + window.get_height() - self.pos[1]
+        ]
+
+        if dist_with_window_border[0] > 0:
+            dist_with_window_border[0] = 0
+
+        if dist_with_window_border[1] > 0:
+            dist_with_window_border[1] = 1
+
+        self.rect = pygame.Rect(
+            self.pos[0] - GRAPH_CIRCLES_RADIUS,
+            self.pos[1] - GRAPH_CIRCLES_RADIUS,
+            GRAPH_CIRCLES_RADIUS*2 + dist_with_window_border[0],
+            GRAPH_CIRCLES_RADIUS*2 + dist_with_window_border[1]
+        )
+
+        if self.rect.w < 0:
+            self.rect.w = 0
+        if self.rect.h < 0:
+            self.rect.h = 0
 
         i = 0
         nb_upgrades = len(self.next)
@@ -243,7 +278,7 @@ class Upgrade:
                 self.pos[0] + GRAPH_LINES_LENGTH * cos(angle) + GRAPH_CIRCLES_RADIUS * cos(self.angle) + GRAPH_CIRCLES_RADIUS * cos(angle),
                 self.pos[1] + GRAPH_LINES_LENGTH * sin(angle) + GRAPH_CIRCLES_RADIUS * sin(self.angle) + GRAPH_CIRCLES_RADIUS * sin(angle)
             )
-            next_upgrade.set_display_infos(pos, angle)
+            next_upgrade.set_display_infos(pos, angle, window)
 
             i += 1
 
@@ -271,10 +306,10 @@ def draw_forme(forme: str):
 
 GRAPH_DICT = {
         Upgrade('1', None): {Upgrade('2', None): {},
-                             Upgrade('3', None): {Upgrade('4', None): {}},
+                             Upgrade('3', None): {Upgrade('4', None): {Upgrade('4', None): {}}},
                              Upgrade('7', None): {},},
 
-        Upgrade('5', None): {Upgrade('6', None): {}, Upgrade('6', None): {}},
+        Upgrade('5', None): {Upgrade('6', None): {Upgrade('6', None): {}}, Upgrade('6', None): {}},
         Upgrade('5', None): {},
 
     }
@@ -291,7 +326,7 @@ if __name__ == '__main__':
 
     g = Graph(None, {
         Upgrade('1', None): {Upgrade('2', None): {},
-                             Upgrade('3', None): {Upgrade('4', None): {}},
+                             Upgrade('3', None): {Upgrade('4', None): {Upgrade('4', None): {}}},
                              Upgrade('7', None): {},},
 
         Upgrade('5', None): {Upgrade('6', None): {}, Upgrade('6', None): {}},
