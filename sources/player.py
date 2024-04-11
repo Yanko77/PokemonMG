@@ -3,6 +3,7 @@ Fichier gérant le joueur.
 """
 
 # Importation des modules
+import functools
 
 import pygame.key
 
@@ -62,6 +63,7 @@ class Player:
                     None]
 
         self.money = 0
+        self.upgrade_points = 0
 
     def edit_name(self, key):
         """
@@ -217,18 +219,48 @@ class Player:
 
         self.game.notif(text=text, color=(225, 0, 0))
 
-    def payer(self, price: int) -> bool:
+    def payer(self, price: tuple, money: tuple = ('money',)) -> bool:
         """
         Methode qui permet au joueur de payer la somme rentrée en paramètre d'entrée.
         Renvoie True s'il a payé, False sinon.
 
-        @in : price, int
+        @in : price, tuple -> (upgrade_points, actions, money)
+        @in : money, tuple -> ('money', ...)
         """
-        if self.money >= price:
-            self.money -= price
+
+        if self.check_payer(price, money):
+
+            if 'money' in money:
+                self.money -= price[2]
+
+            if 'actions' in money:
+                self.use_action(price[1])
+
+            if 'upgrade points' in money:
+                self.use_action(price[0])
+
             return True
         else:
             return False
+
+    def check_payer(self, price, money):
+
+        check = [True, True, True]
+
+        if 'money' in money:
+            if self.money < price[2]:
+                check[2] = False
+
+        if 'actions' in money:
+            if self.actions < price[1]:
+                check[1] = False
+
+        if 'upgrade points' in money:
+            if self.upgrade_points < price[0]:
+                check[0] = False
+
+        return functools.reduce(lambda x, y: x and y, check)
+
 
     def level_up(self, nb_lv=1):
         """

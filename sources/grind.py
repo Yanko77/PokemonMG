@@ -15,7 +15,13 @@ class GrindPanel:
 
         self.PATH = 'assets/game/ingame_windows/Grind/'
 
-        self.graph = Graph(self.game, GRAPH_DICT)
+        self.GRAPH_DICT = {
+            EcoUpgrade(self.game): {EcoUpgrade(self.game): {}},
+            CombatUpgrade(self.game): {},
+            ScienceUpgrade(self.game): {},
+        }
+
+        self.graph = Graph(self.game, self.GRAPH_DICT)
 
         self.form_surface = pygame.surface.Surface((1280, 720))
         self.form_surface.fill((0, 255, 0))
@@ -77,7 +83,7 @@ class GrindPanel:
 
         @in : possouris, list → coordonnées du pointeur de souris
         """
-        pass
+        self.graph.left_clic_interactions(possouris)
 
     def right_clic_interactions(self, posssouris: list):
         """
@@ -120,12 +126,16 @@ class Graph:
 
         self.zoom_value = 1
 
-        self.root = Upgrade('Root', self.game)
+        self.root = Racine(self.game)
 
         if dico is None:
             dico = {}
 
         self.root.set_next_upgrades(dico)
+
+        self.list = self.get_list()
+        print(self.list)
+
 
     def display(self, surface, possouris, form_surface, window):
         window_pos = window.basic_window_pos
@@ -183,7 +193,7 @@ class Graph:
             i += 1
 
     def zoom(self, value, window):
-        value = value/50
+        value = value/10
 
         if self.zoom_value + value < 0.4 and self.zoom_value != 0.4:
             self.zoom_value = 0.4 - value
@@ -217,6 +227,21 @@ class Graph:
 
         return formes_functions[forme]
 
+    def get_list(self):
+        """
+        Retourne la liste de tous les sommets du graphe ( upgrades )
+        """
+        liste = []
+        for next_upgrade in self.root.next:
+            liste += next_upgrade.get_next_list()
+
+        return liste
+
+    def left_clic_interactions(self, possouris):
+        for upgrade in self.list:
+            if upgrade.rect.collidepoint(possouris):
+                upgrade.buy()
+
 
 class Upgrade:
 
@@ -229,6 +254,11 @@ class Upgrade:
         self.angle = 0
         self.rect = pygame.Rect(0, 0, 0, 0)
 
+        if previous_list is None:
+            self.previous = []
+        else:
+            self.previous = [upgrade for upgrade in previous_list]
+
         if next_list is None:
             self.next = []
         else:
@@ -236,6 +266,24 @@ class Upgrade:
 
         self.cost = cost
         self.is_unlock = False
+
+    def buy(self):
+        boolPrevious = True
+        for previous_upgrade in self.previous:
+            if not previous_upgrade.is_unlock:
+                boolPrevious = False
+
+        if not self.is_unlock and boolPrevious:
+            if self.game.player.payer(self.cost, ('money', 'actions', 'upgrade points')):
+                self.unlock()
+
+    def unlock(self):
+        if not self.is_unlock:
+            self.is_unlock = True
+            self.activate()
+
+    def activate(self):
+        pass
 
     def display(self, surface, possouris, form_surface):
         if self.is_unlock:
@@ -345,24 +393,68 @@ class Upgrade:
         for next_upgrade in dico:
             next_upgrade.set_next_upgrades(dico[next_upgrade])
             self.next.append(next_upgrade)
+            next_upgrade.set_previous(self)
+
+    def set_previous(self, upgrade):
+        self.previous.append(upgrade)
+
+    def get_next_list(self):
+        liste = [self]
+        for next_upgrade in self.next:
+            liste += next_upgrade.get_next_list()
+
+        return liste
 
 
-class GoldUpgrade(Upgrade):
+class Racine(Upgrade):
+    """
+    Racine du graphe d'upgrades
+    """
 
-    def __init__(self, game):
-        super().__init__('Gold Boost', game)
+    def __init__(self, game, next_list=None):
+        super().__init__(name="Root",
+                         game=game,
+                         next_list=next_list,
+                         cost=(0, 0, 0),
+                         tier=0
+                         )
+        self.is_unlock = True
 
 
-GRAPH_DICT = {
-        Upgrade('1', None): {Upgrade('2', None): {},
-                             Upgrade('3', None): {Upgrade('4', None): {Upgrade('4', None): {}},
-                                                  Upgrade('4', None): {Upgrade('4', None): {Upgrade('4', None): {Upgrade('4', None): {}},
-                                                  Upgrade('4', None): {Upgrade('4', None): {}},
-                                                  Upgrade('4', None): {Upgrade('4', None): {}}}},
-                                                  Upgrade('4', None): {Upgrade('4', None): {}}},
-                             Upgrade('7', None): {},},
+class EcoUpgrade(Upgrade):
+    """
+    Upgrade d'origine de la branche Economie
+    """
+    def __init__(self, game, next_list=None):
+        super().__init__(name="Économie",
+                         game=game,
+                         next_list=next_list,
+                         cost=(0, 0, 0),
+                         tier=0
+                         )
 
-        Upgrade('5', None): {Upgrade('6', None): {Upgrade('6', None): {}}, Upgrade('6', None): {}},
-        Upgrade('5', None): {},
 
-    }
+class CombatUpgrade(Upgrade):
+    """
+    Upgrade d'origine de la branche Combat
+    """
+    def __init__(self, game, next_list=None):
+        super().__init__(name="Combat",
+                         game=game,
+                         next_list=next_list,
+                         cost=(0, 0, 0),
+                         tier=0
+                         )
+
+
+class ScienceUpgrade(Upgrade):
+    """
+    Upgrade d'origine de la branche Science
+    """
+    def __init__(self, game, next_list=None):
+        super().__init__(name="Science",
+                         game=game,
+                         next_list=next_list,
+                         cost=(0, 0, 0),
+                         tier=0
+                         )

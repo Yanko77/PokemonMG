@@ -606,7 +606,7 @@ class ItemsPanel:
         @in : item, objet.Objet → Objet à acheter
         """
         if item.boolBuy:
-            if self.game.player.payer(item.buy_price):  # Le joueur paye s'il peut
+            if self.game.player.payer((0, 0, item.buy_price)):  # Le joueur paye s'il peut
                 if item.categorie == 'Objets_rares':
                     item.boolBuy = False
 
