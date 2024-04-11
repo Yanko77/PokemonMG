@@ -65,6 +65,8 @@ class Player:
         self.money = 0
         self.upgrade_points = 0
 
+        self.money_earning_boost = 1
+
     def edit_name(self, key):
         """
         Méthode d'édition du nom du joueur.
@@ -276,7 +278,14 @@ class Player:
 
         @in : amount, int → Valeur ajoutée
         """
-        self.money += amount
+        self.money += round(amount * self.money_earning_boost)
+
+    def boost_earn_money(self, value):
+        """
+        Méthode d'augmentation de l'argent gagnée en pourcentage.
+        @in : value, float
+        """
+        self.money_earning_boost += value/100
 
     def rise_max_actions_value(self, amount):
         """

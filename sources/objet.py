@@ -448,6 +448,7 @@ class Objet:
         # Flat
         pokemon.bonus_pvmax -= self.effects['Give']['stats']['flat']['pv']
         pokemon.pv -= self.effects['Give']['stats']['flat']['pv']
+        pokemon.health -= self.effects['Give']['stats']['flat']['pv']
 
         pokemon.bonus_attack -= self.effects['Give']['stats']['flat']['atk']
         pokemon.attack -= self.effects['Give']['stats']['flat']['atk']

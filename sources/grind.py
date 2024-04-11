@@ -16,9 +16,26 @@ class GrindPanel:
         self.PATH = 'assets/game/ingame_windows/Grind/'
 
         self.GRAPH_DICT = {
-            EcoUpgrade(self.game): {EcoUpgrade(self.game): {}},
-            CombatUpgrade(self.game): {},
-            ScienceUpgrade(self.game): {},
+            EcoUpgrade(self.game): {
+                InstantGoldWin1000(self.game): {
+                    InstantGoldWin2500(self.game): {
+                        InstantGoldWin5000(self.game): {
+
+                        }
+                    }
+                },
+                GoldEarningBoost20(self.game): {
+                    GoldEarningBoost50(self.game): {
+                        GoldEarningBoost130(self.game): {
+
+                        }
+                    }
+                }
+            },
+            CombatUpgrade(self.game): {
+            },
+            ScienceUpgrade(self.game): {
+            },
         }
 
         self.graph = Graph(self.game, self.GRAPH_DICT)
@@ -109,7 +126,7 @@ class GrindPanel:
         @in : possouris, list → coordonnées du pointeur de souris
         @out : bool
         """
-        pass
+        return self.graph.is_hovering_buttons(possouris)
 
 
 class Graph:
@@ -134,8 +151,6 @@ class Graph:
         self.root.set_next_upgrades(dico)
 
         self.list = self.get_list()
-        print(self.list)
-
 
     def display(self, surface, possouris, form_surface, window):
         window_pos = window.basic_window_pos
@@ -239,8 +254,14 @@ class Graph:
 
     def left_clic_interactions(self, possouris):
         for upgrade in self.list:
-            if upgrade.rect.collidepoint(possouris):
+            if upgrade.is_hovering(possouris):
                 upgrade.buy()
+
+    def is_hovering_buttons(self, possouris):
+        for upgrade in self.list:
+            if upgrade.is_hovering(possouris):
+                return True
+        return False
 
 
 class Upgrade:
@@ -412,6 +433,9 @@ class Upgrade:
 
         return liste
 
+    def is_hovering(self, possouris):
+        return self.rect.collidepoint(possouris)
+
 
 class Racine(Upgrade):
     """
@@ -465,3 +489,104 @@ class ScienceUpgrade(Upgrade):
                          cost=(0, 0, 0),
                          tier=0
                          )
+
+
+class InstantGoldWin1000(Upgrade):
+    """
+    Upgrade de gain d'argent instantané (1000)
+    """
+    def __init__(self, game, next_list=None):
+        super().__init__(name="Gagner 1000 Pokédollars",
+                         game=game,
+                         next_list=next_list,
+                         cost=(0, 1, 0),
+                         tier=1
+                         )
+
+    def activate(self):
+        self.game.player.add_money(1000)
+
+
+class InstantGoldWin2500(Upgrade):
+    """
+    Upgrade de gain d'argent instantané (2500)
+    """
+
+    def __init__(self, game, next_list=None):
+        super().__init__(name="Gagner 2500 Pokédollars",
+                         game=game,
+                         next_list=next_list,
+                         cost=(0, 1, 0),
+                         tier=2
+                         )
+
+    def activate(self):
+        self.game.player.add_money(2500)
+
+
+class InstantGoldWin5000(Upgrade):
+    """
+    Upgrade de gain d'argent instantané (5000)
+    """
+
+    def __init__(self, game, next_list=None):
+        super().__init__(name="Gagner 5000 Pokédollars",
+                         game=game,
+                         next_list=next_list,
+                         cost=(0, 1, 0),
+                         tier=3
+                         )
+
+    def activate(self):
+        self.game.player.add_money(10000)
+
+
+class GoldEarningBoost20(Upgrade):
+    """
+    Upgrade de boost de gain d'argent futur en pourcentage (20%)
+    """
+
+    def __init__(self, game, next_list=None):
+        super().__init__(name="Bonus de gain d'argent de 20%",
+                         game=game,
+                         next_list=next_list,
+                         cost=(0, 1, 0),
+                         tier=1
+                         )
+
+    def activate(self):
+        self.game.player.boost_earn_money(20)
+
+
+class GoldEarningBoost50(Upgrade):
+    """
+    Upgrade de boost de gain d'argent futur en pourcentage (50%)
+    """
+
+    def __init__(self, game, next_list=None):
+        super().__init__(name="Bonus de gain d'argent de 50%",
+                         game=game,
+                         next_list=next_list,
+                         cost=(0, 1, 0),
+                         tier=2
+                         )
+
+    def activate(self):
+        self.game.player.boost_earn_money(50)
+
+
+class GoldEarningBoost130(Upgrade):
+    """
+    Upgrade de boost de gain d'argent futur en pourcentage (130%)
+    """
+
+    def __init__(self, game, next_list=None):
+        super().__init__(name="Bonus de gain d'argent de 130%",
+                         game=game,
+                         next_list=next_list,
+                         cost=(0, 1, 0),
+                         tier=3
+                         )
+
+    def activate(self):
+        self.game.player.boost_earn_money(130)
