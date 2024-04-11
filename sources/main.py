@@ -104,6 +104,9 @@ def main():
                 if game.is_playing:
                     if game.classic_panel.ingame_window.current_panel_name == "Items":
                         game.classic_panel.ingame_window.items_panel.mouse_wheel(posSouris, event.y)
+                    elif game.classic_panel.ingame_window.current_panel_name == 'Grind':
+                        if game.classic_panel.ingame_window.is_hovering(posSouris):
+                            game.classic_panel.ingame_window.grind_panel.mouse_wheel(event.y, game.classic_panel.ingame_window)
 
         clock.tick(FPS)
 
