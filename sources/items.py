@@ -757,7 +757,7 @@ class ItemsPanel:
         """
         if not self.bool_entrer:
             if not self.game.classic_panel.ingame_window.window_bar_rect.collidepoint(possouris):
-                if self.game.player.payer(self.entrer_price):
+                if self.game.player.payer((0, 0, self.entrer_price)):
                     self.bool_entrer = True
                 else:
                     self.game.notif("Argent insuffisant", (255, 0, 0))

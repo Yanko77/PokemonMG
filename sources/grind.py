@@ -245,10 +245,17 @@ class Graph:
 
 class Upgrade:
 
-    def __init__(self, name, game, next_list=None, cost=0):
+    def __init__(self,
+                 name,
+                 game,
+                 next_list=None,
+                 previous_list=None,
+                 cost=(0, 0, 0),  # points d'upgrade, action, argent
+                 tier=0):
+
         self.game = game
         self.graph = None
-
+        self.tier = tier
         self.name = name
         self.pos = (0, 0)
         self.angle = 0
