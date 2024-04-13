@@ -63,9 +63,11 @@ class Player:
                     None]
 
         self.money = 0
+        self.max_money = 10000
         self.upgrade_points = 0
 
         self.money_earning_boost = 1
+        self.next_turn_money_to_earn = 0
 
     def edit_name(self, key):
         """
@@ -263,7 +265,6 @@ class Player:
 
         return functools.reduce(lambda x, y: x and y, check)
 
-
     def level_up(self, nb_lv=1):
         """
         Méthode d'augmentation du niveau du joueur.
@@ -279,6 +280,9 @@ class Player:
         @in : amount, int → Valeur ajoutée
         """
         self.money += round(amount * self.money_earning_boost)
+
+        if self.money > self.max_money:
+            self.money = self.max_money
 
     def boost_earn_money(self, value):
         """
@@ -337,6 +341,9 @@ class Player:
         self.level_up()
         if self.find_sac_item(objet.Objet("Piquants", self.game)) is not None:
             self.money -= 1000
+
+        self.add_money(self.next_turn_money_to_earn)
+        self.next_turn_money_to_earn = 0
 
         for item in self.sac:
             if item is not None:

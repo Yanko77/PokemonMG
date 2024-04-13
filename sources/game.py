@@ -388,7 +388,7 @@ class Game:
             for line in rows:
                 if not i == 0:
                     pk = self.player.team[i-1]
-                    if pk != None:
+                    if pk is not None:
                         line = pk.get_save_infos(delimiter=',').split(',')
                     else:
                         line = ["", "", "", "", "", "", "", ""]
