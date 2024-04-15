@@ -21,8 +21,9 @@ class TrainPanel:
         difficulté.
     """
 
-    def __init__(self, game):
+    def __init__(self, game, window):
         self.game = game
+        self.window = window
 
         # FONTS
         self.info_select_pk_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 22)
@@ -148,7 +149,7 @@ class TrainPanel:
 
     # Méthodes d'affichage
 
-    def update(self, surface, possouris, window):
+    def update(self, surface, possouris):
         """
         Méthode d'actualisation de l'affichage du panel.
 
@@ -157,7 +158,7 @@ class TrainPanel:
         @in : window_pos, list → coordonnées de la fenêtre ingame
         """
 
-        window_pos = window.basic_window_pos
+        window_pos = self.window.basic_window_pos
 
         # Actualiser les variables relatives à la position de la fenetre ingame
         if self.window_pos != window_pos:

@@ -332,6 +332,13 @@ class Pokemon:
 
         self.attaque_pool = attaque_pool
 
+    @property
+    def endfight_heal_value(self) -> int:
+        if self.objet_tenu.effects['Give']['endfight_heal']['full_heal']:
+            return self.pv
+        else:
+            return self.objet_tenu.effects['Give']['endfight_heal']['value']
+
     def get_id(self):
         return self.id
 

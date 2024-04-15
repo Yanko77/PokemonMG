@@ -15,8 +15,9 @@ class EvolPanel:
     Le joueur peut faire évoluer un Pokémon.
     """
 
-    def __init__(self, game):
+    def __init__(self, game, window):
         self.game = game
+        self.window = window
         self.PATH = 'assets/game/ingame_windows/Evolutions/'
 
         self.pokemon_level_font = pygame.font.Font('assets/fonts/Oswald-Regular.ttf', 15)
@@ -47,7 +48,7 @@ class EvolPanel:
 
     # Méthodes d'affichage
 
-    def update(self, surface, possouris, window):
+    def update(self, surface, possouris):
         """
         Méthode d'actualisation de l'affichage du panel.
 
@@ -55,7 +56,7 @@ class EvolPanel:
         @in : possouris, list → coordonnées du pointeur de souris
         @in : window_pos, list → coordonnées de la fenêtre ingame
         """
-        window_pos = window.basic_window_pos
+        window_pos = self.window.basic_window_pos
 
         if self.window_pos != window_pos:
             self.update_rects(window_pos)

@@ -10,64 +10,32 @@ GRAPH_CIRCLES_WIDTH = 6
 
 class GrindPanel:
 
-    def __init__(self, game):
+    def __init__(self, game, window):
         self.game = game
+        self.window = window
 
         self.PATH = 'assets/game/ingame_windows/Grind/'
 
-        self.GRAPH_DICT = {
-            EcoUpgrade(self.game): {
-                InstantGoldWin1000(self.game): {
-                    NextTurnGoldWin5000(self.game): {
-                        NextTurnGoldWin10000(self.game): {
-                            NextTurnGoldWin50000(self.game): {}
-                        }
-                    },
+        self.GRAPH_DICT = {CombatUpgrade: {},
+                           EcoUpgrade: {},
+                           ScienceUpgrade: {}}
 
-                    InstantGoldWin2500(self.game): {
-                        InstantGoldWin5000(self.game): {
-
-                        }
-                    }
-                },
-
-                EcoUpgrade2(self.game): {
-                    EcoUpgrade3(self.game): {
-                        EcoUpgrade4(self.game): {
-
-                        }
-                    }
-                },
-
-                GoldEarningBoost20(self.game): {
-                    GoldEarningBoost50(self.game): {
-                        GoldEarningBoost130(self.game): {
-
-                        }
-                    }
-                }
-            },
-            CombatUpgrade(self.game): {
-            },
-            ScienceUpgrade(self.game): {
-            },
-        }
-
-        self.graph = Graph(self.game, self.GRAPH_DICT)
-
-        self.form_surface = pygame.surface.Surface((1280, 720)).convert_alpha()
-        self.form_surface.fill((0, 0, 0, 0))
+        self.graph = Graph(game=self.game,
+                           window=self.window,
+                           dico=self.GRAPH_DICT)
 
         self.background = self.img_load('background')
 
-        self.window_pos = (0, 0)
-
-    def update(self, surface, possouris, window):
-        self.window_pos = window.basic_window_pos
+    def update(self, surface, possouris):
 
         self.display(self.background, (-21, -60), surface)
 
-        self.graph.display(surface, possouris, self.form_surface, window)
+        surface.blit(
+            self.graph.render(possouris),
+            self.window.rect,
+            self.window.rect
+        )
+        self.graph.move(possouris)
 
     def display(self,
                 image: pygame.Surface,
@@ -84,16 +52,20 @@ class GrindPanel:
         @in : rect, pygame.Rect ou None → zone de l'image à afficher
 
         """
+
+        image_pos = (
+            pos[0] + self.window.basic_window_pos[0] + 19,
+            pos[1] + self.window.basic_window_pos[1] + 39
+        )
+
         if rect is None:
-            surface.blit(image, (pos[0] + self.window_pos[0] + 19,
-                                 pos[1] + self.window_pos[1] + 39))
+            surface.blit(image, image_pos)
         else:
-            surface.blit(image, (pos[0] + self.window_pos[0] + 19,
-                                 pos[1] + self.window_pos[1] + 39),
+            surface.blit(image, image_pos,
                          rect)
 
-    def img_load(self, file_name):
-        return pygame.image.load(f'{self.PATH}{file_name}.png')
+    def img_load(self, image_name):
+        return pygame.image.load(f'{self.PATH}{image_name}.png')
 
     def reset(self):
         """
@@ -124,14 +96,14 @@ class GrindPanel:
         """
         pass
 
-    def mouse_wheel(self, value, window):
+    def mouse_wheel(self, value):
         """
         Methode qui gère les interactions utilisateurs avec la molette haut/bas de la souris
         @in : possouris, list → coordonnées du pointeur de souris
         @in : value, int → puissance de l'action molette. Ex : 1 = haut de 1
                                                               -2 = bas de 2
         """
-        self.graph.zoom(value, window)
+        self.graph.zoom(value)
 
     def is_hovering_buttons(self, possouris) -> bool:
         """
@@ -145,10 +117,13 @@ class GrindPanel:
 
 class Graph:
 
-    def __init__(self, game, dico=None):
+    def __init__(self, game, window, dico):
         self.game = game
+        self.window = window
 
         self.GRAPH_MAX_LINE_ANGLE = 75
+        self.MIN_ZOOM_VALUE = 0.4
+        self.MAX_ZOOM_VALUE = 5
 
         self.lines_length = GRAPH_LINES_LENGTH
         self.lines_width = GRAPH_LINES_WIDTH
@@ -157,123 +132,86 @@ class Graph:
 
         self.zoom_value = 1
 
-        self.root = Racine(self.game)
+        self.moving = False
+        self.moving_gap = (0, 0)
 
-        if dico is None:
-            dico = {}
+        self.root = Racine(graph=self,
+                           pos=None,
+                           next_dict=dico)
 
-        self.root.set_next_upgrades(dico)
+        self.surface = pygame.surface.Surface((1280, 720)).convert_alpha()
+        self.surface.fill((0, 0, 0, 0))
 
-        self.list = self.get_list()
+        self._list = self.list
 
-    def display(self, surface, possouris, form_surface, window):
-        window_pos = window.basic_window_pos
+    @property
+    def list(self) -> list:
+        """
+        Retourne la liste de toutes les upgrades du graphe.
+        """
+        return self.root.next_list
 
-        i = 0
-        nb_upgrades = len(self.root.next)
+    @property
+    def is_visible(self):
+        for upgrade in self._list:
+            if upgrade.is_visible:
+                return True
 
-        for next_upgrade in self.root.next:
-            angle = radians(360 / nb_upgrades * i)
+        if self.root.is_visible:
+            return True
 
-            point_arrivee = (
-                self.root.pos[0] + self.lines_length * cos(angle),
-                self.root.pos[1] + self.lines_length * sin(angle)
-            )
-            self.draw_forme('line')(form_surface, self.root.pos, point_arrivee, width=round(self.lines_width * 1.4))
+        return False
 
-            next_upgrade.display(surface, possouris, form_surface)
+    def render(self, possouris) -> pygame.Surface:
+        self.surface.fill((0, 0, 0, 0))
+        self.root.display(self.surface, possouris)
 
-            i += 1
+        return self.surface
 
-        i = 0
-        for next_upgrade in self.root.next:
-            angle = radians(360 / nb_upgrades * i)
+    def move(self, possouris):
 
-            point_arrivee = (
-                self.root.pos[0] + self.lines_length * cos(angle),
-                self.root.pos[1] + self.lines_length * sin(angle)
-            )
+        if not self.moving:
+            if self.game.mouse_pressed[1] and self.window.is_hovering(possouris):
+                if not self.is_hovering_buttons(possouris):
+                    self.moving = True
+                    self.moving_gap = (possouris[0] - self.root.pos[0],
+                                       possouris[1] - self.root.pos[1])
+        else:
+            if not self.game.mouse_pressed[1]:
+                self.moving = False
+                if not self.is_visible:
+                    self.root.reload(
+                        (self.window.get_width() // 2 + self.window.basic_window_pos[0] + 21,
+                         self.window.get_height() // 2 + self.window.basic_window_pos[1] + 39)
+                    )
+            else:
+                self.root.reload((possouris[0] - self.moving_gap[0],
+                                  possouris[1] - self.moving_gap[1]))
 
-            self.draw_forme('line')(form_surface, self.root.pos, point_arrivee, color=(50, 50, 50))
+    def zoom(self, value):
+        value = value / (self.MAX_ZOOM_VALUE * 2 - self.zoom_value * 2 + 1)
 
-            i += 1
-
-        surface.blit(form_surface, (window_pos[0] + 21, window_pos[1] + window.window_bar_rect.h),
-                     (window_pos[0] + 21, window_pos[1] + window.window_bar_rect.h, window.WIDTH, window.HEIGHT))
-        form_surface.fill((0, 0, 0, 0))
-
-    def init_graph(self, window):
-        pos = (window.get_width() // 2 + window.basic_window_pos[0],
-               window.get_height() // 2 + window.basic_window_pos[1] + 39)
-
-        angle = radians(0)
-
-        self.root.set_display_infos(pos, angle, window, self)
-
-        i = 0
-        nb_upgrades = len(self.root.next)
-        for next_upgrade in self.root.next:
-            angle = radians(360 / nb_upgrades * i)
-            pos = (
-                self.root.pos[0] + (self.lines_length + self.circles_radius) * cos(angle),
-                self.root.pos[1] + (self.lines_length + self.circles_radius) * sin(angle)
-            )
-            next_upgrade.set_display_infos(pos, angle, window, self)
-
-            i += 1
-
-    def zoom(self, value, window):
-        value = value / 10
-
-        if self.zoom_value + value < 0.4 and self.zoom_value != 0.4:
-            self.zoom_value = 0.4 - value
-
-        elif self.zoom_value + value > 5 and self.zoom_value != 5:
-            self.zoom_value = 5 - value
-
-        if 0.4 <= self.zoom_value + value <= 5:
+        if self.zoom_value + value > self.MAX_ZOOM_VALUE:
+            self.zoom_value = self.MAX_ZOOM_VALUE
+        elif self.zoom_value + value < self.MIN_ZOOM_VALUE:
+            self.zoom_value = self.MIN_ZOOM_VALUE
+        else:
             self.zoom_value += value
 
-            self.lines_length = round(GRAPH_LINES_LENGTH * self.zoom_value)
-            self.circles_radius = round(GRAPH_CIRCLES_RADIUS * self.zoom_value)
-            self.circles_width = round(GRAPH_CIRCLES_WIDTH * self.zoom_value)
-            self.lines_width = round(GRAPH_LINES_WIDTH * self.zoom_value)
+        self.lines_length = round(GRAPH_LINES_LENGTH * self.zoom_value)
+        self.circles_radius = round(GRAPH_CIRCLES_RADIUS * self.zoom_value)
+        self.circles_width = round(GRAPH_CIRCLES_WIDTH * self.zoom_value)
+        self.lines_width = round(GRAPH_LINES_WIDTH * self.zoom_value)
 
-            self.init_graph(window)
-
-    def draw_forme(self, forme: str):
-
-        def line(surface, pos_deb, pos_fin, color=(255, 255, 255), width=self.lines_width):
-            pygame.draw.line(surface, color, pos_deb, pos_fin, width=width)
-
-        def circle(surface, center, color=(255, 255, 255), radius=self.circles_radius,
-                   width=self.circles_width):
-            pygame.draw.circle(surface, center=center, color=color, radius=radius, width=width)
-
-        formes_functions = {
-            'line': line,
-            'circle': circle
-        }
-
-        return formes_functions[forme]
-
-    def get_list(self):
-        """
-        Retourne la liste de tous les sommets du graphe ( upgrades )
-        """
-        liste = []
-        for next_upgrade in self.root.next:
-            liste += next_upgrade.get_next_list()
-
-        return liste
+        self.root.reload()
 
     def left_clic_interactions(self, possouris):
-        for upgrade in self.list:
+        for upgrade in self._list:
             if upgrade.is_hovering(possouris):
                 upgrade.buy()
 
     def is_hovering_buttons(self, possouris):
-        for upgrade in self.list:
+        for upgrade in self._list:
             if upgrade.is_hovering(possouris):
                 return True
         return False
@@ -283,197 +221,213 @@ class Upgrade:
 
     def __init__(self,
                  name,
-                 game,
-                 next_list=None,
-                 previous_list=None,
+                 graph: Graph,
+                 next_dict,
+                 pos=(0, 0),
+                 angle=0.,
                  cost=(0, 0, 0),  # points d'upgrade, action, argent
-                 tier=0):
+                 tier=0
+                 ):
+        self.graph = graph
 
-        self.game = game
-        self.graph = None
-
-        self.name = name
+        self._name = name
         self.tier = tier
         self.description = ""
-
-        # self.icon_image = pygame.image.load(f'assets/icons/upgrades/{self.name}.png').convert()
-        self._icon_image = pygame.image.load(f'assets/icons/upgrades/InstantGoldWin1.png').convert_alpha()
-
-        self.pos = (0, 0)
-        self.angle = 0
-        self.rect = pygame.Rect(0, 0, 0, 0)
-
-        if previous_list is None:
-            self.previous = []
-        else:
-            self.previous = [upgrade for upgrade in previous_list]
-
-        if next_list is None:
-            self.next = []
-        else:
-            self.next = [upgrade for upgrade in next_list]
 
         self.cost = cost
         self.is_unlock = False
 
+        # self._icon_image = pygame.image.load(f'assets/icons/upgrades/{self.name}.png').convert_alpha()
+        self._icon_image = pygame.image.load(f'assets/icons/upgrades/InstantGoldWin1.png').convert_alpha()
+
+        self.pos = pos
+        self.angle = angle
+        self._rect = self.rect
+
+        self.next = []
+        self.previous = []
+        self.init_next(next_dict)
+
+    @property
+    def name(self):
+        return self._name
+
     @property
     def icon_image(self):
-        return pygame.transform.scale(self._icon_image,
-                                      size=(2 * self.graph.circles_radius - self.graph.circles_width*2,
-                                            2 * self.graph.circles_radius - self.graph.circles_width*2))
+        return pygame.transform.scale(
+            self._icon_image,
+            size=(2 * self.graph.circles_radius - self.graph.circles_width * 2,
+                  2 * self.graph.circles_radius - self.graph.circles_width * 2)
+        )
+
+    @property
+    def rect(self):
+        x = self.pos[0] - self.graph.circles_radius
+        y = self.pos[1] - self.graph.circles_radius
+        w = self.graph.circles_radius * 2
+        h = self.graph.circles_radius * 2
+
+        if x < self.graph.window.basic_window_pos[0]:
+            w += x - self.graph.window.basic_window_pos[0]
+            x = self.graph.window.basic_window_pos[0]
+        if y < self.graph.window.basic_window_pos[1]:
+            h += y - self.graph.window.basic_window_pos[1] - self.graph.window.window_bar_rect.h
+            y = self.graph.window.basic_window_pos[1] + self.graph.window.window_bar_rect.h
+        if x > self.graph.window.basic_window_pos[0] + self.graph.window.get_width() + 21 - w:
+            w = self.graph.window.basic_window_pos[0] + self.graph.window.get_width() + 21 - x
+        if y > self.graph.window.basic_window_pos[
+            1] + self.graph.window.get_height() + self.graph.window.window_bar_rect.h - h:
+            h = self.graph.window.basic_window_pos[1] + self.graph.window.get_height() - y
+
+        return pygame.Rect(x, y, w, h)
+
+    @property
+    def next_list(self):
+        liste = []
+
+        for next_upgrade in self.next:
+            liste += self.next + next_upgrade.next_list
+
+        return liste
+
+    @property
+    def border_color(self):
+        return (220 * self.is_unlock,
+                220 * self.is_unlock,
+                0)
+
+    @property
+    def hook_point(self):
+        return (
+            self.pos[0] + self.graph.circles_radius * cos(self.angle),
+            self.pos[1] + self.graph.circles_radius * sin(self.angle),
+        )
+
+    @property
+    def is_previous_unlock(self):
+        for prev_upgrade in self.previous:
+            if prev_upgrade.is_unlock:
+                return True
+        return False
+
+    @property
+    def is_visible(self):
+
+        if self.graph.window.basic_window_pos[0] <= self.pos[0] <= self.graph.window.basic_window_pos[0] + self.graph.window.get_width():
+            if self.graph.window.basic_window_pos[1] <= self.pos[1] <= self.graph.window.basic_window_pos[1] + self.graph.window.window_bar_rect.h + self.graph.window.get_height():
+                return True
+
+        return False
 
     def buy(self):
-        boolPrevious = True
-        for previous_upgrade in self.previous:
-            if not previous_upgrade.is_unlock:
-                boolPrevious = False
-
-        if not self.is_unlock and boolPrevious:
-            if self.game.player.payer(self.cost, ('money', 'actions', 'upgrade points')):
+        if self.is_previous_unlock and not self.is_unlock:
+            if self.graph.game.player.payer(price=self.cost, money=('upgrade_points', 'actions', 'money')):
                 self.unlock()
 
     def unlock(self):
-        if not self.is_unlock:
-            self.is_unlock = True
-            self.activate()
+        self.is_unlock = True
+        self.activate()
 
     def activate(self):
         pass
 
-    def display(self, surface, possouris, form_surface):
-        if self.is_unlock:
-            color = (220, 220, 0)
+    def _get_end_line_pos(self, angle):
+        return (
+            self.hook_point[0] + self.graph.lines_length * cos(angle) * 1.2,
+            self.hook_point[1] + self.graph.lines_length * sin(angle) * 1.2
+        )
+
+    def _get_next_line_color(self, is_next_unlock: bool) -> tuple:
+        if is_next_unlock:
+            return 255, 255, 255
         else:
-            color = (0, 0, 0)
+            return 100, 100, 100
 
-        point_accroche = (
-            self.pos[0] + self.graph.circles_radius * cos(self.angle),
-            self.pos[1] + self.graph.circles_radius * sin(self.angle)
-        )
+    def display(self, surface, possouris):
+        self.display_icon(surface, possouris)
+
+        for next_upgrade in self.next:
+            self.display_next_line(surface, next_upgrade)
+            next_upgrade.display(surface, possouris)
+
+    def display_icon(self, surface, possouris):
+        pygame.draw.circle(surface=surface,
+                           center=self.pos,
+                           color=self.border_color,
+                           radius=self.graph.circles_radius,
+                           width=self.graph.circles_width)
+
+        surface.blit(self.icon_image,
+                     (self.pos[0] - self.graph.circles_radius + self.graph.circles_width,
+                      self.pos[1] - self.graph.circles_radius + self.graph.circles_width))
+
+    def display_next_line(self, surface, next_upgrade):
+        pygame.draw.line(surface=surface,
+                         color=(255 * next_upgrade.is_unlock,
+                                255 * next_upgrade.is_unlock,
+                                255 * next_upgrade.is_unlock),
+                         start_pos=self.hook_point,
+                         end_pos=self._get_end_line_pos(angle=next_upgrade.angle),
+                         width=self.graph.lines_width
+                         )
+
+    def reload(self, pos=None, angle=None):
+
+        if pos is not None:
+            self.pos = pos
+        if angle is not None:
+            self.angle = angle
+
+        self._rect = self.rect
 
         i = 0
-        nb_upgrades = len(self.next)
+        nb_next = len(self.next)
         for next_upgrade in self.next:
-            if nb_upgrades == 1:
-                angle = self.angle
-            else:
-                angle = self.angle + radians(self.graph.GRAPH_MAX_LINE_ANGLE * 2 / nb_upgrades) * (
-                            i - (nb_upgrades - 1) / 2)
+            next_upgrade_angle = self._get_next_angle(nb_next, i)
+            next_upgrade_pos = self._get_next_pos(next_upgrade_angle)
 
-            point_arrivee = (
-                point_accroche[0] + self.graph.lines_length * cos(angle),
-                point_accroche[1] + self.graph.lines_length * sin(angle)
-            )
-
-            self.graph.draw_forme('line')(form_surface, point_accroche, point_arrivee,
-                                          width=round(self.graph.lines_width * 1.4))
-
-            next_upgrade.display(surface, possouris, form_surface)
+            next_upgrade.reload(pos=next_upgrade_pos,
+                                angle=next_upgrade_angle)
 
             i += 1
 
-        i = 0
-        for next_upgrade in self.next:
-            if nb_upgrades == 1:
-                angle = self.angle
-            else:
-                angle = self.angle + radians(self.graph.GRAPH_MAX_LINE_ANGLE * 2 / nb_upgrades) * (
-                            i - (nb_upgrades - 1) / 2)
+    def add_next(self, upgrade):
+        self.next.append(upgrade)
 
-            point_arrivee = (
-                point_accroche[0] + self.graph.lines_length * cos(angle),
-                point_accroche[1] + self.graph.lines_length * sin(angle)
-            )
-
-            self.graph.draw_forme('line')(form_surface, point_accroche, point_arrivee, color=(50, 50, 50))
-
-            i += 1
-
-        self.graph.draw_forme('circle')(form_surface, center=self.pos, radius=self.graph.circles_radius + 3,
-                                        color=(220, 220, 220),
-                                        width=round(self.graph.circles_width + 2))
-        self.graph.draw_forme('circle')(form_surface, center=self.pos, radius=self.graph.circles_radius + 2,
-                                        color=(50, 50, 50),
-                                        width=round(self.graph.circles_width + 2))
-        self.graph.draw_forme('circle')(form_surface, center=self.pos, color=color)
-
-        form_surface.blit(self.icon_image,
-                          (self.pos[0] - self.graph.circles_radius + self.graph.circles_width,
-                           self.pos[1] - self.graph.circles_radius + self.graph.circles_width))
-
-    def set_display_infos(self, pos, angle, window, graph):
-        self.graph = graph
-        self.pos = pos
-        self.angle = angle
-
-        rect_posx = self.pos[0] - self.graph.circles_radius
-        rect_posy = self.pos[1] - self.graph.circles_radius
-        rect_width = self.graph.circles_radius * 2
-        rect_height = self.graph.circles_radius * 2
-
-        if rect_posx < window.basic_window_pos[0]:
-            rect_width = rect_posx + rect_width - window.basic_window_pos[0]
-            rect_posx = window.basic_window_pos[0] + 21
-
-        if rect_posy < window.basic_window_pos[1] + window.window_bar_rect.h:
-            rect_height = rect_posy + rect_height - window.basic_window_pos[1] - window.window_bar_rect.h
-            rect_posy = window.basic_window_pos[1] + window.window_bar_rect.h
-
-        if rect_posx + rect_width > window.basic_window_pos[0] + window.get_width() + 21:
-            rect_width = window.basic_window_pos[0] + window.get_width() + 21 - rect_posx
-
-        if rect_posy + rect_height > window.basic_window_pos[1] + window.get_height() + window.window_bar_rect.h:
-            rect_height = window.basic_window_pos[1] + window.get_height() + window.window_bar_rect.h - rect_posy
-
-        self.rect = pygame.Rect(
-            rect_posx,
-            rect_posy,
-            rect_width,
-            rect_height
-        )
-
-        if self.rect.w < 0:
-            self.rect.w = 0
-        if self.rect.h < 0:
-            self.rect.h = 0
-
-        i = 0
-        nb_upgrades = len(self.next)
-        for next_upgrade in self.next:
-            if nb_upgrades == 1:
-                angle = self.angle
-            else:
-                angle = self.angle + radians(self.graph.GRAPH_MAX_LINE_ANGLE * 2 / nb_upgrades) * (
-                            i - (nb_upgrades - 1) / 2)
-
-            pos = (
-                self.pos[0] + self.graph.lines_length * cos(angle) + self.graph.circles_radius * cos(
-                    self.angle) + self.graph.circles_radius * cos(angle),
-                self.pos[1] + self.graph.lines_length * sin(angle) + self.graph.circles_radius * sin(
-                    self.angle) + self.graph.circles_radius * sin(angle)
-            )
-            next_upgrade.set_display_infos(pos, angle, window, graph)
-
-            i += 1
-
-    def set_next_upgrades(self, dico):
-        for next_upgrade in dico:
-            next_upgrade.set_next_upgrades(dico[next_upgrade])
-            self.next.append(next_upgrade)
-            next_upgrade.set_previous(self)
-
-    def set_previous(self, upgrade):
+    def add_previous(self, upgrade):
         self.previous.append(upgrade)
 
-    def get_next_list(self):
-        liste = [self]
-        for next_upgrade in self.next:
-            liste += next_upgrade.get_next_list()
-
-        return liste
-
     def is_hovering(self, possouris):
-        return self.rect.collidepoint(possouris)
+        return self._rect.collidepoint(possouris)
+
+    def _get_next_angle(self, nb_next, i):
+        if nb_next == 1:
+            return self.angle
+        else:
+            return self.angle + radians(self.graph.GRAPH_MAX_LINE_ANGLE * 2 / nb_next) * (i - (nb_next - 1) / 2)
+
+    def _get_next_pos(self, next_angle):
+        return (self.pos[0] + self.graph.lines_length * cos(next_angle) + self.graph.circles_radius * (
+                cos(self.angle) + cos(next_angle)),
+                self.pos[1] + self.graph.lines_length * sin(next_angle) + self.graph.circles_radius * (
+                        sin(self.angle) + sin(next_angle)))
+
+    def init_next(self, next_dict):
+
+        i = 0
+        nb_next = len(next_dict)
+        for next_upgrade in next_dict:
+            next_upgrade_angle = self._get_next_angle(nb_next, i)
+            next_upgrade_pos = self._get_next_pos(next_upgrade_angle)
+
+            upgrade = next_upgrade(graph=self.graph,
+                                   next_dict=next_dict[next_upgrade],
+                                   pos=next_upgrade_pos,
+                                   angle=next_upgrade_angle)
+
+            upgrade.add_previous(self)
+            self.add_next(upgrade)
+            i += 1
 
 
 class Racine(Upgrade):
@@ -481,28 +435,39 @@ class Racine(Upgrade):
     Racine du graphe d'upgrades
     """
 
-    def __init__(self, game, next_list=None):
+    def __init__(self, graph: Graph, pos, next_dict=None):
+        if pos is None:
+            pos = (
+                graph.window.get_width() // 2 + graph.window.basic_window_pos[0] + 21,
+                graph.window.get_height() // 2 + graph.window.basic_window_pos[1] + 39
+            )
+
         super().__init__(name="Root",
-                         game=game,
-                         next_list=next_list,
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
                          cost=(0, 0, 0),
                          tier=0
                          )
-        self.is_unlock = True
+        self.unlock()
 
+    @property
+    def rect(self):
+        return pygame.Rect(self.pos[0], self.pos[1], 0, 0)
 
-class EcoUpgrade(Upgrade):
-    """
-    Upgrade d'origine de la branche Economie
-    """
+    @property
+    def hook_point(self):
+        return self.pos
 
-    def __init__(self, game, next_list=None):
-        super().__init__(name="Économie",
-                         game=game,
-                         next_list=next_list,
-                         cost=(0, 0, 0),
-                         tier=0
-                         )
+    def _get_next_angle(self, nb_next, i):
+        return radians(360 / nb_next * i)
+
+    def _get_next_pos(self, next_angle):
+        return (self.pos[0] + self.graph.lines_length * cos(next_angle) + self.graph.circles_radius * cos(next_angle),
+                self.pos[1] + self.graph.lines_length * sin(next_angle) + self.graph.circles_radius * sin(next_angle))
+
+    def display_icon(self, surface, possouris):
+        pass
 
 
 class CombatUpgrade(Upgrade):
@@ -510,10 +475,28 @@ class CombatUpgrade(Upgrade):
     Upgrade d'origine de la branche Combat
     """
 
-    def __init__(self, game, next_list=None):
+    def __init__(self, graph, pos, angle, next_dict=None):
         super().__init__(name="Combat",
-                         game=game,
-                         next_list=next_list,
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
+                         cost=(0, 0, 0),
+                         tier=0
+                         )
+
+
+class EcoUpgrade(Upgrade):
+    """
+    Upgrade d'origine de la branche Economie
+    """
+
+    def __init__(self, graph, pos, angle, next_dict=None):
+        super().__init__(name="Economie",
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
                          cost=(0, 0, 0),
                          tier=0
                          )
@@ -524,205 +507,12 @@ class ScienceUpgrade(Upgrade):
     Upgrade d'origine de la branche Science
     """
 
-    def __init__(self, game, next_list=None):
+    def __init__(self, graph, pos, angle, next_dict=None):
         super().__init__(name="Science",
-                         game=game,
-                         next_list=next_list,
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
                          cost=(0, 0, 0),
                          tier=0
                          )
-
-
-class InstantGoldWin1000(Upgrade):
-    """
-    Upgrade de gain d'argent instantané (1000)
-    """
-
-    def __init__(self, game, next_list=None):
-        super().__init__(name="Gagner 1000 Pokédollars",
-                         game=game,
-                         next_list=next_list,
-                         cost=(0, 1, 0),
-                         tier=1
-                         )
-
-    def activate(self):
-        self.game.player.add_money(1000)
-
-
-class InstantGoldWin2500(Upgrade):
-    """
-    Upgrade de gain d'argent instantané (2500)
-    """
-
-    def __init__(self, game, next_list=None):
-        super().__init__(name="Gagner 2500 Pokédollars",
-                         game=game,
-                         next_list=next_list,
-                         cost=(0, 1, 0),
-                         tier=2
-                         )
-
-    def activate(self):
-        self.game.player.add_money(2500)
-
-
-class InstantGoldWin5000(Upgrade):
-    """
-    Upgrade de gain d'argent instantané (5000)
-    """
-
-    def __init__(self, game, next_list=None):
-        super().__init__(name="Gagner 5000 Pokédollars",
-                         game=game,
-                         next_list=next_list,
-                         cost=(0, 1, 0),
-                         tier=3
-                         )
-
-    def activate(self):
-        self.game.player.add_money(10000)
-
-
-class GoldEarningBoost20(Upgrade):
-    """
-    Upgrade de boost de gain d'argent futur en pourcentage (20%)
-    """
-
-    def __init__(self, game, next_list=None):
-        super().__init__(name="Bonus de gain d'argent de 20%",
-                         game=game,
-                         next_list=next_list,
-                         cost=(0, 1, 0),
-                         tier=1
-                         )
-
-    def activate(self):
-        self.game.player.boost_earn_money(20)
-
-
-class GoldEarningBoost50(Upgrade):
-    """
-    Upgrade de boost de gain d'argent futur en pourcentage (50%)
-    """
-
-    def __init__(self, game, next_list=None):
-        super().__init__(name="Bonus de gain d'argent de 50%",
-                         game=game,
-                         next_list=next_list,
-                         cost=(0, 1, 0),
-                         tier=2
-                         )
-
-    def activate(self):
-        self.game.player.boost_earn_money(50)
-
-
-class GoldEarningBoost130(Upgrade):
-    """
-    Upgrade de boost de gain d'argent futur en pourcentage (130%)
-    """
-
-    def __init__(self, game, next_list=None):
-        super().__init__(name="Bonus de gain d'argent de 130%",
-                         game=game,
-                         next_list=next_list,
-                         cost=(0, 1, 0),
-                         tier=3
-                         )
-
-    def activate(self):
-        self.game.player.boost_earn_money(130)
-
-
-class NextTurnGoldWin5000(Upgrade):
-    """
-    Upgrade de gain d'argent avec un délai de 1 tour (5000)
-    """
-
-    def __init__(self, game, next_list=None):
-        super().__init__(name="Gagner 5000 Pokédollars au début du prochain tour",
-                         game=game,
-                         next_list=next_list,
-                         cost=(0, 0, 2000),
-                         tier=1
-                         )
-
-    def activate(self):
-        self.game.player.next_turn_money_to_earn += 5000
-
-
-class NextTurnGoldWin10000(Upgrade):
-    """
-    Upgrade de gain d'argent avec un délai de 1 tour (10000)
-    """
-
-    def __init__(self, game, next_list=None):
-        super().__init__(name="Gagner 10000 Pokédollars au début du prochain tour",
-                         game=game,
-                         next_list=next_list,
-                         cost=(0, 0, 4000),
-                         tier=2
-                         )
-
-    def activate(self):
-        self.game.player.next_turn_money_to_earn += 10000
-
-
-class NextTurnGoldWin50000(Upgrade):
-    """
-    Upgrade de gain d'argent avec un délai de 1 tour (50000)
-    """
-
-    def __init__(self, game, next_list=None):
-        super().__init__(name="Gagner 50000 Pokédollars au début du prochain tour",
-                         game=game,
-                         next_list=next_list,
-                         cost=(0, 0, 20000),
-                         tier=3
-                         )
-
-    def activate(self):
-        self.game.player.next_turn_money_to_earn += 50000
-
-
-class EcoUpgrade2(Upgrade):
-
-    def __init__(self, game, next_list=None):
-        super().__init__(name="Augmenter la taille du porte-feuille à 50000 Pokédollars",
-                         game=game,
-                         next_list=next_list,
-                         cost=(1, 0, 0),
-                         tier=1
-                         )
-
-    def activate(self):
-        self.game.player.max_money = 50000
-
-
-class EcoUpgrade3(Upgrade):
-
-    def __init__(self, game, next_list=None):
-        super().__init__(name="Augmenter la taille du porte-feuille à 100000 Pokédollars",
-                         game=game,
-                         next_list=next_list,
-                         cost=(1, 0, 0),
-                         tier=2
-                         )
-
-    def activate(self):
-        self.game.player.max_money = 100000
-
-
-class EcoUpgrade4(Upgrade):
-
-    def __init__(self, game, next_list=None):
-        super().__init__(name="Augmenter la taille du porte-feuille à 1000000 Pokédollars",
-                         game=game,
-                         next_list=next_list,
-                         cost=(1, 0, 0),
-                         tier=3
-                         )
-
-    def activate(self):
-        self.game.player.max_money = 1000000

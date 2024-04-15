@@ -18,8 +18,10 @@ class ItemsPanel:
     - Vendre des items.
     """
 
-    def __init__(self, game):
+    def __init__(self, game, window):
         self.game = game
+        self.window = window
+
         self.PATH = 'assets/game/ingame_windows/Items/'
 
         # Variables de panel
@@ -141,17 +143,15 @@ class ItemsPanel:
 
     # Méthodes liées à l'affichage
 
-    def update(self, surface: pygame.Surface, possouris: list, window: list):
+    def update(self, surface: pygame.Surface, possouris: list):
         """
         Méthode d'actualisation de l'affichage du panel.
 
         @in : surface, pygame.Surface → fenêtre du jeu
         @in : possouris, list → coordonnées du pointeur de souris
-        @in : window_pos, list → coordonnées de la fenêtre ingame
         """
 
-        window_pos = window.basic_window_pos
-        self.window_pos = window_pos
+        self.window_pos = self.window.basic_window_pos
 
         if not self.bool_entrer:
             self.display_entrer_panel(surface)

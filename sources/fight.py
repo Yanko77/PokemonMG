@@ -977,7 +977,7 @@ class Fight:
             for reward in rewards:
                 self.game.player.add_sac_item(reward)
 
-            self.player_pk.heal(self.player_pk.passive_heal)  # Heal le pokémon du joueur selon son heal passif
+            self.player_pk.heal(self.player_pk.endfight_heal_value)  # Heal le pokémon du joueur selon son heal passif
             self.player_pk.reset_status()
 
             self.game.end_fight()

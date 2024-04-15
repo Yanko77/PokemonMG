@@ -19,8 +19,9 @@ class SpawnPanel:
     - Faire apparaître un pokémon en utilisant 1 action.
     - Capturer un pokémon apparu en utilisant une Pokéball de son sac.
     """
-    def __init__(self, game):
+    def __init__(self, game, window):
         self.game = game
+        self.window = window
 
         # Constantes
         self.PATH = 'assets/game/ingame_windows/Spawn/'
@@ -109,7 +110,7 @@ class SpawnPanel:
 
     # Méthodes liées à l'affichage
 
-    def update(self, surface: pygame.Surface, possouris: list, window: list):
+    def update(self, surface: pygame.Surface, possouris: list):
         """
         Méthode d'actualisation de l'affichage du panel Spawn.
 
@@ -117,7 +118,7 @@ class SpawnPanel:
         @in : possouris, list → coordonnées du pointeur de souris
         @in : window_pos, list → coordonnées de la fenêtre ingame
         """
-        window_pos = window.basic_window_pos
+        window_pos = self.window.basic_window_pos
 
         self.update_rect_pos(window_pos)
         self.update_spawning_pk_level()

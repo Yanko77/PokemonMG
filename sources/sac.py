@@ -16,8 +16,9 @@ class SacIngamePanel:
         les donner à un pokémon...
     """
 
-    def __init__(self, game):
+    def __init__(self, game, window):
         self.game = game
+        self.window = window
 
         self.background1 = pygame.image.load("assets/game/ingame_windows/Sac d'objets/background1.png")
         self.background2 = pygame.image.load("assets/game/ingame_windows/Sac d'objets/background2.png")
@@ -71,7 +72,7 @@ class SacIngamePanel:
 
     # Méthodes d'affichage
 
-    def update(self, surface, possouris, window):
+    def update(self, surface, possouris):
         """
         Méthode d'actualisation de l'affichage du panel.
 
@@ -79,7 +80,7 @@ class SacIngamePanel:
         @in : possouris, list → coordonnées du pointeur de souris
         @in : window_pos, list → coordonnées de la fenêtre ingame
         """
-        window_pos = window.basic_window_pos
+        window_pos = self.window.basic_window_pos
 
         if self.page == 1:
             surface.blit(self.background1, window_pos)

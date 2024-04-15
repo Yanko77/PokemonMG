@@ -85,13 +85,12 @@ class IngameWindow:
                                            33)
 
         # Chargement des panels
-        self.sac_panel = sac.SacIngamePanel(self.game)
-        self.spawn_panel = spawn.SpawnPanel(self.game)
-        self.train_panel = train.TrainPanel(self.game)
-        self.grind_panel = grind.GrindPanel(self.game)
-        self.grind_panel.graph.init_graph(self)
-        self.items_panel = items.ItemsPanel(self.game)
-        self.evol_panel = evolutions.EvolPanel(self.game)
+        self.sac_panel = sac.SacIngamePanel(self.game, self)
+        self.spawn_panel = spawn.SpawnPanel(self.game, self)
+        self.train_panel = train.TrainPanel(self.game, self)
+        self.grind_panel = grind.GrindPanel(self.game, self)
+        self.items_panel = items.ItemsPanel(self.game, self)
+        self.evol_panel = evolutions.EvolPanel(self.game, self)
 
         self.all_panels = {
             "Sac d'objets": self.sac_panel,
@@ -136,7 +135,7 @@ class IngameWindow:
                 surface.blit(self.icon, self.basic_window_pos)
 
                 # self.update_current_panel(surface, possouris)
-                self.current_panel.update(surface, possouris, self)
+                self.current_panel.update(surface, possouris)
                 self.update_buttons(surface, possouris)
 
                 self.update_window_pos(possouris)
@@ -211,7 +210,10 @@ class IngameWindow:
         self.x_button_rect.x, self.x_button_rect.y = self.basic_window_pos[0] + 854, self.basic_window_pos[1] + 4
         self.min_button_rect.x, self.min_button_rect.y = self.basic_window_pos[0] + 816, self.basic_window_pos[1] + 4
 
-        self.grind_panel.graph.init_graph(self)
+        self.grind_panel.graph.root.reload(
+            pos=(self.get_width() // 2 + self.basic_window_pos[0] + 21,
+                 self.get_height() // 2 + self.basic_window_pos[1] + 39)
+        )
 
     # Méthode d'actualisation de variables
 
@@ -236,6 +238,18 @@ class IngameWindow:
 
     def get_height(self):
         return self.HEIGHT
+
+    def get_size(self):
+        return self.WIDTH, self.HEIGHT
+
+    @property
+    def rect(self):
+        return pygame.Rect(
+            self.basic_window_pos[0] + 21,
+            self.basic_window_pos[1] + self.window_bar_rect.h,
+            self.get_width(),
+            self.get_height()
+        )
 
     def open(self):
         """
