@@ -16,9 +16,51 @@ class GrindPanel:
 
         self.PATH = 'assets/game/ingame_windows/Grind/'
 
-        self.GRAPH_DICT = {CombatUpgrade: {},
-                           EcoUpgrade: {},
-                           ScienceUpgrade: {}}
+        self.GRAPH_DICT = {
+            CombatUpgrade: {
+
+            },
+            EcoUpgrade: {
+                InstantGoldWin1000: {
+                    InstantGoldWin2500: {
+                        InstantGoldWin5000: {
+
+                        },
+                    },
+                },
+
+                EcoUpgrade2: {
+                    EcoUpgrade3: {
+                        EcoUpgrade4: {
+
+                        },
+                    },
+                },
+
+                GoldEarningBoost20: {
+                    GoldEarningBoost50: {
+                        GoldEarningBoost130: {
+                            NextTurnGoldWin50000: {}
+                        },
+                        NextTurnGoldWin10000: {}
+                    },
+                    NextTurnGoldWin5000: {},
+                },
+
+            },
+            ScienceUpgrade: {
+                ScienceUpgrade2: {
+                    ScienceUpgrade3: {
+                        ScienceUpgrade4: {
+
+                        }
+                    },
+                    BoostPlayerMaxActions1: {
+                        BoostPlayerMaxActions2: {}
+                    }
+                }
+            }
+        }
 
         self.graph = Graph(game=self.game,
                            window=self.window,
@@ -121,7 +163,7 @@ class Graph:
         self.game = game
         self.window = window
 
-        self.GRAPH_MAX_LINE_ANGLE = 75
+        self.GRAPH_MAX_LINE_ANGLE = 30
         self.MIN_ZOOM_VALUE = 0.4
         self.MAX_ZOOM_VALUE = 5
 
@@ -404,7 +446,7 @@ class Upgrade:
         if nb_next == 1:
             return self.angle
         else:
-            return self.angle + radians(self.graph.GRAPH_MAX_LINE_ANGLE * 2 / nb_next) * (i - (nb_next - 1) / 2)
+            return self.angle + radians(self.graph.GRAPH_MAX_LINE_ANGLE * 2 * nb_next / nb_next) * (i - (nb_next - 1) / 2)
 
     def _get_next_pos(self, next_angle):
         return (self.pos[0] + self.graph.lines_length * cos(next_angle) + self.graph.circles_radius * (
@@ -484,6 +526,7 @@ class CombatUpgrade(Upgrade):
                          cost=(0, 0, 0),
                          tier=0
                          )
+        self.unlock()
 
 
 class EcoUpgrade(Upgrade):
@@ -500,6 +543,7 @@ class EcoUpgrade(Upgrade):
                          cost=(0, 0, 0),
                          tier=0
                          )
+        self.unlock()
 
 
 class ScienceUpgrade(Upgrade):
@@ -516,3 +560,304 @@ class ScienceUpgrade(Upgrade):
                          cost=(0, 0, 0),
                          tier=0
                          )
+        self.unlock()
+
+# ECONOMIE
+
+
+class InstantGoldWin1000(Upgrade):
+    """
+    Upgrade de gain d'argent instantané (1000)
+    """
+
+    def __init__(self, graph, pos, angle, next_dict=None):
+        super().__init__(name="Gagner 1000 Pokédollars",
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
+                         cost=(0, 1, 0),
+                         tier=1
+                         )
+
+    def activate(self):
+        self.graph.game.player.add_money(1000)
+
+
+class InstantGoldWin2500(Upgrade):
+    """
+    Upgrade de gain d'argent instantané (2500)
+    """
+
+    def __init__(self, graph, pos, angle, next_dict=None):
+        super().__init__(name="Gagner 2500 Pokédollars",
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
+                         cost=(0, 1, 0),
+                         tier=2
+                         )
+
+    def activate(self):
+        self.graph.game.player.add_money(2500)
+
+
+class InstantGoldWin5000(Upgrade):
+    """
+    Upgrade de gain d'argent instantané (5000)
+    """
+
+    def __init__(self, graph, pos, angle, next_dict=None):
+        super().__init__(name="Gagner 5000 Pokédollars",
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
+                         cost=(0, 1, 0),
+                         tier=3
+                         )
+
+    def activate(self):
+        self.graph.game.player.add_money(5000)
+
+
+class GoldEarningBoost20(Upgrade):
+    """
+    Upgrade de boost de gain d'argent futur en pourcentage (20%)
+    """
+
+    def __init__(self,  graph, pos, angle, next_dict=None):
+        super().__init__(name="Bonus de gain d'argent de 20%",
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
+                         cost=(0, 1, 0),
+                         tier=1
+                         )
+
+    def activate(self):
+        self.graph.game.player.boost_earn_money(20)
+
+
+class GoldEarningBoost50(Upgrade):
+    """
+    Upgrade de boost de gain d'argent futur en pourcentage (50%)
+    """
+
+    def __init__(self,  graph, pos, angle, next_dict=None):
+        super().__init__(name="Bonus de gain d'argent de 50%",
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
+                         cost=(0, 1, 0),
+                         tier=2
+                         )
+
+    def activate(self):
+        self.graph.game.player.boost_earn_money(50)
+
+
+class GoldEarningBoost130(Upgrade):
+    """
+    Upgrade de boost de gain d'argent futur en pourcentage (130%)
+    """
+
+    def __init__(self,  graph, pos, angle, next_dict=None):
+        super().__init__(name="Bonus de gain d'argent de 130%",
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
+                         cost=(0, 1, 0),
+                         tier=3
+                         )
+
+    def activate(self):
+        self.graph.game.player.boost_earn_money(130)
+
+
+class NextTurnGoldWin5000(Upgrade):
+    """
+    Upgrade de gain d'argent avec un délai de 1 tour (5000)
+    """
+
+    def __init__(self, graph, pos, angle, next_dict=None):
+        super().__init__(name="Gagner 5000 Pokédollars au début du prochain tour",
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
+                         cost=(0, 0, 2000),
+                         tier=1
+                         )
+
+    def activate(self):
+        self.graph.game.player.next_turn_money_to_earn += 5000
+
+
+class NextTurnGoldWin10000(Upgrade):
+    """
+    Upgrade de gain d'argent avec un délai de 1 tour (10000)
+    """
+
+    def __init__(self, graph, pos, angle, next_dict=None):
+        super().__init__(name="Gagner 10000 Pokédollars au début du prochain tour",
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
+                         cost=(0, 0, 4000),
+                         tier=2
+                         )
+
+    def activate(self):
+        self.graph.game.player.next_turn_money_to_earn += 10000
+
+
+class NextTurnGoldWin50000(Upgrade):
+    """
+    Upgrade de gain d'argent avec un délai de 1 tour (50000)
+    """
+
+    def __init__(self, graph, pos, angle, next_dict=None):
+        super().__init__(name="Gagner 50000 Pokédollars au début du prochain tour",
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
+                         cost=(0, 0, 20000),
+                         tier=3
+                         )
+
+    def activate(self):
+        self.graph.game.player.next_turn_money_to_earn += 50000
+
+
+class EcoUpgrade2(Upgrade):
+
+    def __init__(self, graph, pos, angle, next_dict=None):
+        super().__init__(name="Augmenter la taille du porte-feuille à 50000 Pokédollars",
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
+                         cost=(1, 0, 0),
+                         tier=1
+                         )
+
+    def activate(self):
+        self.graph.game.player.max_money = 50000
+
+
+class EcoUpgrade3(Upgrade):
+
+    def __init__(self, graph, pos, angle, next_dict=None):
+        super().__init__(name="Augmenter la taille du porte-feuille à 100000 Pokédollars",
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
+                         cost=(1, 0, 0),
+                         tier=2
+                         )
+
+    def activate(self):
+        self.graph.game.player.max_money = 100000
+
+
+class EcoUpgrade4(Upgrade):
+
+    def __init__(self, graph, pos, angle, next_dict=None):
+        super().__init__(name="Augmenter la taille du porte-feuille à 1000000 Pokédollars",
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
+                         cost=(1, 0, 0),
+                         tier=3
+                         )
+
+    def activate(self):
+        self.graph.game.player.max_money = 1000000
+
+
+# SCIENCE
+
+
+class ScienceUpgrade2(Upgrade):
+    def __init__(self, graph, pos, angle, next_dict=None):
+        super().__init__(name="Augmenter la taille de l'équipe de 2",
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
+                         cost=(1, 0, 0),
+                         tier=1
+                         )
+
+    def activate(self):
+        self.graph.game.player.unlock_team_emp(2)
+
+
+class ScienceUpgrade3(Upgrade):
+    def __init__(self, graph, pos, angle, next_dict=None):
+        super().__init__(name="Augmenter la taille de l'équipe de 2",
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
+                         cost=(1, 0, 0),
+                         tier=2
+                         )
+
+    def activate(self):
+        self.graph.game.player.unlock_team_emp(2)
+
+
+class ScienceUpgrade4(Upgrade):
+
+    def __init__(self, graph, pos, angle, next_dict=None):
+        super().__init__(name="Augmenter de 1 le nombre d'items tenables par vos Pokémons",
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
+                         cost=(1, 0, 0),
+                         tier=3
+                         )
+
+    def activate(self):
+        self.graph.game.player.rise_pk_max_items(1)
+
+
+class BoostPlayerMaxActions1(Upgrade):
+    def __init__(self, graph, pos, angle, next_dict=None):
+        super().__init__(name="Augmenter de 1 le nombre d'action max",
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
+                         cost=(2, 0, 0),
+                         tier=2
+                         )
+
+    def activate(self):
+        self.graph.game.player.rise_max_actions_value(1)
+
+
+class BoostPlayerMaxActions2(Upgrade):
+    def __init__(self, graph, pos, angle, next_dict=None):
+        super().__init__(name="Augmenter de 1 le nombre d'action max",
+                         graph=graph,
+                         next_dict=next_dict,
+                         pos=pos,
+                         angle=angle,
+                         cost=(2, 0, 0),
+                         tier=3
+                         )
+
+    def activate(self):
+        self.graph.game.player.rise_max_actions_value(1)

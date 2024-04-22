@@ -11,6 +11,7 @@ import objet
 import pokemon
 from objet import Objet
 
+
 # Définition des classes
 
 
@@ -36,6 +37,15 @@ class Player:
                      None,
                      None,
                      None]
+
+        self.team_unlock_emp = [
+            True,
+            True,
+            False,
+            False,
+            False,
+            False,
+        ]
 
         self.sac = [None,
                     None,
@@ -68,6 +78,8 @@ class Player:
 
         self.money_earning_boost = 1
         self.next_turn_money_to_earn = 0
+
+        self.pk_max_items = 1
 
     def edit_name(self, key):
         """
@@ -207,6 +219,19 @@ class Player:
 
                     i += 1
 
+    def unlock_team_emp(self, nb=1):
+
+        nb_unlock = 0
+        for emp in self.team_unlock_emp:
+            if nb_unlock < nb and not emp:
+                emp = True
+                nb_unlock += 1
+
+        print(self.team_unlock_emp)
+
+    def rise_pk_max_items(self, nb):
+        self.pk_max_items += nb
+
     def use_action(self, amount=1):
         """
         Méthode d'utilisation de points d'actions.
@@ -289,7 +314,7 @@ class Player:
         Méthode d'augmentation de l'argent gagnée en pourcentage.
         @in : value, float
         """
-        self.money_earning_boost += value/100
+        self.money_earning_boost += value / 100
 
     def rise_max_actions_value(self, amount):
         """
@@ -348,4 +373,3 @@ class Player:
         for item in self.sac:
             if item is not None:
                 item.set_sell_price()
-

@@ -334,10 +334,13 @@ class Pokemon:
 
     @property
     def endfight_heal_value(self) -> int:
-        if self.objet_tenu.effects['Give']['endfight_heal']['full_heal']:
-            return self.pv
+        if self.objet_tenu is not None:
+            if self.objet_tenu.effects['Give']['endfight_heal']['full_heal']:
+                return self.pv
+            else:
+                return self.objet_tenu.effects['Give']['endfight_heal']['value']
         else:
-            return self.objet_tenu.effects['Give']['endfight_heal']['value']
+            return 0
 
     def get_id(self):
         return self.id
