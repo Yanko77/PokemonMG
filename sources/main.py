@@ -36,9 +36,13 @@ def main(fps, screen_size):
             if event.type == pygame.QUIT:
                 running = False
 
-            if event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
                     game.notif('Ca marche !')
+
+            elif event.type == pygame.MOUSEBUTTONUP:
+                if event.button == 1:
+                    game.left_clic_interactions(possouris)
 
         clock.tick(fps)
 
