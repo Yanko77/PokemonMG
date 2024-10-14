@@ -1,3 +1,8 @@
+"""
+Cleaning effectué
+"""
+
+
 import pygame
 from config import FPS
 
@@ -52,6 +57,7 @@ class Notif:
             self.alpha += 255 / FPS
             if self.alpha >= 255:
                 self.fading_up = False
+
         elif self.fading_down:
             self.alpha -= 255 / FPS
             if self.alpha <= 255:
@@ -69,14 +75,14 @@ class Notif:
     def render(self):
         surface = pygame.Surface(self.game.screen.get_size(), pygame.SRCALPHA)
 
-        surface.fill((0, 0, 1))
-        surface.set_colorkey((0, 0, 1))
+        # surface.set_colorkey((0, 0, 1))
+        # surface.fill((0, 0, 1))
 
         notif_background = pygame.Surface(self.rect.size).convert_alpha()
         notif_background.fill((255, 255, 255))
 
-        self.text.set_alpha(self.alpha)
         notif_background.set_alpha(self.alpha)
+        self.text.set_alpha(self.alpha)
 
         surface.blit(notif_background, self.rect)
         surface.blit(self.text, self.text_rect)

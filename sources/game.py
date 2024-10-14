@@ -1,17 +1,24 @@
+"""
+Cleaning effectué
+"""
+
+
 import pygame
 
 from notif import Notif
 from accueil import Accueil
+from starter_picking import StarterPicking
+from main_panel import MainPanel
 
 
 class Game:
 
     def __init__(self, screen):
-        self.screen = screen
+        self.screen: pygame.Surface = screen
 
         self.is_playing = False
         self.is_accueil = True
-        self.is_fighting = False
+        self.is_picking_starter = False
 
         self.pressed = {
             pygame.K_LSHIFT: False
@@ -24,12 +31,17 @@ class Game:
 
         self._notif = None
         self.accueil = Accueil(self)
+        self.starter_picking = StarterPicking(self)
+        self.main_panel = MainPanel(self)
 
     def update(self, possouris):
-        if not self.is_playing:
+
+        if self.is_accueil:
             self.accueil.update(possouris)
-        else:
-            pass
+        elif self.is_picking_starter:
+            self.starter_picking.update(possouris)
+        elif self.is_playing:
+            self.main_panel.update(possouris)
 
         self.update_notifs()
         self.update_cursor(possouris)
@@ -52,10 +64,20 @@ class Game:
     def notif(self, text, color=(0, 0, 0), duration=3):
         self._notif = Notif(self, text, color, duration)
 
+    def new_game(self):
+        self.is_accueil = False
+        self.is_picking_starter = True
+
     def left_clic_interactions(self, possouris):
         if self.is_accueil:
             self.accueil.left_clic_interactions(possouris)
+        elif self.is_picking_starter:
+            self.starter_picking.left_clic_interactions(possouris)
 
     def is_hovering_buttons(self, possouris):
         if self.is_accueil:
             return self.accueil.is_hovering_buttons(possouris)
+        elif self.is_picking_starter:
+            return self.starter_picking.is_hovering_buttons(possouris)
+        elif self.is_playing:
+            return False

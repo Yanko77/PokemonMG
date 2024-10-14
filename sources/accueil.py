@@ -1,4 +1,10 @@
+"""
+Cleaning effectué
+"""
+
 import pygame
+
+from panel import Panel
 
 
 class Accueil:
@@ -24,11 +30,11 @@ class Accueil:
             return self.homescreen.is_hovering_buttons(possouris)
 
 
-class HomeScreen:
+class HomeScreen(Panel):
 
     def __init__(self, game):
-        self.game = game
-        self.PATH = 'assets/game/panels/accueil/home_screen/'
+        super().__init__(game=game,
+                         path='assets/game/panels/accueil/home_screen/')
 
         # Variables pour animations
         self.fading = True
@@ -87,7 +93,7 @@ class HomeScreen:
         self.set_page('main')
 
     @property
-    def main_page(self):
+    def is_main_page(self):
         return self.page == 'main'
 
     @property
@@ -131,7 +137,7 @@ class HomeScreen:
             i += 1
 
         # Back button
-        if not self.main_page:
+        if not self.is_main_page:
             if self.back_button_rect.collidepoint(possouris):
                 self.game.screen.blit(self.back_button, self.back_button_rect, (59, 0, 59, 59))
             else:
@@ -155,13 +161,13 @@ class HomeScreen:
                         if button[2] == 'quitter':
                             pygame.event.post(pygame.event.Event(pygame.QUIT))
                         elif button[2] == 'new_game':
-                            self.game.start_new_game()
+                            self.game.new_game()
                         elif button[2] == 'load_game':
                             self.game.load_game()
 
                 i += 1
 
-            if not self.main_page:
+            if not self.is_main_page:
                 if self.back_button_rect.collidepoint(possouris):
                     self.set_page('main')
 
@@ -171,19 +177,11 @@ class HomeScreen:
                 if self.buttons_rect[i].collidepoint(possouris):
                     return True
 
-            if not self.main_page:
+            if not self.is_main_page:
                 if self.back_button_rect.collidepoint(possouris):
                     return True
 
         return False
-
-    def img_load(self, path: str) -> pygame.Surface:
-        """
-        Methode de chargement d'image dépendant du chemin d'accès (self.PATH, une constante).
-        Retourne une surface pygame.
-        @in : path, str → chemin d'accès du fichier depuis self.PATH
-        """
-        return pygame.image.load(f'{self.PATH}{path}.png')
 
 
 class Intro:
