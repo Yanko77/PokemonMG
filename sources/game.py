@@ -9,6 +9,7 @@ from notif import Notif
 from accueil import Accueil
 from starter_picking import StarterPicking
 from main_panel import MainPanel
+from player import Player
 
 
 class Game:
@@ -28,6 +29,8 @@ class Game:
             1: False,
             3: False
         }
+
+        self.player = Player(self)
 
         self._notif = None
         self.accueil = Accueil(self)

@@ -45,8 +45,13 @@ def main():
                     game.starter_picking.intro.skip_animation()
 
             elif event.type == pygame.MOUSEBUTTONUP:
+                game.mouse_pressed[event.button] = False
+
                 if event.button == 1:
                     game.left_clic_interactions(possouris)
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                game.mouse_pressed[event.button] = True
 
         clock.tick(FPS)
 

@@ -35,6 +35,9 @@ class StarterPicking(Panel):
 
         self.pokeball_emps = PokeballEmps(self)
 
+        self.drop_emp = self.img_load("drop_pk_emp")
+        self.drop_rect = pygame.Rect(1017, 460, 248, 248)
+
         self.help_popup = HelpPopup(self)
 
     @property
@@ -45,8 +48,22 @@ class StarterPicking(Panel):
         self.intro.update(possouris)
 
         if not self.is_intro:
+            self.display_drop_emp(self.game.screen)
+
             self.pokeball_emps.update(possouris)
+
             self.help_popup.update(possouris)
+
+    def display_drop_emp(self, screen):
+        if self.drop_rect.collidelist(self.pokeball_emps.emps_rect_list) != -1:
+            screen.blit(self.drop_emp, self.drop_rect, (248, 0, 248, 248))
+        else:
+            screen.blit(self.drop_emp, self.drop_rect, (0, 0, 248, 248))
+
+    def pick_starter(self, pokemon):
+        self.game.player.team.add(pokemon)
+        self.game.is_picking_starter = False
+        self.game.is_playing = True
 
     def is_hovering_buttons(self, possouris):
         return self.intro.is_hovering_buttons(possouris) or \
@@ -258,7 +275,7 @@ class HelpPopup:
             self.panel.game.screen.blit(self.button, self.button_rect, (0, 0, 55, 55))
 
     def is_hovering(self, possouris):
-        return self.button_rect.collidepoint(possouris)
+        return self.button_rect.collidepoint(possouris) and not self.panel.is_intro
 
 
 class SkipIntroButton:
@@ -311,6 +328,17 @@ class PokeballEmps:
             PokemonEmp(self, 676, self.panel.starters[2])
         ]
 
+    @property
+    def is_emp_moving(self):
+        for emp in self.pk_emps:
+            if emp.is_moving:
+                return True
+        return False
+
+    @property
+    def emps_rect_list(self):
+        return [emp.rect for emp in self.pk_emps]
+
     def update(self, possouris):
         self.panel.game.screen.blit(self.image, self.rect)
 
@@ -334,7 +362,8 @@ class PokemonEmp:
     def __init__(self, group, pos_x, pokemon):
         self.group: PokeballEmps = group
 
-        self.rect = pygame.Rect(pos_x, 69, 284, 284)
+        self.RECT = pygame.Rect(pos_x, 69, 284, 284)
+        self.rect = pygame.Rect.copy(self.RECT)
 
         self.pokeball = self.group.panel.img_load('pokeball')
 
@@ -342,20 +371,34 @@ class PokemonEmp:
 
         self.pokemon = pokemon
         self.pokemon_icon = self.pokemon.get_icon((290, 290))
-        self.pokemon_icon_rect = pygame.Rect(pos_x, 49, 290, 290)
         self.pokemon_name = POKEMON_NAME_FONT.render(self.pokemon.name)
         self.pokemon_name_rect = (self.rect.x + (self.rect.w - self.pokemon_name.get_width()) / 2,
                                   365,
                                   284,
                                   40)
 
+        self.saved_moving_possouris = (0, 0)
+
         self.is_discovered = False
+        self.is_moving = False
+
+    @property
+    def pokemon_icon_rect(self):
+        return pygame.Rect(self.rect.x,
+                           self.rect.y - 20,
+                           290,
+                           290)
 
     def discover(self):
         self.is_discovered = True
 
     def update(self, possouris):
         screen = self.group.panel.game.screen
+
+        self.check_moving(possouris)
+
+        if self.is_moving:
+            self.move(possouris)
 
         self.hover_rect.update(possouris)
 
@@ -371,8 +414,35 @@ class PokemonEmp:
     def display_pokeball(self, screen):
         screen.blit(self.pokeball, self.rect)
 
+    def check_moving(self, possouris):
+        game = self.group.panel.game
+
+        if not self.is_moving:
+            if game.mouse_pressed[1] and self.rect.collidepoint(possouris):
+                if not self.group.is_emp_moving:
+                    self.is_moving = True
+                    self.saved_moving_possouris = (possouris[0] - self.RECT.x, possouris[1] - self.RECT.y)
+
+        else:
+            if not game.mouse_pressed[1]:
+                self.is_moving = False
+
+                if self.rect.colliderect(self.group.panel.drop_rect):
+                    self.group.panel.pick_starter(self.pokemon)
+                else:
+                    self.reset_rect()
+
+    def move(self, possouris):
+        self.rect.topleft = (
+            possouris[0] - self.saved_moving_possouris[0],
+            possouris[1] - self.saved_moving_possouris[1]
+        )
+
+    def reset_rect(self):
+        self.rect = pygame.Rect.copy(self.RECT)
+
     def is_hovering(self, possouris):
-        return self.rect.collidepoint(possouris)
+        return self.rect.collidepoint(possouris) and not self.group.panel.is_intro
 
     def left_clic_interactions(self, possouris):
         if self.rect.collidepoint(possouris):
