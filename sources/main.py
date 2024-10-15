@@ -41,8 +41,14 @@ def main():
                 running = False
 
             elif event.type == pygame.KEYDOWN:
+                game.pressed[event.key] = True
                 if event.key == pygame.K_a:
                     game.starter_picking.intro.skip_animation()
+
+            elif event.type == pygame.KEYUP:
+                game.pressed[event.key] = False
+
+                game.keyup_interactions(event.key)
 
             elif event.type == pygame.MOUSEBUTTONUP:
                 game.mouse_pressed[event.button] = False

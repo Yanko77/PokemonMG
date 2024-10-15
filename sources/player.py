@@ -10,6 +10,9 @@ class Player:
         self.name = "Nom"
 
         self.team = Team(self)
+
+    def set_name(self, name):
+        self.name = name
         
 
 class Team:

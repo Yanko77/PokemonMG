@@ -76,6 +76,12 @@ class Game:
             self.accueil.left_clic_interactions(possouris)
         elif self.is_picking_starter:
             self.starter_picking.left_clic_interactions(possouris)
+        elif self.is_playing:
+            self.main_panel.left_clic_interactions(possouris)
+
+    def keyup_interactions(self, key):
+        if self.is_playing:
+            self.main_panel.keyup_interactions(key)
 
     def is_hovering_buttons(self, possouris):
         if self.is_accueil:

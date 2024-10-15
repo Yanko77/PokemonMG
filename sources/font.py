@@ -19,7 +19,7 @@ class Font:
         self.name = font_name
         self.size = font_size
 
-        self._font_render = pygame.font.Font(f"assets/fonts/{self.name}", self.size)
+        self._font_render = pygame.font.Font(f"assets/fonts/{self.name}.ttf", self.size)
 
     def render(self, text: str, color: tuple = (255, 255, 255)):
         return self._font_render.render(text, True, color)

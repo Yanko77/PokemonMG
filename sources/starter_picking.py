@@ -6,7 +6,7 @@ from pokemon import Pokemon
 from font import Font
 
 
-POKEMON_NAME_FONT = Font("Oswald-Regular.ttf", 30)
+POKEMON_NAME_FONT = Font("Oswald-Regular", 30)
 
 
 STARTERS_LIST = {
