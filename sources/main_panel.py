@@ -30,10 +30,12 @@ class MainPanel(Panel):
 
 class PlayerNameBar:
 
+    MAX_NAME_LENGTH = 385
+
     def __init__(self, panel):
         self.panel: MainPanel = panel
 
-        self.name = PLAYER_NAME_FONT.render(self.panel.game.player.name, (15, 0, 124))
+        self.name = PLAYER_NAME_FONT.render(self.panel.game.player.name.get(), (15, 0, 124))
         self.rect = pygame.Rect(656, 12, 399, 51)
 
         self.cursor = PlayerNameEditingCursor(self)
@@ -41,6 +43,10 @@ class PlayerNameBar:
         self.hover = self.panel.img_load('player_name_hover')
 
         self.is_editing = False
+        
+    @property
+    def is_name_full(self):
+        return self.name.get_width() >= self.MAX_NAME_LENGTH
 
     def update(self, possouris):
         screen = self.panel.game.screen
@@ -56,28 +62,8 @@ class PlayerNameBar:
     def display_name(self, screen):
         screen.blit(self.name, (self.rect.x + 6, self.rect.y - 2))
 
-    def edit_name(self, key):
-        player = self.panel.game.player
-
-        if key == pygame.K_BACKSPACE:
-            player.set_name(player.name[:-1])
-
-        elif key == pygame.K_RETURN:
-            self.is_editing = False
-
-        else:
-            c = pygame.key.name(key)
-
-            if c.isalpha():
-                if self.panel.game.pressed[pygame.K_LSHIFT]:
-                    c = c.upper()
-
-                player.set_name(player.name + c)
-
-        self.update_name()
-
     def update_name(self):
-        self.name = PLAYER_NAME_FONT.render(self.panel.game.player.name, (15, 0, 124))
+        self.name = PLAYER_NAME_FONT.render(self.panel.game.player.name.get(), (15, 0, 124))
 
     def left_clic_interactions(self, possouris):
         if self.is_editing:
@@ -88,8 +74,31 @@ class PlayerNameBar:
                 self.is_editing = True
 
     def keyup_interactions(self, key):
+        player = self.panel.game.player
+        key_name = pygame.key.name(key)
+
         if self.is_editing:
-            self.edit_name(key)
+            if key_name == 'return':
+                self.is_editing = False
+
+            elif key_name == 'backspace':
+                player.name.truncate()
+                self.update_name()
+
+            if not self.is_name_full:
+
+                if key_name == 'space':
+                    player.name.add(" ")
+                    self.update_name()
+
+                elif key_name.isalpha() and len(key_name) == 1:
+                    letter = key_name
+
+                    if self.panel.game.pressed[pygame.K_LSHIFT]:
+                        letter = letter.upper()
+
+                    player.name.add(letter)
+                    self.update_name()
 
 
 class PlayerNameEditingCursor:

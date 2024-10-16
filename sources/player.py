@@ -1,4 +1,5 @@
 import pygame
+from font import Font
 
 
 class Player:
@@ -7,13 +8,10 @@ class Player:
         self.game = game
 
         self.level = 0
-        self.name = "Nom"
+        self.name = Name(self)
 
         self.team = Team(self)
 
-    def set_name(self, name):
-        self.name = name
-        
 
 class Team:
     
@@ -59,6 +57,44 @@ class Team:
 
     def __getitem__(self, index):
         return self.members[index]
+
+
+class Name(str):
+
+    def __init__(self, player):
+        self.player = player
+
+        self.text = "Nom"
+
+        self.loaded_renders = {}
+
+    def __repr__(self):
+        return self.get()
+
+    def get(self) -> str:
+        return self.text
+
+    def set(self, name):
+        self.text = name
+
+    def add(self, letter):
+        self.text += letter
+
+    def truncate(self):
+        self.text = self.text[:-1]
+
+    def render(self, font: Font, color: tuple):
+        """
+        Retourne une image du nom du joueur écrit avec la police font
+        puis l'ajoute à la liste des renders pour la re-charger plus vite par la suite.
+        """
+        if (font.id, color) in self.loaded_renders:
+            return self.loaded_renders[(font.id, color)]
+        else:
+            render = font.render(self.text, color)
+            self.loaded_renders[(font.id, color)] = render
+
+            return render
 
 
 if __name__ == '__main__':
