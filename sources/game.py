@@ -89,4 +89,4 @@ class Game:
         elif self.is_picking_starter:
             return self.starter_picking.is_hovering_buttons(possouris)
         elif self.is_playing:
-            return False
+            return self.main_panel.is_hovering_buttons(possouris)

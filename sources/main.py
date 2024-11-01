@@ -3,7 +3,7 @@ Cleaning effectué
 """
 
 # Modules
-from sources.config import FPS, SCREEN_SIZE
+from config import FPS, SCREEN_SIZE
 
 import pygame
 pygame.init()

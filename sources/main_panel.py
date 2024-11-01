@@ -1,3 +1,5 @@
+import math
+
 import pygame
 
 from panel import Panel
@@ -27,6 +29,9 @@ class MainPanel(Panel):
     def keyup_interactions(self, key):
         self.name_bar.keyup_interactions(key)
 
+    def is_hovering_buttons(self, possouris):
+        return self.name_bar.is_hovering(possouris)
+
 
 class PlayerNameBar:
 
@@ -41,6 +46,7 @@ class PlayerNameBar:
         self.cursor = PlayerNameEditingCursor(self)
 
         self.hover = self.panel.img_load('player_name_hover')
+        self.shadow = self.panel.img_load('name_editing_shadow')
 
         self.is_editing = False
         
@@ -58,6 +64,7 @@ class PlayerNameBar:
 
         if self.is_editing:
             self.cursor.update(screen)
+            screen.blit(self.shadow, (0, 0))
 
     def display_name(self, screen):
         screen.blit(self.name, (self.rect.x + 6, self.rect.y - 2))
@@ -100,6 +107,9 @@ class PlayerNameBar:
                     player.name.add(letter)
                     self.update_name()
 
+    def is_hovering(self, possouris):
+        return self.rect.collidepoint(possouris)
+
 
 class PlayerNameEditingCursor:
 
@@ -129,3 +139,114 @@ class PlayerNameEditingCursor:
         else:
             self.counter += 1
 
+
+class PlayerTeam:
+
+    EMP_BG_COLOR1 = (255, 255, 255)
+    EMP_BG_COLOR2 = (163, 171, 255)
+
+    def __init__(self, panel):
+        self.panel: MainPanel = panel
+        self.game = self.panel.game
+
+        self.emps = [
+            PlayerTeamPokemon(self, i) for i in range(6)
+        ]
+        self.is_emp_moving = False
+
+    def update(self, possouris):
+        screen = self.game.screen
+
+        for pk in self.emps:
+            pk.update(possouris)
+
+
+class PlayerTeamPokemon:
+
+    def __init__(self, group,  i):
+        self.group: PlayerTeam = group
+        self.game = self.group.game
+
+        self.i = i
+        self.pokemon = self.game.player.team[i]
+
+        self.RECT = pygame.Rect(900,
+                                275 + self.i * 73,
+                                369,
+                                69)
+        self.rect = pygame.Rect.copy(self.RECT)
+
+        self.hover_rect = self.group.panel.create_rect_alpha(
+            self.rect.size,
+            self.background_color
+        )
+
+        self.is_moving = False
+        self.saved_moving_possouris = (0, 0)
+
+    @property
+    def is_hidden(self):
+        return self.pokemon is None
+
+    @property
+    def background_color(self):
+        return self.group.EMP_BG_COLOR1 if self.i % 2 == 0 else self.group.EMP_BG_COLOR2
+
+    @property
+    def alpha(self):
+        return 1528 + 255 - self.distance_from_area
+
+    @property
+    def distance_from_area(self):
+        x_distance = (1272 - self.rect.x) ** 2
+        y_distance = (637 - pk_rect.y) ** 2
+
+        return math.sqrt(x_distance + y_distance)
+
+    def update(self, possouris):
+        self.check_moving(possouris)
+
+        if self.is_moving:
+            self.move(possouris)
+
+        if not self.is_hidden:
+            self.display(possouris)
+
+    def display_hover_rect(self):
+        self.game.screen.blit(self.hover_rect, self.rect)
+
+    def display(self, possouris):
+        # Hover
+        if self.is_hovering(possouris):
+            self.display_hover_rect()
+
+        # Icon
+        self.display_icon()
+
+    def display_icon(self):
+        icon = self.pokemon.get_icon()
+
+    def check_moving(self, possouris):
+        if not self.is_moving:
+            if self.game.mouse_pressed[1] and self.rect.collidepoint(possouris):
+                if not self.group.is_emp_moving:
+                    self.is_moving = True
+                    self.saved_moving_possouris = (possouris[0] - self.RECT.x, possouris[1] - self.RECT.y)
+
+        else:
+            if not self.game.mouse_pressed[1]:
+                self.is_moving = False
+
+                self.reset_rect()
+
+    def move(self, possouris):
+        self.rect.topleft = (
+            possouris[0] - self.saved_moving_possouris[0],
+            possouris[1] - self.saved_moving_possouris[1]
+        )
+
+    def reset_rect(self):
+        self.rect = pygame.Rect.copy(self.RECT)
+
+    def is_hovering(self, possouris):
+        return self.rect.collidepoint(possouris)
