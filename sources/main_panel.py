@@ -30,8 +30,8 @@ class MainPanel(Panel):
         for component in self.components:
             component.update(possouris)
 
-    def left_clic_interactions(self, possouris):
-        self.name_bar.left_clic_interactions(possouris)
+    #def left_clic_interactions(self, possouris):
+        #self.name_bar.left_clic_interactions(possouris)
 
     def keyup_interactions(self, key):
         self.name_bar.keyup_interactions(key)
@@ -83,7 +83,7 @@ class PlayerNameBar:
 
     def start_editing(self):
         self.is_editing = True
-        self.panel.set_component_prio(self, 4)
+        self.panel.set_component_prio(self, 10)
 
     def stop_editing(self):
         self.is_editing = False
@@ -125,7 +125,8 @@ class PlayerNameBar:
                     self.update_name()
 
     def is_hovering(self, possouris):
-        return self.rect.collidepoint(possouris)
+        return not self.is_editing and self.rect.collidepoint(possouris) or \
+                   self.is_editing
 
 
 class PlayerNameEditingCursor:
@@ -178,6 +179,9 @@ class PlayerTeam:
 
         for pk in self.emps:
             pk.update(possouris)
+
+    def is_hovering(self, possouris):
+        return any([emp.is_hovering(possouris) for emp in self.emps])
 
 
 class PlayerTeamPokemon:
