@@ -4,13 +4,39 @@ Cleaning effectué
 
 import pygame
 
+import game as g
+
 
 class Panel:
 
-    def __init__(self, game, path):
-        self.game = game
+    def __init__(self, game, path: str, prio: int = 0):
+        self.game: g.Game = game
+
+        self.prio = prio  # Priorité d'affichage
+        self._components = []  # Composants du panel
 
         self.PATH = path
+
+    @property
+    def components(self):
+        return self._components
+
+    def set_components(self, comp_list):
+        """
+        All components in 'comp_list' must have an attribute 'prio'
+        """
+        self._components = comp_list
+        self.sort_components_by_prio()
+
+    def set_component_prio(self, comp, value):
+        comp.prio = value
+        self.sort_components_by_prio()
+
+    def sort_components_by_prio(self):
+        """
+        Trie la liste self._components en fonction de la priorité des composants.
+        """
+        self._components.sort(key=lambda comp: comp.prio)
 
     def update(self, possouris):
         pass
@@ -31,6 +57,7 @@ class Panel:
         """
         Methode de chargement d'image dépendant du chemin d'accès (self.PATH, une constante).
         Retourne une surface pygame.
-        @in : path, str → chemin d'accès du fichier depuis self.PATH
+
+        :path: chemin d'accès du fichier depuis self.PATH
         """
         return pygame.image.load(f'{self.PATH}{path}.png').convert_alpha()

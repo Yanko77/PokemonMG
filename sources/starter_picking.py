@@ -3,10 +3,10 @@ import random
 
 from panel import Panel
 from pokemon import Pokemon
-from font import Font
+from font import Font, OSWALD30
 
 
-POKEMON_NAME_FONT = Font("Oswald-Regular", 30)
+POKEMON_NAME_FONT = OSWALD30
 
 
 STARTERS_LIST = {

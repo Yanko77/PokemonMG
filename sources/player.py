@@ -1,5 +1,6 @@
 import pygame
 from font import Font
+from pokemon import Pokemon
 
 
 class Player:
@@ -18,7 +19,7 @@ class Team:
     def __init__(self, player):
         self.player: Player = player
         
-        self.members = [None for _ in range(6)]
+        self.members: list[Pokemon | None] = [None for _ in range(6)]
 
     @property
     def nb_members(self) -> int:
@@ -48,6 +49,7 @@ class Team:
                 if self.members[i] is None:
                     self.members[i] = pokemon
                     return True
+                i += 1
         else:
             if self.members[index] is None:
                 self.members[index] = pokemon
@@ -55,8 +57,11 @@ class Team:
         
         return False
 
-    def __getitem__(self, index):
-        return self.members[index]
+    def __getitem__(self, index) -> Pokemon:
+        return self.members.__getitem__(index)
+
+    def __setitem__(self, index, value):
+        self.members.__setitem__(index, value)
 
 
 class Name(str):
@@ -65,8 +70,6 @@ class Name(str):
         self.player = player
 
         self.text = "Nom"
-
-        self.loaded_renders = {}
 
     def __repr__(self):
         return self.get()
@@ -82,19 +85,6 @@ class Name(str):
 
     def truncate(self):
         self.text = self.text[:-1]
-
-    def render(self, font: Font, color: tuple):
-        """
-        Retourne une image du nom du joueur écrit avec la police font
-        puis l'ajoute à la liste des renders pour la re-charger plus vite par la suite.
-        """
-        if (font.id, color) in self.loaded_renders:
-            return self.loaded_renders[(font.id, color)]
-        else:
-            render = font.render(self.text, color)
-            self.loaded_renders[(font.id, color)] = render
-
-            return render
 
 
 if __name__ == '__main__':

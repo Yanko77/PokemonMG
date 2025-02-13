@@ -3,9 +3,9 @@ import math
 import pygame
 
 from panel import Panel
-from font import Font
+from font import Font, IMPACT50
 
-PLAYER_NAME_FONT = Font("Impact", 50)
+PLAYER_NAME_FONT = IMPACT50
 
 
 class MainPanel(Panel):
@@ -17,11 +17,18 @@ class MainPanel(Panel):
         self.background = self.img_load('background')
 
         self.name_bar = PlayerNameBar(self)
+        self.team = PlayerTeam(self)
+
+        self.set_components([
+            self.name_bar,
+            self.team
+        ])
 
     def update(self, possouris):
         self.game.screen.blit(self.background, (0, 0))
 
-        self.name_bar.update(possouris)
+        for component in self.components:
+            component.update(possouris)
 
     def left_clic_interactions(self, possouris):
         self.name_bar.left_clic_interactions(possouris)
@@ -40,8 +47,10 @@ class PlayerNameBar:
     def __init__(self, panel):
         self.panel: MainPanel = panel
 
-        self.name = PLAYER_NAME_FONT.render(self.panel.game.player.name.get(), (15, 0, 124))
+        self.name = PLAYER_NAME_FONT.render(self.panel.game.player.name.get(), (15, 0, 124), load_mode=False)
         self.rect = pygame.Rect(656, 12, 399, 51)
+
+        self.prio = 1
 
         self.cursor = PlayerNameEditingCursor(self)
 
@@ -70,15 +79,23 @@ class PlayerNameBar:
         screen.blit(self.name, (self.rect.x + 6, self.rect.y - 2))
 
     def update_name(self):
-        self.name = PLAYER_NAME_FONT.render(self.panel.game.player.name.get(), (15, 0, 124))
+        self.name = PLAYER_NAME_FONT.render(self.panel.game.player.name.get(), (15, 0, 124), load_mode=False)
+
+    def start_editing(self):
+        self.is_editing = True
+        self.panel.set_component_prio(self, 4)
+
+    def stop_editing(self):
+        self.is_editing = False
+        self.panel.set_component_prio(self, 1)
 
     def left_clic_interactions(self, possouris):
         if self.is_editing:
             if not self.rect.collidepoint(possouris):
-                self.is_editing = False
+                self.stop_editing()
         else:
             if self.rect.collidepoint(possouris):
-                self.is_editing = True
+                self.start_editing()
 
     def keyup_interactions(self, key):
         player = self.panel.game.player
@@ -86,7 +103,7 @@ class PlayerNameBar:
 
         if self.is_editing:
             if key_name == 'return':
-                self.is_editing = False
+                self.stop_editing()
 
             elif key_name == 'backspace':
                 player.name.truncate()
@@ -149,6 +166,8 @@ class PlayerTeam:
         self.panel: MainPanel = panel
         self.game = self.panel.game
 
+        self.prio = 2
+
         self.emps = [
             PlayerTeamPokemon(self, i) for i in range(6)
         ]
@@ -168,7 +187,7 @@ class PlayerTeamPokemon:
         self.game = self.group.game
 
         self.i = i
-        self.pokemon = self.game.player.team[i]
+        self.pokemon = self.game.player.team[self.i]
 
         self.RECT = pygame.Rect(900,
                                 275 + self.i * 73,
@@ -199,11 +218,12 @@ class PlayerTeamPokemon:
     @property
     def distance_from_area(self):
         x_distance = (1272 - self.rect.x) ** 2
-        y_distance = (637 - pk_rect.y) ** 2
+        y_distance = (637 - self.rect.y) ** 2
 
         return math.sqrt(x_distance + y_distance)
 
     def update(self, possouris):
+        self.update_sync()
         self.check_moving(possouris)
 
         if self.is_moving:
@@ -212,8 +232,9 @@ class PlayerTeamPokemon:
         if not self.is_hidden:
             self.display(possouris)
 
-    def display_hover_rect(self):
-        self.game.screen.blit(self.hover_rect, self.rect)
+    def update_sync(self):
+        if self.pokemon != self.game.player.team[self.i]:
+            self.pokemon = self.game.player.team[self.i]
 
     def display(self, possouris):
         # Hover
@@ -223,8 +244,21 @@ class PlayerTeamPokemon:
         # Icon
         self.display_icon()
 
+        # Name
+        self.display_name()
+
+    def display_hover_rect(self):
+        self.game.screen.blit(self.hover_rect, self.rect)
+
     def display_icon(self):
-        icon = self.pokemon.get_icon()
+        icon = self.pokemon.icon
+
+        icon.set_alpha(self.alpha)
+
+        self.game.screen.blit(icon, (self.rect.x, self.rect.y - 5))
+
+    def display_name(self):
+        pass
 
     def check_moving(self, possouris):
         if not self.is_moving:
@@ -236,7 +270,6 @@ class PlayerTeamPokemon:
         else:
             if not self.game.mouse_pressed[1]:
                 self.is_moving = False
-
                 self.reset_rect()
 
     def move(self, possouris):

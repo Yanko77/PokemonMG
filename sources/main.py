@@ -3,19 +3,19 @@ Cleaning effectué
 """
 
 # Modules
-from config import FPS, SCREEN_SIZE
 
 import pygame
 pygame.init()
 pygame.font.init()
 
+from config import FPS, SCREEN_SIZE
 from game import Game
+
 
 # Fonctions
 
 
 def main():
-
     screen = pygame.display.set_mode(SCREEN_SIZE)
     icon = pygame.image.load('assets/icon.png')
 
@@ -42,8 +42,9 @@ def main():
 
             elif event.type == pygame.KEYDOWN:
                 game.pressed[event.key] = True
+
                 if event.key == pygame.K_a:
-                    game.starter_picking.intro.skip_animation()
+                    print(game.player.team.members)
 
             elif event.type == pygame.KEYUP:
                 game.pressed[event.key] = False
@@ -62,6 +63,7 @@ def main():
         clock.tick(FPS)
 
     pygame.quit()
+
 
 # Programme principal
 
