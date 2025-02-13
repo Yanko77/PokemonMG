@@ -1,5 +1,7 @@
 import pygame
 
+import types
+
 
 class Pokemon:
 
@@ -12,6 +14,8 @@ class Pokemon:
 
         self.name = name
         self.id = ...
+
+        self.level = level
 
         if items is None:
             self.items = PokemonBag(self)

@@ -48,7 +48,6 @@ class Panel:
         :return: True si un composant a réagi, False sinon.
         """
         for comp in self.components[::-1]:
-            print(repr(comp))
             if hasattr(comp, 'is_hovering') and comp.is_hovering(possouris):
                 if hasattr(comp, 'left_clic_interactions'):
                     comp.left_clic_interactions(possouris)

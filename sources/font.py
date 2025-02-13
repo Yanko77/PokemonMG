@@ -46,9 +46,9 @@ class Font:
         Passer le 'load_mode' à False si le texte à afficher est temporaire (ne sera pas ré-affiché plus tard)
         """
         if (text, color) in self.loaded_renders:
-            return self.loaded_renders[text]
+            return self.loaded_renders[(text, color)]
         else:
-            render = self._font_renderer.render(text, True, color)
+            render = self._font_renderer.render(text, True, color).convert_alpha()
 
             if load_mode:
                 self.loaded_renders[(text, color)] = render
@@ -59,4 +59,6 @@ class Font:
 # Game's fonts list
 
 OSWALD30 = Font('Oswald-Regular', 30)
+OSWALD25 = Font('Oswald-Regular', 25)
+OSWALD15 = Font('Oswald-Regular', 15)
 IMPACT50 = Font('Impact', 50)

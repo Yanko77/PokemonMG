@@ -1,11 +1,15 @@
 import math
 
 import pygame
+from PyInstaller.log import LEVELS
+from pyparsing import alphas
 
 from panel import Panel
-from font import Font, IMPACT50
+from font import Font, IMPACT50, OSWALD25, OSWALD15
 
 PLAYER_NAME_FONT = IMPACT50
+TEAM_PK_NAME_FONT = OSWALD25
+TEAM_PK_LEVEL_FONT = OSWALD15
 
 
 class MainPanel(Panel):
@@ -251,6 +255,9 @@ class PlayerTeamPokemon:
         # Name
         self.display_name()
 
+        # Level
+        self.display_level()
+
     def display_hover_rect(self):
         self.game.screen.blit(self.hover_rect, self.rect)
 
@@ -262,7 +269,21 @@ class PlayerTeamPokemon:
         self.game.screen.blit(icon, (self.rect.x, self.rect.y - 5))
 
     def display_name(self):
-        pass
+        name = TEAM_PK_NAME_FONT.render(self.pokemon.name, (0, 0, 0))
+
+        name.set_alpha(self.alpha)
+
+        self.game.screen.blit(name, (self.rect.x + 70, self.rect.y + 13))
+
+    def display_level(self):
+        level = TEAM_PK_LEVEL_FONT.render(f'Lv.{self.pokemon.level}', (0, 0, 0))
+
+        level.set_alpha(self.alpha)
+
+        self.game.screen.blit(level, (self.rect.x + 60, self.rect.y + 42))
+
+    def display_types(self):
+        type1 = PK
 
     def check_moving(self, possouris):
         if not self.is_moving:
