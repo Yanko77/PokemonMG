@@ -1,6 +1,6 @@
 import pygame
 
-import types
+import sources.types as types
 
 
 class Pokemon:
@@ -16,6 +16,10 @@ class Pokemon:
         self.id = ...
 
         self.level = level
+
+        self.types: tuple[types.Type, types.Type | None] = (types.NORMAL, types.SPECTR)  # TODO
+
+        self.stats = PokemonStats({'max_health': 50})  # TODO
 
         if items is None:
             self.items = PokemonBag(self)
@@ -35,3 +39,13 @@ class PokemonBag:
 
     def __init__(self, items_list):
         self.items_list = items_list
+
+
+class PokemonStats:
+    """
+    Classe qui gère les statistiques du pokémon
+    """
+
+    def __init__(self, stats_dict: dict[str, int]):
+        self.max_health = stats_dict['max_health']
+        self.health = self.max_health

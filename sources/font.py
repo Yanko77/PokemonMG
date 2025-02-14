@@ -1,24 +1,6 @@
 import pygame
 pygame.font.init()
 
-'''
-FONT_NAMES = (
-    'Oswald-Regular',
-    'Impact',
-    'Bdeogale',
-    'Cheesecake',
-    '007 GoldenEye'
-)
-
-FONT_IDs = {
-    'Oswald-Regular': 1,
-    'Impact': 2,
-    'Bdeogale': 3,
-    'Cheesecake': 4,
-    '007 GoldenEye': 5
-}
-'''
-
 
 class Font:
 
@@ -37,14 +19,12 @@ class Font:
 
         self.loaded_renders = {}
 
-    @property
-    def id(self):
-        return FONT_IDs[self.name] * 10000 + self.size
 
     def render(self, text: str, color: tuple = (255, 255, 255), load_mode=True):
         """
         Passer le 'load_mode' à False si le texte à afficher est temporaire (ne sera pas ré-affiché plus tard)
         """
+
         if (text, color) in self.loaded_renders:
             return self.loaded_renders[(text, color)]
         else:
@@ -60,5 +40,6 @@ class Font:
 
 OSWALD30 = Font('Oswald-Regular', 30)
 OSWALD25 = Font('Oswald-Regular', 25)
+OSWALD18 = Font('Oswald-Regular', 18)
 OSWALD15 = Font('Oswald-Regular', 15)
 IMPACT50 = Font('Impact', 50)

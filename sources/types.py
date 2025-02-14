@@ -1,15 +1,17 @@
+
+
 class Type:
 
     def __init__(self,
                  name: str,
-                 color: tuple[int],
-                 affinities: dict[str | int]):
+                 color: tuple[int, int, int],
+                 affinities: dict[str, int]):
         self.name = name
         self.color = color
         self.affinities = affinities
 
-    def affinity_with(self, other: Type):
-        return self.affinities[other]
+    def affinity_with(self, other_type):
+        return self.affinities[other_type.name]
 
     def __str__(self):
         return self.name.upper()

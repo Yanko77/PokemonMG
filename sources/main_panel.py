@@ -1,15 +1,15 @@
 import math
 
 import pygame
-from PyInstaller.log import LEVELS
-from pyparsing import alphas
 
 from panel import Panel
-from font import Font, IMPACT50, OSWALD25, OSWALD15
+from font import Font, IMPACT50, OSWALD25, OSWALD18, OSWALD15
 
 PLAYER_NAME_FONT = IMPACT50
 TEAM_PK_NAME_FONT = OSWALD25
 TEAM_PK_LEVEL_FONT = OSWALD15
+TEAM_PK_TYPE_FONT = OSWALD15
+TEAM_PK_HEALTH_FONT = OSWALD18
 
 
 class MainPanel(Panel):
@@ -255,8 +255,11 @@ class PlayerTeamPokemon:
         # Name
         self.display_name()
 
-        # Level
-        self.display_level()
+        # Infos : Level & Types
+        self.display_infos()
+
+        # HP Bar
+        self.display_hp_bar()
 
     def display_hover_rect(self):
         self.game.screen.blit(self.hover_rect, self.rect)
@@ -275,15 +278,47 @@ class PlayerTeamPokemon:
 
         self.game.screen.blit(name, (self.rect.x + 70, self.rect.y + 13))
 
-    def display_level(self):
+    def display_infos(self):
+        # Level
         level = TEAM_PK_LEVEL_FONT.render(f'Lv.{self.pokemon.level}', (0, 0, 0))
-
         level.set_alpha(self.alpha)
-
         self.game.screen.blit(level, (self.rect.x + 60, self.rect.y + 42))
 
-    def display_types(self):
-        type1 = PK
+        # 1st Type
+        pk_type1 = self.pokemon.types[0]
+        type1 = TEAM_PK_TYPE_FONT.render(str(pk_type1), pk_type1.color)
+        type1.set_alpha(self.alpha)
+        self.game.screen.blit(type1, (self.rect.x + level.get_width() + 65, self.rect.y + 42))
+
+        # 2nd Type
+        pk_type2 = self.pokemon.types[1]
+        if pk_type2 is not None:
+            type2 = TEAM_PK_TYPE_FONT.render(str(pk_type2), pk_type2.color)
+            type2.set_alpha(self.alpha)
+            self.game.screen.blit(type2,
+                                  (self.rect.x + level.get_width() + type1.get_width() + 68, self.rect.y + 42))
+
+    def display_hp_bar(self):
+        # HP Bar
+        rect_alpha = self.group.panel.create_rect_alpha
+
+        back_bar = rect_alpha((150, 17), (35, 35, 35), self.alpha)
+        front_bar = rect_alpha(
+            (self.pokemon.stats.health / self.pokemon.stats.max_health * 150, 17),
+            (42, 214, 0),
+            self.alpha
+        )
+
+        bar_pos = (self.rect.x + 205, self.rect.y + 26)
+        self.game.screen.blit(back_bar, bar_pos)
+        self.game.screen.blit(front_bar, bar_pos)
+
+        # HP Text
+        hp_text = f'{self.pokemon.stats.health}/{self.pokemon.stats.max_health}'
+        hp = TEAM_PK_HEALTH_FONT.render(hp_text, (0, 0, 0))
+        hp.set_alpha(self.alpha)
+        self.game.screen.blit(hp, (self.rect.x + 205, self.rect.y + 40))
+
 
     def check_moving(self, possouris):
         if not self.is_moving:
