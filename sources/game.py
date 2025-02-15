@@ -71,13 +71,13 @@ class Game:
         self.is_accueil = False
         self.is_picking_starter = True
 
-    def left_clic_interactions(self, possouris):
+    def left_click_up(self, possouris):
         if self.is_accueil:
-            self.accueil.left_clic_interactions(possouris)
+            self.accueil.left_click_up(possouris)
         elif self.is_picking_starter:
-            self.starter_picking.left_clic_interactions(possouris)
+            self.starter_picking.left_click_up(possouris)
         elif self.is_playing:
-            self.main_panel.left_clic_interactions(possouris)
+            self.main_panel.left_click_up(possouris)
 
     def keyup_interactions(self, key):
         if self.is_playing:

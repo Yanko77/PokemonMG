@@ -70,11 +70,11 @@ class StarterPicking(Panel):
                self.help_popup.is_hovering(possouris) or \
                self.pokeball_emps.is_hovering(possouris)
 
-    def left_clic_interactions(self, possouris):
+    def left_click_up(self, possouris):
         if self.is_intro:
-            self.intro.left_clic_interactions(possouris)
+            self.intro.left_click_up(possouris)
         else:
-            self.pokeball_emps.left_clic_interactions(possouris)
+            self.pokeball_emps.left_click_up(possouris)
 
 
 class Intro(Panel):
@@ -117,7 +117,7 @@ class Intro(Panel):
     def is_hovering_buttons(self, possouris):
         return self.skip_button.is_hovering(possouris)
 
-    def left_clic_interactions(self, possouris):
+    def left_click_up(self, possouris):
         if self.skip_button.rect.collidepoint(possouris):
             self.skip_animation()
 
@@ -352,9 +352,9 @@ class PokeballEmps:
 
         return False
 
-    def left_clic_interactions(self, possouris):
+    def left_click_up(self, possouris):
         for emp in self.pk_emps:
-            emp.left_clic_interactions(possouris)
+            emp.left_click_up(possouris)
 
 
 class PokemonEmp:
@@ -444,7 +444,7 @@ class PokemonEmp:
     def is_hovering(self, possouris):
         return self.rect.collidepoint(possouris) and not self.group.panel.is_intro
 
-    def left_clic_interactions(self, possouris):
+    def left_click_up(self, possouris):
         if self.rect.collidepoint(possouris):
             self.discover()
 

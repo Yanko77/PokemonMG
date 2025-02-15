@@ -21,9 +21,9 @@ class Accueil:
         else:
             self.homescreen.update(possouris)
 
-    def left_clic_interactions(self, possouris):
+    def left_click_up(self, possouris):
         if self.intro.end:
-            self.homescreen.left_clic_interactions(possouris)
+            self.homescreen.left_click_up(possouris)
 
     def is_hovering_buttons(self, possouris):
         if self.intro.end:
@@ -150,7 +150,7 @@ class HomeScreen(Panel):
         if self.end:
             self.compteur = 0
 
-    def left_clic_interactions(self, possouris):
+    def left_click_up(self, possouris):
         if self.end:
             i = 0
             for button in self.buttons:

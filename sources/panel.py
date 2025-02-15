@@ -41,7 +41,7 @@ class Panel:
     def update(self, possouris):
         pass
 
-    def left_clic_interactions(self, possouris):
+    def left_click_up(self, possouris):
         """
         Transmet l'information du clic au composant sur lequel on clique.
 
@@ -49,8 +49,8 @@ class Panel:
         """
         for comp in self.components[::-1]:
             if hasattr(comp, 'is_hovering') and comp.is_hovering(possouris):
-                if hasattr(comp, 'left_clic_interactions'):
-                    comp.left_clic_interactions(possouris)
+                if hasattr(comp, 'left_click_up'):
+                    comp.left_clic_up(possouris)
                 return True
 
         return False

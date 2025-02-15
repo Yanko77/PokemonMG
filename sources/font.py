@@ -19,7 +19,6 @@ class Font:
 
         self.loaded_renders = {}
 
-
     def render(self, text: str, color: tuple = (255, 255, 255), load_mode=True):
         """
         Passer le 'load_mode' à False si le texte à afficher est temporaire (ne sera pas ré-affiché plus tard)

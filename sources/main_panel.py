@@ -35,8 +35,8 @@ class MainPanel(Panel):
         for component in self.components:
             component.update(possouris)
 
-    #def left_clic_interactions(self, possouris):
-        #self.name_bar.left_clic_interactions(possouris)
+    #def left_click_up(self, possouris):
+        #self.name_bar.left_click_up(possouris)
 
     def keyup_interactions(self, key):
         self.name_bar.keyup_interactions(key)
@@ -94,7 +94,7 @@ class PlayerNameBar:
         self.is_editing = False
         self.panel.set_component_prio(self, 1)
 
-    def left_clic_interactions(self, possouris):
+    def left_click_up(self, possouris):
         if self.is_editing:
             if not self.rect.collidepoint(possouris):
                 self.stop_editing()
