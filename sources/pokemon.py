@@ -22,7 +22,7 @@ class Pokemon:
         self.stats = PokemonStats({'max_health': 50})  # TODO
 
         if items is None:
-            self.items = PokemonBag(self)
+            self.bag = PokemonBag(self, [])
 
         self.icon = pygame.image.load(f'assets/icons/pokemons/{self.name}.png') \
             .convert_alpha() \
@@ -40,8 +40,30 @@ class PokemonBag:
     Classe qui gère tout ce qui concerne les objets portés par le pokémon.
     """
 
-    def __init__(self, items_list):
+    def __init__(self, owner: Pokemon, items_list: list):
+        self.owner = owner
         self.items_list = items_list
+        
+        self.max_capacity = 2
+        
+    @property
+    def is_empty(self):
+        return self.count_items() == 0
+
+    def count_items(self) -> int:
+        return len(self.items_list)
+    
+    def add(self, item) -> bool:
+        """
+        Essaye d'ajouter un objet au sac du pokémon.
+        Renvoie True si c'est possible, False sinon
+        """
+        
+        if self.count_items() == self.max_capacity:
+            return False
+        else:
+            self.items_list.append(item)
+            return True
 
 
 class PokemonStats:

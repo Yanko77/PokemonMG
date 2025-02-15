@@ -9,6 +9,7 @@ PLAYER_NAME_FONT = IMPACT50
 TEAM_PK_NAME_FONT = OSWALD25
 TEAM_PK_LEVEL_FONT = OSWALD15
 TEAM_PK_TYPE_FONT = OSWALD15
+TEAM_PK_ITEMS_FONT = OSWALD15
 TEAM_PK_HEALTH_FONT = OSWALD18
 
 
@@ -264,7 +265,7 @@ class PlayerTeamPokemon:
         # Name
         self.display_name()
 
-        # Infos : Level & Types
+        # Infos : Level, Types & Items
         self.display_infos()
 
         # HP Bar
@@ -307,6 +308,16 @@ class PlayerTeamPokemon:
             self.game.screen.blit(type2,
                                   (self.rect.x + level.get_width() + type1.get_width() + 68, self.rect.y + 42))
 
+        # Item
+        if not self.pokemon.bag.is_empty:
+            item_text = 'ITEM'
+            if self.pokemon.bag.count_items() > 1:
+                item_text += 'S'
+
+            item = TEAM_PK_ITEMS_FONT.render(item_text, (30, 30, 30))
+            item.set_alpha(self.alpha)
+            self.game.screen.blit(item, (self.rect.x + 353 - item.get_width(), self.rect.y + 6))
+
     def display_hp_bar(self):
         # HP Bar
         rect_alpha = self.group.panel.create_rect_alpha
@@ -327,7 +338,6 @@ class PlayerTeamPokemon:
         hp = TEAM_PK_HEALTH_FONT.render(hp_text, (0, 0, 0))
         hp.set_alpha(self.alpha)
         self.game.screen.blit(hp, (self.rect.x + 205, self.rect.y + 40))
-
 
     def check_moving(self, possouris):
         if not self.is_moving:

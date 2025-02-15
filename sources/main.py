@@ -48,6 +48,7 @@ def main():
 
                 if event.key == pygame.K_a:
                     game.player.team.add(Pokemon('Dracaufeu', 20, game))
+                    game.player.team[1].bag.add('TEST')
             elif event.type == pygame.KEYUP:
                 game.pressed[event.key] = False
 
