@@ -179,10 +179,12 @@ class PlayerTeam:
         self.is_emp_moving = False
 
     def update(self, possouris):
-        screen = self.game.screen
 
         for pk in self.emps:
             pk.update(possouris)
+
+    def sort_emps_by_prio(self):
+        self.emps.sort(key=lambda comp: comp.prio)
 
     def is_hovering(self, possouris):
         return any([emp.is_hovering(possouris) for emp in self.emps])
@@ -201,12 +203,14 @@ class PlayerTeamPokemon:
                                 275 + self.i * 73,
                                 369,
                                 69)
-        self.rect = pygame.Rect.copy(self.RECT)
+        self.rect: pygame.Rect = pygame.Rect.copy(self.RECT)
 
         self.hover_rect = self.group.panel.create_rect_alpha(
             self.rect.size,
             self.background_color
         )
+
+        self.prio = 0
 
         self.is_moving = False
         self.saved_moving_possouris = (0, 0)
@@ -229,6 +233,11 @@ class PlayerTeamPokemon:
         y_distance = (637 - self.rect.y) ** 2
 
         return math.sqrt(x_distance + y_distance)
+
+    def set_prio(self, value: int):
+        self.prio = value
+
+        print([emp.pokemon for emp in self.group.emps])
 
     def update(self, possouris):
         self.update_sync()
@@ -324,13 +333,27 @@ class PlayerTeamPokemon:
         if not self.is_moving:
             if self.game.mouse_pressed[1] and self.rect.collidepoint(possouris):
                 if not self.group.is_emp_moving:
-                    self.is_moving = True
-                    self.saved_moving_possouris = (possouris[0] - self.RECT.x, possouris[1] - self.RECT.y)
+                    self.start_moving()
+                    self.save_possouris(possouris)
 
         else:
             if not self.game.mouse_pressed[1]:
-                self.is_moving = False
-                self.reset_rect()
+                self.stop_moving()
+
+    def start_moving(self):
+        self.is_moving = True
+        self.group.is_emp_moving = True
+        self.set_prio(1)
+        self.group.sort_emps_by_prio()
+
+    def stop_moving(self):
+        self.is_moving = False
+        self.group.is_emp_moving = False
+        self.reset_rect()
+        self.set_prio(0)
+
+    def save_possouris(self, possouris):
+        self.saved_moving_possouris = (possouris[0] - self.RECT.x, possouris[1] - self.RECT.y)
 
     def move(self, possouris):
         self.rect.topleft = (

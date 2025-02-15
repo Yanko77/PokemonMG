@@ -31,6 +31,9 @@ class Pokemon:
     def get_icon(self, size=(64, 64)) -> pygame.Surface:
         return pygame.transform.scale(self.icon, size)
 
+    def __repr__(self):
+        return f'{self.name} Lv.{self.level}'
+
 
 class PokemonBag:
     """

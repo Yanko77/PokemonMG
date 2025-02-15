@@ -5,6 +5,9 @@ Cleaning effectué
 # Modules
 
 import pygame
+
+from sources.pokemon import Pokemon
+
 pygame.init()
 pygame.font.init()
 
@@ -44,8 +47,7 @@ def main():
                 game.pressed[event.key] = True
 
                 if event.key == pygame.K_a:
-                    print(game.player.team.members)
-
+                    game.player.team.add(Pokemon('Dracaufeu', 20, game))
             elif event.type == pygame.KEYUP:
                 game.pressed[event.key] = False
 
