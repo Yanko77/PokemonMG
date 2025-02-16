@@ -50,8 +50,22 @@ class Panel:
         for comp in self.components[::-1]:
             if hasattr(comp, 'is_hovering') and comp.is_hovering(possouris):
                 if hasattr(comp, 'left_click_up'):
-                    comp.left_clic_up(possouris)
-                return True
+                    comp.left_click_up(possouris)
+                    return True
+
+        return False
+
+    def left_click_down(self, possouris):
+        """
+        Transmet l'information du clic au composant sur lequel on clique.
+
+        :return: True si un composant a réagi, False sinon.
+        """
+        for comp in self.components[::-1]:
+            if hasattr(comp, 'is_hovering') and comp.is_hovering(possouris):
+                if hasattr(comp, 'left_click_down'):
+                    comp.left_click_down(possouris)
+                    return True
 
         return False
 

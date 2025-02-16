@@ -35,9 +35,6 @@ class MainPanel(Panel):
         for component in self.components:
             component.update(possouris)
 
-    #def left_click_up(self, possouris):
-        #self.name_bar.left_click_up(possouris)
-
     def keyup_interactions(self, key):
         self.name_bar.keyup_interactions(key)
 
@@ -101,6 +98,9 @@ class PlayerNameBar:
         else:
             if self.rect.collidepoint(possouris):
                 self.start_editing()
+
+    def left_click_down(self, possouris):
+        pass
 
     def keyup_interactions(self, key):
         player = self.panel.game.player
@@ -174,7 +174,7 @@ class PlayerTeam:
 
         self.prio = 2
 
-        self.emps = [
+        self.emps: list[PlayerTeamPokemon] = [
             PlayerTeamPokemon(self, i) for i in range(6)
         ]
         self.is_emp_moving = False
@@ -186,6 +186,26 @@ class PlayerTeam:
 
     def sort_emps_by_prio(self):
         self.emps.sort(key=lambda comp: comp.prio)
+
+    def left_click_down(self, possouris):
+        for emp in self.emps[::-1]:
+            if emp.is_hovering(possouris):
+                emp.left_click_down(possouris)
+                self.is_emp_moving = True
+                self.sort_emps_by_prio()
+                break
+
+    def left_click_up(self, possouris):
+        for emp in self.emps[::-1]:
+            if emp.is_hovering(possouris):
+                emp.left_click_up(possouris)
+                self.is_emp_moving = False
+
+                for emp2 in self.emps:
+                    if emp2 != emp and emp2.rect.collidepoint(possouris):
+                        self.game.player.team.swap(emp.i, emp2.i)
+
+                break
 
     def is_hovering(self, possouris):
         return any([emp.is_hovering(possouris) for emp in self.emps])
@@ -242,7 +262,6 @@ class PlayerTeamPokemon:
 
     def update(self, possouris):
         self.update_sync()
-        self.check_moving(possouris)
 
         if self.is_moving:
             self.move(possouris)
@@ -339,26 +358,12 @@ class PlayerTeamPokemon:
         hp.set_alpha(self.alpha)
         self.game.screen.blit(hp, (self.rect.x + 205, self.rect.y + 40))
 
-    def check_moving(self, possouris):
-        if not self.is_moving:
-            if self.game.mouse_pressed[1] and self.rect.collidepoint(possouris):
-                if not self.group.is_emp_moving:
-                    self.start_moving()
-                    self.save_possouris(possouris)
-
-        else:
-            if not self.game.mouse_pressed[1]:
-                self.stop_moving()
-
     def start_moving(self):
         self.is_moving = True
-        self.group.is_emp_moving = True
         self.set_prio(1)
-        self.group.sort_emps_by_prio()
 
     def stop_moving(self):
         self.is_moving = False
-        self.group.is_emp_moving = False
         self.reset_rect()
         self.set_prio(0)
 
@@ -373,6 +378,13 @@ class PlayerTeamPokemon:
 
     def reset_rect(self):
         self.rect = pygame.Rect.copy(self.RECT)
+
+    def left_click_down(self, possouris):
+        self.start_moving()
+        self.save_possouris(possouris)
+
+    def left_click_up(self, possouris):
+        self.stop_moving()
 
     def is_hovering(self, possouris):
         return self.rect.collidepoint(possouris)

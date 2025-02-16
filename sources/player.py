@@ -33,6 +33,9 @@ class Team:
     @property
     def is_empty(self) -> bool:
         return self.nb_members == 0
+
+    def swap(self, i1: int, i2: int):
+        self.members[i1], self.members[i2] = self.members[i2], self.members[i1]
         
     def add(self, pokemon, index=None) -> bool:
         """

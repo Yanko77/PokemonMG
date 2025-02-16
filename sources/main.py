@@ -63,6 +63,8 @@ def main():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 game.mouse_pressed[event.button] = True
 
+                if event.button == 1:
+                    game.left_click_down(possouris)
 
         clock.tick(FPS)
 

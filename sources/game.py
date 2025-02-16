@@ -79,6 +79,10 @@ class Game:
         elif self.is_playing:
             self.main_panel.left_click_up(possouris)
 
+    def left_click_down(self, possouris):
+        if self.is_playing:
+            self.main_panel.left_click_down(possouris)
+
     def keyup_interactions(self, key):
         if self.is_playing:
             self.main_panel.keyup_interactions(key)
