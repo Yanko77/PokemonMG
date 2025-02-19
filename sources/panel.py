@@ -90,3 +90,32 @@ class Panel:
         :path: chemin d'accès du fichier depuis self.PATH
         """
         return pygame.image.load(f'{self.PATH}{path}.png').convert_alpha()
+
+
+class Component:
+
+    def __init__(self, panel: Panel, prio: int = 0):
+        self.panel = panel
+        self.game = self.panel.game
+
+        self.prio = prio
+
+        self.elements = []
+
+    def update(self, possouris):
+        pass
+
+    def sort_elements_by_prio(self):
+        self.elements.sort(key=lambda elem: elem.prio)
+
+    def left_click_down(self, possouris):
+        pass
+
+    def left_click_up(self, possouris):
+        pass
+
+    def is_hovering(self, possouris):
+        for elem in self.elements[::-1]:
+            if hasattr(elem, 'is_hovering') and elem.is_hovering(possouris):
+                return True
+        return False

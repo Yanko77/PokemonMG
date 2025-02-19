@@ -2,8 +2,8 @@ import math
 
 import pygame
 
-from panel import Panel
-from font import Font, IMPACT50, OSWALD25, OSWALD18, OSWALD15
+from panel import Panel, Component
+from font import IMPACT50, OSWALD25, OSWALD18, OSWALD15
 
 PLAYER_NAME_FONT = IMPACT50
 TEAM_PK_NAME_FONT = OSWALD25
@@ -160,53 +160,44 @@ class PlayerNameEditingCursor:
             self.counter += 1
 
 
-class PlayerTeam:
+class PlayerTeam(Component):
 
     EMP_BG_COLOR1 = (255, 255, 255)
     EMP_BG_COLOR2 = (163, 171, 255)
 
     def __init__(self, panel):
-        self.panel: MainPanel = panel
-        self.game = self.panel.game
+        super().__init__(panel=panel,
+                         prio=2)
 
-        self.prio = 2
-
-        self.emps: list[PlayerTeamPokemon] = [
+        self.elements: list[PlayerTeamPokemon] = [
             PlayerTeamPokemon(self, i) for i in range(6)
         ]
         self.is_emp_moving = False
 
     def update(self, possouris):
 
-        for pk in self.emps:
+        for pk in self.elements:
             pk.update(possouris)
 
-    def sort_emps_by_prio(self):
-        self.emps.sort(key=lambda comp: comp.prio)
-
     def left_click_down(self, possouris):
-        for emp in self.emps[::-1]:
-            if emp.is_hovering(possouris):
+        for emp in self.elements[::-1]:
+            if emp.is_hovering(possouris) and emp.pokemon is not None:
                 emp.left_click_down(possouris)
                 self.is_emp_moving = True
-                self.sort_emps_by_prio()
+                self.sort_elements_by_prio()
                 break
 
     def left_click_up(self, possouris):
-        for emp in self.emps[::-1]:
-            if emp.is_hovering(possouris):
+        for emp in self.elements[::-1]:
+            if emp.is_hovering(possouris) and emp.pokemon is not None:
                 emp.left_click_up(possouris)
                 self.is_emp_moving = False
 
-                for emp2 in self.emps:
+                for emp2 in self.elements:
                     if emp2 != emp and emp2.rect.collidepoint(possouris):
                         self.game.player.team.swap(emp.i, emp2.i)
 
                 break
-
-    def is_hovering(self, possouris):
-        return any([emp.is_hovering(possouris) for emp in self.emps])
-
 
 class PlayerTeamPokemon:
 
@@ -255,7 +246,7 @@ class PlayerTeamPokemon:
     def set_prio(self, value: int):
         self.prio = value
 
-        print([emp.pokemon for emp in self.group.emps])
+        print([emp.pokemon for emp in self.group.elements])
 
     def update(self, possouris):
         self.update_sync()
@@ -385,3 +376,11 @@ class PlayerTeamPokemon:
 
     def is_hovering(self, possouris):
         return self.rect.collidepoint(possouris)
+
+
+class ButtonsArea:
+
+    def __init__(self, panel: MainPanel):
+        self.panel = panel
+        self.game = self.panel.game
+
