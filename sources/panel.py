@@ -69,7 +69,11 @@ class Panel:
 
         return False
 
-    def is_hovering_buttons(self, possouris):
+    def is_hovering(self, possouris):
+        for comp in self.components[::-1]:
+            if hasattr(comp, 'is_hovering') and comp.is_hovering(possouris):
+                return True
+
         return False
 
     def create_rect_alpha(self, dimensions, color, alpha=90):

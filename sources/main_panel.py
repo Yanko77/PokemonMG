@@ -38,9 +38,6 @@ class MainPanel(Panel):
     def keyup_interactions(self, key):
         self.name_bar.keyup_interactions(key)
 
-    def is_hovering_buttons(self, possouris):
-        return self.name_bar.is_hovering(possouris)
-
 
 class PlayerNameBar:
 
