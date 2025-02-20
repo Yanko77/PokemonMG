@@ -100,7 +100,7 @@ class Component:
 
         self.prio = prio
 
-        self.elements = []
+        self.elements: list[Component] = []
 
     def update(self, possouris):
         pass
@@ -109,13 +109,57 @@ class Component:
         self.elements.sort(key=lambda elem: elem.prio)
 
     def left_click_down(self, possouris):
-        pass
+        for elem in self.elements[::-1]:
+            if hasattr(elem, 'is_hovering') and elem.is_hovering(possouris):
+                if hasattr(elem, 'left_click_down'):
+                    elem.left_click_down(possouris)
+                    return True
+
+        return False
 
     def left_click_up(self, possouris):
-        pass
+        for elem in self.elements[::-1]:
+            if hasattr(elem, 'is_hovering') and elem.is_hovering(possouris):
+                if hasattr(elem, 'left_click_up'):
+                    elem.left_click_up(possouris)
+                    return True
+
+        return False
 
     def is_hovering(self, possouris):
         for elem in self.elements[::-1]:
             if hasattr(elem, 'is_hovering') and elem.is_hovering(possouris):
                 return True
         return False
+
+    def img_load(self, img_name: str):
+        return self.panel.img_load(img_name)
+
+class Button:
+
+    def __init__(self,
+                 group: Component | Panel,
+                 rect: pygame.Rect,
+                 img_name: str):
+        self.group = group
+        self.game = self.group.game
+
+        self.rect = rect
+
+        self.image = self.img_load(img_name)
+        self.image_hover = self.img_load(f'{img_name}_hover')
+
+    def func(self):
+        pass
+
+    def left_click_up(self, possouris):
+        self.func()
+
+    def left_click_down(self, possouris):
+        pass
+
+    def is_hovering(self, possouris):
+        return self.rect.collidepoint(possouris)
+
+    def img_load(self, img_name: str):
+        return self.group.img_load(img_name)

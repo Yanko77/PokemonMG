@@ -2,7 +2,7 @@ import math
 
 import pygame
 
-from panel import Panel, Component
+from panel import Panel, Component, Button
 from font import IMPACT50, OSWALD25, OSWALD18, OSWALD15
 
 PLAYER_NAME_FONT = IMPACT50
@@ -17,15 +17,17 @@ class MainPanel(Panel):
 
     def __init__(self, game):
         super().__init__(game=game,
-                         path='assets/game/panels/classic_panel/')
+                         path='assets/game/panels/main/')
 
         self.background = self.img_load('background')
 
         self.name_bar = PlayerNameBar(self)
         self.team = PlayerTeam(self)
+        self.buttons_area = ButtonsArea(self)
 
         self.set_components([
             self.name_bar,
+            self.buttons_area,
             self.team
         ])
 
@@ -181,7 +183,7 @@ class PlayerTeam(Component):
 
     def left_click_down(self, possouris):
         for emp in self.elements[::-1]:
-            if emp.is_hovering(possouris) and emp.pokemon is not None:
+            if emp.is_hovering(possouris) and not emp.is_hidden:
                 emp.left_click_down(possouris)
                 self.is_emp_moving = True
                 self.sort_elements_by_prio()
@@ -198,6 +200,7 @@ class PlayerTeam(Component):
                         self.game.player.team.swap(emp.i, emp2.i)
 
                 break
+
 
 class PlayerTeamPokemon:
 
@@ -375,12 +378,45 @@ class PlayerTeamPokemon:
         self.stop_moving()
 
     def is_hovering(self, possouris):
-        return self.rect.collidepoint(possouris)
+        return self.rect.collidepoint(possouris) and not self.is_hidden
 
 
-class ButtonsArea:
+class ButtonsArea(Component):
 
     def __init__(self, panel: MainPanel):
-        self.panel = panel
-        self.game = self.panel.game
+        super().__init__(panel=panel,
+                         prio=1)
 
+        self.buttons: list[ActionButton] = [
+            ActionButton(self, 'spawn', (37, 133)),
+            ActionButton(self, 'train', (319, 133)),
+            ActionButton(self, 'grind', (607, 133)),
+            ActionButton(self, 'items', (72, 417)),
+            ActionButton(self, 'evol', (357, 417)),
+        ]
+        self.elements = self.buttons
+
+    def update(self, possouris):
+        for button in self.buttons:
+            button.update(possouris)
+
+
+class ActionButton(Button):
+
+    def __init__(self, group, name, rect_pos: tuple[int, int]):
+        self.name = name
+        super().__init__(group=group,
+                         rect=pygame.Rect(rect_pos, (250, 250)),
+                         img_name=f'{self.name}_button')
+
+    def update(self, possouris):
+        self.display(possouris)
+
+    def display(self, possouris):
+        if self.is_hovering(possouris):
+            self.game.screen.blit(self.image_hover, (self.rect.x - 5, self.rect.y + 3))
+        else:
+            self.game.screen.blit(self.image, (self.rect.x - 5, self.rect.y + 3))
+
+    def func(self):
+        print(self.name)
