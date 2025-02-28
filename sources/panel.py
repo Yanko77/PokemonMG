@@ -135,6 +135,7 @@ class Component:
     def img_load(self, img_name: str):
         return self.panel.img_load(img_name)
 
+
 class Button:
 
     def __init__(self,
