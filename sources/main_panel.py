@@ -2,7 +2,8 @@ import math
 
 import pygame
 
-from panel import Panel, Component, Button
+from panel import Panel
+from component import Component, Button
 from font import IMPACT50, OSWALD25, OSWALD18, OSWALD15
 
 PLAYER_NAME_FONT = IMPACT50
@@ -167,8 +168,8 @@ class PlayerTeam(Component):
     EMP_BG_COLOR1 = (255, 255, 255)
     EMP_BG_COLOR2 = (163, 171, 255)
 
-    def __init__(self, panel):
-        super().__init__(panel=panel,
+    def __init__(self, owner):
+        super().__init__(owner=owner,
                          prio=2)
 
         self.elements: list[PlayerTeamPokemon] = [
@@ -204,9 +205,9 @@ class PlayerTeam(Component):
 
 class PlayerTeamPokemon:
 
-    def __init__(self, group,  i):
-        self.group: PlayerTeam = group
-        self.game = self.group.game
+    def __init__(self, owner,  i):
+        self.owner: PlayerTeam = owner
+        self.game = self.owner.game
 
         self.i = i
         self.pokemon = self.game.player.team[self.i]
@@ -217,7 +218,7 @@ class PlayerTeamPokemon:
                                 69)
         self.rect: pygame.Rect = pygame.Rect.copy(self.RECT)
 
-        self.hover_rect = self.group.panel.create_rect_alpha(
+        self.hover_rect = self.owner.owner.create_rect_alpha(
             self.rect.size,
             self.background_color
         )
@@ -233,7 +234,7 @@ class PlayerTeamPokemon:
 
     @property
     def background_color(self):
-        return self.group.EMP_BG_COLOR1 if self.i % 2 == 0 else self.group.EMP_BG_COLOR2
+        return self.owner.EMP_BG_COLOR1 if self.i % 2 == 0 else self.owner.EMP_BG_COLOR2
 
     @property
     def alpha(self):
@@ -249,7 +250,7 @@ class PlayerTeamPokemon:
     def set_prio(self, value: int):
         self.prio = value
 
-        print([emp.pokemon for emp in self.group.elements])
+        print([emp.pokemon for emp in self.owner.elements])
 
     def update(self, possouris):
         self.update_sync()
@@ -330,7 +331,7 @@ class PlayerTeamPokemon:
 
     def display_hp_bar(self):
         # HP Bar
-        rect_alpha = self.group.panel.create_rect_alpha
+        rect_alpha = self.owner.owner.create_rect_alpha
 
         back_bar = rect_alpha((150, 17), (35, 35, 35), self.alpha)
         front_bar = rect_alpha(
@@ -383,8 +384,8 @@ class PlayerTeamPokemon:
 
 class ButtonsArea(Component):
 
-    def __init__(self, panel: MainPanel):
-        super().__init__(panel=panel,
+    def __init__(self, owner: MainPanel):
+        super().__init__(owner=owner,
                          prio=1)
 
         self.buttons: list[ActionButton] = [
@@ -403,20 +404,13 @@ class ButtonsArea(Component):
 
 class ActionButton(Button):
 
-    def __init__(self, group, name, rect_pos: tuple[int, int]):
+    def __init__(self, owner, name, rect_pos: tuple[int, int]):
         self.name = name
-        super().__init__(group=group,
+        super().__init__(owner=owner,
                          rect=pygame.Rect(rect_pos, (250, 250)),
                          img_name=f'{self.name}_button')
 
-    def update(self, possouris):
-        self.display(possouris)
-
-    def display(self, possouris):
-        if self.is_hovering(possouris):
-            self.game.screen.blit(self.image_hover, (self.rect.x - 5, self.rect.y + 3))
-        else:
-            self.game.screen.blit(self.image, (self.rect.x - 5, self.rect.y + 3))
+        self.display_pos = (self.rect.x - 5, self.rect.y + 3)
 
     def func(self):
         print(self.name)
